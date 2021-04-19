@@ -7,6 +7,8 @@
 
 * frontend
 ~~~
+npm install --global expo-cli
+
 npm install 
 
 expo start
