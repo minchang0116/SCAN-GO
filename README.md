@@ -2,8 +2,11 @@
 
 강유정, 강민창, 곽충섭, 이지원, 지서연
 
-# 설치방법
+#### 설치방법
 
 * frontend
+~~~
 npm install 
+
 expo start
+~~~
