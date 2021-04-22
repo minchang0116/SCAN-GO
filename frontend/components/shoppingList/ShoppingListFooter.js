@@ -1,6 +1,6 @@
 import {Footer, Left, Right, Text} from 'native-base';
-import {StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 
 const ShoppingListFooter = () => {
   return (
