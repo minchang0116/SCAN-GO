@@ -1,8 +1,16 @@
-import {Body, Left, ListItem, Right, Text, View} from 'native-base';
+import {Body, Button, Left, ListItem, Right, Text, View} from 'native-base';
 import React from 'react';
+import {useState} from 'react';
 import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
+import MyModal from '../common/MyModal';
+
 const ShoppingListItem = ({imgUrl, productName, productPrice, count}) => {
+  const [isModalVisible, setModalVisible] = useState(false);
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+  console.log('렌더링');
   return (
     <ListItem>
       <TouchableOpacity>
@@ -20,11 +28,12 @@ const ShoppingListItem = ({imgUrl, productName, productPrice, count}) => {
         </Text>
       </Body>
       <Right>
-        <TouchableOpacity style={styles.right}>
+        <TouchableOpacity onPress={toggleModal} style={styles.right}>
           <Text>{count}</Text>
           <Icon style={styles.cntIcon} name="triangle-down" />
         </TouchableOpacity>
       </Right>
+      <MyModal isModalVisible={isModalVisible} toggleModal={toggleModal} />
     </ListItem>
   );
 };

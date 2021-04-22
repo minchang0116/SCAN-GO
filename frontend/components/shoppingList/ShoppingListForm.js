@@ -4,6 +4,7 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import ShoppingListItem from './ShoppingListItem';
 
 const ShoppingListForm = ({shoppingList}) => {
+  console.log('쇼리폼 렌더링');
   return (
     <>
       <Header style={styles.header}>
@@ -34,6 +35,8 @@ const styles = StyleSheet.create({
     borderColor: 'rgb(130,130,130)',
   },
   header: {
+    marginTop: 10,
+
     alignItems: 'center',
     justifyContent: 'center',
     height: 40,
