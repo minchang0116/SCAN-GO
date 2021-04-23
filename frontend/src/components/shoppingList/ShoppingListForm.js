@@ -1,6 +1,6 @@
 import {Header, List, Right, Text} from 'native-base';
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import ShoppingListItem from './ShoppingListItem';
 
 const ShoppingListForm = ({shoppingList}) => {
@@ -18,11 +18,13 @@ const ShoppingListForm = ({shoppingList}) => {
           </TouchableOpacity>
         </Right>
       </Header>
-      <List>
-        {shoppingList.map(item => (
-          <ShoppingListItem key={item.no} {...item} />
-        ))}
-      </List>
+      <ScrollView contentInsetAdjustmentBehavior="automatic">
+        <List>
+          {shoppingList.map(item => (
+            <ShoppingListItem key={item.no} {...item} />
+          ))}
+        </List>
+      </ScrollView>
     </>
   );
 };
@@ -35,12 +37,13 @@ const styles = StyleSheet.create({
     borderColor: 'rgb(130,130,130)',
   },
   header: {
-    marginTop: 10,
-
+    marginTop: 5,
+    marginBottom: 3,
     alignItems: 'center',
     justifyContent: 'center',
     height: 40,
     backgroundColor: 'white',
+    borderTopColor: 'black',
   },
   headerLeftText: {
     marginLeft: 10,

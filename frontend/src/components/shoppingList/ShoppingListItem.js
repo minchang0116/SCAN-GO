@@ -27,10 +27,13 @@ const ShoppingListItem = ({imgUrl, productName, productPrice, count}) => {
           {productPrice}
         </Text>
       </Body>
-      <Right>
-        <TouchableOpacity onPress={toggleModal} style={styles.right}>
-          <Text>{count}</Text>
-          <Icon style={styles.cntIcon} name="triangle-down" />
+      <Right style={styles.right}>
+        <TouchableOpacity>
+          <Icon style={styles.cntIcon} name="minus" />
+        </TouchableOpacity>
+        <Text style={styles.cntText}>{count}</Text>
+        <TouchableOpacity>
+          <Icon style={styles.cntIcon} name="plus" />
         </TouchableOpacity>
       </Right>
       <MyModal isModalVisible={isModalVisible} toggleModal={toggleModal} />
@@ -59,15 +62,20 @@ const styles = StyleSheet.create({
     height: 60,
   },
   right: {
+    flex: 1,
     width: 50,
     height: 30,
+    marginRight: 5,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
   },
   cntIcon: {
-    marginLeft: 5,
-    fontSize: 15,
+    fontSize: 20,
+  },
+  cntText: {
+    marginLeft: 10,
+    marginRight: 10,
   },
 });
 

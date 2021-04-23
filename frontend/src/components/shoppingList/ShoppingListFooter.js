@@ -19,10 +19,11 @@ const ShoppingListFooter = () => {
 
 const styles = StyleSheet.create({
   footer: {
-    borderColor: 'black',
-    borderTopWidth: 0.5,
+    marginBottom: 0.1,
+    borderTopWidth: 0.2,
+    borderBottomWidth: 0.5,
+    borderColor: '#000',
     backgroundColor: 'white',
-    shadowColor: 'black',
   },
   footerRight: {
     backgroundColor: 'rgb(218,41,28)',
