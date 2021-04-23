@@ -10,7 +10,7 @@ import React from 'react';
 import {SafeAreaView, StyleSheet, useColorScheme} from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import BarcodeScanningPage from './pages/BarcodeScanningPage';
+import BarcodeScanningPage from './src/pages/BarcodeScanningPage';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -19,14 +19,9 @@ const App = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const font = {
-    fontFamily: ['NotoSansCJKkr-Black'],
-  };
-
   return (
     <>
-      <BarcodeScanningPage style={font} />
-      {/* <BarcodeScanningPage /> */}
+      <BarcodeScanningPage />
       {/* <SafeAreaView style={backgroundStyle}>
         <BarcodeScanningPage />
       </SafeAreaView> */}
