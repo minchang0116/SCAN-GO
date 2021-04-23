@@ -13,6 +13,7 @@ import {CameraScreen} from 'react-native-camera-kit';
 import {Button, Card, CardItem, Body, Text} from 'native-base';
 import {CameraFooter} from '../components/CameraFooter';
 import IconAntD from 'react-native-vector-icons/AntDesign';
+import CameraItem from '../components/CameraItem';
 
 export const BarcodeScanningPage = () => {
   const [qrvalue, setQrvalue] = useState('');
@@ -22,6 +23,13 @@ export const BarcodeScanningPage = () => {
     // Called after te successful scanning of QRCode/Barcode
     setQrvalue(qrValue);
     // setOpenScanner(false);
+    removeQrValue();
+  };
+
+  const removeQrValue = () => {
+    setTimeout(() => {
+      setQrvalue('');
+    }, 5000);
   };
 
   const requestCameraPermission = async () => {
@@ -67,27 +75,7 @@ export const BarcodeScanningPage = () => {
               }
             />
           </View>
-          {qrvalue ? (
-            <Card style={styles.card}>
-              <CardItem style={styles.cardItem}>
-                <Body style={{flexDirection: 'row'}}>
-                  <Image
-                    source={{
-                      uri:
-                        'http://image3.compuzone.co.kr/img/product_img/2021/0219/764689/764689_600.jpg',
-                    }}
-                    style={styles.productImg}
-                  />
-                  <View>
-                    <Text>페퍼리지팜)밀라노170g</Text>
-                    <Text>6,000원</Text>
-                  </View>
-                </Body>
-              </CardItem>
-            </Card>
-          ) : (
-            ''
-          )}
+          {qrvalue ? <CameraItem /> : <></>}
           <CameraFooter />
         </View>
       ) : (
@@ -150,28 +138,5 @@ const styles = StyleSheet.create({
     height: 50,
     position: 'absolute',
     left: '90%',
-  },
-  goToCartBtn: {
-    backgroundColor: 'rgb(255,255,255)',
-    borderRadius: 0,
-    marginBottom: 2,
-    height: 54,
-  },
-  productImg: {
-    borderRadius: 6,
-    width: 100,
-    height: '100%',
-  },
-  card: {
-    width: '95%',
-    marginTop: 0,
-    marginRight: 'auto',
-    marginBottom: 20,
-    marginLeft: 'auto',
-    borderRadius: 10,
-  },
-  cardItem: {
-    borderRadius: 10,
-    height: 100,
   },
 });

@@ -52,4 +52,10 @@ const styles = StyleSheet.create({
     height: '100%',
     fontFamily: 'NotoSansCJKkr-Black',
   },
+  goToCartBtn: {
+    backgroundColor: 'rgb(255,255,255)',
+    borderRadius: 0,
+    marginBottom: 2,
+    height: 54,
+  },
 });
