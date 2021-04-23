@@ -1,16 +1,15 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   SafeAreaView,
   View,
   TouchableHighlight,
   PermissionsAndroid,
   Platform,
-  Image,
   StyleSheet,
 } from 'react-native';
 import {CameraScreen} from 'react-native-camera-kit';
-import {Button, Card, CardItem, Body, Text} from 'native-base';
+import {Text} from 'native-base';
 import {CameraFooter} from '../components/CameraFooter';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import CameraItem from '../components/CameraItem';
@@ -55,10 +54,10 @@ export const BarcodeScanningPage = () => {
   };
 
   const clickCloseBtn = () => {
-    setOpenScanner(false);
+    // setOpenScanner(false);
   };
 
-  useEffect(() => {}, [openScanner]);
+  // useEffect(() => {}, [openScanner]);
 
   return (
     <SafeAreaView style={{flex: 1}}>
