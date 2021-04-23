@@ -11,21 +11,11 @@ function MyModal({isModalVisible, toggleModal}) {
       animationOut={'zoomOut'}>
       <View style={styles.view}>
         <List style={styles.list}>
-          <ListItem>
-            <Text>1</Text>
-          </ListItem>
-          <ListItem>
-            <Text>2</Text>
-          </ListItem>
-          <ListItem>
-            <Text>3</Text>
-          </ListItem>
-          <ListItem>
-            <Text>4</Text>
-          </ListItem>
-          <ListItem>
-            <Text>5</Text>
-          </ListItem>
+          <Text>1</Text>
+          <Text>2</Text>
+          <Text>3</Text>
+          <Text>4</Text>
+          <Text>5</Text>
         </List>
         <Button title="Hide modal" onPress={toggleModal} />
       </View>
