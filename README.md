@@ -7,11 +7,13 @@
 
 * frontend
 ~~~
-npm install --global expo-cli
 
 cd frontend
 
 npm install 
 
-expo start
+react-native link
+
+react-native run-android
+
 ~~~
