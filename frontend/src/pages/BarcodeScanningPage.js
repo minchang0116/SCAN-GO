@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   View,
@@ -20,9 +20,7 @@ export const BarcodeScanningPage = () => {
   const [openScanner, setOpenScanner] = useState(false);
 
   const onBarcodeScan = qrValue => {
-    // Called after te successful scanning of QRCode/Barcode
     setQrvalue(qrValue);
-    // setOpenScanner(false);
     removeQrValue();
   };
 
@@ -56,13 +54,22 @@ export const BarcodeScanningPage = () => {
     }
   };
 
+  const clickCloseBtn = () => {
+    setOpenScanner(false);
+  };
+
+  useEffect(() => {}, [openScanner]);
+
   return (
     <SafeAreaView style={{flex: 1}}>
       {openScanner ? (
         <View style={{flex: 1}}>
-          <Button transparent style={styles.close}>
+          <TouchableHighlight
+            underlayColor="tansparent"
+            style={styles.close}
+            onPress={clickCloseBtn}>
             <IconAntD name="close" size={30} color="rgb(255, 255, 255)" />
-          </Button>
+          </TouchableHighlight>
           <View style={{flex: 1}}>
             <CameraScreen
               showFrame={true}
@@ -86,7 +93,7 @@ export const BarcodeScanningPage = () => {
           </Text>
           <TouchableHighlight
             onPress={requestCameraPermission}
-            style={styles.buttonStyle}>
+            style={styles.addBtnStyle}>
             <Text style={styles.buttonTextStyle}>상품추가하기!</Text>
           </TouchableHighlight>
         </View>
@@ -116,7 +123,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 16,
   },
-  buttonStyle: {
+  addBtnStyle: {
     fontSize: 16,
     color: 'white',
     backgroundColor: 'green',
