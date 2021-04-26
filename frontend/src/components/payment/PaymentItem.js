@@ -4,10 +4,10 @@ import {View, StyleSheet} from 'react-native';
 import {Card, CardItem, Text, Body, Left, Right} from 'native-base';
 import ProductItem from './ProductItem';
 
-const PaymentItem = ({item, index}) => {
+const PaymentItem = ({item}) => {
   return (
     <>
-      <Card key={index}>
+      <Card>
         <CardItem header style={styles.header}>
           <Text style={{fontWeight: '700', fontSize: 22}}>{item.date}</Text>
           <Text>&nbsp;&nbsp;({item.orderNo})</Text>
@@ -25,7 +25,7 @@ const PaymentItem = ({item, index}) => {
           </Body>
         </CardItem>
         {item.products.map((product, i) => {
-          return <ProductItem item={product} index={i} />;
+          return <ProductItem item={product} key={i} />;
         })}
         <CardItem footer>
           <Text style={styles.footer} onPress={goToDetail}>

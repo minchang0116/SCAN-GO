@@ -2,10 +2,10 @@
 import React from 'react';
 import {CardItem, Text, Body, Thumbnail} from 'native-base';
 
-const ProductItem = ({item, index}) => {
+const ProductItem = ({item}) => {
   return (
     <>
-      <CardItem key={index}>
+      <CardItem>
         <Thumbnail
           square
           source={{
