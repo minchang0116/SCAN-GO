@@ -1,10 +1,17 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, StyleSheet, Button, TouchableHighlight} from 'react-native';
 import {Card, CardItem, Text, Body, Left, Right} from 'native-base';
 import ProductItem from './ProductItem';
+import Modal from 'react-native-modal';
+import IconAntD from 'react-native-vector-icons/AntDesign';
 
 const PaymentItem = ({item}) => {
+  const [isModalVisible, setModalVisible] = useState(false);
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
   return (
     <>
       <Card>
@@ -28,17 +35,35 @@ const PaymentItem = ({item}) => {
           return <ProductItem item={product} key={i} />;
         })}
         <CardItem footer>
-          <Text style={styles.footer} onPress={goToDetail}>
+          <Text style={styles.footer} onPress={toggleModal}>
             결제 상품 자세히 보기 &gt;{' '}
           </Text>
         </CardItem>
+        <Modal isVisible={isModalVisible} style={styles.detail}>
+          <View style={{flex: 1}}>
+            <Card>
+              <TouchableHighlight
+                underlayColor="tansparent"
+                style={styles.close}
+                onPress={toggleModal}>
+                <IconAntD name="close" size={30} color="rgb(255, 255, 255)" />
+              </TouchableHighlight>
+              <CardItem header style={styles.header}>
+                <Text style={{fontWeight: '700', fontSize: 22}}>
+                  {item.date}
+                </Text>
+                <Text>&nbsp;&nbsp;({item.orderNo})</Text>
+              </CardItem>
+              {item.products.map((product, i) => {
+                return <ProductItem item={product} key={i} />;
+              })}
+            </Card>
+            <Button title="Hide modal" onPress={toggleModal} />
+          </View>
+        </Modal>
       </Card>
     </>
   );
-};
-
-const goToDetail = () => {
-  console.log('hi');
 };
 
 const styles = StyleSheet.create({
@@ -58,6 +83,18 @@ const styles = StyleSheet.create({
   thumbnail: {
     flexDirection: 'row',
     borderRadius: 6,
+  },
+  detail: {
+    backgroundColor: 'rgb(255,255,255)',
+    borderRadius: 10,
+    height: '70%',
+  },
+  close: {
+    zIndex: 10,
+    width: 50,
+    height: 50,
+    position: 'absolute',
+    left: '50%',
   },
 });
 
