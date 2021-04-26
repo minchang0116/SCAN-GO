@@ -13,7 +13,7 @@ const PaymentList = () => {
       <Container>
         <Content>
           {paymentList.map((item, index) => {
-            return <PaymentItem item={item} index={index} />;
+            return <PaymentItem item={item} key={index} />;
           })}
         </Content>
       </Container>
