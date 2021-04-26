@@ -6,22 +6,21 @@ import MainPage from './src/pages/MainPage';
 import {Provider} from 'react-redux';
 import {configureStore} from '@reduxjs/toolkit';
 import rootReducer from './src/modules';
+import {NavigationContainer} from '@react-navigation/native';
+import StackNav from './src/navigations/Stack';
 
 const store = configureStore({
   reducer: rootReducer,
 });
 
+
 const App = () => {
   return (
     <Provider store={store}>
-      <SafeAreaProvider>
-        <Container>
-          <StatusBar />
-          {/* <ShoppingListPage /> */}
-          <MainPage />
-        </Container>
-      </SafeAreaProvider>
-    </Provider>
+    <NavigationContainer>
+      <StackNav />
+      </NavigationContainer>
+      </Provider>
   );
 };
 
