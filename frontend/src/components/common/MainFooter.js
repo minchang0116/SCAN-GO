@@ -1,7 +1,7 @@
 import {Button, Footer, FooterTab, Icon, Text} from 'native-base';
 import React from 'react';
 
-const MainFooter = () => {
+const MainFooter = ({navigation}) => {
   return (
     <Footer>
       <FooterTab>
@@ -13,7 +13,12 @@ const MainFooter = () => {
           <Icon name="camera" />
           <Text>Camera</Text>
         </Button>
-        <Button vertical active>
+        <Button
+          vertical
+          active
+          onPress={() => {
+            navigation.navigate('ShoppingListPage');
+          }}>
           <Icon active name="navigate" />
           <Text>Navigate</Text>
         </Button>
