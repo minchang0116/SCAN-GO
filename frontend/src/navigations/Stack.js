@@ -1,15 +1,15 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {BarcodeScanningPage, MainTMPyj, PaymentList} from '../pages';
+import {BarcodeScanningPage, MainPage, PaymentList} from '../pages';
 
 const Stack = createStackNavigator();
 
 const StackNav = () => {
   return (
-    <Stack.Navigator initialRouteName="MainTMPyj">
+    <Stack.Navigator initialRouteName="MainPage">
       <Stack.Screen
-        name="MainTMPyj"
-        component={MainTMPyj}
+        name="MainPage"
+        component={MainPage}
         options={{headerShown: false}}
       />
       <Stack.Screen
