@@ -20,7 +20,7 @@ pipeline {
 			}
 			options { skipDefaultCheckout(false) }
 			steps {
-				sh 'mvn -B -DskipTests -f /home/ubuntu/s04p31d101/backend/SSG/pom.xml clean package'
+				sh 'mvn -B -DskipTests -f ./home/ubuntu/s04p31d101/backend/SSG/pom.xml clean package'
 			}
 		}
 		stage('Docker build') {
