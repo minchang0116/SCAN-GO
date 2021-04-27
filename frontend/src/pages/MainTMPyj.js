@@ -46,7 +46,7 @@ const requestCameraPermission = async ({navigation}) => {
       },
     );
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-    //   navigation.navigate('BarcodeScanningPage');
+      //   navigation.navigate('BarcodeScanningPage');
     } else {
       console.log('Camera permission denied');
     }
