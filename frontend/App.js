@@ -1,20 +1,25 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
+import {Container} from 'native-base';
 import React from 'react';
+import {StatusBar} from 'react-native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import MainPage from './src/pages/MainPage';
+import {Provider} from 'react-redux';
+import {configureStore} from '@reduxjs/toolkit';
+import rootReducer from './src/modules';
 import {NavigationContainer} from '@react-navigation/native';
 import StackNav from './src/navigations/Stack';
 
+const store = configureStore({
+  reducer: rootReducer,
+});
+
 const App = () => {
   return (
-    <NavigationContainer>
-      <StackNav />
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <StackNav />
+      </NavigationContainer>
+    </Provider>
   );
 };
 

@@ -27,13 +27,13 @@ const SubHeader = ({title}) => {
 
 const styles = StyleSheet.create({
   header: {
+    marginBottom: 4,
     backgroundColor: 'white',
-    borderBottomColor: 'rgb(150,150,150)',
-    height: 50,
-    borderBottomWidth: 0.5,
+    height: 45,
   },
   button: {
     width: 50,
+
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
