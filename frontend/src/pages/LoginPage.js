@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import IconAntD from 'react-native-vector-icons/FontAwesome5';
 
-const LoginPage = () => {
+const LoginPage = ({}) => {
   const [autoLogin, setAutoLogin] = useState(false);
   const onToggle = () => {
     setAutoLogin(!autoLogin);
@@ -18,8 +18,8 @@ const LoginPage = () => {
   return (
     <View style={styles.container}>
       <View style={styles.inputForm}>
-        <TextInput style={styles.textInput} placeholder="  아이디" />
-        <TextInput style={styles.textInput} placeholder="  비밀번호" />
+        <TextInput style={styles.textInput} placeholder="아이디" />
+        <TextInput style={styles.textInput} secureTextEntry={true} placeholder="비밀번호" />
       </View>
       <TouchableOpacity style={styles.saveIdArea} onPress={onToggle}>
         {autoLogin ? (
