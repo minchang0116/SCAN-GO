@@ -20,14 +20,15 @@ pipeline {
 			}
 			options { skipDefaultCheckout(false) }
 			steps {
-				sh 'mvn -B -DskipTests -f ~/home/ubuntu/s04p31d101/backend/SSG/pom.xml clean package'
+				//sh 'mvn -B -DskipTests -f ~i/home/ubuntu/s04p31d101/backend/SSG/pom.xml clean package'
+				sh 'mvn -B -f ./backend/SSG/ clean package'
 			}
 		}
 		stage('Docker build') {
 			agent any
 			steps {
 				// sh 'docker build -t <front-image-name>:latest <front dockerfile path>'
-				sh 'docker build -t backend_image:latest /home/ubuntu/s04p31d101/backend/SSG'
+				sh 'docker build -t backend_image:latest ./backend/SSG'
 			}
 		}
 		stage('Docker run') {
@@ -53,7 +54,7 @@ pipeline {
 				| xargs -r docker rmi'
 				// docker container 실행
 				// sh 'docker run -d --name <front-image-name> -p 80:80 <front-image-name>:latest'
-				sh 'docker run -d --name backend_image -p 8080:8080 backend_image:latest'
+				sh 'docker run -d --name backend_image -p 9000:9000 backend_image:latest'
 			}
 		}
 	}
