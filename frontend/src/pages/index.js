@@ -1,5 +1,5 @@
 import PaymentList from './PaymentList';
-import MainTMPyj from './MainTMPyj';
+import MainPage from './MainPage';
 import BarcodeScanningPage from './BarcodeScanningPage';
 
-export {PaymentList, MainTMPyj, BarcodeScanningPage};
+export {PaymentList, MainPage, BarcodeScanningPage};
