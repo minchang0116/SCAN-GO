@@ -13,14 +13,13 @@ const store = configureStore({
   reducer: rootReducer,
 });
 
-
 const App = () => {
   return (
     <Provider store={store}>
-    <NavigationContainer>
-      <StackNav />
+      <NavigationContainer>
+        <StackNav />
       </NavigationContainer>
-      </Provider>
+    </Provider>
   );
 };
 
