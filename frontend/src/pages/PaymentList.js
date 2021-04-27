@@ -13,7 +13,7 @@ const PaymentList = () => {
       <Container>
         <Content>
           {paymentList.map((item, index) => {
-            return <PaymentItem item={item} key={index} />;
+            return <PaymentItem payment={item} key={index} />;
           })}
         </Content>
       </Container>
@@ -32,11 +32,61 @@ const paymentList = [
     storeName: '이마트 동구미점',
     products: [
       {
+        id: 1,
+        name: '페퍼리지팜)밀라노170gdfdfsfdsf',
+        price: '10,000',
+        qty: '2',
+      },
+      {
+        id: 2,
+        name: '페퍼리지팜)밀라노fdsfssdsfs170g',
+        price: '6,000',
+        qty: '2',
+      },
+      {
+        id: 3,
         name: '페퍼리지팜)밀라노170g',
         price: '6,000',
         qty: '2',
       },
       {
+        id: 4,
+        name: '페퍼리지팜)밀라노170g',
+        price: '6,000',
+        qty: '2',
+      },
+      {
+        id: 5,
+        name: '페퍼리지팜)밀라노170g',
+        price: '6,000',
+        qty: '2',
+      },
+      {
+        id: 6,
+        name: '페퍼리지팜)밀라노170g',
+        price: '6,000',
+        qty: '2',
+      },
+      {
+        id: 7,
+        name: '페퍼리지팜)밀라노170g',
+        price: '6,000',
+        qty: '2',
+      },
+      {
+        id: 8,
+        name: '페퍼리지팜)밀라노170g',
+        price: '6,000',
+        qty: '2',
+      },
+      {
+        id: 9,
+        name: '페퍼리지팜)밀라노170g',
+        price: '6,000',
+        qty: '2',
+      },
+      {
+        id: 10,
         name: '페퍼리지팜)밀라노170g',
         price: '6,000',
         qty: '2',

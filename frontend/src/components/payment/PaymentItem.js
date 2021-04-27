@@ -1,12 +1,21 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {View, StyleSheet, Button, TouchableHighlight} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Button,
+  TouchableHighlight,
+  ScrollView,
+  FlatList,
+} from 'react-native';
 import {Card, CardItem, Text, Body, Left, Right} from 'native-base';
 import ProductItem from './ProductItem';
 import Modal from 'react-native-modal';
 import IconAntD from 'react-native-vector-icons/AntDesign';
+import ProductItemInModal from './ProductItemInModal';
+import {Col, Row, Grid} from 'react-native-easy-grid';
 
-const PaymentItem = ({item}) => {
+const PaymentItem = ({payment}) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -16,52 +25,62 @@ const PaymentItem = ({item}) => {
     <>
       <Card>
         <CardItem header style={styles.header}>
-          <Text style={{fontWeight: '700', fontSize: 22}}>{item.date}</Text>
-          <Text>&nbsp;&nbsp;({item.orderNo})</Text>
+          <Text style={{fontWeight: '700', fontSize: 22}}>{payment.date}</Text>
+          <Text>&nbsp;&nbsp;({payment.orderNo})</Text>
         </CardItem>
         <CardItem>
           <Body>
             <View style={styles.thumbnail}>
               <Left>
-                <Text>결제금액 {item.total}원</Text>
+                <Text>결제금액 {payment.total}원</Text>
               </Left>
               <Right>
-                <Text>{item.storeName}</Text>
+                <Text>{payment.storeName}</Text>
               </Right>
             </View>
           </Body>
         </CardItem>
-        {item.products.map((product, i) => {
-          return <ProductItem item={product} key={i} />;
-        })}
+        {payment.products
+          .slice(0, payment.products.length < 2 ? payment.products.length : 2)
+          .map((product, i) => {
+            return <ProductItem item={product} key={i} />;
+          })}
         <CardItem footer>
           <Text style={styles.footer} onPress={toggleModal}>
             결제 상품 자세히 보기 &gt;{' '}
           </Text>
         </CardItem>
-        <Modal isVisible={isModalVisible} style={styles.detail}>
-          <View style={{flex: 1}}>
-            <Card>
+      </Card>
+      <Modal
+        isVisible={isModalVisible}
+        style={styles.detail}
+        onBackdropPress={toggleModal}
+        animationIn="zoomIn"
+        animationOut="zoomOut">
+        <View style={{flex: 1}}>
+          <Card>
+            <CardItem header style={styles.header}>
+              <Text style={{fontWeight: '700', fontSize: 22}}>
+                {payment.date}
+              </Text>
+              <Text>&nbsp;&nbsp;({payment.orderNo})</Text>
               <TouchableHighlight
                 underlayColor="tansparent"
                 style={styles.close}
                 onPress={toggleModal}>
-                <IconAntD name="close" size={30} color="rgb(255, 255, 255)" />
+                <IconAntD name="close" size={30} color="rgb(142, 144, 144)" />
               </TouchableHighlight>
-              <CardItem header style={styles.header}>
-                <Text style={{fontWeight: '700', fontSize: 22}}>
-                  {item.date}
-                </Text>
-                <Text>&nbsp;&nbsp;({item.orderNo})</Text>
-              </CardItem>
-              {item.products.map((product, i) => {
-                return <ProductItem item={product} key={i} />;
-              })}
-            </Card>
-            <Button title="Hide modal" onPress={toggleModal} />
-          </View>
-        </Modal>
-      </Card>
+            </CardItem>
+          </Card>
+          <FlatList
+            data={payment.products}
+            renderItem={({item}) => {
+              return <ProductItemInModal item={item} />;
+            }}
+            numColumns={3}
+          />
+        </View>
+      </Modal>
     </>
   );
 };
@@ -88,13 +107,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(255,255,255)',
     borderRadius: 10,
     height: '70%',
+    width: '90%',
   },
   close: {
-    zIndex: 10,
-    width: 50,
-    height: 50,
+    // zIndex: 5,
+    // width: 5,
+    // height: 5,
     position: 'absolute',
-    left: '50%',
+    left: '100%',
   },
 });
 
