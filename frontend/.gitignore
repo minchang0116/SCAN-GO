@@ -57,3 +57,7 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+# no_commit
+package-lock.json
+yarn.lock
