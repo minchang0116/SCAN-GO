@@ -22,14 +22,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "product")
 public class Product {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	private String prodCode;
-	private String prodName;
-	private String prodPrice;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
-	private List<PaymentDetail> paymentDetail = new ArrayList<PaymentDetail>();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String prodCode;
+    private String prodName;
+    private String prodPrice;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<PaymentDetail> paymentDetail = new ArrayList<PaymentDetail>();
 }
