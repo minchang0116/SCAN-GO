@@ -6,13 +6,11 @@ import java.util.List;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssg.member.data.Member;
 
 import lombok.Getter;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Getter
 @Entity
