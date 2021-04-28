@@ -12,23 +12,38 @@ pipeline {
 		// 해당 stage 명으로 jenkins 화면에 표시된다
 		stage('Build and Test') {
 			// docker image에 명시된 image를 활용하여 steps 수행
-			agent {
-				docker {
-					image 'maven:3-alpine'
-					args '-v /root/.m2:/root/.m2'
-				}
-			}
-			options { skipDefaultCheckout(false) }
-			steps {
-				//sh 'mvn -B -DskipTests -f ~i/home/ubuntu/s04p31d101/backend/SSG/pom.xml clean package'
-				sh 'mvn -B -f ./backend/SSG/ clean package'
-			}
-		}
-		stage('Docker build') {
+			//agent {
+			//	docker {
+			//		image 'maven:3-alpine'
+			//		args '-v /root/.m2:/root/.m2'
+			//	}
+			//}
+			//options { skipDefaultCheckout(false) }
 			agent any
 			steps {
-				// sh 'docker build -t <front-image-name>:latest <front dockerfile path>'
-				sh 'docker build -t backend_image:latest ./backend/SSG'
+				//sh 'mvn -B -DskipTests -f ~i/home/ubuntu/s04p31d101/backend/SSG/pom.xml clean package'
+				//sh 'mvn -B -f ./backend/SSG/ clean package'
+				sh 'docker build -t backend_image ./backend/SSG'
+			}
+		}
+		//stage('Docker build') {
+		//	agent any
+		//	steps {
+		//		// sh 'docker build -t <front-image-name>:latest <front dockerfile path>'
+		//		sh 'docker build -t backend_image:latest ./backend/SSG'
+		//	}
+		//}
+		stage('Docker Container rm') {
+			agent any
+			steps {
+				sh 'docker ps -f name=backend_image -q | xargs --no-run-if-empty \
+				docker container stop'
+				sh 'docker container ls -a name=backend_image -q | xargs -r docker \
+				container rm'
+				
+				sh 'docker ps -a -f "status=created" -f "status=exited" -q | xargs \
+				-r docker container rm'
+				sh 'docker images -f "dangling=true" -q | xargs -r docker rmi'
 			}
 		}
 		stage('Docker run') {
@@ -40,21 +55,23 @@ pipeline {
 				// | xargs --no-run-if-empty docker container stop'
 				// 현재 동작중인 컨테이너 중 <back-image-name>의 이름을 가진
 				// 컨테이너를 stop 한다
-				sh 'docker ps -f name=backend_image -q \
-				| xargs --no-run-if-empty docker container stop'
+				//sh 'docker ps -f name=backend_image -q \
+				//| xargs --no-run-if-empty docker container stop'
 				// <front-image-name>의 이름을 가진 컨테이너를 삭제한다.
 				// sh 'docker container ls -a -f name=<front-image-name> -q \
 				// | xargs -r docker container rm'
 				// <back-image-name>의 이름을 가진 컨테이너를 삭제한다.
-				sh 'docker container ls -a -f name=backend_image -q \
-				| xargs -r docker container rm'
+				//sh 'docker container ls -a -f name=backend_image -q \
+				//| xargs -r docker container rm'
 				// docker image build 시 기존에 존재하던 이미지는
 				// dangling 상태가 되기 때문에 이미지를 일괄 삭제
-				sh 'docker images -f "dangling=true" -q \
-				| xargs -r docker rmi'
+				//sh 'docker images -f "dangling=true" -q \
+				//| xargs -r docker rmi'
 				// docker container 실행
 				// sh 'docker run -d --name <front-image-name> -p 80:80 <front-image-name>:latest'
-				sh 'docker run -d --name backend_image -p 9000:9000 backend_image:latest'
+				//sh 'docker run -d --name backend_image -p 9000:9000 backend_image:latest'
+				sh 'docker run -d --name backend_image -v /volumes/back_home/profile:\
+				/volumes/profile backend_image -p 9000'
 			}
 		}
 	}
