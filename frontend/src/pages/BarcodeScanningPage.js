@@ -5,12 +5,18 @@ import {CameraScreen} from 'react-native-camera-kit';
 import {CameraFooter} from '../components/CameraFooter';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import CameraItem from '../components/CameraItem';
+import {useDispatch, useSelector} from 'react-redux';
+import {addShoppingListItemByBarcode} from '../modules/shoppingList';
 
 const BarcodeScanningPage = ({navigation}) => {
+  const lastItem = useSelector(state => state.shoppingList.lastItem);
+  const dispatch = useDispatch();
+
   const [qrvalue, setQrvalue] = useState('');
 
   const onBarcodeScan = qrValue => {
-    setQrvalue(qrValue);
+    dispatch(addShoppingListItemByBarcode(qrValue));
+    lastItem ? setQrvalue(lastItem) : '';
     removeQrValue();
   };
 
@@ -18,6 +24,7 @@ const BarcodeScanningPage = ({navigation}) => {
     setTimeout(() => {
       setQrvalue('');
     }, 5000);
+    // lastItem 지우는 dispatch 호출
   };
 
   return (
