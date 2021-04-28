@@ -67,18 +67,11 @@
 		<string>MaterialCommunityIcons.ttf</string>
 		<string>MaterialIcons.ttf</string>
 		<string>Octicons.ttf</string>
-<<<<<<< HEAD
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
 		<string>Roboto_medium.ttf</string>
 		<string>Roboto.ttf</string>
 		<string>rubicon-icon-font.ttf</string>
-=======
-		<string>Roboto_medium.ttf</string>
-		<string>Roboto.ttf</string>
-		<string>rubicon-icon-font.ttf</string>
-		<string>SimpleLineIcons.ttf</string>
-		<string>Zocial.ttf</string>
 		<string>NotoSansCJKkr-Black.ttf</string>
 		<string>NotoSansCJKkr-Bold.ttf</string>
 		<string>NotoSansCJKkr-DemiLight.ttf</string>
@@ -88,7 +81,6 @@
 		<string>NotoSansCJKkr-Thin.ttf</string>
 		<string>NotoSansMonoCJKkr-Bold.ttf</string>
 		<string>NotoSansMonoCJKkr-Regular.ttf</string>
->>>>>>> develop
 	</array>
 </dict>
 </plist>

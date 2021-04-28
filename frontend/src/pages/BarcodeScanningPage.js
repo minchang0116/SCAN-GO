@@ -6,7 +6,7 @@ import {CameraFooter} from '../components/CameraFooter';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import CameraItem from '../components/CameraItem';
 
-export const BarcodeScanningPage = ({navigation}) => {
+const BarcodeScanningPage = ({navigation}) => {
   const [qrvalue, setQrvalue] = useState('');
 
   const onBarcodeScan = qrValue => {
@@ -26,7 +26,7 @@ export const BarcodeScanningPage = ({navigation}) => {
         <TouchableHighlight
           underlayColor="tansparent"
           style={styles.close}
-          onPress={() => navigation.navigate('MainTMPyj')}>
+          onPress={() => navigation.navigate('MainPage')}>
           <IconAntD name="close" size={30} color="rgb(255, 255, 255)" />
         </TouchableHighlight>
         <View style={{flex: 1}}>

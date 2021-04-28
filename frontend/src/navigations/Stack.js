@@ -5,6 +5,7 @@ import {
   MainPage,
   PaymentList,
   ShoppingListPage,
+  ImageScanningPage,
 } from '../pages';
 
 const Stack = createStackNavigator();
@@ -20,6 +21,11 @@ const StackNav = () => {
       <Stack.Screen
         name="BarcodeScanningPage"
         component={BarcodeScanningPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ImageScanningPage"
+        component={ImageScanningPage}
         options={{headerShown: false}}
       />
       <Stack.Screen
