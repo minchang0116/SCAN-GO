@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -40,9 +41,9 @@ public class ProductController {
 
     @ApiOperation(value = "장바구니 내 상품 삭제", notes = "입력값 : memberId(사용자고유번호), prodId(상품고유번호)\n출력값 : success")
     @DeleteMapping("/product_delete")
-    public ResponseEntity<?> deleteProduct(@RequestParam long memberId, @RequestParam long prodId) {
-        productService.deleteProduct(memberId, prodId);
-        System.out.println("<장바구니 내 상품 삭제> 멤버고유번호 : "+memberId+", 상품고유번호 : "+prodId);
+    public ResponseEntity<?> deleteProduct(@RequestParam long memberId, @RequestParam List<Long> prodIds) {
+        for(long prodId : prodIds) productService.deleteProduct(memberId, prodId);
+        System.out.println("<장바구니 내 상품 삭제> 멤버고유번호 : "+memberId+", 상품고유번호 : "+prodIds.toString());
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
