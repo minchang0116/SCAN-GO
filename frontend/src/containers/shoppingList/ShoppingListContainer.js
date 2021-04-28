@@ -1,29 +1,47 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import ShoppingListForm from '../../components/shoppingList/ShoppingListForm';
+import {
+  fetchShoppingList,
+  increaseShoppingListItem,
+  decreaseShoppingListItem,
+  deleteShoppingListItem,
+} from '../../modules/shoppingList';
 
 const ShoppingListContainer = () => {
+  const {shoppingList} = useSelector(({shoppingList}) => ({
+    shoppingList: shoppingList,
+  }));
+
+  const dispatch = useDispatch();
+  const onFetchShoppingList = () => {
+    dispatch(fetchShoppingList());
+  };
+  const onIncreaseShoppingListItem = () => {
+    dispatch(increaseShoppingListItem());
+  };
+  const onDecreaseShoppingListItem = () => {
+    dispatch(decreaseShoppingListItem());
+  };
+  const onDeleteShoppingListItem = () => {
+    dispatch(deleteShoppingListItem());
+  };
+
+  useEffect(() => {
+    onFetchShoppingList();
+  }, []);
+
   return (
     <>
-      <ShoppingListForm shoppingList={shoppingList} />
+      <ShoppingListForm
+        shoppingList={shoppingList.shoppingList}
+        onFetchShoppingList={onFetchShoppingList}
+        onIncreaseShoppingListItem={onIncreaseShoppingListItem}
+        onDecreaseShoppingListItem={onDecreaseShoppingListItem}
+        onDeleteShoppingListItem={onDeleteShoppingListItem}
+      />
     </>
   );
 };
-
-const shoppingList = [
-  {
-    no: 1,
-    productName: '랭거스)크랜베리페트449ml',
-    imgUrl: require('../../../imgs/랭거스)크랜베리페트449ml.jpg'),
-    productPrice: '2800',
-    count: 1,
-  },
-  {
-    no: 2,
-    productName: '롯데)오늘의차황금보리500ml',
-    imgUrl: require('../../../imgs/롯데)오늘의차황금보리500ml.jpg'),
-    productPrice: '1500',
-    count: 2,
-  },
-];
 
 export default ShoppingListContainer;

@@ -3,7 +3,13 @@ import React from 'react';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import ShoppingListItem from './ShoppingListItem';
 
-const ShoppingListForm = ({shoppingList}) => {
+const ShoppingListForm = ({
+  shoppingList,
+  onFetchShoppingList,
+  onIncreaseShoppingListItem,
+  onDecreaseShoppingListItem,
+  onDeleteShoppingListItem,
+}) => {
   console.log('쇼리폼 렌더링');
   return (
     <>
@@ -21,7 +27,11 @@ const ShoppingListForm = ({shoppingList}) => {
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <List>
           {shoppingList.map(item => (
-            <ShoppingListItem key={item.no} {...item} />
+            <ShoppingListItem
+              key={item.id}
+              {...item}
+              onIncreaseShoppingListItem={onIncreaseShoppingListItem}
+            />
           ))}
         </List>
       </ScrollView>
