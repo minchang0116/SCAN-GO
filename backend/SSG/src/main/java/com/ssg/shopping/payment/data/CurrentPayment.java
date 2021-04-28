@@ -21,7 +21,7 @@ public class CurrentPayment {
     @JoinColumn(name = "payment_id")
     private CustomerPayment customerPayment;
 
-    public CurrentPayment() {}
+    //public CurrentPayment() {}
 
     public CurrentPayment(Member member, CustomerPayment customerPayment) {
         this.member = member;
