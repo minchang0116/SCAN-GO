@@ -1,35 +1,16 @@
 import client from './client';
 
-// export const readComment = (formData) => {
-//   return client.get('/movie/review_detail', { params: { ...formData } });
-// };
-
-export const insertItem = formData => {
-  return 1;
-  //   return client.post('/movie/review_insert', formData);
+export const addItemByBarcode = barcodeValue => {
+  return item;
+  //   return client.get('/movie/review_list', {params: {...formData}});
 };
-export const deleteItem = formData => {
-  //   return client.delete('/movie/review_delete', {params: {...formData}});
-};
-
-export const updateItem = formData => {
-  return 1;
-  //   return client.post('/movie/review_update', formData);
-};
-
-export const readItems = formData => {
-  return items;
+export const addItemByProductName = formData => {
+  return item;
   //   return client.get('/movie/review_list', {params: {...formData}});
 };
 
 const items = [{a: 'dfsgsd', b: 'sdf'}];
-
-// export const insertCommentLike = (formData) => {
-//   return client.post('/movie/review_like_insert', formData);
-// };
-
-// export const deleteCommentLike = (formData) => {
-//   return client.delete('/movie/review_like_delete', {
-//     params: { ...formData },
-//   });
-// };
+const item = {
+  name: '페퍼리지팜)더블초코밀라노213g',
+  price: '200000',
+};
