@@ -1,4 +1,5 @@
 FROM maven:3-alpine AS builder
+ARG -v /root/.m2:/root/.m2
 COPY mvnw .
 COPY mvnw.cmd .
 COPY pom.xml .
