@@ -5,11 +5,19 @@ const MainFooter = ({navigation}) => {
   return (
     <Footer>
       <FooterTab>
-        <Button vertical>
+        <Button
+          vertical
+          onPress={() => {
+            navigation.navigate('BarcodeScanningPage');
+          }}>
           <Icon name="apps" />
           <Text>Apps</Text>
         </Button>
-        <Button vertical>
+        <Button
+          vertical
+          onPress={() => {
+            navigation.navigate('ImageScanningPage');
+          }}>
           <Icon name="camera" />
           <Text>Camera</Text>
         </Button>
@@ -22,7 +30,11 @@ const MainFooter = ({navigation}) => {
           <Icon active name="navigate" />
           <Text>Navigate</Text>
         </Button>
-        <Button vertical>
+        <Button
+          vertical
+          onPress={() => {
+            navigation.navigate('PaymentList');
+          }}>
           <Icon name="person" />
           <Text>Contact</Text>
         </Button>
