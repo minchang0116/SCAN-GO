@@ -1,48 +1,63 @@
 import {Body, Left, ListItem, Right, Text, View} from 'native-base';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
-import MyModal from '../common/MyModal';
+import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useDispatch} from 'react-redux';
+import {
+  updateShoppingListItem,
+  isCheckedShoppingListItem,
+} from '../../modules/shoppingList';
 
 const ShoppingListItem = ({
   imgUrl,
-  productName,
-  productPrice,
-  count,
-  onincreaseShoppingListItem,
+  isCheck,
+  prodId,
+  memberId,
+  prodName,
+  prodPrice,
+  qty,
 }) => {
-  const [isModalVisible, setModalVisible] = useState(false);
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
+  const dispatch = useDispatch();
+  const onIncrease = () => {
+    dispatch(updateShoppingListItem({prodId, memberId, qty: qty + 1}));
+  };
+  const onDecrease = () => {
+    dispatch(updateShoppingListItem({prodId, memberId, qty: qty - 1}));
+  };
+  const onIsChecked = () => {
+    dispatch(isCheckedShoppingListItem({prodId}));
   };
 
-  console.log('렌더링');
   return (
     <ListItem>
-      <TouchableOpacity>
-        <View style={styles.checkboxFalse} />
+      <TouchableOpacity onPress={onIsChecked}>
+        <Left style={styles.left2}>
+          {isCheck ? (
+            <Icon2 name={'check-box-outline'} style={styles.checkbox} />
+          ) : (
+            <Icon2 name={'checkbox-blank-outline'} style={styles.checkbox} />
+          )}
+          <Image style={styles.left} source={imgUrl} />
+        </Left>
       </TouchableOpacity>
-      <Left>
-        <Image style={styles.left} source={imgUrl} />
-      </Left>
       <Body style={styles.body}>
         <Text style={styles.bodyTextName} numberOfLines={2}>
-          {productName}
+          {prodName}
         </Text>
         <Text style={styles.bodyTextPrice} numberOfLines={1}>
-          {productPrice}
+          {prodPrice}
         </Text>
       </Body>
       <Right style={styles.right}>
-        <TouchableOpacity onPress={onincreaseShoppingListItem}>
+        <TouchableOpacity onPress={onDecrease}>
           <Icon style={styles.cntIcon} name="minus" />
         </TouchableOpacity>
-        <Text style={styles.cntText}>{count}</Text>
-        <TouchableOpacity>
+        <Text style={styles.cntText}>{qty}</Text>
+        <TouchableOpacity onPress={onIncrease}>
           <Icon style={styles.cntIcon} name="plus" />
         </TouchableOpacity>
       </Right>
-      <MyModal isModalVisible={isModalVisible} toggleModal={toggleModal} />
     </ListItem>
   );
 };
@@ -51,7 +66,17 @@ const styles = StyleSheet.create({
     width: 15,
     height: 15,
     borderWidth: 1,
-    borderColor: 'rgb(130,130,130)',
+    borderColor: 'rgb(170,170,170)',
+  },
+  left2: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  checkbox: {
+    fontSize: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'rgb(170,170,170)',
   },
   body: {
     flex: 5,
@@ -77,7 +102,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   cntIcon: {
-    fontSize: 20,
+    fontSize: 19,
+    color: 'rgb(100,100,100)',
   },
   cntText: {
     marginLeft: 10,

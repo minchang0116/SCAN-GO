@@ -1,22 +1,32 @@
 import {Header, List, Right, Text} from 'native-base';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import ShoppingListItem from './ShoppingListItem';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ShoppingListForm = ({
   shoppingList,
   onFetchShoppingList,
-  onIncreaseShoppingListItem,
-  onDecreaseShoppingListItem,
+  onUpdateShoppingListItem,
   onDeleteShoppingListItem,
 }) => {
-  console.log('쇼리폼 렌더링');
+  const [checkCnt, setCheckCnt] = useState(0);
+  useEffect(() => {
+    let cnt = 0;
+    for (let item of shoppingList) {
+      if (item.isCheck === true) {
+        cnt = cnt + 1;
+      }
+    }
+    setCheckCnt(cnt);
+  }, [shoppingList]);
+
   return (
     <>
       <Header style={styles.header}>
         <TouchableOpacity style={styles.headerLeft}>
-          <View style={styles.checkboxFalse} />
-          <Text style={styles.headerLeftText}>0개 선택</Text>
+          <Icon name={'checkbox-blank-outline'} style={styles.checkbox} />
+          <Text style={styles.headerLeftText}>{checkCnt}개 선택</Text>
         </TouchableOpacity>
         <Right>
           <TouchableOpacity>
@@ -26,13 +36,14 @@ const ShoppingListForm = ({
       </Header>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <List>
-          {shoppingList.map(item => (
-            <ShoppingListItem
-              key={item.id}
-              {...item}
-              onIncreaseShoppingListItem={onIncreaseShoppingListItem}
-            />
-          ))}
+          {shoppingList &&
+            shoppingList.map(item => (
+              <ShoppingListItem
+                key={item.prodId}
+                {...item}
+                onUpdateShoppingListItem={onUpdateShoppingListItem}
+              />
+            ))}
         </List>
       </ScrollView>
     </>
@@ -45,6 +56,12 @@ const styles = StyleSheet.create({
     height: 15,
     borderWidth: 1,
     borderColor: 'rgb(130,130,130)',
+  },
+  checkbox: {
+    fontSize: 21,
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'rgb(170,170,170)',
   },
   header: {
     marginTop: 5,

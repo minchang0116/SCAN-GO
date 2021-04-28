@@ -6,41 +6,25 @@ export const fetchShoppingList = createAsyncThunk(
   async () => {
     try {
       const response = await shoppingListApi.readItems();
-      console.log('response: ', response);
       return response;
     } catch (e) {}
   },
 );
-export const increaseShoppingListItem = createAsyncThunk(
-  'shoppingList/increaseShoppingListItem',
-  async () => {
+export const updateShoppingListItem = createAsyncThunk(
+  'shoppingList/updateShoppingListItem',
+  async ({prodId, memberId, qty}) => {
     try {
-      await shoppingListApi.increaseItem();
-      const response = await shoppingListApi.readItems();
-      console.log('response: ', response);
-      return response;
-    } catch (e) {}
-  },
-);
-export const decreaseShoppingListItem = createAsyncThunk(
-  'shoppingList/decreaseShoppingListItem',
-  async () => {
-    try {
-      await shoppingListApi.decreaseItem();
-      const response = await shoppingListApi.readItems();
-      console.log('response: ', response);
-      return response;
+      await shoppingListApi.updateItem(prodId, memberId, qty);
+      return {prodId, qty};
     } catch (e) {}
   },
 );
 export const deleteShoppingListItem = createAsyncThunk(
-  'shoppingList/decreaseShoppingListItem',
-  async () => {
+  'shoppingList/deleteShoppingListItem',
+  async ({prodId}) => {
     try {
       await shoppingListApi.deleteItem();
-      const response = await shoppingListApi.deleteItem();
-      console.log('response: ', response);
-      return response;
+      return prodId;
     } catch (e) {}
   },
 );
@@ -52,34 +36,44 @@ const shoppingListSlice = createSlice({
     hasErrors: false,
     shoppingList: [
       {
-        id: 1,
-        productCode: '',
-        productName: '랭거스)크랜베리페트449ml',
-        productPrice: '2800',
+        prodId: 1,
+        memberId: 'sdfsdf',
+        isCheck: false,
+        prodName: '랭거스)크랜베리페트449ml',
+        prodPrice: '2800',
         imgUrl: require('../../imgs/랭거스)크랜베리페트449ml.jpg'),
-        count: 1,
+        qty: 1,
       },
       {
-        id: 2,
-        productCode: '',
-        productName: '롯데)오늘의차황금보리500ml',
-        productPrice: '1500',
+        prodId: 2,
+        memberId: 'sdfsdf',
+        isCheck: false,
+        prodCode: '',
+        prodName: '롯데)오늘의차황금보리500ml',
+        prodPrice: '1500',
         imgUrl: require('../../imgs/롯데)오늘의차황금보리500ml.jpg'),
-        count: 2,
+        qty: 2,
       },
     ],
   },
   reducers: {
-    // getShoppingList: (state, action) => {
-    //   console.log('d', action);
-    //   state.shoppingList = action.payload;
-    // },
+    isCheckedShoppingListItem: (state, {payload}) => {
+      console.log('체크');
+      state.shoppingList = state.shoppingList.map(item => {
+        if (item.prodId === payload.prodId) {
+          return {...item, isCheck: !item.isCheck};
+        } else {
+          return item;
+        }
+      });
+    },
   },
   extraReducers: {
     [fetchShoppingList.pending]: state => {
       state.loading = true;
     },
     [fetchShoppingList.fulfilled]: (state, {payload}) => {
+      console.log('??');
       state.shoppingList = payload;
       state.loading = false;
       state.hasErrors = false;
@@ -88,11 +82,20 @@ const shoppingListSlice = createSlice({
       state.loading = false;
       state.hasErrors = true;
     },
-    [increaseShoppingListItem.fulfilled]: state => {},
-    [decreaseShoppingListItem.fulfilled]: state => {},
-    [deleteShoppingListItem.fulfilled]: state => {},
+    [updateShoppingListItem.fulfilled]: (state, {payload}) => {
+      state.shoppingList = state.shoppingList.map(item => {
+        if (item.prodId === payload.prodId) {
+          return {...item, qty: payload.qty};
+        } else {
+          return item;
+        }
+      });
+    },
+    [deleteShoppingListItem.fulfilled]: (state, {payload}) => {
+      state.filter(list => list.id !== payload);
+    },
   },
 });
 
-export const {} = shoppingListSlice.actions;
+export const {isCheckedShoppingListItem} = shoppingListSlice.actions;
 export default shoppingListSlice.reducer;

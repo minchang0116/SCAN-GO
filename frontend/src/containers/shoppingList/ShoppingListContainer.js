@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import ShoppingListForm from '../../components/shoppingList/ShoppingListForm';
 import {
   fetchShoppingList,
-  increaseShoppingListItem,
-  decreaseShoppingListItem,
+  updateShoppingListItem,
   deleteShoppingListItem,
 } from '../../modules/shoppingList';
 
@@ -17,27 +16,20 @@ const ShoppingListContainer = () => {
   const onFetchShoppingList = () => {
     dispatch(fetchShoppingList());
   };
-  const onIncreaseShoppingListItem = () => {
-    dispatch(increaseShoppingListItem());
-  };
-  const onDecreaseShoppingListItem = () => {
-    dispatch(decreaseShoppingListItem());
-  };
+
   const onDeleteShoppingListItem = () => {
     dispatch(deleteShoppingListItem());
   };
 
   useEffect(() => {
     onFetchShoppingList();
-  }, []);
-
+  }, [dispatch]);
+  console.log('쇼핑리스트 컨테이너 렌더링');
   return (
     <>
       <ShoppingListForm
         shoppingList={shoppingList.shoppingList}
         onFetchShoppingList={onFetchShoppingList}
-        onIncreaseShoppingListItem={onIncreaseShoppingListItem}
-        onDecreaseShoppingListItem={onDecreaseShoppingListItem}
         onDeleteShoppingListItem={onDeleteShoppingListItem}
       />
     </>
