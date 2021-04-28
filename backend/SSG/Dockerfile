@@ -1,4 +1,4 @@
-FROM maven:3-apline AS builder
+FROM maven:3-alpine AS builder
 COPY mvnw .
 COPY mvnw.cmd .
 COPY pom.xml .
