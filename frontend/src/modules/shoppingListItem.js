@@ -1,25 +1,12 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import * as shoppingListApi from '../lib/api/shoppingList';
 
-export const fetchShoppingList = createAsyncThunk(
-  'shoppingList/fetchShoppingList',
-  async () => {
-    try {
-      const response = await shoppingListApi.readItems();
-      console.log('response: ', response);
-      return response;
-    } catch (e) {}
-  },
-);
-
-const shoppingListSlice = createSlice({
-  name: 'shoppingList',
+const shoppingListItemSlice = createSlice({
+  name: 'shoppingListItem',
   initialState: {
-    shoppingListState: {
-      loading: false,
-      hasErrors: false,
-      shoppingList: [],
-    },
+    loading: false,
+    hasErrors: false,
+    shoppingList: [],
   },
   reducers: {
     // getShoppingList: (state, action) => {
