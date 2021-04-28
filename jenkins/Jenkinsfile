@@ -69,8 +69,8 @@ pipeline {
 				//| xargs -r docker rmi'
 				// docker container 실행
 				// sh 'docker run -d --name <front-image-name> -p 80:80 <front-image-name>:latest'
-				//sh 'docker run -d --name backend_image -p 9000:9000 backend_image:latest'
-				sh 'docker run -d --name backend_image -v /volumes/back_home/profile:\
+				sh 'docker run -d --name backend_image -p 9000:9000 backend_image:latest'
+				//sh 'docker run -d --name backend_image -v /volumes/back_home/profile:\
 				/volumes/profile backend_image -p 9000'
 			}
 		}
