@@ -21,7 +21,7 @@ public class CustomerPayment {
     private long id;
     private String storeId;
     @Temporal(TemporalType.TIMESTAMP)
-    //@UpdateTimestamp
+    @UpdateTimestamp
     private Date txDateTime;
     private String authHash;
     private long paymentCount;
@@ -41,7 +41,7 @@ public class CustomerPayment {
     @OneToOne(mappedBy = "customerPayment", fetch = FetchType.LAZY)
     private CurrentPayment currentPayment;
 
-    //public CustomerPayment() {}
+    public CustomerPayment() {}
 
     public CustomerPayment(String storeId, Member member) {
         this.storeId = storeId;
