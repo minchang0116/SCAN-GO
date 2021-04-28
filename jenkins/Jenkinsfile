@@ -38,11 +38,11 @@ pipeline {
 			steps {
 				sh 'docker ps -f name=backend_image -q | xargs --no-run-if-empty \
 				docker container stop'
-				sh 'docker ps -f name=mysql_db -q | xargs --no-run-if-empty \
-				docker container stop'
+				//sh 'docker ps -f name=mysql_db -q | xargs --no-run-if-empty \
+				//docker container stop'
 				
-				//sh 'docker container ls -a name=backend_image -q | xargs -r docker \
-				//container rm'
+				sh 'docker container ls -a name=backend_image -q | xargs -r docker \
+				container rm'
 				//sh 'docker container ls -a name=mysql_db -q | xargs -r docker \
 				//container rm'
 				
