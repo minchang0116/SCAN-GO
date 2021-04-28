@@ -76,10 +76,10 @@ pipeline {
 				// sh 'docker run -d --name <front-image-name> -p 80:80 <front-image-name>:latest'
 				sh 'docker run -d --name backend_image -p 9000:9000 backend_image:latest'
 				sh 'docker run --detach --env MYSQL_ROOT_PASSWORD="root" \
-				-- env MYSQL_USER="ssafy" \
-				-- env MYSQL_PASSWORD="ssafy" \
-				-- env MYSQL_DATABASE="ssg" \
-				-- name "mysql_db" \
+				--env MYSQL_USER="ssafy" \
+				--env MYSQL_PASSWORD="ssafy" \
+				--env MYSQL_DATABASE="ssg" \
+				--name "mysql_db" \
 				--publish 3306:3306 mysql'
 				//sh 'docker run -d --name backend_image -v /volumes/back_home/profile:\
 				///volumes/profile backend_image -p 9000'
