@@ -1,5 +1,14 @@
+FROM openjdk:8-jdk-alpine AS builder
+COPY mvnw .
+COPY mvnw.cmd .
+COPY pom.xml .
+COPY src src
+COPY SSG.iml .
+RUN mvn clean package
+
 FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-ADD ./target/<pom.xml-artifactID>-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=builder target/*.jar app.jar
 ENV JAVA_OPTS=""
+
+EXPOSE 9000
 ENTRYPOINT ["java", "-jar", "/app.jar"]
