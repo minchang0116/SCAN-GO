@@ -39,7 +39,7 @@ public class ProductController {
         return new ResponseEntity<>("success", HttpStatus.OK);
     }
 
-    @ApiOperation(value = "장바구니 내 상품 삭제", notes = "입력값 : memberId(사용자고유번호), prodId(상품고유번호)\n출력값 : success")
+    @ApiOperation(value = "장바구니 내 상품 삭제 (상품고유번호 배열에 담아서)", notes = "입력값 : memberId(사용자고유번호), prodIds(상품고유번호)\n출력값 : success")
     @DeleteMapping("/product_delete")
     public ResponseEntity<?> deleteProduct(@RequestParam long memberId, @RequestParam List<Long> prodIds) {
         for(long prodId : prodIds) productService.deleteProduct(memberId, prodId);
