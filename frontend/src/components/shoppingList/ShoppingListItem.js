@@ -3,6 +3,8 @@ import React from 'react';
 import {useState} from 'react';
 import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
+import {useDispatch} from 'react-redux';
+import {updateShoppingList} from '../../modules/shoppingList';
 import MyModal from '../common/MyModal';
 
 const ShoppingListItem = ({imgUrl, productName, productPrice, count}) => {
@@ -10,6 +12,12 @@ const ShoppingListItem = ({imgUrl, productName, productPrice, count}) => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+
+  const dispatch = useDispatch();
+  const increaseitem = () => {
+    dispatch(updateShoppingList());
+  };
+
   console.log('렌더링');
   return (
     <ListItem>
@@ -28,7 +36,7 @@ const ShoppingListItem = ({imgUrl, productName, productPrice, count}) => {
         </Text>
       </Body>
       <Right style={styles.right}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={increaseitem}>
           <Icon style={styles.cntIcon} name="minus" />
         </TouchableOpacity>
         <Text style={styles.cntText}>{count}</Text>
