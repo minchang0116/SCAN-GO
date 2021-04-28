@@ -3,7 +3,6 @@ COPY mvnw .
 COPY mvnw.cmd .
 COPY pom.xml .
 COPY src src
-COPY SSG.iml .
 RUN mvn clean package
 
 FROM openjdk:8-jdk-alpine
