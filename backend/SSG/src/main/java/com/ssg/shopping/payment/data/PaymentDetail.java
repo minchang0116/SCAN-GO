@@ -30,7 +30,7 @@ public class PaymentDetail {
     @JoinColumn(name = "payment_id")
     private CustomerPayment customerPayment;
 
-    public PaymentDetail() {}
+    //public PaymentDetail() {}
 
     public PaymentDetail(Product product, CustomerPayment customerPayment) {
         this.product = product;
