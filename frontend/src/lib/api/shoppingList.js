@@ -12,7 +12,11 @@ export const deleteItem = formData => {
   //   return client.delete('/movie/review_delete', {params: {...formData}});
 };
 
-export const updateItem = formData => {
+export const increaseItem = formData => {
+  return 1;
+  //   return client.post('/movie/review_update', formData);
+};
+export const decreaseItem = formData => {
   return 1;
   //   return client.post('/movie/review_update', formData);
 };
