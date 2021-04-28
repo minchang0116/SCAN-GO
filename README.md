@@ -22,7 +22,6 @@ C:\Users\사용자명\AppData\Local\Android\Sdk\platform-tools
 
 5. 프로젝트 실행
 ~~~
-
 cd frontend
 
 npm install -g react-native-cli
@@ -32,7 +31,6 @@ npm install
 react-native link
 
 react-native run-android
-
 ~~~
 
 
