@@ -1,13 +1,12 @@
 import {Container, Header, ScrollableTab, Tab, Tabs} from 'native-base';
 import React from 'react';
 import {ScrollView} from 'react-native';
-import EventProduct from './EventProduct';
+import EventProduct from '../productList/EventProduct';
 const ProductListTab = () => {
   return (
     <Tabs
       tabBarUnderlineStyle={{backgroundColor: 'rgb(240,41,28)'}}
       tabBarBackgroundColor="white"
-      locked={true}
       renderTabBar={() => <ScrollableTab />}>
       <Tab
         activeTabStyle={{backgroundColor: 'white'}}
