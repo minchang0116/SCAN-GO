@@ -6,6 +6,14 @@
 ⚙설치방법
 
 * frontend
+
+1.  위 링크에서 안드로이드 스튜디오 설치https://reactnative.dev/docs/environment-setup
+
+
+
+
+
+
 ~~~
 
 cd frontend
