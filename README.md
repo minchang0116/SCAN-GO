@@ -7,9 +7,8 @@
 
 * frontend
 
-1.  링크에서 안드로이드 스튜디오 설치 <
-https://reactnative.dev/docs/environment-setup
->
+1.  링크에서 안드로이드 스튜디오 설치
+> https://reactnative.dev/docs/environment-setup
 2. 제어판 > 시스템 및 보안 > 시스템 > 고급 시스템 설정 > 환경 변수 > 사용자 변수에 아래 추가
 변수 이름 : ANDROID_HOME
 변수 값 : C:\Users\사용자명\AppData\Local\Android\Sdk
