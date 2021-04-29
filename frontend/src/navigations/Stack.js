@@ -6,13 +6,25 @@ import {
   PaymentList,
   ShoppingListPage,
   ImageScanningPage,
+  LoginPage,
+  RegisterForm,
 } from '../pages';
 
 const Stack = createStackNavigator();
 
 const StackNav = () => {
   return (
-    <Stack.Navigator initialRouteName="MainPage">
+    <Stack.Navigator initialRouteName="LoginPage">
+      <Stack.Screen
+        name="LoginPage"
+        component={LoginPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="RegisterForm"
+        component={RegisterForm}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="MainPage"
         component={MainPage}
