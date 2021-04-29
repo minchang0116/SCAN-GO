@@ -7,7 +7,6 @@ import {all} from 'redux-saga/effects';
 const rootReducer = combineReducers({
   loading,
   shoppingList,
-  // shoppingListItem,
 });
 
 export default rootReducer;

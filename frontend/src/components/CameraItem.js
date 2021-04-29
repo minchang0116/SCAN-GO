@@ -1,8 +1,9 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {Card, CardItem, Body, Text} from 'native-base';
 import {Image, StyleSheet, View} from 'react-native';
 
-const CameraItem = () => {
+const CameraItem = ({lastItem}) => {
   return (
     <>
       <Card style={styles.card}>
@@ -16,8 +17,8 @@ const CameraItem = () => {
               style={styles.productImg}
             />
             <View>
-              <Text>페퍼리지팜)밀라노170g</Text>
-              <Text>6,000원</Text>
+              <Text>{lastItem.prodName}</Text>
+              <Text>{lastItem.prodPrice}원</Text>
             </View>
           </Body>
         </CardItem>

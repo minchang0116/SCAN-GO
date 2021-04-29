@@ -1,16 +1,22 @@
-import {Container} from 'native-base';
 import React from 'react';
-import {StatusBar} from 'react-native';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
-import MainPage from './src/pages/MainPage';
 import {Provider} from 'react-redux';
-import {configureStore} from '@reduxjs/toolkit';
+import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 import rootReducer from './src/modules';
 import {NavigationContainer} from '@react-navigation/native';
 import StackNav from './src/navigations/Stack';
+// import ReduxThunk from 'redux-thunk';
+import {shoppingListApi} from './src/lib/api/shoppingList';
+// import {FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER} from 'redux-persist';
 
 const store = configureStore({
   reducer: rootReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: shoppingListApi,
+      },
+      serializableCheck: false,
+    }),
 });
 
 const App = () => {
