@@ -1,5 +1,6 @@
-package com.ssg.shopping.payment.data;
+package com.ssg.shopping.payment.data.Repository;
 
+import com.ssg.shopping.payment.data.Entity.CurrentPayment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CurrentPaymentRepository extends JpaRepository<CurrentPayment, Long> {

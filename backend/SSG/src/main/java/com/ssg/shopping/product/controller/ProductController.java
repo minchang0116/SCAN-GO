@@ -1,6 +1,6 @@
 package com.ssg.shopping.product.controller;
 
-import com.ssg.shopping.payment.data.PaymentDetailResponse;
+import com.ssg.shopping.payment.data.Response.PaymentDetailResponse;
 import com.ssg.shopping.product.service.ProductService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

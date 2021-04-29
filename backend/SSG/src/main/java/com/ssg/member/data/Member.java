@@ -7,8 +7,8 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ssg.shopping.payment.data.CurrentPayment;
-import com.ssg.shopping.payment.data.CustomerPayment;
+import com.ssg.shopping.payment.data.Entity.CurrentPayment;
+import com.ssg.shopping.payment.data.Entity.CustomerPayment;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

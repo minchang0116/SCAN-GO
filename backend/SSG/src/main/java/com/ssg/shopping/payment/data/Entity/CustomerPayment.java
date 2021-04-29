@@ -1,4 +1,4 @@
-package com.ssg.shopping.payment.data;
+package com.ssg.shopping.payment.data.Entity;
 
 import java.util.ArrayList;
 import java.util.Date;

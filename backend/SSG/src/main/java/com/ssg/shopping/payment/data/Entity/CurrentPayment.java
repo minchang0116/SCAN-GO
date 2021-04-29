@@ -1,4 +1,4 @@
-package com.ssg.shopping.payment.data;
+package com.ssg.shopping.payment.data.Entity;
 
 import com.ssg.member.data.Member;
 import lombok.Getter;
