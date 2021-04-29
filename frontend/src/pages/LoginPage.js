@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import IconAntD from 'react-native-vector-icons/FontAwesome5';
+import SubHeader from '../components/common/SubHeader';
 
 const LoginPage = ({navigation}) => {
   const [autoLogin, setAutoLogin] = useState(false);
@@ -14,37 +15,44 @@ const LoginPage = ({navigation}) => {
     setAutoLogin(!autoLogin);
   };
   return (
-    <View style={styles.container}>
-      <View style={styles.inputForm}>
-        <TextInput style={styles.textInput} placeholder="아이디" />
-        <TextInput
-          style={styles.textInput}
-          secureTextEntry={true}
-          placeholder="비밀번호"
-        />
-      </View>
-      <TouchableOpacity style={styles.saveIdArea} onPress={onToggle}>
-        {autoLogin ? (
-          <IconAntD name="check-circle" size={20} color="rgb(218,41,28)" />
-        ) : (
-          <IconAntD name="check-circle" size={20} color="rgb(226,226,226)" />
-        )}
-        <Text> 아이디 저장</Text>
-      </TouchableOpacity>
-      <View style={styles.loginBtnArea}>
-        <TouchableOpacity style={styles.loginBtn}>
-          <Text style={styles.loginText}>로그인</Text>
+    <>
+      <SubHeader title={'로그인'} navigation={navigation} isIcon={false} />
+      <View style={styles.container}>
+        <View style={styles.inputForm}>
+          <TextInput style={styles.textInput} placeholder="아이디" />
+          <TextInput
+            style={styles.textInput}
+            secureTextEntry={true}
+            placeholder="비밀번호"
+          />
+        </View>
+        <TouchableOpacity style={styles.saveIdArea} onPress={onToggle}>
+          {autoLogin ? (
+            <IconAntD name="check-circle" size={20} color="rgb(218,41,28)" />
+          ) : (
+            <IconAntD name="check-circle" size={20} color="rgb(226,226,226)" />
+          )}
+          <Text> 아이디 저장</Text>
         </TouchableOpacity>
+        <View style={styles.loginBtnArea}>
+          <TouchableOpacity
+            style={styles.loginBtn}
+            onPress={() => {
+              navigation.navigate('RegisterForm');
+            }}>
+            <Text style={styles.loginText}>로그인</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          style={styles.subFuncArea}
+          onPress={() => {
+            navigation.navigate('RegisterForm');
+          }}>
+          <Text>회원가입</Text>
+        </TouchableOpacity>
+        <View style={styles.underLine} />
       </View>
-      <TouchableOpacity
-        style={styles.subFuncArea}
-        onPress={() => {
-          navigation.navigate('RegisterForm');
-        }}>
-        <Text>회원가입</Text>
-      </TouchableOpacity>
-      <View style={styles.underLine} />
-    </View>
+    </>
   );
 };
 
@@ -57,7 +65,7 @@ const styles = StyleSheet.create({
     marginRight: '5%',
   },
   inputForm: {
-    paddingTop: '60%',
+    paddingTop: '40%',
   },
   textInput: {
     borderRightWidth: 1,
