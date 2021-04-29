@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import ShoppingListFooter from '../../components/shoppingList/ShoppingListFooter';
 import ShoppingListForm from '../../components/shoppingList/ShoppingListForm';
 import {
   fetchShoppingList,
@@ -32,6 +33,7 @@ const ShoppingListContainer = () => {
         onFetchShoppingList={onFetchShoppingList}
         onDeleteShoppingListItem={onDeleteShoppingListItem}
       />
+      <ShoppingListFooter shoppingList={shoppingList.shoppingList} />
     </>
   );
 };

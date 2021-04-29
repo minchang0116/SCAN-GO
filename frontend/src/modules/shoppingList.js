@@ -21,10 +21,12 @@ export const updateShoppingListItem = createAsyncThunk(
 );
 export const deleteShoppingListItem = createAsyncThunk(
   'shoppingList/deleteShoppingListItem',
-  async ({prodId}) => {
+  async prodIdList => {
+    //prodIdList는 배열
     try {
+      console.log(prodIdList);
       await shoppingListApi.deleteItem();
-      return prodId;
+      return prodIdList;
     } catch (e) {}
   },
 );
@@ -58,13 +60,17 @@ const shoppingListSlice = createSlice({
   },
   reducers: {
     isCheckedShoppingListItem: (state, {payload}) => {
-      console.log('체크');
       state.shoppingList = state.shoppingList.map(item => {
         if (item.prodId === payload.prodId) {
           return {...item, isCheck: !item.isCheck};
         } else {
           return item;
         }
+      });
+    },
+    allCheckShoppingListItem: (state, {payload}) => {
+      state.shoppingList = state.shoppingList.map(item => {
+        return {...item, isCheck: payload};
       });
     },
   },
@@ -92,10 +98,20 @@ const shoppingListSlice = createSlice({
       });
     },
     [deleteShoppingListItem.fulfilled]: (state, {payload}) => {
-      state.filter(list => list.id !== payload);
+      state.shoppingList = state.shoppingList.filter(list => {
+        for (let i of payload) {
+          if (list.prodId === i) {
+            return false;
+          }
+        }
+        return true;
+      });
     },
   },
 });
 
-export const {isCheckedShoppingListItem} = shoppingListSlice.actions;
+export const {
+  isCheckedShoppingListItem,
+  allCheckShoppingListItem,
+} = shoppingListSlice.actions;
 export default shoppingListSlice.reducer;

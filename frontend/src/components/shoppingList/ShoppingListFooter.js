@@ -1,12 +1,21 @@
 import {Footer, Left, Right, Text} from 'native-base';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 
-const ShoppingListFooter = () => {
+const ShoppingListFooter = ({shoppingList}) => {
+  const [sumPrice, setSumPrice] = useState(0);
+  useEffect(() => {
+    let price = 0;
+    for (let item of shoppingList) {
+      price += item.prodPrice * item.qty;
+    }
+    setSumPrice(price);
+  }, [shoppingList]);
+
   return (
     <Footer style={styles.footer}>
       <Left style={styles.footerLeft}>
-        <Text>결제예정금액 : 33,000원</Text>
+        <Text>결제예정금액 : {sumPrice.toLocaleString()}원</Text>
       </Left>
       <Right>
         <TouchableOpacity style={styles.footerRight}>

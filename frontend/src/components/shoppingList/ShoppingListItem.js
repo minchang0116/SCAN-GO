@@ -46,7 +46,7 @@ const ShoppingListItem = ({
           {prodName}
         </Text>
         <Text style={styles.bodyTextPrice} numberOfLines={1}>
-          {prodPrice}
+          {Number(prodPrice).toLocaleString()}
         </Text>
       </Body>
       <Right style={styles.right}>
