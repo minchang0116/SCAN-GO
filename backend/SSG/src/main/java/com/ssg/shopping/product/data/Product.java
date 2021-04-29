@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ssg.shopping.payment.data.PaymentDetail;
+import com.ssg.shopping.payment.data.Entity.PaymentDetail;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

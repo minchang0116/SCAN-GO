@@ -2,7 +2,12 @@ package com.ssg.shopping.payment.service;
 
 import com.ssg.member.data.Member;
 import com.ssg.member.data.MemberRepository;
-import com.ssg.shopping.payment.data.*;
+import com.ssg.shopping.payment.data.Entity.CurrentPayment;
+import com.ssg.shopping.payment.data.Entity.CustomerPayment;
+import com.ssg.shopping.payment.data.Repository.CurrentPaymentRepository;
+import com.ssg.shopping.payment.data.Repository.CustomerPaymentRepository;
+import com.ssg.shopping.payment.data.Repository.PaymentDetailRepository;
+import com.ssg.shopping.payment.data.Response.CustomerPaymentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

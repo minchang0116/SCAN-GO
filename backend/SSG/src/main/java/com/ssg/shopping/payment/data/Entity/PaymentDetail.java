@@ -1,4 +1,4 @@
-package com.ssg.shopping.payment.data;
+package com.ssg.shopping.payment.data.Entity;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.ssg.shopping.payment.data.Entity.CustomerPayment;
 import com.ssg.shopping.product.data.Product;
 
 import lombok.Getter;

@@ -1,5 +1,7 @@
-package com.ssg.shopping.payment.data;
+package com.ssg.shopping.payment.data.Response;
 
+import com.ssg.shopping.payment.data.Entity.CustomerPayment;
+import com.ssg.shopping.payment.data.Entity.PaymentDetail;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

@@ -1,6 +1,6 @@
 package com.ssg.shopping.product.service;
 
-import com.ssg.shopping.payment.data.PaymentDetailResponse;
+import com.ssg.shopping.payment.data.Response.PaymentDetailResponse;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface ProductService {
