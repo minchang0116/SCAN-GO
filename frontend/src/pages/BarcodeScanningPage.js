@@ -1,24 +1,41 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, View, TouchableHighlight, StyleSheet} from 'react-native';
 import {CameraScreen} from 'react-native-camera-kit';
 import {CameraFooter} from '../components/CameraFooter';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import CameraItem from '../components/CameraItem';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  addShoppingListItemByBarcode,
+  removeLastItem,
+} from '../modules/shoppingList';
 
 const BarcodeScanningPage = ({navigation}) => {
+  const dispatch = useDispatch();
+
+  const {lastItem, loading} = useSelector(({shoppingList}) => ({
+    lastItem: shoppingList.lastItem,
+    loading: shoppingList.loading,
+  }));
+
   const [qrvalue, setQrvalue] = useState('');
 
-  const onBarcodeScan = qrValue => {
-    setQrvalue(qrValue);
-    removeQrValue();
-  };
-
-  const removeQrValue = () => {
+  useEffect(() => {
+    if (!qrvalue) {
+      return;
+    }
+    console.log('실행');
+    const formData = {
+      memberId: 1,
+      prodCode: qrvalue,
+    };
+    dispatch(addShoppingListItemByBarcode({formData}));
     setTimeout(() => {
+      dispatch(removeLastItem());
       setQrvalue('');
     }, 5000);
-  };
+  }, [qrvalue]);
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -36,12 +53,13 @@ const BarcodeScanningPage = ({navigation}) => {
             laserColor={'transparent'}
             frameColor={'red'}
             colorForScannerFrame={'white'}
-            onReadCode={event =>
-              onBarcodeScan(event.nativeEvent.codeStringValue)
-            }
+            onReadCode={async event => {
+              await setQrvalue('8992741941303');
+              // await setQrvalue(event.nativeEvent.codeStringValue);
+            }}
           />
         </View>
-        {qrvalue ? <CameraItem /> : <></>}
+        {lastItem ? <CameraItem lastItem={lastItem} /> : <></>}
         <CameraFooter />
       </View>
     </SafeAreaView>

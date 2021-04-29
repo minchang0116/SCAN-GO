@@ -51,7 +51,7 @@ const MainFooter = ({navigation}) => {
         <TouchableOpacity
           style={styles.tochablePosition}
           onPress={() => {
-            navigation.navigate('PaymentList');
+            navigation.navigate('ImageScanningPage');
           }}>
           <IconFntAwesome
             name="user-circle"
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 150/2,
-    zIndex: 10 ,
+    borderRadius: 150 / 2,
+    zIndex: 10,
   },
 });

@@ -30,7 +30,18 @@ export const deleteShoppingListItem = createAsyncThunk(
     } catch (e) {}
   },
 );
+export const addShoppingListItemByBarcode = createAsyncThunk(
+  'shoppingList/addShoppingListItemByBarcode',
+  async formData => {
+    try {
+      const response = await shoppingListApi.addItemByBarcode(formData);
 
+      return response;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+);
 const shoppingListSlice = createSlice({
   name: 'shoppingList',
   initialState: {
@@ -57,6 +68,7 @@ const shoppingListSlice = createSlice({
         qty: 2,
       },
     ],
+    lastItem: null,
   },
   reducers: {
     isCheckedShoppingListItem: (state, {payload}) => {
@@ -68,10 +80,9 @@ const shoppingListSlice = createSlice({
         }
       });
     },
-    allCheckShoppingListItem: (state, {payload}) => {
-      state.shoppingList = state.shoppingList.map(item => {
-        return {...item, isCheck: payload};
-      });
+    removeLastItem: state => {
+      console.log('removeLastItem!!!!!!!!!!');
+      state.lastItem = null;
     },
   },
   extraReducers: {
@@ -79,7 +90,6 @@ const shoppingListSlice = createSlice({
       state.loading = true;
     },
     [fetchShoppingList.fulfilled]: (state, {payload}) => {
-      console.log('??');
       state.shoppingList = payload;
       state.loading = false;
       state.hasErrors = false;
@@ -107,11 +117,24 @@ const shoppingListSlice = createSlice({
         return true;
       });
     },
+    [addShoppingListItemByBarcode.pending]: state => {
+      state.loading = true;
+    },
+    [addShoppingListItemByBarcode.fulfilled]: (state, {payload}) => {
+      state.lastItem = payload.data;
+      state.loading = false;
+      state.hasErrors = false;
+    },
+    [addShoppingListItemByBarcode.rejected]: state => {
+      state.loading = false;
+      state.hasErrors = true;
+    },
   },
 });
 
 export const {
   isCheckedShoppingListItem,
   allCheckShoppingListItem,
+  removeLastItem,
 } = shoppingListSlice.actions;
 export default shoppingListSlice.reducer;

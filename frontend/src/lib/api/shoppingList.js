@@ -1,21 +1,22 @@
 import client from './client';
 
-// export const readComment = (formData) => {
-//   return client.get('/movie/review_detail', { params: { ...formData } });
-// };
+export const addItemByBarcode = ({formData}) => {
+  // return item;
+  // ?memberId=1&prodCode=90153433
+  // console.log(formData);
+  // console.log(
+  //   `/product/product_insert?memberId=${formData.memberId}&prodCode=${formData.prodCode}`,
+  //   );
+  // return client.get(
+  //   `/product/product_insert?memberId=${formData.memberId}&prodCode=${formData.prodCode}`,
+  // );
+  return client.get('/product/product_insert', {params: {...formData}});
+};
+export const addItemByProductName = formData => {
+  return item;
+  //   return client.get('/movie/review_list', {params: {...formData}});
+};
 
-export const insertItem = formData => {
-  return 1;
-  //   return client.post('/movie/review_insert', formData);
-};
-export const deleteItem = formData => {
-  //   return client.delete('/movie/review_delete', {params: {...formData}});
-};
-
-export const updateItem = formData => {
-  return 1;
-  //   return client.post('/movie/review_update', formData);
-};
 export const decreaseItem = formData => {
   return 1;
   //   return client.post('/movie/review_update', formData);
@@ -27,6 +28,10 @@ export const readItems = formData => {
   //   return client.get('/movie/review_list', {params: {...formData}});
 };
 
+const item = {
+  name: '페퍼리지팜)더블초코밀라노213g',
+  price: '200000',
+};
 const items = [
   {
     prodId: 1,
@@ -48,13 +53,3 @@ const items = [
     qty: 2,
   },
 ];
-
-// export const insertCommentLike = (formData) => {
-//   return client.post('/movie/review_like_insert', formData);
-// };
-
-// export const deleteCommentLike = (formData) => {
-//   return client.delete('/movie/review_like_delete', {
-//     params: { ...formData },
-//   });
-// };
