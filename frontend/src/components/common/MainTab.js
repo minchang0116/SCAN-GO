@@ -3,11 +3,15 @@ import React from 'react';
 import {ScrollView} from 'react-native';
 import EventProduct from '../productList/EventProduct';
 const ProductListTab = () => {
+  const renderTabBar = props => {
+    props.tabStyle = Object.create(props.tabStyle);
+    return <ScrollableTab {...props} />;
+  };
   return (
     <Tabs
       tabBarUnderlineStyle={{backgroundColor: 'rgb(240,41,28)'}}
       tabBarBackgroundColor="white"
-      renderTabBar={() => <ScrollableTab />}>
+      renderTabBar={renderTabBar}>
       <Tab
         activeTabStyle={{backgroundColor: 'white'}}
         activeTextStyle={{color: 'black', fontWeight: 'bold'}}

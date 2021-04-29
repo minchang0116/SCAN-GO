@@ -6,10 +6,10 @@ import {Container, Content} from 'native-base';
 import Footer from '../components/common/YjFooter';
 import PaymentItem from '../components/payment/PaymentItem';
 
-const PaymentList = () => {
+const PaymentList = ({navigation}) => {
   return (
     <>
-      <SubHeader title={'나의 결제내역'} />
+      <SubHeader title={'나의 결제내역'} navigation={navigation} />
       <Container>
         <Content>
           {paymentList.map((item, index) => {
