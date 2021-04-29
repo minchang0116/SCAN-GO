@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 
-const RegisterForm = () => {
+const RegisterForm = ({navigation}) => {
   // 유저 정보
   // 아이디
   const [idCheck, setIdCheck] = useState(false);
@@ -61,15 +61,36 @@ const RegisterForm = () => {
   // 생일 입력 체크
   const onBirthCheckHandler = text => {
     let birth = text;
+
     if (birth === '') {
       setBirthBlank(true);
       return;
     }
     setBirthBlank(false);
-    if (birth.length != 8) {
+    if (birth.length != 4) {
       setbirthCheck(false);
       return;
     }
+
+    let month = Number(birth.substr(0, 2));
+    let day = Number(birth.substr(2, 4));
+
+    if (month < 1 || month > 12) {
+      alert('달은 1월부터 12월까지 입력 가능합니다.');
+      setbirthCheck(false);
+      return;
+    }
+    if (day < 1 || day > 31) {
+      alert('일은 1일부터 31일까지 입력가능합니다.');
+      setbirthCheck(false);
+      return;
+    }
+    if ((month == 4 || month == 6 || month == 9 || month == 11) && day == 31) {
+      alert(month + '월은 31일이 존재하지 않습니다.');
+      setbirthCheck(false);
+      return;
+    }
+
     setbirthCheck(true);
   };
 
@@ -162,6 +183,9 @@ const RegisterForm = () => {
 
   // 모든 정보가 제대로 입력되었는지 확인
   const checkAllRegisterInfoHandler = () => {
+    navigation.navigate('MainPage')
+    return;
+
     if (!idCheck) {
       alert('ID 중복체크를 해주세요!');
       return;
@@ -211,17 +235,19 @@ const RegisterForm = () => {
               ) : (
                 <Text style={styles.afterCheck}>사용가능한 ID 입니다!</Text>
               )
-            ) : ( // 중복체크
+            ) : (
+              // 중복체크
               <Text style={styles.preCheck}>ID 중복체크를 해주세요.</Text>
             )}
           </View>
         </View>
         <View>
-          <Text style={styles.titleText}>생년월일</Text>
+          <Text style={styles.titleText}>생일</Text>
           <TextInput
             style={[styles.textInput, {marginBottom: 6}]}
-            placeholder="생년월일(20210427)"
+            placeholder="0429"
             onChangeText={onBirthCheckHandler}
+            number
           />
           {birthBlank ? null : birthCheck ? null : (
             <Text style={styles.afterCheck}>생일을 확인해주세요</Text>
@@ -283,11 +309,11 @@ const RegisterForm = () => {
           )}
         </View>
       </View>
-      <View style={styles.loginBtnArea}>
+      <View style={styles.registerBtnArea}>
         <TouchableOpacity
-          style={styles.loginBtn}
+          style={styles.registerBtn}
           onPress={checkAllRegisterInfoHandler}>
-          <Text style={styles.loginText}>회원가입</Text>
+          <Text style={styles.registerText}>회원가입</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -361,15 +387,15 @@ const styles = StyleSheet.create({
     color: 'rgb(218, 41, 28)',
     paddingBottom: 14,
   },
-  loginBtnArea: {
+  registerBtnArea: {
     marginTop: 80,
     marginBottom: 10,
   },
-  loginBtn: {
+  registerBtn: {
     alignItems: 'center',
     backgroundColor: 'rgb(218, 41, 28)',
   },
-  loginText: {
+  registerText: {
     fontSize: 26,
     color: 'white',
     margin: 6,
