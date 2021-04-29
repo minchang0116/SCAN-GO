@@ -79,6 +79,10 @@ const shoppingListSlice = createSlice({
         }
       });
     },
+    removeLastItem: state => {
+      console.log('removeLastItem!!!!!!!!!!');
+      state.lastItem = null;
+    },
   },
   extraReducers: {
     [fetchShoppingList.pending]: state => {
@@ -120,5 +124,8 @@ const shoppingListSlice = createSlice({
   },
 });
 
-export const {isCheckedShoppingListItem} = shoppingListSlice.actions;
+export const {
+  isCheckedShoppingListItem,
+  removeLastItem,
+} = shoppingListSlice.actions;
 export default shoppingListSlice.reducer;
