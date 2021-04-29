@@ -3,8 +3,8 @@ import React from 'react';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import SubHeader from '../components/common/SubHeader';
 import {Container, Content} from 'native-base';
-import Footer from '../components/common/YjFooter';
 import PaymentItem from '../components/payment/PaymentItem';
+import MainFooter from '../components/common/MainFooter';
 
 const PaymentList = ({navigation}) => {
   return (
@@ -17,7 +17,7 @@ const PaymentList = ({navigation}) => {
           })}
         </Content>
       </Container>
-      <Footer />
+      <MainFooter navigation={navigation} />
     </>
   );
 };

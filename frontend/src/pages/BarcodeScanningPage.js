@@ -10,6 +10,7 @@ import {
   addShoppingListItemByBarcode,
   removeLastItem,
 } from '../modules/shoppingList';
+import MainFooter from '../components/common/MainFooter';
 
 const BarcodeScanningPage = ({navigation}) => {
   const dispatch = useDispatch();
@@ -62,6 +63,7 @@ const BarcodeScanningPage = ({navigation}) => {
         {lastItem ? <CameraItem lastItem={lastItem} /> : <></>}
         <CameraFooter />
       </View>
+      <MainFooter navigation={navigation} />
     </SafeAreaView>
   );
 };
