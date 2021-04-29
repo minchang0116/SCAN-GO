@@ -1,8 +1,16 @@
 import client from './client';
 
-export const addItemByBarcode = barcodeValue => {
-  return item;
-  //   return client.get('/movie/review_list', {params: {...formData}});
+export const addItemByBarcode = ({formData}) => {
+  // return item;
+  // ?memberId=1&prodCode=90153433
+  // console.log(formData);
+  // console.log(
+  //   `/product/product_insert?memberId=${formData.memberId}&prodCode=${formData.prodCode}`,
+  //   );
+  // return client.get(
+  //   `/product/product_insert?memberId=${formData.memberId}&prodCode=${formData.prodCode}`,
+  // );
+  return client.get('/product/product_insert', {params: {...formData}});
 };
 export const addItemByProductName = formData => {
   return item;
