@@ -1,16 +1,14 @@
 import React, {useState} from 'react';
 import {
-  TouchableHighlight,
   TextInput,
   StyleSheet,
   View,
   Text,
-  Button,
   TouchableOpacity,
 } from 'react-native';
 import IconAntD from 'react-native-vector-icons/FontAwesome5';
 
-const LoginPage = ({}) => {
+const LoginPage = ({navigation}) => {
   const [autoLogin, setAutoLogin] = useState(false);
   const onToggle = () => {
     setAutoLogin(!autoLogin);
@@ -19,7 +17,11 @@ const LoginPage = ({}) => {
     <View style={styles.container}>
       <View style={styles.inputForm}>
         <TextInput style={styles.textInput} placeholder="아이디" />
-        <TextInput style={styles.textInput} secureTextEntry={true} placeholder="비밀번호" />
+        <TextInput
+          style={styles.textInput}
+          secureTextEntry={true}
+          placeholder="비밀번호"
+        />
       </View>
       <TouchableOpacity style={styles.saveIdArea} onPress={onToggle}>
         {autoLogin ? (
@@ -34,9 +36,13 @@ const LoginPage = ({}) => {
           <Text style={styles.loginText}>로그인</Text>
         </TouchableOpacity>
       </View>
-      <TouchableHighlight style={styles.subFuncArea}>
+      <TouchableOpacity
+        style={styles.subFuncArea}
+        onPress={() => {
+          navigation.navigate('RegisterForm');
+        }}>
         <Text>회원가입</Text>
-      </TouchableHighlight>
+      </TouchableOpacity>
       <View style={styles.underLine} />
     </View>
   );
