@@ -1,13 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, View, TouchableHighlight, StyleSheet} from 'react-native';
 import {CameraScreen} from 'react-native-camera-kit';
 import {CameraFooter} from '../components/CameraFooter';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import CameraItem from '../components/CameraItem';
 import {useDispatch, useSelector} from 'react-redux';
-import shoppingList, {
+import {
   addShoppingListItemByBarcode,
+  removeLastItem,
 } from '../modules/shoppingList';
 
 const BarcodeScanningPage = ({navigation}) => {
@@ -17,25 +18,24 @@ const BarcodeScanningPage = ({navigation}) => {
     lastItem: shoppingList.lastItem,
     loading: shoppingList.loading,
   }));
+
   const [qrvalue, setQrvalue] = useState('');
 
-  const onBarcodeScan = qrValue => {
-    qrValue = '9556001198839';
+  useEffect(() => {
+    if (!qrvalue) {
+      return;
+    }
+    console.log('실행');
     const formData = {
       memberId: 1,
-      prodCode: qrValue,
+      prodCode: qrvalue,
     };
     dispatch(addShoppingListItemByBarcode({formData}));
-    lastItem ? (lastItem.prodCode === qrValue ? setQrvalue(lastItem) : '') : '';
-    removeQrValue();
-  };
-
-  const removeQrValue = () => {
     setTimeout(() => {
+      dispatch(removeLastItem());
       setQrvalue('');
     }, 5000);
-    // lastItem 지우는 dispatch 호출
-  };
+  }, [qrvalue]);
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -53,12 +53,13 @@ const BarcodeScanningPage = ({navigation}) => {
             laserColor={'transparent'}
             frameColor={'red'}
             colorForScannerFrame={'white'}
-            onReadCode={event =>
-              onBarcodeScan(event.nativeEvent.codeStringValue)
-            }
+            onReadCode={async event => {
+              await setQrvalue('8992741941303');
+              // await setQrvalue(event.nativeEvent.codeStringValue);
+            }}
           />
         </View>
-        {qrvalue ? <CameraItem lastItem={lastItem} /> : <></>}
+        {lastItem ? <CameraItem lastItem={lastItem} /> : <></>}
         <CameraFooter />
       </View>
     </SafeAreaView>
