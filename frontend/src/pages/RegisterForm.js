@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import SubHeader from '../components/common/SubHeader';
 
 const RegisterForm = ({navigation}) => {
   // 유저 정보
@@ -183,7 +184,7 @@ const RegisterForm = ({navigation}) => {
 
   // 모든 정보가 제대로 입력되었는지 확인
   const checkAllRegisterInfoHandler = () => {
-    navigation.navigate('MainPage')
+    navigation.navigate('MainPage');
     return;
 
     if (!idCheck) {
@@ -211,112 +212,117 @@ const RegisterForm = ({navigation}) => {
   };
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      <View style={styles.inputForm}>
-        <View>
-          <Text style={styles.titleText}>ID(Email)</Text>
+    <>
+      <SubHeader title={'회원가입'} navigation={navigation} isIcon={false} />
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+        <View style={styles.inputForm}>
+          <View>
+            <Text style={styles.titleText}>ID(Email)</Text>
+            <View style={styles.inputWithBtnArea}>
+              <TextInput
+                autoCompleteType={'email'}
+                style={styles.inputWithBtn}
+                placeholder="example@gmail.com"
+                onChangeText={text => onIdInputHandler(text)}
+              />
+              <TouchableOpacity
+                style={styles.CheckBtn}
+                onPress={onIdCheckHandler}>
+                <Text style={styles.btnText}>중복체크</Text>
+              </TouchableOpacity>
+            </View>
+            <View>
+              {idBlank ? null : idCheck ? (
+                isduplicated_id ? ( // 중복 여부
+                  <Text style={styles.afterCheck}>ID가 중복되었습니다!</Text>
+                ) : (
+                  <Text style={styles.afterCheck}>사용가능한 ID 입니다!</Text>
+                )
+              ) : (
+                // 중복체크
+                <Text style={styles.preCheck}>ID 중복체크를 해주세요.</Text>
+              )}
+            </View>
+          </View>
+          <View>
+            <Text style={styles.titleText}>생일</Text>
+            <TextInput
+              style={[styles.textInput, {marginBottom: 6}]}
+              placeholder="0429"
+              onChangeText={onBirthCheckHandler}
+              number
+            />
+            {birthBlank ? null : birthCheck ? null : (
+              <Text style={styles.afterCheck}>생일을 확인해주세요</Text>
+            )}
+          </View>
+          <View>
+            <Text style={styles.titleText}>비밀 번호</Text>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={text => onPasswordHandler(text)}
+              placeholder="영문,숫자,특수문자를 포함한 8자리 초과 20자리 미만"
+              secureTextEntry={true}
+            />
+            <View>
+              {pwFormBlank ? null : pwFormCheck ? null : (
+                <Text style={styles.afterCheck}>
+                  비밀번호 양식을 확인해주세요
+                </Text>
+              )}
+            </View>
+            <Text style={styles.titleText}>비밀 번호 확인</Text>
+            <TextInput
+              style={[styles.textInput, {marginBottom: 10}]}
+              placeholder="다시 한번 입력해주세요"
+              secureTextEntry={true}
+              onChangeText={text => {
+                onPasswordConfirmHandler(text);
+              }}
+            />
+            <View>
+              {pwBlank ? null : pwCheck ? null : (
+                <Text style={styles.preCheck}>
+                  비밀번호가 일치하지 않습니다!
+                </Text>
+              )}
+            </View>
+          </View>
+          <Text style={styles.titleText}>휴대 전화</Text>
           <View style={styles.inputWithBtnArea}>
             <TextInput
-              autoCompleteType={'email'}
               style={styles.inputWithBtn}
-              placeholder="example@gmail.com"
-              onChangeText={text => onIdInputHandler(text)}
+              autoCompleteType={'tel'}
+              placeholder="010-0000-0000"
+              onChangeText={text => {
+                onCellInputHandler(text);
+              }}
             />
             <TouchableOpacity
               style={styles.CheckBtn}
-              onPress={onIdCheckHandler}>
+              onPress={onCellCheckHandler}>
               <Text style={styles.btnText}>중복체크</Text>
             </TouchableOpacity>
           </View>
           <View>
-            {idBlank ? null : idCheck ? (
-              isduplicated_id ? ( // 중복 여부
-                <Text style={styles.afterCheck}>ID가 중복되었습니다!</Text>
-              ) : (
-                <Text style={styles.afterCheck}>사용가능한 ID 입니다!</Text>
-              )
+            {cellBlank ? null : cellCheck ? (
+              isduplicated_cell ? (
+                <Text style={styles.preCheck}>휴대전화가 중복되었습니다.</Text>
+              ) : null
             ) : (
-              // 중복체크
-              <Text style={styles.preCheck}>ID 중복체크를 해주세요.</Text>
+              <Text style={styles.preCheck}>휴대전화 중복체크를 해주세요.</Text>
             )}
           </View>
         </View>
-        <View>
-          <Text style={styles.titleText}>생일</Text>
-          <TextInput
-            style={[styles.textInput, {marginBottom: 6}]}
-            placeholder="0429"
-            onChangeText={onBirthCheckHandler}
-            number
-          />
-          {birthBlank ? null : birthCheck ? null : (
-            <Text style={styles.afterCheck}>생일을 확인해주세요</Text>
-          )}
-        </View>
-        <View>
-          <Text style={styles.titleText}>비밀 번호</Text>
-          <TextInput
-            style={styles.textInput}
-            onChangeText={text => onPasswordHandler(text)}
-            placeholder="영문,숫자,특수문자를 포함한 8자리 초과 20자리 미만"
-            secureTextEntry={true}
-          />
-          <View>
-            {pwFormBlank ? null : pwFormCheck ? null : (
-              <Text style={styles.afterCheck}>
-                비밀번호 양식을 확인해주세요
-              </Text>
-            )}
-          </View>
-          <Text style={styles.titleText}>비밀 번호 확인</Text>
-          <TextInput
-            style={[styles.textInput, {marginBottom: 10}]}
-            placeholder="다시 한번 입력해주세요"
-            secureTextEntry={true}
-            onChangeText={text => {
-              onPasswordConfirmHandler(text);
-            }}
-          />
-          <View>
-            {pwBlank ? null : pwCheck ? null : (
-              <Text style={styles.preCheck}>비밀번호가 일치하지 않습니다!</Text>
-            )}
-          </View>
-        </View>
-        <Text style={styles.titleText}>휴대 전화</Text>
-        <View style={styles.inputWithBtnArea}>
-          <TextInput
-            style={styles.inputWithBtn}
-            autoCompleteType={'tel'}
-            placeholder="010-0000-0000"
-            onChangeText={text => {
-              onCellInputHandler(text);
-            }}
-          />
+        <View style={styles.registerBtnArea}>
           <TouchableOpacity
-            style={styles.CheckBtn}
-            onPress={onCellCheckHandler}>
-            <Text style={styles.btnText}>중복체크</Text>
+            style={styles.registerBtn}
+            onPress={checkAllRegisterInfoHandler}>
+            <Text style={styles.registerText}>회원가입</Text>
           </TouchableOpacity>
         </View>
-        <View>
-          {cellBlank ? null : cellCheck ? (
-            isduplicated_cell ? (
-              <Text style={styles.preCheck}>휴대전화가 중복되었습니다.</Text>
-            ) : null
-          ) : (
-            <Text style={styles.preCheck}>휴대전화 중복체크를 해주세요.</Text>
-          )}
-        </View>
-      </View>
-      <View style={styles.registerBtnArea}>
-        <TouchableOpacity
-          style={styles.registerBtn}
-          onPress={checkAllRegisterInfoHandler}>
-          <Text style={styles.registerText}>회원가입</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 };
 
