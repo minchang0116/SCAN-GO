@@ -1,29 +1,41 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import ShoppingListFooter from '../../components/shoppingList/ShoppingListFooter';
 import ShoppingListForm from '../../components/shoppingList/ShoppingListForm';
+import {
+  fetchShoppingList,
+  updateShoppingListItem,
+  deleteShoppingListItem,
+} from '../../modules/shoppingList';
 
 const ShoppingListContainer = () => {
+  const {shoppingList} = useSelector(({shoppingList}) => ({
+    shoppingList: shoppingList,
+  }));
+
+  const dispatch = useDispatch();
+  const onFetchShoppingList = () => {
+    dispatch(fetchShoppingList());
+  };
+
+  const onDeleteShoppingListItem = () => {
+    dispatch(deleteShoppingListItem());
+  };
+
+  useEffect(() => {
+    onFetchShoppingList();
+  }, [dispatch]);
+  console.log('쇼핑리스트 컨테이너 렌더링');
   return (
     <>
-      <ShoppingListForm shoppingList={shoppingList} />
+      <ShoppingListForm
+        shoppingList={shoppingList.shoppingList}
+        onFetchShoppingList={onFetchShoppingList}
+        onDeleteShoppingListItem={onDeleteShoppingListItem}
+      />
+      <ShoppingListFooter shoppingList={shoppingList.shoppingList} />
     </>
   );
 };
-
-const shoppingList = [
-  {
-    no: 1,
-    productName: '랭거스)크랜베리페트449ml',
-    imgUrl: require('../../../imgs/랭거스)크랜베리페트449ml.jpg'),
-    productPrice: '2800',
-    count: 1,
-  },
-  {
-    no: 2,
-    productName: '롯데)오늘의차황금보리500ml',
-    imgUrl: require('../../../imgs/롯데)오늘의차황금보리500ml.jpg'),
-    productPrice: '1500',
-    count: 2,
-  },
-];
 
 export default ShoppingListContainer;

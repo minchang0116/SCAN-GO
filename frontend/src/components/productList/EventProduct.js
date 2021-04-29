@@ -15,9 +15,6 @@ const EventProduct = () => {
       <View>
         <Text onPress={onIncrease}>{counter}</Text>
       </View>
-      <View>
-        <Text onPress={onIncrease}>{counter}</Text>
-      </View>
     </View>
   );
 };
