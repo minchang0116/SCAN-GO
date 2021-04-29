@@ -2,11 +2,13 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {Body, Header, Left, Right, Title} from 'native-base';
 import Icon from 'react-native-vector-icons/Ionicons';
-const SubHeader = ({title}) => {
+const SubHeader = ({title, navigation, isIcon = true}) => {
   return (
     <Header style={styles.header}>
       <Left>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.goBack()}>
           <Icon style={styles.fontColor1} name="arrow-back" />
         </TouchableOpacity>
       </Left>
@@ -14,12 +16,20 @@ const SubHeader = ({title}) => {
         <Title style={styles.fontColor2}>{title}</Title>
       </Body>
       <Right>
-        <TouchableOpacity style={styles.button}>
-          <Icon style={styles.icon} name="home-outline" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Icon style={styles.icon} name="camera-outline" />
-        </TouchableOpacity>
+        {isIcon && (
+          <>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate('MainPage')}>
+              <Icon style={styles.icon} name="home-outline" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate('BarcodeScanningPage')}>
+              <Icon style={styles.icon} name="camera-outline" />
+            </TouchableOpacity>
+          </>
+        )}
       </Right>
     </Header>
   );
