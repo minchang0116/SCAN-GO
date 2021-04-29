@@ -3,33 +3,51 @@ import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
 import ShoppingListItem from './ShoppingListItem';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-const ShoppingListForm = ({
-  shoppingList,
-  onFetchShoppingList,
-  onUpdateShoppingListItem,
-  onDeleteShoppingListItem,
-}) => {
+import {
+  deleteShoppingListItem,
+  allCheckShoppingListItem,
+} from '../../modules/shoppingList';
+import {useDispatch} from 'react-redux';
+const ShoppingListForm = ({shoppingList, onFetchShoppingList}) => {
   const [checkCnt, setCheckCnt] = useState(0);
+  const [prodIdList, setProdIdList] = useState([]);
+  const [allChecked, setAllchecked] = useState(false);
+
   useEffect(() => {
+    let list = [];
     let cnt = 0;
     for (let item of shoppingList) {
       if (item.isCheck === true) {
         cnt = cnt + 1;
+        list.push(item.prodId);
       }
     }
+    setProdIdList(list);
     setCheckCnt(cnt);
   }, [shoppingList]);
 
+  const dispatch = useDispatch();
+  const onDelete = () => {
+    dispatch(deleteShoppingListItem(prodIdList));
+    setAllchecked(false);
+  };
+  const onAllChecked = () => {
+    dispatch(allCheckShoppingListItem(!allChecked));
+    setAllchecked(!allChecked);
+  };
   return (
     <>
       <Header style={styles.header}>
-        <TouchableOpacity style={styles.headerLeft}>
-          <Icon name={'checkbox-blank-outline'} style={styles.checkbox} />
+        <TouchableOpacity style={styles.headerLeft} onPress={onAllChecked}>
+          {allChecked ? (
+            <Icon name={'check-box-outline'} style={styles.checkbox} />
+          ) : (
+            <Icon name={'checkbox-blank-outline'} style={styles.checkbox} />
+          )}
           <Text style={styles.headerLeftText}>{checkCnt}개 선택</Text>
         </TouchableOpacity>
         <Right>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={onDelete}>
             <Text style={styles.headerRightText}>상품 삭제</Text>
           </TouchableOpacity>
         </Right>
@@ -38,11 +56,7 @@ const ShoppingListForm = ({
         <List>
           {shoppingList &&
             shoppingList.map(item => (
-              <ShoppingListItem
-                key={item.prodId}
-                {...item}
-                onUpdateShoppingListItem={onUpdateShoppingListItem}
-              />
+              <ShoppingListItem key={item.prodId} {...item} />
             ))}
         </List>
       </ScrollView>
