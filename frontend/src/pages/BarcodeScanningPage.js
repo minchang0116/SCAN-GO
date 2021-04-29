@@ -6,17 +6,27 @@ import {CameraFooter} from '../components/CameraFooter';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import CameraItem from '../components/CameraItem';
 import {useDispatch, useSelector} from 'react-redux';
-import {addShoppingListItemByBarcode} from '../modules/shoppingList';
+import shoppingList, {
+  addShoppingListItemByBarcode,
+} from '../modules/shoppingList';
 
 const BarcodeScanningPage = ({navigation}) => {
-  const lastItem = useSelector(state => state.shoppingList.lastItem);
   const dispatch = useDispatch();
 
+  const {lastItem, loading} = useSelector(({shoppingList}) => ({
+    lastItem: shoppingList.lastItem,
+    loading: shoppingList.loading,
+  }));
   const [qrvalue, setQrvalue] = useState('');
 
   const onBarcodeScan = qrValue => {
-    dispatch(addShoppingListItemByBarcode(qrValue));
-    lastItem ? setQrvalue(lastItem) : '';
+    qrValue = '9556001198839';
+    const formData = {
+      memberId: 1,
+      prodCode: qrValue,
+    };
+    dispatch(addShoppingListItemByBarcode({formData}));
+    lastItem ? (lastItem.prodCode === qrValue ? setQrvalue(lastItem) : '') : '';
     removeQrValue();
   };
 
@@ -48,7 +58,7 @@ const BarcodeScanningPage = ({navigation}) => {
             }
           />
         </View>
-        {qrvalue ? <CameraItem /> : <></>}
+        {qrvalue ? <CameraItem lastItem={lastItem} /> : <></>}
         <CameraFooter />
       </View>
     </SafeAreaView>

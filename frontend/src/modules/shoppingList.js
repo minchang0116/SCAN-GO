@@ -28,7 +28,18 @@ export const deleteShoppingListItem = createAsyncThunk(
     } catch (e) {}
   },
 );
+export const addShoppingListItemByBarcode = createAsyncThunk(
+  'shoppingList/addShoppingListItemByBarcode',
+  async formData => {
+    try {
+      const response = await shoppingListApi.addItemByBarcode(formData);
 
+      return response;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+);
 const shoppingListSlice = createSlice({
   name: 'shoppingList',
   initialState: {
@@ -55,6 +66,7 @@ const shoppingListSlice = createSlice({
         qty: 2,
       },
     ],
+    lastItem: null,
   },
   reducers: {
     isCheckedShoppingListItem: (state, {payload}) => {
@@ -73,7 +85,6 @@ const shoppingListSlice = createSlice({
       state.loading = true;
     },
     [fetchShoppingList.fulfilled]: (state, {payload}) => {
-      console.log('??');
       state.shoppingList = payload;
       state.loading = false;
       state.hasErrors = false;
@@ -93,6 +104,18 @@ const shoppingListSlice = createSlice({
     },
     [deleteShoppingListItem.fulfilled]: (state, {payload}) => {
       state.filter(list => list.id !== payload);
+    },
+    [addShoppingListItemByBarcode.pending]: state => {
+      state.loading = true;
+    },
+    [addShoppingListItemByBarcode.fulfilled]: (state, {payload}) => {
+      state.lastItem = payload.data;
+      state.loading = false;
+      state.hasErrors = false;
+    },
+    [addShoppingListItemByBarcode.rejected]: state => {
+      state.loading = false;
+      state.hasErrors = true;
     },
   },
 });

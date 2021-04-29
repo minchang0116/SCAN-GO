@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-const host = 'https://j4d105.p.ssafy.io/netcha';
-// const host = 'http://localhost:9000/netcha';
+const host = 'http://k4d101.p.ssafy.io:9000/ssg';
 
 const client = axios.create({
   baseURL: host,
