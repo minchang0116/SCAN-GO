@@ -6,8 +6,25 @@ export const fetchShoppingList = createAsyncThunk(
   async () => {
     try {
       const response = await shoppingListApi.readItems();
-      console.log('response: ', response);
       return response;
+    } catch (e) {}
+  },
+);
+export const updateShoppingListItem = createAsyncThunk(
+  'shoppingList/updateShoppingListItem',
+  async ({prodId, memberId, qty}) => {
+    try {
+      await shoppingListApi.updateItem(prodId, memberId, qty);
+      return {prodId, qty};
+    } catch (e) {}
+  },
+);
+export const deleteShoppingListItem = createAsyncThunk(
+  'shoppingList/deleteShoppingListItem',
+  async ({prodId}) => {
+    try {
+      await shoppingListApi.deleteItem();
+      return prodId;
     } catch (e) {}
   },
 );
@@ -15,23 +32,48 @@ export const fetchShoppingList = createAsyncThunk(
 const shoppingListSlice = createSlice({
   name: 'shoppingList',
   initialState: {
-    shoppingListState: {
-      loading: false,
-      hasErrors: false,
-      shoppingList: [],
-    },
+    loading: false,
+    hasErrors: false,
+    shoppingList: [
+      {
+        prodId: 1,
+        memberId: 'sdfsdf',
+        isCheck: false,
+        prodName: '랭거스)크랜베리페트449ml',
+        prodPrice: '2800',
+        imgUrl: require('../../imgs/랭거스)크랜베리페트449ml.jpg'),
+        qty: 1,
+      },
+      {
+        prodId: 2,
+        memberId: 'sdfsdf',
+        isCheck: false,
+        prodCode: '',
+        prodName: '롯데)오늘의차황금보리500ml',
+        prodPrice: '1500',
+        imgUrl: require('../../imgs/롯데)오늘의차황금보리500ml.jpg'),
+        qty: 2,
+      },
+    ],
   },
   reducers: {
-    // getShoppingList: (state, action) => {
-    //   console.log('d', action);
-    //   state.shoppingList = action.payload;
-    // },
+    isCheckedShoppingListItem: (state, {payload}) => {
+      console.log('체크');
+      state.shoppingList = state.shoppingList.map(item => {
+        if (item.prodId === payload.prodId) {
+          return {...item, isCheck: !item.isCheck};
+        } else {
+          return item;
+        }
+      });
+    },
   },
   extraReducers: {
     [fetchShoppingList.pending]: state => {
       state.loading = true;
     },
     [fetchShoppingList.fulfilled]: (state, {payload}) => {
+      console.log('??');
       state.shoppingList = payload;
       state.loading = false;
       state.hasErrors = false;
@@ -40,8 +82,20 @@ const shoppingListSlice = createSlice({
       state.loading = false;
       state.hasErrors = true;
     },
+    [updateShoppingListItem.fulfilled]: (state, {payload}) => {
+      state.shoppingList = state.shoppingList.map(item => {
+        if (item.prodId === payload.prodId) {
+          return {...item, qty: payload.qty};
+        } else {
+          return item;
+        }
+      });
+    },
+    [deleteShoppingListItem.fulfilled]: (state, {payload}) => {
+      state.filter(list => list.id !== payload);
+    },
   },
 });
 
-export const {} = shoppingListSlice.actions;
+export const {isCheckedShoppingListItem} = shoppingListSlice.actions;
 export default shoppingListSlice.reducer;
