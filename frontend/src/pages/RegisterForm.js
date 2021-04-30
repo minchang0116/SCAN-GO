@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from 'react-native';
 import SubHeader from '../components/common/SubHeader';
 
@@ -52,7 +53,12 @@ const RegisterForm = ({navigation}) => {
   // 아이디 중복 체크
   const onIdCheckHandler = () => {
     if (id === '') {
-      alert('ID를 입력해주세요.');
+      Alert.alert('ID 확인', 'ID를 입력해주세요.', [
+        {
+          text: '확인',
+          onPress: () => console.log('confirm Pressed'),
+        },
+      ]);
       return;
     }
     // back에 아이디 있는지 확인 체크
@@ -87,17 +93,35 @@ const RegisterForm = ({navigation}) => {
     let day = Number(inbirth.substr(2, 4));
 
     if (month < 1 || month > 12) {
-      alert('달은 1월부터 12월까지 입력 가능합니다.');
+      setBirth('');
+      Alert.alert('생일 확인', '달은 1월부터 12월까지 입력 가능합니다.', [
+        {
+          text: '확인',
+          onPress: () => console.log('confirm Pressed'),
+        },
+      ]);
       setbirthCheck(false);
       return;
     }
     if (day < 1 || day > 31) {
-      alert('일은 1일부터 31일까지 입력가능합니다.');
+      setBirth('');
+      Alert.alert('생일 확인', '일은 1일부터 31일까지 입력가능합니다.', [
+        {
+          text: '확인',
+          onPress: () => console.log('confirm Pressed'),
+        },
+      ]);
       setbirthCheck(false);
       return;
     }
     if ((month == 4 || month == 6 || month == 9 || month == 11) && day == 31) {
-      alert(month + '월은 31일이 존재하지 않습니다.');
+      setBirth('');
+      Alert.alert('생일 확인', month + '월은 31일이 존재하지 않습니다.', [
+        {
+          text: '확인',
+          onPress: () => console.log('confirm Pressed'),
+        },
+      ]);
       setbirthCheck(false);
       return;
     }
@@ -196,8 +220,13 @@ const RegisterForm = ({navigation}) => {
   // 휴대전화 중복 체크
   const onCellCheckHandler = () => {
     if (cellnumber === '') {
+      Alert.alert('번호 확인', '휴대 전화 번호를 입력해주세요!', [
+        {
+          text: '확인',
+          onPress: () => console.log('confirm Pressed'),
+        },
+      ]);
       setCellBlank(true);
-      alert('휴대전화를 입력해주세요.');
       return;
     }
 
@@ -208,31 +237,61 @@ const RegisterForm = ({navigation}) => {
 
   // 모든 정보가 제대로 입력되었는지 확인
   const checkAllRegisterInfoHandler = () => {
-    navigation.navigate('MainPage');
+    navigation.navigate('LoginPage');
     return;
 
     if (!idCheck) {
-      alert('ID 중복체크를 해주세요!');
+      Alert.alert('ID 확인', 'ID 중복 체크를 해주세요!', [
+        {
+          text: '확인',
+          onPress: () => console.log('confirm Pressed'),
+        },
+      ]);
       return;
     }
     if (!birthCheck) {
-      alert('생일을 입력해주세요!');
+      Alert.alert('생일 확인', '생일을 확인 해주세요!', [
+        {
+          text: '확인',
+          onPress: () => console.log('confirm Pressed'),
+        },
+      ]);
       return;
     }
     if (!pwFormCheck) {
-      alert('비밀번호 양식을 확인해주세요!');
+      Alert.alert('비밀번호 확인', '비밀번호 양식을 확인 해주세요!', [
+        {
+          text: '확인',
+          onPress: () => console.log('confirm Pressed'),
+        },
+      ]);
       return;
     }
     if (!pwCheck) {
-      alert('비밀번호를 다시 확인해주세요!');
+      Alert.alert('비밀번호 확인', '비밀번호가 같은지 확인 해주세요!', [
+        {
+          text: '확인',
+          onPress: () => console.log('confirm Pressed'),
+        },
+      ]);
       return;
     }
     if (!cellCheck) {
-      alert('휴대전화 인증을 해주세요!');
+      Alert.alert('전화 번호 확인', '휴대전화 중복 체크를 해주세요!', [
+        {
+          text: '확인',
+          onPress: () => console.log('confirm Pressed'),
+        },
+      ]);
       return;
     }
     // Back 통신
-    alert('회원가입이 완료되었습니다.');
+    Alert.alert('완벽합니다!', '환영합니다! 회원가입에 성공했습니다!', [
+      {
+        text: '확인',
+        onPress: () => console.log('confirm Pressed'),
+      },
+    ]);
   };
 
   return (
