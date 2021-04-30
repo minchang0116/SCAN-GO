@@ -3,8 +3,9 @@ import MainPage from './MainPage';
 import BarcodeScanningPage from './BarcodeScanningPage';
 import ShoppingListPage from './ShoppingListPage';
 import ImageScanningPage from './ImageScanningPage';
-import LoginPage from './LoginPage'
-import RegisterForm from './RegisterForm'
+import LoginPage from './LoginPage';
+import RegisterForm from './RegisterForm';
+import PaymentPage from './PaymentPage';
 
 export {
   PaymentList,
@@ -14,4 +15,5 @@ export {
   ImageScanningPage,
   LoginPage,
   RegisterForm,
+  PaymentPage,
 };
