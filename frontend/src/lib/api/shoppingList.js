@@ -1,22 +1,20 @@
 import client from './client';
 
 export const addItemByBarcode = ({formData}) => {
-  // return item;
-  // ?memberId=1&prodCode=90153433
-  // console.log(formData);
-  // console.log(
-  //   `/product/product_insert?memberId=${formData.memberId}&prodCode=${formData.prodCode}`,
-  //   );
-  // return client.get(
-  //   `/product/product_insert?memberId=${formData.memberId}&prodCode=${formData.prodCode}`,
-  // );
   return client.get('/product/product_insert', {params: {...formData}});
 };
 export const addItemByProductName = formData => {
   return item;
   //   return client.get('/movie/review_list', {params: {...formData}});
 };
+export const deleteItem = formData => {
+  //   return client.delete('/movie/review_delete', {params: {...formData}});
+};
 
+export const updateItem = formData => {
+  return 1;
+  //   return client.post('/movie/review_update', formData);
+};
 export const decreaseItem = formData => {
   return 1;
   //   return client.post('/movie/review_update', formData);

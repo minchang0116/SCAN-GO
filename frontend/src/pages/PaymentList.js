@@ -1,6 +1,4 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import IconAntD from 'react-native-vector-icons/AntDesign';
 import SubHeader from '../components/common/SubHeader';
 import {Container, Content} from 'native-base';
 import PaymentItem from '../components/payment/PaymentItem';

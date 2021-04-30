@@ -70,7 +70,9 @@ const ImageScanningPage = ({navigation}) => {
           <TouchableOpacity
             style={({width: 100}, {height: 200})}
             onPress={takePhoto}>
-            <Text style={({fontSize: 20}, {textAlign: 'center'})}>찰칵</Text>
+            <Text style={({fontSize: 30}, {textAlign: 'center'})}>
+              상품 이미지 인식 페이지 '찰칵'
+            </Text>
           </TouchableOpacity>
         </View>
         {imageValue ? <CameraItem /> : <></>}
