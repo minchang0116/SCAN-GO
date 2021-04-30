@@ -7,23 +7,31 @@ export const addItemByProductName = formData => {
   return item;
   //   return client.get('/movie/review_list', {params: {...formData}});
 };
+
+// formData => {memberId : 1, prodIds: [] }
 export const deleteItem = formData => {
-  //   return client.delete('/movie/review_delete', {params: {...formData}});
+  return client.delete('/product/product_delete', {
+    params: {
+      memberId: formData.memberId,
+      prodIds: formData.prodIds.join(','),
+    },
+  });
 };
 
 export const updateItem = formData => {
-  return 1;
-  //   return client.post('/movie/review_update', formData);
+  console.log(formData);
+  return client.post('/product/product_update', formData);
 };
 export const decreaseItem = formData => {
   return 1;
   //   return client.post('/movie/review_update', formData);
 };
 
+// formData => {memberId : }
 export const readItems = formData => {
-  setTimeout(() => {}, 5000);
-  return items;
-  //   return client.get('/movie/review_list', {params: {...formData}});
+  return client.get('/payment/get_customer_payment', {
+    params: {memberId: 1},
+  });
 };
 
 const item = {
