@@ -20,10 +20,18 @@ const ShoppingListItem = ({
 }) => {
   const dispatch = useDispatch();
   const onIncrease = () => {
-    dispatch(updateShoppingListItem({prodId, memberId, qty: qty + 1}));
+    if (qty > 98) {
+      dispatch(updateShoppingListItem({prodId, memberId: '1', qty: 99}));
+      return;
+    }
+    dispatch(updateShoppingListItem({prodId, memberId: '1', qty: qty + 1}));
   };
   const onDecrease = () => {
-    dispatch(updateShoppingListItem({prodId, memberId, qty: qty - 1}));
+    if (qty < 2) {
+      dispatch(updateShoppingListItem({prodId, memberId: '1', qty: 1}));
+      return;
+    }
+    dispatch(updateShoppingListItem({prodId, memberId: '1', qty: qty - 1}));
   };
   const onIsChecked = () => {
     dispatch(isCheckedShoppingListItem({prodId}));
@@ -46,7 +54,7 @@ const ShoppingListItem = ({
           {prodName}
         </Text>
         <Text style={styles.bodyTextPrice} numberOfLines={1}>
-          {Number(prodPrice).toLocaleString()}
+          {Number(prodPrice).toLocaleString('en')}
         </Text>
       </Body>
       <Right style={styles.right}>
@@ -96,7 +104,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: 50,
     height: 30,
-    marginRight: 5,
+    marginRight: 18,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',

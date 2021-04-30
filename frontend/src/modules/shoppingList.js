@@ -6,7 +6,7 @@ export const fetchShoppingList = createAsyncThunk(
   async () => {
     try {
       const response = await shoppingListApi.readItems();
-      return response;
+      return response.data;
     } catch (e) {}
   },
 );
@@ -14,19 +14,18 @@ export const updateShoppingListItem = createAsyncThunk(
   'shoppingList/updateShoppingListItem',
   async ({prodId, memberId, qty}) => {
     try {
-      await shoppingListApi.updateItem(prodId, memberId, qty);
+      await shoppingListApi.updateItem({prodId, memberId, qty});
       return {prodId, qty};
     } catch (e) {}
   },
 );
 export const deleteShoppingListItem = createAsyncThunk(
   'shoppingList/deleteShoppingListItem',
-  async prodIdList => {
-    //prodIdList는 배열
+  async ({memberId, prodIds}) => {
+    //prodIds 배열
     try {
-      console.log(prodIdList);
-      await shoppingListApi.deleteItem();
-      return prodIdList;
+      await shoppingListApi.deleteItem({memberId, prodIds});
+      return prodIds;
     } catch (e) {}
   },
 );
@@ -95,7 +94,8 @@ const shoppingListSlice = createSlice({
       state.loading = true;
     },
     [fetchShoppingList.fulfilled]: (state, {payload}) => {
-      state.shoppingList = payload;
+      console.log(payload);
+      state.shoppingList = payload.paymentDetail;
       state.loading = false;
       state.hasErrors = false;
     },
