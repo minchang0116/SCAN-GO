@@ -4,8 +4,8 @@ import {
   ByCostomerPage,
   ByDatePage,
   ByProductPage,
+  Dashboard
 } from './pages';
-import Dashboard from './pages/dashboard/Dashboard'
 
 function App() {
   return (
