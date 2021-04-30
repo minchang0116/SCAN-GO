@@ -5,6 +5,7 @@ import {
   MainPage,
   PaymentList,
   ShoppingListPage,
+  PaymentPage,
   ImageScanningPage,
   LoginPage,
   RegisterForm,
@@ -48,6 +49,11 @@ const StackNav = () => {
       <Stack.Screen
         name="ShoppingListPage"
         component={ShoppingListPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="PaymentPage"
+        component={PaymentPage}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

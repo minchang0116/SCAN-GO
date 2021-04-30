@@ -54,7 +54,7 @@ const ShoppingListItem = ({
           {prodName}
         </Text>
         <Text style={styles.bodyTextPrice} numberOfLines={1}>
-          {Number(prodPrice).toLocaleString('en')}
+          {prodPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
         </Text>
       </Body>
       <Right style={styles.right}>
