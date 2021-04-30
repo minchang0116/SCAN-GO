@@ -1,14 +1,13 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import ShoppingListFooter from '../../components/shoppingList/ShoppingListFooter';
 import ShoppingListForm from '../../components/shoppingList/ShoppingListForm';
 import {
-  fetchShoppingList,
-  updateShoppingListItem,
   deleteShoppingListItem,
+  fetchShoppingList,
 } from '../../modules/shoppingList';
 
-const ShoppingListContainer = () => {
+const ShoppingListContainer = ({navigation}) => {
   const {shoppingList} = useSelector(({shoppingList}) => ({
     shoppingList: shoppingList,
   }));
@@ -25,7 +24,6 @@ const ShoppingListContainer = () => {
   useEffect(() => {
     onFetchShoppingList();
   }, [dispatch]);
-  console.log('쇼핑리스트 컨테이너 렌더링');
   return (
     <>
       <ShoppingListForm
@@ -33,7 +31,10 @@ const ShoppingListContainer = () => {
         onFetchShoppingList={onFetchShoppingList}
         onDeleteShoppingListItem={onDeleteShoppingListItem}
       />
-      <ShoppingListFooter shoppingList={shoppingList.shoppingList} />
+      <ShoppingListFooter
+        navigation={navigation}
+        shoppingList={shoppingList.shoppingList}
+      />
     </>
   );
 };
