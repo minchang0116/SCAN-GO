@@ -71,6 +71,11 @@ const shoppingListSlice = createSlice({
     lastItem: null,
   },
   reducers: {
+    allCheckShoppingListItem: (state, {payload}) => {
+      state.shoppingList = state.shoppingList.map(item => {
+        return {...item, isCheck: payload};
+      });
+    },
     isCheckedShoppingListItem: (state, {payload}) => {
       state.shoppingList = state.shoppingList.map(item => {
         if (item.prodId === payload.prodId) {
