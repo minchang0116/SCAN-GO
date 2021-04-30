@@ -10,7 +10,7 @@ import {
 import {useDispatch} from 'react-redux';
 const ShoppingListForm = ({shoppingList, onFetchShoppingList}) => {
   const [checkCnt, setCheckCnt] = useState(0);
-  const [prodIdList, setProdIdList] = useState([]);
+  const [prodIds, setProdIds] = useState([]);
   const [allChecked, setAllchecked] = useState(false);
 
   useEffect(() => {
@@ -22,13 +22,13 @@ const ShoppingListForm = ({shoppingList, onFetchShoppingList}) => {
         list.push(item.prodId);
       }
     }
-    setProdIdList(list);
+    setProdIds(list);
     setCheckCnt(cnt);
   }, [shoppingList]);
 
   const dispatch = useDispatch();
   const onDelete = () => {
-    dispatch(deleteShoppingListItem(prodIdList));
+    dispatch(deleteShoppingListItem({memberId: 1, prodIds}));
     setAllchecked(false);
   };
   const onAllChecked = () => {
@@ -94,7 +94,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
+    marginLeft: 8,
   },
-  headerRightText: {color: 'rgb(130,130,130)'},
+  headerRightText: {color: 'rgb(130,130,130)', marginRight: 10},
 });
 export default ShoppingListForm;

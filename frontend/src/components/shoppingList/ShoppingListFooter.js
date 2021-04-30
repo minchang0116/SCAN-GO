@@ -15,7 +15,7 @@ const ShoppingListFooter = ({shoppingList}) => {
   return (
     <Footer style={styles.footer}>
       <Left style={styles.footerLeft}>
-        <Text>결제예정금액 : {sumPrice.toLocaleString()}원</Text>
+        <Text>결제예정금액 : {sumPrice.toLocaleString('en')}원</Text>
       </Left>
       <Right>
         <TouchableOpacity style={styles.footerRight}>
