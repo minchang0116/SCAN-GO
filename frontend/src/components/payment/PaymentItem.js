@@ -103,11 +103,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 6,
   },
+  // detail: {
+  //   backgroundColor: 'rgb(255,255,255)',
+  //   borderRadius: 10,
+  //   height: '70%',
+  //   width: '90%',
+  // },
   detail: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '20%',
+    marginBottom: '30%',
     backgroundColor: 'rgb(255,255,255)',
     borderRadius: 10,
-    height: '70%',
-    width: '90%',
   },
   close: {
     // zIndex: 5,
