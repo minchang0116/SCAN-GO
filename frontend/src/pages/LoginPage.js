@@ -38,7 +38,7 @@ const LoginPage = ({navigation}) => {
           <TouchableOpacity
             style={styles.loginBtn}
             onPress={() => {
-              navigation.navigate('RegisterForm');
+              navigation.navigate('MainPage');
             }}>
             <Text style={styles.loginText}>로그인</Text>
           </TouchableOpacity>
