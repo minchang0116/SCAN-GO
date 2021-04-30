@@ -17,6 +17,7 @@ const RegisterForm = ({navigation}) => {
   const [isduplicated_id, setDid] = useState(false);
   // 생일
   const [birthCheck, setbirthCheck] = useState(false);
+  const [birth, setBirth] = useState('');
 
   // 비밀번호
   const [pwCheck, setPwCheck] = useState(false);
@@ -61,20 +62,29 @@ const RegisterForm = ({navigation}) => {
 
   // 생일 입력 체크
   const onBirthCheckHandler = text => {
-    let birth = text;
+    let inbirth = text;
+    setBirth(inbirth);
 
-    if (birth === '') {
+    if (inbirth === '') {
       setBirthBlank(true);
       return;
     }
-    setBirthBlank(false);
-    if (birth.length != 4) {
+    const regex = /^[0-9]{0,4}$/;
+    if (!regex.test(inbirth)) {
+      inbirth = inbirth.replace(/[-,. a-zA-Z]/g, '');
+      setBirth(inbirth);
       setbirthCheck(false);
       return;
     }
 
-    let month = Number(birth.substr(0, 2));
-    let day = Number(birth.substr(2, 4));
+    setBirthBlank(false);
+    if (inbirth.length != 4) {
+      setbirthCheck(false);
+      return;
+    }
+
+    let month = Number(inbirth.substr(0, 2));
+    let day = Number(inbirth.substr(2, 4));
 
     if (month < 1 || month > 12) {
       alert('달은 1월부터 12월까지 입력 가능합니다.');
@@ -93,6 +103,7 @@ const RegisterForm = ({navigation}) => {
     }
 
     setbirthCheck(true);
+    setBirth(inbirth);
   };
 
   // 비밀번호 양식 체크
@@ -167,6 +178,19 @@ const RegisterForm = ({navigation}) => {
       setCellBlank(true);
       return;
     }
+    const regex = /^[0-9]{0,11}$/;
+    if (!regex.test(cell)) {
+      cell = cell.replace(/[-,. a-zA-Z]/g, '');
+      setCellNum(cell);
+      return;
+    }
+
+    if (cell.length === 11) {
+      cell = cell.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+      setCellNum(cell);
+      console.log(cell);
+    }
+
     setCellBlank(false);
   };
   // 휴대전화 중복 체크
@@ -221,6 +245,7 @@ const RegisterForm = ({navigation}) => {
             <View style={styles.inputWithBtnArea}>
               <TextInput
                 autoCompleteType={'email'}
+                keyboardType={'email-address'}
                 style={styles.inputWithBtn}
                 placeholder="example@gmail.com"
                 onChangeText={text => onIdInputHandler(text)}
@@ -248,11 +273,15 @@ const RegisterForm = ({navigation}) => {
             <Text style={styles.titleText}>생일</Text>
             <TextInput
               style={[styles.textInput, {marginBottom: 6}]}
-              placeholder="0429"
+              keyboardType={'numeric'}
+              maxLength={4}
+              placeholder="1231"
               onChangeText={onBirthCheckHandler}
-              number
+              value={birth}
             />
-            {birthBlank ? null : birthCheck ? <Text style={styles.afterCheck}>감사합니다!</Text> : (
+            {birthBlank ? null : birthCheck ? (
+              <Text style={styles.afterCheck}>감사합니다!</Text>
+            ) : (
               <Text style={styles.afterCheck}>생일을 확인해주세요</Text>
             )}
           </View>
@@ -265,7 +294,11 @@ const RegisterForm = ({navigation}) => {
               secureTextEntry={true}
             />
             <View>
-              {pwFormBlank ? null : pwFormCheck ? <Text style={styles.afterCheck}>사용가능한 비밀번호입니다!</Text> : (
+              {pwFormBlank ? null : pwFormCheck ? (
+                <Text style={styles.afterCheck}>
+                  사용가능한 비밀번호입니다!
+                </Text>
+              ) : (
                 <Text style={styles.afterCheck}>
                   비밀번호 양식을 확인해주세요
                 </Text>
@@ -281,7 +314,9 @@ const RegisterForm = ({navigation}) => {
               }}
             />
             <View>
-              {pwBlank ? null : pwCheck ? <Text style={styles.afterCheck}>확인되었습니다!</Text> : (
+              {pwBlank ? null : pwCheck ? (
+                <Text style={styles.afterCheck}>확인되었습니다!</Text>
+              ) : (
                 <Text style={styles.preCheck}>
                   비밀번호가 일치하지 않습니다!
                 </Text>
@@ -292,8 +327,10 @@ const RegisterForm = ({navigation}) => {
           <View style={styles.inputWithBtnArea}>
             <TextInput
               style={styles.inputWithBtn}
-              autoCompleteType={'tel'}
-              placeholder="010-0000-0000"
+              keyboardType={'numeric'}
+              maxLength={13}
+              value={cellnumber}
+              placeholder="휴대폰 번호를 입력해주세요."
               onChangeText={text => {
                 onCellInputHandler(text);
               }}
@@ -308,7 +345,9 @@ const RegisterForm = ({navigation}) => {
             {cellBlank ? null : cellCheck ? (
               isduplicated_cell ? (
                 <Text style={styles.preCheck}>휴대전화가 중복되었습니다.</Text>
-              ) : <Text style={styles.afterCheck}>사용가능한 번호입니다!</Text>
+              ) : (
+                <Text style={styles.afterCheck}>사용가능한 번호입니다!</Text>
+              )
             ) : (
               <Text style={styles.preCheck}>휴대전화 중복체크를 해주세요.</Text>
             )}
