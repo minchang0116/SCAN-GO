@@ -252,7 +252,7 @@ const RegisterForm = ({navigation}) => {
               onChangeText={onBirthCheckHandler}
               number
             />
-            {birthBlank ? null : birthCheck ? null : (
+            {birthBlank ? null : birthCheck ? <Text style={styles.afterCheck}>감사합니다!</Text> : (
               <Text style={styles.afterCheck}>생일을 확인해주세요</Text>
             )}
           </View>
@@ -265,7 +265,7 @@ const RegisterForm = ({navigation}) => {
               secureTextEntry={true}
             />
             <View>
-              {pwFormBlank ? null : pwFormCheck ? null : (
+              {pwFormBlank ? null : pwFormCheck ? <Text style={styles.afterCheck}>사용가능한 비밀번호입니다!</Text> : (
                 <Text style={styles.afterCheck}>
                   비밀번호 양식을 확인해주세요
                 </Text>
@@ -281,7 +281,7 @@ const RegisterForm = ({navigation}) => {
               }}
             />
             <View>
-              {pwBlank ? null : pwCheck ? null : (
+              {pwBlank ? null : pwCheck ? <Text style={styles.afterCheck}>확인되었습니다!</Text> : (
                 <Text style={styles.preCheck}>
                   비밀번호가 일치하지 않습니다!
                 </Text>
@@ -308,7 +308,7 @@ const RegisterForm = ({navigation}) => {
             {cellBlank ? null : cellCheck ? (
               isduplicated_cell ? (
                 <Text style={styles.preCheck}>휴대전화가 중복되었습니다.</Text>
-              ) : null
+              ) : <Text style={styles.afterCheck}>사용가능한 번호입니다!</Text>
             ) : (
               <Text style={styles.preCheck}>휴대전화 중복체크를 해주세요.</Text>
             )}
