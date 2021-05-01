@@ -21,18 +21,19 @@ const PaymentSuccess = () => {
 };
 
 const PaymentSuccessList = () => {
-  return <></>;
+  return <> </>;
 };
 
 const PaymentSuccessListItem = () => {
-  return <></>;
+  return <> </>;
 };
 
 const styles = StyleSheet.create({
   view: {
     flexDirection: 'row',
     margin: 10,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.8,
+    borderBottomColor: 'lightgrey',
   },
   view_col: {
     flexDirection: 'column',

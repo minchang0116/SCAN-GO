@@ -37,7 +37,7 @@ const ShoppingListForm = ({shoppingList, onFetchShoppingList}) => {
   };
   return (
     <>
-      <Header style={styles.header}>
+      <Header androidStatusBarColor={'rgb(240,41,28)'} style={styles.header}>
         <TouchableOpacity style={styles.headerLeft} onPress={onAllChecked}>
           {allChecked ? (
             <Icon name={'check-box-outline'} style={styles.checkbox} />
