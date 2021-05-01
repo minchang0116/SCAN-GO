@@ -4,7 +4,7 @@ import {Body, Header, Left, Right, Text, Title} from 'native-base';
 import Icon from 'react-native-vector-icons/Ionicons';
 const MainHeader = ({title}) => {
   return (
-    <Header style={styles.header}>
+    <Header androidStatusBarColor={'rgb(240,41,28)'} style={styles.header}>
       <Text style={styles.font}>SSG/ </Text>
       <Text style={styles.font2}>셀프스토어</Text>
     </Header>

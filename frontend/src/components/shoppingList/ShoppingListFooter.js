@@ -50,14 +50,12 @@ const ShoppingListFooter = ({shoppingList, navigation}) => {
 
 const styles = StyleSheet.create({
   footer: {
-    marginBottom: 0.1,
-    borderTopWidth: 0.2,
-    borderBottomWidth: 0.5,
-    borderColor: '#000',
+    borderTopColor: 'rgb(240,240,240)',
+    borderTopWidth: 1,
     backgroundColor: 'white',
   },
   footerRight: {
-    backgroundColor: 'rgb(218,41,28)',
+    backgroundColor: 'rgb(240,41,28)',
     flex: 2,
   },
   footerRightBlock: {
