@@ -13,7 +13,6 @@ import ProductItem from './ProductItem';
 import Modal from 'react-native-modal';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import ProductItemInModal from './ProductItemInModal';
-import {Col, Row, Grid} from 'react-native-easy-grid';
 
 const PaymentItem = ({payment}) => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -103,11 +102,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 6,
   },
+  // detail: {
+  //   backgroundColor: 'rgb(255,255,255)',
+  //   borderRadius: 10,
+  //   height: '70%',
+  //   width: '90%',
+  // },
   detail: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '20%',
+    marginBottom: '30%',
     backgroundColor: 'rgb(255,255,255)',
     borderRadius: 10,
-    height: '70%',
-    width: '90%',
   },
   close: {
     // zIndex: 5,
