@@ -14,24 +14,34 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 const PaymentListPage = ({navigation}) => {
   const [selectedDuration, setSeletedDuration] = useState('최근 3개월');
   const [durationModalVisible, setDurationModalVisible] = useState(false);
-  const [date, setDate] = useState(new Date());
-  const [showDatepicker, setShowDataPicker] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [showStartDatepicker, setShowStartDataPicker] = useState(false);
+  const [showEndDatepicker, setShowEndDataPicker] = useState(false);
 
   const toggleModal = () => {
     setDurationModalVisible(!durationModalVisible);
   };
-  const toggleDatePicker = () => {
-    setShowDataPicker(!showDatepicker);
+  const toggleStartDatePicker = () => {
+    setShowStartDataPicker(!showStartDatepicker);
+    console.log(showStartDatepicker);
+  };
+  const toggleEndDatePicker = () => {
+    setShowEndDataPicker(!showEndDatepicker);
+    console.log(showEndDatepicker);
   };
 
   useEffect(() => {
     console.log(selectedDuration);
   }, [selectedDuration]);
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    // setShow(Platform.OS === 'ios');
-    setDate(currentDate);
+  const onChangeStartDate = (event, selectedDate) => {
+    setStartDate(selectedDate);
+    toggleStartDatePicker();
+  };
+  const onChangeEndDate = (event, selectedDate) => {
+    setEndDate(selectedDate);
+    toggleEndDatePicker();
   };
 
   return (
@@ -92,21 +102,39 @@ const PaymentListPage = ({navigation}) => {
             width: 300,
             height: 300,
           }}>
-          <View>
-            <TouchableHighlight onPress={toggleDatePicker}>
-              <Text>Show date picker!</Text>
+          <Text style={{marginBottom: 10}}>기간 설정</Text>
+          <View style={{flexDirection: 'row'}}>
+            <TouchableHighlight onPress={toggleStartDatePicker}>
+              <Text>{startDate.toLocaleDateString()}</Text>
             </TouchableHighlight>
-            <Text>{date}</Text>
+            <Text>&nbsp;~&nbsp;</Text>
+            <TouchableHighlight onPress={toggleEndDatePicker}>
+              <Text>{endDate.toLocaleDateString()}</Text>
+            </TouchableHighlight>
           </View>
-          {showDatepicker && (
+          {showStartDatepicker && (
             <DateTimePicker
               testID="dateTimePicker"
               locale="ko"
-              value={date}
+              value={startDate}
               mode="date"
-              display="default"
-              onChange={onChange}
-              onBackdropPress={toggleDatePicker}
+              display="spinner"
+              onChange={onChangeStartDate}
+              onBackdropPress={toggleStartDatePicker}
+              minimumDate={new Date(2010, 1, 1)}
+              maximumDate={new Date(2022, 12, 31)}
+            />
+          )}
+          {showEndDatepicker && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              locale="ko"
+              value={endDate}
+              mode="date"
+              display="spinner"
+              onChange={onChangeEndDate}
+              onBackdropPress={toggleEndDatePicker}
+              neutralButtonLabel="clear"
               minimumDate={new Date(2010, 1, 1)}
               maximumDate={new Date(2022, 12, 31)}
             />
@@ -137,8 +165,8 @@ const styles = StyleSheet.create({
   modal: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: '40%',
-    marginBottom: '40%',
+    marginTop: '50%',
+    marginBottom: '50%',
     backgroundColor: 'rgb(255,255,255)',
     borderRadius: 10,
   },
