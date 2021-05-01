@@ -13,7 +13,6 @@ import ProductItem from './ProductItem';
 import Modal from 'react-native-modal';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import ProductItemInModal from './ProductItemInModal';
-import {Col, Row, Grid} from 'react-native-easy-grid';
 
 const PaymentItem = ({payment}) => {
   const [isModalVisible, setModalVisible] = useState(false);
