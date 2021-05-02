@@ -21,7 +21,6 @@ public class CustomerPayment {
     private long id;
     private String storeId;
     @Temporal(TemporalType.TIMESTAMP)
-    @UpdateTimestamp
     private Date txDateTime;
     private String authHash;
     private long paymentCount;
@@ -48,13 +47,14 @@ public class CustomerPayment {
         this.member = member;
     }
 
-    public void updatePay(String authHash) {
+    public void updatePay(Date txDateTime, String authHash) {
+        this.txDateTime = txDateTime;
         this.authHash = authHash;
         long count = 0;
         long amount = 0;
         for(PaymentDetail pd : paymentDetail) {
             count += pd.getQty();
-            amount += Long.parseLong(pd.getProduct().getProdPrice());
+            amount += Long.parseLong(pd.getProduct().getProdPrice())*pd.getQty();
         }
         this.paymentCount = count;
         this.paymentAmount = amount;

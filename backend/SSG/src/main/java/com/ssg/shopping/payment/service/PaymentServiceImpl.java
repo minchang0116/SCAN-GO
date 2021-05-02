@@ -11,6 +11,12 @@ import com.ssg.shopping.payment.data.Response.CustomerPaymentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.PageRequest;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -36,5 +42,46 @@ public class PaymentServiceImpl implements PaymentService {
         }
     }
 
+    // 거래내역 조회
+    @Override
+    @Transactional
+    public List<CustomerPaymentResponse> getCustomerPaymentList(long memberId, long month, long pageNum) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        cal.add(Calendar.MONTH, (int)((-1)*month));
+        String date = df.format(cal.getTime()).toString();
+        List<CustomerPayment> paymentList = customerPaymentRepository.findByMember_IdAndTxDateTimeIsGreaterThan(memberId, date, PageRequest.of((int)pageNum, 10));
+        List<CustomerPaymentResponse> customerPaymentList = new ArrayList<>();
+        for(CustomerPayment payment : paymentList) customerPaymentList.add(new CustomerPaymentResponse(payment));
+        return customerPaymentList;
+    }
 
+    // 결제하기
+    @Override
+    @Transactional
+    public void doPay(Map<String, Object> payment) throws ParseException {
+        long paymentId = Long.parseLong((String) payment.get("txSeq"));
+        CustomerPayment customerPayment = customerPaymentRepository.findById(paymentId).get();
+        String authHash = (String) payment.get("authHash");
+        String date = (String) payment.get("txDateTime");
+        StringBuilder sb = new StringBuilder(date);
+        sb.insert(4, '-');
+        sb.insert(7, '-');
+        sb.insert(10, ' ');
+        sb.insert(13, ':');
+        sb.insert(15, ':');
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date txDateTime = df.parse(sb.toString());
+        customerPayment.updatePay(txDateTime, authHash);
+    }
+
+    // 결제결과 저장
+    @Override
+    @Transactional
+    public void getPayResult(Map<String, String> result) {
+        long paymentId = Long.parseLong(result.get("paymentId"));
+        CustomerPayment customerPayment = customerPaymentRepository.findById(paymentId).get();
+        customerPayment.updateResult(result.get("paymentPlan"), result.get("paymentResult"));
+    }
 }
