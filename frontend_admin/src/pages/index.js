@@ -1,6 +1,4 @@
-import ByCostomerPage from './ByCostomerPage';
-import ByDatePage from './ByDatePage';
-import ByProductPage from './ByProductPage';
+import SearchPage from './SearchPage';
 import Dashboard from './Dashboard';
 
-export {ByCostomerPage, ByDatePage, ByProductPage, Dashboard};
+export {SearchPage, Dashboard};
