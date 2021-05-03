@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { fade, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,6 +22,20 @@ const useStyles = makeStyles((theme) => ({
     },
     fixedHeight: {
       height: 240,
+    },
+    search: {
+      position: "relative",
+      borderRadius: theme.shape.borderRadius,
+      backgroundColor: fade("#9e9e9e", 0.15),
+      "&:hover": {
+        backgroundColor: fade("#9e9e9e", 0.25),
+      },
+      marginLeft: 0,
+      width: "100%",
+      [theme.breakpoints.up("sm")]: {
+        marginLeft: theme.spacing(1),
+        width: "auto",
+      },
     },
   }));
 
