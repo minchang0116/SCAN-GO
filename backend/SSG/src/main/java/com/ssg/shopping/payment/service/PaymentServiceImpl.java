@@ -45,12 +45,12 @@ public class PaymentServiceImpl implements PaymentService {
     // 거래내역 조회
     @Override
     @Transactional
-    public List<CustomerPaymentResponse> getCustomerPaymentList(long memberId, long month, long pageNum) {
+    public List<CustomerPaymentResponse> getCustomerPaymentList(long memberId, long month, long pageNum) throws ParseException {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        cal.add(Calendar.MONTH, (int)((-1)*month));
-        String date = df.format(cal.getTime()).toString();
+        cal.add(Calendar.MONTH, -3);
+        Date date = df.parse(df.format(cal.getTime()));
         List<CustomerPayment> paymentList = customerPaymentRepository.findByMember_IdAndTxDateTimeIsGreaterThan(memberId, date, PageRequest.of((int)pageNum, 10));
         List<CustomerPaymentResponse> customerPaymentList = new ArrayList<>();
         for(CustomerPayment payment : paymentList) customerPaymentList.add(new CustomerPaymentResponse(payment));

@@ -33,7 +33,7 @@ public class PaymentController {
 
     @ApiOperation(value = "거래내역 조회 (3,6,9개월, 10개씩)", notes = "입력값 : memberId(사용자고유번호), month(몇개월), pageNum(페이지번호:0번부터)\n출력값 : 거래내역")
     @GetMapping("/list_customer_payment")
-    public ResponseEntity<?> getCustomerPaymentList(@RequestParam long memberId, @RequestParam long month, @RequestParam long pageNum) {
+    public ResponseEntity<?> getCustomerPaymentList(@RequestParam long memberId, @RequestParam long month, @RequestParam long pageNum) throws ParseException {
         List<CustomerPaymentResponse> customerPaymentList = paymentService.getCustomerPaymentList(memberId, month, pageNum);
         System.out.println("<거래내역> 멤버고유번호 : "+memberId+", 개월 : "+month+", 페이지번호 : "+pageNum+", 총 개수 : "+customerPaymentList.size());
         return new ResponseEntity<>(customerPaymentList, HttpStatus.OK);
