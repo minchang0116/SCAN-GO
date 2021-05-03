@@ -1,9 +1,7 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
 import {
-  ByCostomerPage,
-  ByDatePage,
-  ByProductPage,
+  SearchPage,
   Dashboard
 } from './pages';
 
@@ -11,9 +9,7 @@ function App() {
   return (
     <>
       <Route component={Dashboard} path={['/']} exact />
-      <Route component={ByCostomerPage} path={['/bycostomer']} exact />
-      <Route component={ByDatePage} path={['/bydate']} exact />
-      <Route component={ByProductPage} path={['/byproduct']} exact />
+      <Route component={SearchPage} path={['/search']} exact />
     </>
   );
 }

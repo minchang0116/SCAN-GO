@@ -12,38 +12,22 @@ import {Link} from 'react-router-dom';
 
 export const mainListItems = (
   <div>
-    <ListItem button>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <Link to={'/'} style={{ textDecoration: 'none' }}>
+    <Link to={'/'} style={{textDecoration: 'none'}}>
+      <ListItem button>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
         <ListItemText primary="Dashboard" />
-      </Link>
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <Link to={'/byproduct'} style={{ textDecoration: 'none' }}>
-        <ListItemText primary="Products" />
-      </Link>
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <Link to={'/bycostomer'} style={{ textDecoration: 'none' }}>
-        <ListItemText primary="Customers" />
-      </Link>
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <BarChartIcon />
-      </ListItemIcon>
-      <Link to={'/bydate'} style={{ textDecoration: 'none' }}>
-        <ListItemText primary="Dates" />
-      </Link>
-    </ListItem>
+      </ListItem>
+    </Link>
+    <Link to={'/search'} style={{textDecoration: 'none'}}>
+      <ListItem button>
+        <ListItemIcon>
+          <BarChartIcon />
+        </ListItemIcon>
+        <ListItemText primary="Search" />
+      </ListItem>
+    </Link>
   </div>
 );
 
