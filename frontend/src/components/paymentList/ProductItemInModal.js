@@ -1,8 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {StyleSheet, View, Image} from 'react-native';
-import {Container, Text} from 'native-base';
-import {Col, Row, Grid} from 'react-native-easy-grid';
+import {Text} from 'native-base';
 
 const ProductItemInModal = ({item}) => {
   return (

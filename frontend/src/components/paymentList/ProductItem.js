@@ -15,9 +15,9 @@ const ProductItem = ({item}) => {
           style={{flexDirection: 'row'}}
         />
         <Body style={{marginLeft: 15}}>
-          <Text style={{marginBottom: 5}}>{item.name}</Text>
+          <Text style={{marginBottom: 5}}>{item.prodName}</Text>
           <Text>
-            {item.price}원 · {item.qty}개
+            {item.prodPrice}원 · {item.qty}개
           </Text>
         </Body>
       </CardItem>
