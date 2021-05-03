@@ -4,7 +4,7 @@ import {Body, Header, Left, Right, Title} from 'native-base';
 import Icon from 'react-native-vector-icons/Ionicons';
 const SubHeader = ({title, navigation, isIcon = true}) => {
   return (
-    <Header style={styles.header}>
+    <Header androidStatusBarColor={'rgb(240,41,28)'} style={styles.header}>
       <Left>
         <TouchableOpacity
           style={styles.button}
