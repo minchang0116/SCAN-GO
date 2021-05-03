@@ -14,7 +14,7 @@ public interface PaymentService {
 
     // 거래내역 조회
     @Transactional
-    List<CustomerPaymentResponse> getCustomerPaymentList(long memberId, long month, long pageNum) throws ParseException;
+    List<CustomerPaymentResponse> getCustomerPaymentList(long memberId, String date1, String date2, long pageNum) throws ParseException;
 
     // 결제하기
     @Transactional

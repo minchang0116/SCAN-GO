@@ -31,11 +31,11 @@ public class PaymentController {
         return new ResponseEntity<>(customerPayment, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "거래내역 조회 (3,6,9개월, 10개씩)", notes = "입력값 : memberId(사용자고유번호), month(몇개월), pageNum(페이지번호:0번부터)\n출력값 : 거래내역")
+    @ApiOperation(value = "거래내역 조회 (날짜 2개, 10개씩)", notes = "입력값 : memberId(사용자고유번호), month(몇개월), pageNum(페이지번호:0번부터)\n출력값 : 거래내역")
     @GetMapping("/list_customer_payment")
-    public ResponseEntity<?> getCustomerPaymentList(@RequestParam long memberId, @RequestParam long month, @RequestParam long pageNum) throws ParseException {
-        List<CustomerPaymentResponse> customerPaymentList = paymentService.getCustomerPaymentList(memberId, month, pageNum);
-        System.out.println("<거래내역> 멤버고유번호 : "+memberId+", 개월 : "+month+", 페이지번호 : "+pageNum+", 총 개수 : "+customerPaymentList.size());
+    public ResponseEntity<?> getCustomerPaymentList(@RequestParam long memberId, @RequestParam String date1, @RequestParam String date2, @RequestParam long pageNum) throws ParseException {
+        List<CustomerPaymentResponse> customerPaymentList = paymentService.getCustomerPaymentList(memberId, date1, date2, pageNum);
+        System.out.println("<거래내역> 멤버고유번호 : "+memberId+", 날짜1 : "+date1+", 날짜2 : "+date2+", 페이지번호 : "+pageNum+", 총 개수 : "+customerPaymentList.size());
         return new ResponseEntity<>(customerPaymentList, HttpStatus.OK);
     }
 
