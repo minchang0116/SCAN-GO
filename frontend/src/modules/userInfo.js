@@ -1,5 +1,4 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
-import { useDispatch, useSelector } from "react-redux";
 import * as userInfoAPI from '../lib/api/userInfo';
 
 
@@ -19,7 +18,11 @@ export const fetchUserInfo = createAsyncThunk(
       hasErrors: false,
       userInfo:{},
     },
-    reducers: {},
+    reducers: {
+        callUserLogout : () => {
+            state.userInfo = {};
+        }
+    },
     extraReducers: {
       [fetchUserInfo.pending]: state => {
         state.loading = true;
