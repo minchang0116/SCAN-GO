@@ -67,6 +67,7 @@ const RegisterForm = ({navigation}) => {
   };
 
   // 생일 입력 체크
+  const birthtest = /^[0-9]{0,4}$/;
   const onBirthCheckHandler = text => {
     let inbirth = text;
     setBirth(inbirth);
@@ -335,11 +336,11 @@ const RegisterForm = ({navigation}) => {
               keyboardType={'numeric'}
               maxLength={4}
               placeholder="1231"
-              onChangeText={onBirthCheckHandler}
+              onChangeText={text => onBirthCheckHandler(text)}
               value={birth}
             />
             {birthBlank ? null : birthCheck ? (
-              <Text style={styles.afterCheck}>감사합니다!</Text>
+              null
             ) : (
               <Text style={styles.afterCheck}>생일을 확인해주세요</Text>
             )}
@@ -349,7 +350,7 @@ const RegisterForm = ({navigation}) => {
             <TextInput
               style={styles.textInput}
               onChangeText={text => onPasswordHandler(text)}
-              placeholder="영문,숫자,특수문자를 포함한 8자리 초과 20자리 미만"
+              placeholder="영문,숫자,특수문자를 포함한 8~20자리"
               secureTextEntry={true}
             />
             <View>

@@ -34,7 +34,7 @@ const MainFooter = ({navigation}) => {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.tochableRadius}
+          style={styles.tochablePosition}
           onPress={() => {
             navigation.navigate('BarcodeScanningPage');
           }}>
@@ -68,23 +68,19 @@ export default MainFooter;
 
 const styles = StyleSheet.create({
   container: {
+    width:'100%',
+    paddingLeft: '2%',
+    paddingRight: '2%',
     borderTopWidth: 1,
     borderColor: 'rgb(226,226,226)',
     backgroundColor: 'white',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   tochablePosition: {
-    width: 80,
+    width: "100%",
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  tochableRadius: {
-    height: 80,
-    width: 73,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 150 / 2,
-    zIndex: 10,
   },
 });
