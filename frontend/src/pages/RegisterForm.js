@@ -61,13 +61,26 @@ const RegisterForm = ({navigation}) => {
       ]);
       return;
     }
+
+    // 이메일 형식 체크
+    let reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+    
+    if(!reg_email.test(id)){
+      Alert.alert('ID 확인', 'Email의 형식을 확인해주세요!.', [
+        {
+          text: '확인',
+          onPress: () => console.log('email check'),
+        },
+      ]);
+      return ;
+    }
+    
     // back에 아이디 있는지 확인 체크
     setIdCheck(true);
     setDid(false);
   };
 
   // 생일 입력 체크
-  const birthtest = /^[0-9]{0,4}$/;
   const onBirthCheckHandler = text => {
     let inbirth = text;
     setBirth(inbirth);
@@ -473,19 +486,20 @@ const styles = StyleSheet.create({
   },
   inputWithBtnArea: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
   },
   CheckBtn: {
     height: 40,
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgb(218, 41, 28)',
     marginBottom: 10,
+    marginLeft: 10,
   },
   btnText: {
-    fontSize: 17,
+    fontSize: 13,
     color: 'white',
-    margin: 8,
+    margin: 6,
   },
   timerText: {
     fontSize: 28,
