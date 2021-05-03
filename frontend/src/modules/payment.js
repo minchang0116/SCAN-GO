@@ -1,12 +1,21 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import * as paymentApi from '../lib/api/payment';
+import {NativeModules, Platform} from 'react-native';
+import {deleteAllShoppingListItem} from './shoppingList';
 
 export const requestPayment = createAsyncThunk(
   'payment/requestPayment',
-  async ({prodId, memberId, qty}) => {
+  async (formData, {dispatch, getState}) => {
     try {
-      await paymentApi.requestPayment({prodId, memberId, qty});
-      return {prodId, qty};
+      const {shoppingList} = getState();
+
+      // const SHA = NativeModules.Sha;
+      // const plainString = txSeq + txDateTime + storeId + clientNo;
+      // const key = 'incssafy12#$12#$';
+      // const authHash = await SHA.hmac256(plainString, key);
+      // const response = await paymentApi.requestPayment({});
+      dispatch(deleteAllShoppingListItem(1));
+      return shoppingList.shoppingList;
     } catch (e) {}
   },
 );
@@ -16,7 +25,7 @@ const paymentSlice = createSlice({
   initialState: {
     loading: false,
     hasErrors: false,
-    payment: [
+    paymentList: [
       {
         prodId: 1,
         memberId: 'sdfsdf',
@@ -44,7 +53,7 @@ const paymentSlice = createSlice({
       state.loading = true;
     },
     [requestPayment.fulfilled]: (state, {payload}) => {
-      state.payment = payload.paymentDetail;
+      state.paymentList = payload;
       state.loading = false;
       state.hasErrors = false;
     },

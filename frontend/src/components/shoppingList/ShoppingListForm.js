@@ -28,10 +28,16 @@ const ShoppingListForm = ({shoppingList, onFetchShoppingList}) => {
 
   const dispatch = useDispatch();
   const onDelete = () => {
+    if (checkCnt === 0) {
+      return;
+    }
     dispatch(deleteShoppingListItem({memberId: 1, prodIds}));
     setAllchecked(false);
   };
   const onAllChecked = () => {
+    if (checkCnt === 0) {
+      return;
+    }
     dispatch(allCheckShoppingListItem(!allChecked));
     setAllchecked(!allChecked);
   };

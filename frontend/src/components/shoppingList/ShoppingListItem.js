@@ -40,36 +40,39 @@ const ShoppingListItem = ({
   return (
     <ListItem>
       <TouchableOpacity onPress={onIsChecked}>
-        <Left style={styles.left2}>
+        <Left style={listItemStyle.left2}>
           {isCheck ? (
-            <Icon2 name={'check-box-outline'} style={styles.checkbox} />
+            <Icon2 name={'check-box-outline'} style={listItemStyle.checkbox} />
           ) : (
-            <Icon2 name={'checkbox-blank-outline'} style={styles.checkbox} />
+            <Icon2
+              name={'checkbox-blank-outline'}
+              style={listItemStyle.checkbox}
+            />
           )}
-          <Image style={styles.left} source={imgUrl} />
+          <Image style={listItemStyle.left} source={imgUrl} />
         </Left>
       </TouchableOpacity>
-      <Body style={styles.body}>
-        <Text style={styles.bodyTextName} numberOfLines={2}>
+      <Body style={listItemStyle.body}>
+        <Text style={listItemStyle.bodyTextName} numberOfLines={2}>
           {prodName}
         </Text>
-        <Text style={styles.bodyTextPrice} numberOfLines={1}>
+        <Text style={listItemStyle.bodyTextPrice} numberOfLines={1}>
           {prodPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
         </Text>
       </Body>
-      <Right style={styles.right}>
+      <Right style={listItemStyle.right}>
         <TouchableOpacity onPress={onDecrease}>
-          <Icon style={styles.cntIcon} name="minus" />
+          <Icon style={listItemStyle.cntIcon} name="minus" />
         </TouchableOpacity>
-        <Text style={styles.cntText}>{qty}</Text>
+        <Text style={listItemStyle.cntText}>{qty}</Text>
         <TouchableOpacity onPress={onIncrease}>
-          <Icon style={styles.cntIcon} name="plus" />
+          <Icon style={listItemStyle.cntIcon} name="plus" />
         </TouchableOpacity>
       </Right>
     </ListItem>
   );
 };
-const styles = StyleSheet.create({
+const listItemStyle = StyleSheet.create({
   checkboxFalse: {
     width: 15,
     height: 15,
@@ -114,8 +117,8 @@ const styles = StyleSheet.create({
     color: 'rgb(100,100,100)',
   },
   cntText: {
-    marginLeft: 10,
-    marginRight: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
 });
 

@@ -29,6 +29,16 @@ export const deleteShoppingListItem = createAsyncThunk(
     } catch (e) {}
   },
 );
+
+export const deleteAllShoppingListItem = createAsyncThunk(
+  'shoppingList/deleteAllShoppingListItem',
+  async ({memberId}) => {
+    //prodIds 배열
+    try {
+      await shoppingListApi.deleteAllItem({memberId});
+    } catch (e) {}
+  },
+);
 export const addShoppingListItemByBarcode = createAsyncThunk(
   'shoppingList/addShoppingListItemByBarcode',
   async formData => {
@@ -121,6 +131,9 @@ const shoppingListSlice = createSlice({
         }
         return true;
       });
+    },
+    [deleteAllShoppingListItem.fulfilled]: state => {
+      state.shoppingList = [];
     },
     [addShoppingListItemByBarcode.pending]: state => {
       state.loading = true;

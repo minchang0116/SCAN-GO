@@ -1,10 +1,14 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 import PaymentSuccess from '../../components/payment/PaymentSuccess';
 
 const PaymentContainer = ({navigation}) => {
+  const {payment} = useSelector(({payment}) => ({
+    payment: payment,
+  }));
   return (
     <>
-      <PaymentSuccess />
+      <PaymentSuccess payment={payment} navigation={navigation} />
     </>
   );
 };
