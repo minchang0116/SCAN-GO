@@ -2,12 +2,13 @@ import {combineReducers} from 'redux';
 import loading from './loading';
 import shoppingList from './shoppingList';
 import paymentList from './paymentList';
-import {all} from 'redux-saga/effects';
+import userInfo from './userInfo';
 
 const rootReducer = combineReducers({
   loading,
   shoppingList,
   paymentList,
+  userInfo,
 });
 
 export default rootReducer;
