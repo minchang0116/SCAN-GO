@@ -28,16 +28,22 @@ const ShoppingListForm = ({shoppingList, onFetchShoppingList}) => {
 
   const dispatch = useDispatch();
   const onDelete = () => {
+    if (checkCnt === 0) {
+      return;
+    }
     dispatch(deleteShoppingListItem({memberId: 1, prodIds}));
     setAllchecked(false);
   };
   const onAllChecked = () => {
+    if (checkCnt === 0) {
+      return;
+    }
     dispatch(allCheckShoppingListItem(!allChecked));
     setAllchecked(!allChecked);
   };
   return (
     <>
-      <Header style={styles.header}>
+      <Header androidStatusBarColor={'rgb(240,41,28)'} style={styles.header}>
         <TouchableOpacity style={styles.headerLeft} onPress={onAllChecked}>
           {allChecked ? (
             <Icon name={'check-box-outline'} style={styles.checkbox} />

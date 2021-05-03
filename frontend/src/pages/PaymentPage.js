@@ -11,7 +11,7 @@ const PaymentPage = ({navigation}) => {
         title={'결제 완료 페이지'}
         isIcon={false}
       />
-      <PaymentContainer />
+      <PaymentContainer navigation={navigation} />
     </Container>
   );
 };
