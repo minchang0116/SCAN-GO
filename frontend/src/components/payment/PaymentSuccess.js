@@ -6,12 +6,12 @@ import {
   List,
   ListItem,
   Right,
-  Text,
   View,
 } from 'native-base';
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
+import {ScrollView, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AppText from '../common/AppText';
 
 const PaymentSuccess = ({payment, navigation}) => {
   const [sumPrice, setSumPrice] = useState(0);
@@ -32,14 +32,14 @@ const PaymentSuccess = ({payment, navigation}) => {
         <View style={styles.view}>
           <Icon style={styles.icon_check} name="check" />
           <View style={styles.view_col}>
-            <Text style={styles.text}>{sumPrice}원</Text>
-            <Text>결제가 완료되었습니다.</Text>
+            <AppText style={styles.text}>{sumPrice}원</AppText>
+            <AppText>결제가 완료되었습니다.</AppText>
           </View>
         </View>
         <Button
           style={styles.button}
           onPress={() => navigation.navigate('MainPage')}>
-          <Text style={styles.buttonText}>홈으로</Text>
+          <AppText style={styles.buttonText}>홈으로</AppText>
         </Button>
       </View>
     </>
@@ -73,15 +73,15 @@ const PaymentSuccessListItem = ({
         {/* <Image style={listItemStyle.left} source={imgUrl} /> */}
       </Left>
       <Body style={listItemStyle.body}>
-        <Text style={listItemStyle.bodyTextName} numberOfLines={2}>
+        <AppText style={listItemStyle.bodyTextName} numberOfLines={2}>
           {prodName}
-        </Text>
-        <Text style={listItemStyle.bodyTextPrice} numberOfLines={1}>
+        </AppText>
+        <AppText style={listItemStyle.bodyTextPrice} numberOfLines={1}>
           {prodPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-        </Text>
+        </AppText>
       </Body>
       <Right style={listItemStyle.right}>
-        <Text style={listItemStyle.cntText}>{qty}</Text>
+        <AppText style={listItemStyle.cntText}>{qty}</AppText>
       </Right>
     </ListItem>
   );

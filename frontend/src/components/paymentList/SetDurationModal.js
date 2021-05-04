@@ -1,11 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
 import {StyleSheet, View, TouchableHighlight} from 'react-native';
-import {Container, Content, Item, Text} from 'native-base';
 import Modal from 'react-native-modal';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import DatePicker from './DatePicker';
+import AppText from '../../components/common/AppText';
 
 const SetDurationModal = ({
   toggleModal,
@@ -70,17 +69,19 @@ const SetDurationModal = ({
         <IconAntD name="close" size={30} color="rgb(142, 144, 144)" />
       </TouchableHighlight>
       <View style={setDurationStyles.container}>
-        <Text style={{marginBottom: 10}}>기간 설정</Text>
+        <AppText style={{marginBottom: 10, fontSize: 18}}>기간 설정</AppText>
         <View style={{flexDirection: 'row'}}>
           <TouchableHighlight onPress={toggleStartDatePicker}>
-            <Text>{startDate && startDate.toLocaleDateString()}</Text>
+            <AppText>
+              {startDate && startDate.toLocaleDateString()}&nbsp;
+            </AppText>
           </TouchableHighlight>
-          <IconAntD name="calendar" size={19} color="rgb(0, 0, 0)" />
-          <Text style={{paddingLeft: 20, paddingRight: 20}}>~</Text>
+          <IconAntD name="calendar" size={15} color="rgb(0, 0, 0)" />
+          <AppText style={{paddingLeft: 20, paddingRight: 20}}>~</AppText>
           <TouchableHighlight onPress={toggleEndDatePicker}>
-            <Text>{endDate && endDate.toLocaleDateString()}</Text>
+            <AppText>{endDate && endDate.toLocaleDateString()}&nbsp;</AppText>
           </TouchableHighlight>
-          <IconAntD name="calendar" size={19} color="rgb(0, 0, 0)" />
+          <IconAntD name="calendar" size={15} color="rgb(0, 0, 0)" />
         </View>
         {showStartDatepicker && (
           <DatePicker

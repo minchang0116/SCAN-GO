@@ -8,7 +8,7 @@ import {
   ScrollView,
   FlatList,
 } from 'react-native';
-import {Card, CardItem, Text, Body, Left, Right} from 'native-base';
+import {Card, CardItem, AppText, Body, Left, Right} from 'native-base';
 import ProductItem from './ProductItem';
 import Modal from 'react-native-modal';
 import IconAntD from 'react-native-vector-icons/AntDesign';
@@ -24,19 +24,19 @@ const PaymentItem = ({payment}) => {
     <>
       <Card>
         <CardItem header style={styles.header}>
-          <Text style={{fontWeight: '700', fontSize: 22}}>
+          <AppText style={{fontWeight: '700', fontSize: 22}}>
             {payment.txDateTime.slice(0, 10)}
-          </Text>
-          <Text>&nbsp;&nbsp;({payment.orderNo})</Text>
+          </AppText>
+          <AppText>&nbsp;&nbsp;({payment.orderNo})</AppText>
         </CardItem>
         <CardItem>
           <Body>
             <View style={styles.thumbnail}>
               <Left>
-                <Text>결제금액 {payment.paymentAmount}원</Text>
+                <AppText>결제금액 {payment.paymentAmount}원</AppText>
               </Left>
               <Right>
-                <Text>{payment.storeId}</Text>
+                <AppText>{payment.storeId}</AppText>
               </Right>
             </View>
           </Body>
@@ -50,9 +50,9 @@ const PaymentItem = ({payment}) => {
             return <ProductItem item={product} key={i} />;
           })}
         <CardItem footer>
-          <Text style={styles.footer} onPress={toggleModal}>
+          <AppText style={styles.footer} onPress={toggleModal}>
             결제 상품 자세히 보기 &gt;{' '}
-          </Text>
+          </AppText>
         </CardItem>
       </Card>
       <Modal
@@ -64,10 +64,10 @@ const PaymentItem = ({payment}) => {
         <View style={{flex: 1}}>
           <Card>
             <CardItem header style={styles.header}>
-              <Text style={{fontWeight: '700', fontSize: 22}}>
+              <AppText style={{fontWeight: '700', fontSize: 22}}>
                 {payment.date}
-              </Text>
-              <Text>&nbsp;&nbsp;({payment.orderNo})</Text>
+              </AppText>
+              <AppText>&nbsp;&nbsp;({payment.orderNo})</AppText>
               <TouchableHighlight
                 underlayColor="transparent"
                 style={styles.close}

@@ -8,6 +8,8 @@ import {
   allCheckShoppingListItem,
 } from '../../modules/shoppingList';
 import {useDispatch} from 'react-redux';
+import AppText from '../common/AppText';
+
 const ShoppingListForm = ({shoppingList, onFetchShoppingList}) => {
   const [checkCnt, setCheckCnt] = useState(0);
   const [prodIds, setProdIds] = useState([]);
@@ -50,11 +52,11 @@ const ShoppingListForm = ({shoppingList, onFetchShoppingList}) => {
           ) : (
             <Icon name={'checkbox-blank-outline'} style={styles.checkbox} />
           )}
-          <Text style={styles.headerLeftText}>{checkCnt}개 선택</Text>
+          <AppText style={styles.headerLeftText}>{checkCnt}개 선택</AppText>
         </TouchableOpacity>
         <Right>
           <TouchableOpacity onPress={onDelete}>
-            <Text style={styles.headerRightText}>상품 삭제</Text>
+            <AppText style={styles.headerRightText}>상품 삭제</AppText>
           </TouchableOpacity>
         </Right>
       </Header>
