@@ -2,7 +2,10 @@
 import {Container, ScrollableTab, Tab, Tabs} from 'native-base';
 import React from 'react';
 import {ScrollView} from 'react-native';
+import HomeProduct from '../productList/HomeProduct';
 import EventProduct from '../productList/EventProduct';
+import PopularProduct from '../productList/PopularProduct';
+import NewProduct from '../productList/NewProduct';
 
 const ProductListTab = () => {
   const renderTabBar = props => {
@@ -26,7 +29,7 @@ const ProductListTab = () => {
           tabStyle={{backgroundColor: 'white'}}
           heading="홈">
           <ScrollView>
-            <EventProduct />
+            <HomeProduct />
           </ScrollView>
         </Tab>
         <Tab
@@ -54,7 +57,7 @@ const ProductListTab = () => {
           tabStyle={{backgroundColor: 'white'}}
           heading="인기 상품">
           <ScrollView>
-            <EventProduct />
+            <PopularProduct />
           </ScrollView>
         </Tab>
         <Tab
@@ -68,7 +71,7 @@ const ProductListTab = () => {
           tabStyle={{backgroundColor: 'white'}}
           heading="신상품">
           <ScrollView>
-            <EventProduct />
+            <NewProduct />
           </ScrollView>
         </Tab>
       </Tabs>
