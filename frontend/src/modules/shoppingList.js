@@ -42,13 +42,8 @@ export const deleteAllShoppingListItem = createAsyncThunk(
 export const addShoppingListItemByBarcode = createAsyncThunk(
   'shoppingList/addShoppingListItemByBarcode',
   async formData => {
-    try {
-      const response = await shoppingListApi.addItemByBarcode(formData);
-
-      return response;
-    } catch (e) {
-      console.log(e);
-    }
+    const response = await shoppingListApi.addItemByBarcode(formData);
+    return response.data;
   },
 );
 const shoppingListSlice = createSlice({
@@ -139,7 +134,8 @@ const shoppingListSlice = createSlice({
       state.loading = true;
     },
     [addShoppingListItemByBarcode.fulfilled]: (state, {payload}) => {
-      state.lastItem = payload.data;
+      console.log(payload);
+      state.lastItem = payload;
       state.loading = false;
       state.hasErrors = false;
     },

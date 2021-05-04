@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   card: {
+    zIndex: 5,
     width: '95%',
     marginTop: 0,
     marginRight: 'auto',

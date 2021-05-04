@@ -10,8 +10,11 @@ import {
   Text,
 } from 'native-base';
 import IconAntD from 'react-native-vector-icons/AntDesign';
+import {useNavigation} from '@react-navigation/native';
 
 export const CameraFooter = () => {
+  const navigation = useNavigation();
+
   return (
     <>
       <Footer>
@@ -20,12 +23,13 @@ export const CameraFooter = () => {
             결제예정금액
           </Text>
           <Text style={[styles.footerText, {width: '50%'}]}>51,200원</Text>
-          <Button style={styles.goToCartBtn}>
+          <Button
+            style={styles.goToCartBtn}
+            onPress={() => {
+              navigation.navigate('ShoppingListPage');
+            }}>
             <IconAntD name="shoppingcart" size={40} color="rgb(218, 41, 28)" />
           </Button>
-          {/* <Button>
-                <Text style={styles.footerText}>결제하기</Text>
-              </Button> */}
         </FooterTab>
       </Footer>
     </>
@@ -55,7 +59,6 @@ const styles = StyleSheet.create({
   goToCartBtn: {
     backgroundColor: 'rgb(255,255,255)',
     borderRadius: 0,
-    marginBottom: 2,
-    height: 54,
+    height: '100%',
   },
 });
