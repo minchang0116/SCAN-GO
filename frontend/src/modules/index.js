@@ -2,14 +2,14 @@ import {combineReducers} from 'redux';
 import loading from './loading';
 import shoppingList from './shoppingList';
 import paymentList from './paymentList';
-import userInfo from './userInfo';
+import auth from './auth';
 import payment from './payment';
 
 const rootReducer = combineReducers({
   loading,
   shoppingList,
   paymentList,
-  userInfo,
+  auth,
   payment,
 });
 

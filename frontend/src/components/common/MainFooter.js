@@ -41,7 +41,6 @@ const MainFooter = ({navigation}) => {
         <TouchableOpacity
           style={styles.tochablePosition}
           onPress={() => {
-            naviHandler('shoppingList');
             navigation.navigate('ShoppingListPage');
           }}>
           <IconAntD name="shoppingcart" size={33} color="rgb(91, 103, 112)" />
