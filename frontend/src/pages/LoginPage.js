@@ -1,13 +1,8 @@
 import React, {useState} from 'react';
-import {
-  TextInput,
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import {TextInput, StyleSheet, View, TouchableOpacity} from 'react-native';
 import IconAntD from 'react-native-vector-icons/FontAwesome5';
 import SubHeader from '../components/common/SubHeader';
+import AppText from '../components/common/AppText';
 
 const LoginPage = ({navigation}) => {
   const [autoLogin, setAutoLogin] = useState(false);
@@ -32,7 +27,7 @@ const LoginPage = ({navigation}) => {
           ) : (
             <IconAntD name="check-circle" size={20} color="rgb(226,226,226)" />
           )}
-          <Text> 아이디 저장</Text>
+          <AppText> 아이디 저장</AppText>
         </TouchableOpacity>
         <View style={styles.loginBtnArea}>
           <TouchableOpacity
@@ -40,7 +35,7 @@ const LoginPage = ({navigation}) => {
             onPress={() => {
               navigation.navigate('MainPage');
             }}>
-            <Text style={styles.loginText}>로그인</Text>
+            <AppText style={styles.loginText}>로그인</AppText>
           </TouchableOpacity>
         </View>
         <TouchableOpacity
@@ -48,7 +43,7 @@ const LoginPage = ({navigation}) => {
           onPress={() => {
             navigation.navigate('RegisterForm');
           }}>
-          <Text>회원가입</Text>
+          <AppText>회원가입</AppText>
         </TouchableOpacity>
         <View style={styles.underLine} />
       </View>
@@ -81,7 +76,6 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
   underLine: {
-    paddingTop: 15,
     borderBottomColor: 'rgb(226,226,226)',
     borderBottomWidth: 1,
   },
@@ -89,18 +83,20 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
   loginBtn: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgb(218, 41, 28)',
+    height: 50,
   },
   loginText: {
     fontSize: 26,
     color: 'white',
-    margin: 6,
   },
   subFuncArea: {
     flexDirection: 'row',
-    paddingTop: 15,
     justifyContent: 'center',
     alignItems: 'center',
+    height: 50,
   },
 });

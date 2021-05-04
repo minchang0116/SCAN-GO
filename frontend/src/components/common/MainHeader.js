@@ -1,12 +1,14 @@
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React from 'react';
-import {Body, Header, Left, Right, Text, Title} from 'native-base';
-import Icon from 'react-native-vector-icons/Ionicons';
-const MainHeader = ({title}) => {
+import {Header} from 'native-base';
+// import Icon from 'react-native-vector-icons/Ionicons';
+import AppText from './AppText';
+
+const MainHeader = () => {
   return (
     <Header androidStatusBarColor={'rgb(240,41,28)'} style={styles.header}>
-      <Text style={styles.font}>SSG/ </Text>
-      <Text style={styles.font2}>셀프스토어</Text>
+      <AppText style={styles.font}>SSG/ </AppText>
+      <AppText style={styles.font2}>신세계몰</AppText>
     </Header>
   );
 };
@@ -23,11 +25,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginLeft: 10,
     color: 'white',
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
   font2: {
     color: 'white',
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
 });
 export default MainHeader;
