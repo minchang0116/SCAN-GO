@@ -19,28 +19,33 @@ const PaymentItem = ({payment}) => {
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-
+  console.log(typeof payment.txDateTime);
   return (
     <>
       <Card>
         <CardItem header style={styles.header}>
-          <Text style={{fontWeight: '700', fontSize: 22}}>{payment.date}</Text>
+          <Text style={{fontWeight: '700', fontSize: 22}}>
+            {payment.txDateTime.slice(0, 10)}
+          </Text>
           <Text>&nbsp;&nbsp;({payment.orderNo})</Text>
         </CardItem>
         <CardItem>
           <Body>
             <View style={styles.thumbnail}>
               <Left>
-                <Text>결제금액 {payment.total}원</Text>
+                <Text>결제금액 {payment.paymentAmount}원</Text>
               </Left>
               <Right>
-                <Text>{payment.storeName}</Text>
+                <Text>{payment.storeId}</Text>
               </Right>
             </View>
           </Body>
         </CardItem>
-        {payment.products
-          .slice(0, payment.products.length < 2 ? payment.products.length : 2)
+        {payment.paymentDetail
+          .slice(
+            0,
+            payment.paymentDetail.length < 2 ? payment.paymentDetail.length : 2,
+          )
           .map((product, i) => {
             return <ProductItem item={product} key={i} />;
           })}
@@ -64,7 +69,7 @@ const PaymentItem = ({payment}) => {
               </Text>
               <Text>&nbsp;&nbsp;({payment.orderNo})</Text>
               <TouchableHighlight
-                underlayColor="tansparent"
+                underlayColor="transparent"
                 style={styles.close}
                 onPress={toggleModal}>
                 <IconAntD name="close" size={30} color="rgb(142, 144, 144)" />
@@ -102,12 +107,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 6,
   },
-  // detail: {
-  //   backgroundColor: 'rgb(255,255,255)',
-  //   borderRadius: 10,
-  //   height: '70%',
-  //   width: '90%',
-  // },
   detail: {
     justifyContent: 'center',
     alignItems: 'center',

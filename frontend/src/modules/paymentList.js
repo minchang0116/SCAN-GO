@@ -1,15 +1,13 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import * as paymentListAPI from '../lib/api/paymentList';
 
-export const fetchPaymentList = createAsyncThunk(
-  'payment/fetchPaymentList',
-  async () => {
+export const fetchPaymentList = formData =>
+  createAsyncThunk('payment/fetchPaymentList', async () => {
     try {
-      const response = await paymentListAPI.readItems();
+      const response = await paymentListAPI.readItems(formData);
       return response;
     } catch (e) {}
-  },
-);
+  });
 const paymentListSlice = createSlice({
   name: 'paymentList',
   initialState: {

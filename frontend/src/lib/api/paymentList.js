@@ -1,8 +1,10 @@
 import client from './client';
 
 export const readItems = formData => {
-  return paymentList;
-  //   return client.get('/movie/review_list', {params: {...formData}});
+  // return paymentList;
+  console.log('안녕');
+  console.log({formData});
+  return client.get('/payment/list_customer_payment', {params: {...formData}});
 };
 
 const paymentList = {
