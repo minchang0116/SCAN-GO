@@ -9,6 +9,7 @@ import {
   Alert,
 } from 'react-native';
 import SubHeader from '../components/common/SubHeader';
+import * as registerAPI from '../lib/api/register';
 
 const RegisterForm = ({navigation}) => {
   // 유저 정보
@@ -51,7 +52,7 @@ const RegisterForm = ({navigation}) => {
   };
 
   // 아이디 중복 체크
-  const onIdCheckHandler = () => {
+  const onIdCheckHandler = async() => {
     if (id === '') {
       Alert.alert('ID 확인', 'ID를 입력해주세요.', [
         {
@@ -76,6 +77,8 @@ const RegisterForm = ({navigation}) => {
     }
     
     // back에 아이디 있는지 확인 체크
+    const response = await registerAPI.checkEmailAddress(id);
+
     setIdCheck(true);
     setDid(false);
   };
@@ -245,6 +248,8 @@ const RegisterForm = ({navigation}) => {
     }
 
     // back에 휴대전화 있는지 확인 체크
+    const response = registerAPI.checkCellNumber(cellnumber);
+
     setCellCheck(true);
     setDcell(false);
   };
@@ -253,7 +258,7 @@ const RegisterForm = ({navigation}) => {
   const checkAllRegisterInfoHandler = () => {
     navigation.navigate('LoginPage');
     return;
-
+    
     if (!idCheck) {
       Alert.alert('ID 확인', 'ID 중복 체크를 해주세요!', [
         {
@@ -300,6 +305,15 @@ const RegisterForm = ({navigation}) => {
       return;
     }
     // Back 통신
+    const formData = new FormData();
+
+    formData.append("memberId", id);
+    formData.append("birth", birth);
+    formData.append("password", password);
+    formData.append("cell", cellnumber);
+    
+    const response = registerAPI.registerUser(formData);
+
     Alert.alert('완벽합니다!', '환영합니다! 회원가입에 성공했습니다!', [
       {
         text: '확인',
@@ -485,6 +499,8 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   inputWithBtnArea: {
+    flex:1,
+    width:'100%',
     flexDirection: 'row',
     alignItems: 'center',
   },
