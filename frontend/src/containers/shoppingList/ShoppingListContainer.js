@@ -23,18 +23,14 @@ const ShoppingListContainer = ({navigation}) => {
 
   useEffect(() => {
     onFetchShoppingList();
-  }, [dispatch]);
+  }, []);
   return (
     <>
       <ShoppingListForm
-        shoppingList={shoppingList.shoppingList}
-        onFetchShoppingList={onFetchShoppingList}
+        shoppingList={shoppingList.paymentDetail}
         onDeleteShoppingListItem={onDeleteShoppingListItem}
       />
-      <ShoppingListFooter
-        navigation={navigation}
-        shoppingList={shoppingList.shoppingList}
-      />
+      <ShoppingListFooter navigation={navigation} shoppingList={shoppingList} />
     </>
   );
 };

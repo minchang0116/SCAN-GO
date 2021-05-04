@@ -35,9 +35,6 @@ const ShoppingListForm = ({shoppingList, onFetchShoppingList}) => {
     setAllchecked(false);
   };
   const onAllChecked = () => {
-    if (checkCnt === 0) {
-      return;
-    }
     dispatch(allCheckShoppingListItem(!allChecked));
     setAllchecked(!allChecked);
   };

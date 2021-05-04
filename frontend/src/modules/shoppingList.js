@@ -56,37 +56,17 @@ const shoppingListSlice = createSlice({
   initialState: {
     loading: false,
     hasErrors: false,
-    shoppingList: [
-      {
-        prodId: 1,
-        memberId: 'sdfsdf',
-        isCheck: false,
-        prodName: '랭거스)크랜베리페트449ml',
-        prodPrice: '2800',
-        imgUrl: require('../../imgs/랭거스)크랜베리페트449ml.jpg'),
-        qty: 1,
-      },
-      {
-        prodId: 2,
-        memberId: 'sdfsdf',
-        isCheck: false,
-        prodCode: '',
-        prodName: '롯데)오늘의차황금보리500ml',
-        prodPrice: '1500',
-        imgUrl: require('../../imgs/롯데)오늘의차황금보리500ml.jpg'),
-        qty: 2,
-      },
-    ],
+    paymentDetail: [],
     lastItem: null,
   },
   reducers: {
     allCheckShoppingListItem: (state, {payload}) => {
-      state.shoppingList = state.shoppingList.map(item => {
+      state.paymentDetail = state.paymentDetail.map(item => {
         return {...item, isCheck: payload};
       });
     },
     isCheckedShoppingListItem: (state, {payload}) => {
-      state.shoppingList = state.shoppingList.map(item => {
+      state.paymentDetail = state.paymentDetail.map(item => {
         if (item.prodId === payload.prodId) {
           return {...item, isCheck: !item.isCheck};
         } else {
@@ -104,17 +84,16 @@ const shoppingListSlice = createSlice({
       state.loading = true;
     },
     [fetchShoppingList.fulfilled]: (state, {payload}) => {
-      console.log(payload);
-      state.shoppingList = payload.paymentDetail;
-      state.loading = false;
-      state.hasErrors = false;
+      state.id = payload.id;
+      state.storeId = payload.storeId;
+      state.paymentDetail = payload.paymentDetail;
     },
     [fetchShoppingList.rejected]: state => {
       state.loading = false;
       state.hasErrors = true;
     },
     [updateShoppingListItem.fulfilled]: (state, {payload}) => {
-      state.shoppingList = state.shoppingList.map(item => {
+      state.paymentDetail = state.paymentDetail.map(item => {
         if (item.prodId === payload.prodId) {
           return {...item, qty: payload.qty};
         } else {
@@ -123,7 +102,7 @@ const shoppingListSlice = createSlice({
       });
     },
     [deleteShoppingListItem.fulfilled]: (state, {payload}) => {
-      state.shoppingList = state.shoppingList.filter(list => {
+      state.paymentDetail = state.paymentDetail.filter(list => {
         for (let i of payload) {
           if (list.prodId === i) {
             return false;
@@ -133,7 +112,7 @@ const shoppingListSlice = createSlice({
       });
     },
     [deleteAllShoppingListItem.fulfilled]: state => {
-      state.shoppingList = [];
+      state.paymentDetail = [];
     },
     [addShoppingListItemByBarcode.pending]: state => {
       state.loading = true;
