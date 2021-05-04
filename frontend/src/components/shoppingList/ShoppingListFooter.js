@@ -8,7 +8,7 @@ const ShoppingListFooter = ({shoppingList, navigation}) => {
   const dispatch = useDispatch();
   useEffect(() => {
     let price = 0;
-    for (let item of shoppingList) {
+    for (let item of shoppingList.paymentDetail) {
       price += item.prodPrice * item.qty;
     }
     setSumPrice(price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));

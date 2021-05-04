@@ -8,7 +8,9 @@ const PaymentContainer = ({navigation}) => {
   }));
   return (
     <>
-      <PaymentSuccess payment={payment} navigation={navigation} />
+      {payment.paymentList && (
+        <PaymentSuccess payment={payment} navigation={navigation} />
+      )}
     </>
   );
 };

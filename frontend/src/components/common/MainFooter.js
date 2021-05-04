@@ -67,19 +67,17 @@ export default MainFooter;
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
-    width:'100%',
-    marginTop: '1%',
-    paddingLeft: '4%',
-    paddingRight: '4%',
+    width: '100%',
+    paddingLeft: '2%',
+    paddingRight: '2%',
     borderTopWidth: 1,
     borderColor: 'rgb(226,226,226)',
     backgroundColor: 'white',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   tochablePosition: {
-    width: "100%",
+    width: '100%',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
