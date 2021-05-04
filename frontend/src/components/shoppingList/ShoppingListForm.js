@@ -16,7 +16,7 @@ const ShoppingListForm = ({shoppingList, onFetchShoppingList}) => {
   useEffect(() => {
     let list = [];
     let cnt = 0;
-    for (let item of shoppingList) {
+    for (let item of shoppingList.paymentDetail) {
       if (item.isCheck === true) {
         cnt = cnt + 1;
         list.push(item.prodId);
@@ -57,8 +57,8 @@ const ShoppingListForm = ({shoppingList, onFetchShoppingList}) => {
       </Header>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <List>
-          {shoppingList &&
-            shoppingList.map(item => (
+          {shoppingList.paymentDetail &&
+            shoppingList.paymentDetail.map(item => (
               <ShoppingListItem key={item.prodId} {...item} />
             ))}
         </List>

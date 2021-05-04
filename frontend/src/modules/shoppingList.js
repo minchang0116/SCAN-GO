@@ -82,6 +82,11 @@ const shoppingListSlice = createSlice({
       state.id = payload.id;
       state.storeId = payload.storeId;
       state.paymentDetail = payload.paymentDetail;
+      let sum = 0;
+      for (let item of payload.paymentDetail) {
+        sum += Number(item.prodPrice) * Number(item.qty);
+      }
+      state.sumPrice = sum;
     },
     [fetchShoppingList.rejected]: state => {
       state.loading = false;
@@ -90,6 +95,11 @@ const shoppingListSlice = createSlice({
     [updateShoppingListItem.fulfilled]: (state, {payload}) => {
       state.paymentDetail = state.paymentDetail.map(item => {
         if (item.prodId === payload.prodId) {
+          console.log(payload.qty);
+          state.sumPrice =
+            state.sumPrice -
+            Number(item.prodPrice) * Number(item.qty) +
+            Number(item.prodPrice) * Number(payload.qty);
           return {...item, qty: payload.qty};
         } else {
           return item;
@@ -100,6 +110,9 @@ const shoppingListSlice = createSlice({
       state.paymentDetail = state.paymentDetail.filter(list => {
         for (let i of payload) {
           if (list.prodId === i) {
+            console.log(list.prodPrice);
+            state.sumPrice =
+              state.sumPrice - Number(list.prodPrice) * Number(list.qty);
             return false;
           }
         }
@@ -108,12 +121,12 @@ const shoppingListSlice = createSlice({
     },
     [deleteAllShoppingListItem.fulfilled]: state => {
       state.paymentDetail = [];
+      state.sumPrice = 0;
     },
     [addShoppingListItemByBarcode.pending]: state => {
       state.loading = true;
     },
     [addShoppingListItemByBarcode.fulfilled]: (state, {payload}) => {
-      console.log(payload);
       state.lastItem = payload;
       state.loading = false;
       state.hasErrors = false;
