@@ -1,19 +1,14 @@
 import {Footer, FooterTab} from 'native-base';
 import React, {useState} from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import IconFntAwesome from 'react-native-vector-icons/FontAwesome5';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const MainFooter = ({navigation}) => {
-  const [currentPosition, setName] = useState('');
-  const naviHandler = position => {
-    setName(position);
-  };
-
   return (
-    <Footer>
+    <Footer style={{height: 65, backgroundColor: 'white'}}>
       <FooterTab style={styles.container}>
         <TouchableOpacity
           style={styles.tochablePosition}
@@ -21,6 +16,7 @@ const MainFooter = ({navigation}) => {
             navigation.navigate('MainPage');
           }}>
           <IconFntAwesome name="home" size={30} color="rgb(91, 103, 112)" />
+          <Text>홈</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.tochablePosition}
@@ -32,13 +28,15 @@ const MainFooter = ({navigation}) => {
             size={30}
             color="rgb(91, 103, 112)"
           />
+          <Text>결제내역</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.tochablePosition}
+          style={styles.tochableBarcode}
           onPress={() => {
             navigation.navigate('BarcodeScanningPage');
           }}>
-          <IconMaterial name="barcode-scan" size={55} color="rgb(218,41,28)" />
+          <IconMaterial name="barcode-scan" size={40} color="rgb(218,41,28)" />
+          <Text>QR/바코드</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.tochablePosition}
@@ -47,6 +45,7 @@ const MainFooter = ({navigation}) => {
             navigation.navigate('ShoppingListPage');
           }}>
           <IconAntD name="shoppingcart" size={33} color="rgb(91, 103, 112)" />
+          <Text>장바구니</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.tochablePosition}
@@ -58,6 +57,7 @@ const MainFooter = ({navigation}) => {
             size={32}
             color="rgb(91, 103, 112)"
           />
+          <Text>내정보</Text>
         </TouchableOpacity>
       </FooterTab>
     </Footer>
@@ -68,9 +68,11 @@ export default MainFooter;
 
 const styles = StyleSheet.create({
   container: {
+    height: '100%',
     width:'100%',
-    paddingLeft: '2%',
-    paddingRight: '2%',
+    marginTop: '1%',
+    paddingLeft: '4%',
+    paddingRight: '4%',
     borderTopWidth: 1,
     borderColor: 'rgb(226,226,226)',
     backgroundColor: 'white',
@@ -82,5 +84,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  tochableBarcode: {
+    width: '100%',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 10,
   },
 });
