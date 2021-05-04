@@ -8,12 +8,15 @@ import IconAntD from 'react-native-vector-icons/AntDesign';
 import DatePicker from './DatePicker';
 
 const SetDurationModal = ({
-  setSeletedDuration,
   toggleModal,
   durationModalVisible,
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+  isDatePass,
+  setIsDatePass,
 }) => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
   const [showStartDatepicker, setShowStartDataPicker] = useState(false);
   const [showEndDatepicker, setShowEndDataPicker] = useState(false);
 
@@ -26,12 +29,21 @@ const SetDurationModal = ({
     console.log(showEndDatepicker);
   };
 
-  const modalClose = () => {
+  useEffect(() => {
     let diff = endDate.getTime() - startDate.getTime();
     if (Math.floor(diff / (1000 * 60 * 60 * 24)) < 0) {
+      setIsDatePass(false);
+      console.log('isDatePass:' + isDatePass);
+    } else {
+      setIsDatePass(true);
+      console.log('isDatePass:' + isDatePass);
+    }
+  }, [startDate, endDate]);
+
+  const modalClose = () => {
+    if (!isDatePass) {
       alert('기간 설정이 잘못 되었습니다');
     } else {
-      setSeletedDuration('기간 설정');
       toggleModal();
     }
   };
@@ -61,12 +73,12 @@ const SetDurationModal = ({
         <Text style={{marginBottom: 10}}>기간 설정</Text>
         <View style={{flexDirection: 'row'}}>
           <TouchableHighlight onPress={toggleStartDatePicker}>
-            <Text>{startDate.toLocaleDateString()}</Text>
+            <Text>{startDate && startDate.toLocaleDateString()}</Text>
           </TouchableHighlight>
           <IconAntD name="calendar" size={19} color="rgb(0, 0, 0)" />
           <Text style={{paddingLeft: 20, paddingRight: 20}}>~</Text>
           <TouchableHighlight onPress={toggleEndDatePicker}>
-            <Text>{endDate.toLocaleDateString()}</Text>
+            <Text>{endDate && endDate.toLocaleDateString()}</Text>
           </TouchableHighlight>
           <IconAntD name="calendar" size={19} color="rgb(0, 0, 0)" />
         </View>
