@@ -1,8 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react-hooks/exhaustive-deps*/
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {StyleSheet, View} from 'react-native';
-import {Content, Item} from 'native-base';
+import {StyleSheet, View, TouchableHighlight} from 'react-native';
+import {Content, Item, Text} from 'native-base';
 import {Picker} from '@react-native-picker/picker';
 import PaymentItem from '../../components/paymentList/PaymentItem';
 import {fetchPaymentList} from '../../modules/paymentList';
@@ -15,6 +16,9 @@ const PaymentListContainer = () => {
   }));
   const [selectedDuration, setSeletedDuration] = useState('최근 3개월');
   const [durationModalVisible, setDurationModalVisible] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [isDatePass, setIsDatePass] = useState(true);
   const toggleModal = () => {
     setDurationModalVisible(!durationModalVisible);
   };
@@ -24,8 +28,7 @@ const PaymentListContainer = () => {
     let date2 = new Date();
     switch (selectedDuration) {
       case '기간 설정':
-        toggleModal();
-        break;
+        return;
       case '최근 3개월':
         date1.setMonth(date1.getMonth() - 3);
         break;
@@ -50,6 +53,37 @@ const PaymentListContainer = () => {
     dispatch(fetchPaymentList(formData));
   }, [selectedDuration]);
 
+  useEffect(() => {
+    if (
+      selectedDuration !== '기간 설정' ||
+      !isDatePass ||
+      durationModalVisible
+    ) {
+      return;
+    }
+    console.log(
+      '기간설정 : ' +
+        startDate.toLocaleDateString() +
+        '~' +
+        endDate.toLocaleDateString(),
+    );
+    const formData = {
+      memberId: 1,
+      date1:
+        startDate.getFullYear() +
+        '-' +
+        (startDate.getMonth() + 1) +
+        startDate.getDate(),
+      date2:
+        endDate.getFullYear() +
+        '-' +
+        (endDate.getMonth() + 1) +
+        endDate.getDate(),
+      pageNum: 0,
+    };
+    dispatch(fetchPaymentList(formData));
+  }, [toggleModal]);
+
   return (
     <>
       <Content>
@@ -59,18 +93,24 @@ const PaymentListContainer = () => {
               <Picker
                 mode="dropdown"
                 style={[{width: '70%'}]}
-                placeholder="Select your SIM"
-                placeholderStyle={{color: '#bfc6ea'}}
-                placeholderIconColor="#007aff"
                 selectedValue={selectedDuration}
                 onValueChange={itemValue => setSeletedDuration(itemValue)}>
                 <Picker.Item label="최근 3개월" value="최근 3개월" />
                 <Picker.Item label="최근 6개월" value="최근 6개월" />
                 <Picker.Item label="최근 9개월" value="최근 9개월" />
                 <Picker.Item label="최근 12개월" value="최근 12개월" />
-                <Picker.Item label="기간 설정" value="기간 설정" />
+                {/* <Picker.Item label="기간 설정" value="기간 설정" /> */}
               </Picker>
             </Item>
+            <TouchableHighlight
+              underlayColor="rgb(142, 144, 144)"
+              style={styles.button}
+              onPress={() => {
+                setSeletedDuration('기간 설정');
+                toggleModal();
+              }}>
+              <Text>기간 설정</Text>
+            </TouchableHighlight>
           </View>
         </View>
         <Content>
@@ -81,9 +121,14 @@ const PaymentListContainer = () => {
         </Content>
       </Content>
       <SetDurationModal
-        setSeletedDuration={setSeletedDuration}
         toggleModal={toggleModal}
         durationModalVisible={durationModalVisible}
+        startDate={startDate}
+        setStartDate={setStartDate}
+        endDate={endDate}
+        setEndDate={setEndDate}
+        isDatePass={isDatePass}
+        setIsDatePass={setIsDatePass}
       />
     </>
   );
