@@ -1,6 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, View, TouchableHighlight, StyleSheet} from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ToastAndroid,
+} from 'react-native';
 import {CameraScreen} from 'react-native-camera-kit';
 import {CameraFooter} from '../components/CameraFooter';
 import IconAntD from 'react-native-vector-icons/AntDesign';
@@ -10,14 +16,14 @@ import {
   addShoppingListItemByBarcode,
   removeLastItem,
 } from '../modules/shoppingList';
-import MainFooter from '../components/common/MainFooter';
+// import IconEntypo from 'react-native-vector-icons/Entypo';
 
 const BarcodeScanningPage = ({navigation}) => {
   const dispatch = useDispatch();
 
-  const {lastItem, loading} = useSelector(({shoppingList}) => ({
+  const {lastItem, error} = useSelector(({shoppingList}) => ({
     lastItem: shoppingList.lastItem,
-    loading: shoppingList.loading,
+    error: shoppingList.hasErrors,
   }));
 
   const [qrvalue, setQrvalue] = useState('');
@@ -26,27 +32,46 @@ const BarcodeScanningPage = ({navigation}) => {
     if (!qrvalue) {
       return;
     }
-    console.log('실행');
+    console.log('qrvalue : ' + qrvalue);
     const formData = {
       memberId: 1,
       prodCode: qrvalue,
     };
+    console.log('dispatch');
     dispatch(addShoppingListItemByBarcode({formData}));
+
+    if (error) {
+      ToastAndroid.showWithGravityAndOffset(
+        '찾을 수 없는 상품입니다. 다시 스캔해주세요.',
+        ToastAndroid.SHORT,
+        ToastAndroid.TOP,
+        25,
+        100,
+      );
+    }
+  }, [qrvalue]);
+
+  useEffect(() => {
+    console.log('lastItem: ' + lastItem);
     setTimeout(() => {
       dispatch(removeLastItem());
       setQrvalue('');
     }, 5000);
-  }, [qrvalue]);
+  }, [lastItem]);
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={{flex: 1}}>
-        <TouchableHighlight
-          underlayColor="tansparent"
+        <TouchableOpacity
           style={styles.close}
           onPress={() => navigation.navigate('MainPage')}>
           <IconAntD name="close" size={30} color="rgb(255, 255, 255)" />
-        </TouchableHighlight>
+        </TouchableOpacity>
+        {/* <TouchableOpacity
+          style={styles.close}
+          onPress={() => navigation.navigate('MainPage')}>
+          <IconEntypo name="flashlight" size={30} color="rgb(255, 255, 255)" />
+        </TouchableOpacity> */}
         <View style={{flex: 1}}>
           <CameraScreen
             showFrame={true}
@@ -54,16 +79,12 @@ const BarcodeScanningPage = ({navigation}) => {
             laserColor={'transparent'}
             frameColor={'red'}
             colorForScannerFrame={'white'}
-            onReadCode={async event => {
-              await setQrvalue('8992741941303');
-              // await setQrvalue(event.nativeEvent.codeStringValue);
-            }}
+            onReadCode={event => setQrvalue(event.nativeEvent.codeStringValue)}
           />
         </View>
-        {lastItem ? <CameraItem lastItem={lastItem} /> : <></>}
-        <CameraFooter />
+        {lastItem && <CameraItem lastItem={lastItem} />}
+        <CameraFooter navigation={navigation} />
       </View>
-      <MainFooter navigation={navigation} />
     </SafeAreaView>
   );
 };
@@ -110,6 +131,20 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     position: 'absolute',
-    left: '90%',
+    left: '88%',
+    top: '3%',
+  },
+  errorContainer: {
+    backgroundColor: 'white',
+    position: 'absolute',
+    zIndex: 5,
+    top: 100,
+    left: 20,
+    right: 20,
+    borderRadius: 100,
+    height: 40,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

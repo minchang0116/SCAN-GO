@@ -1,6 +1,7 @@
 import client from './client';
 
 export const addItemByBarcode = ({formData}) => {
+  console.log(formData);
   return client.get('/product/product_insert', {params: {...formData}});
 };
 export const addItemByProductName = formData => {
