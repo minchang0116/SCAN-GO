@@ -5,6 +5,13 @@ import rootReducer from './src/modules';
 import {NavigationContainer} from '@react-navigation/native';
 import StackNav from './src/navigations/Stack';
 import {shoppingListApi} from './src/lib/api/shoppingList';
+import {setCustomText} from 'react-native-global-props';
+
+const customTextProps = {
+  style: {
+    fontFamily: 'NotoSansCJKkr-Light',
+  },
+};
 
 const store = configureStore({
   reducer: rootReducer,
@@ -18,6 +25,7 @@ const store = configureStore({
 });
 
 const App = () => {
+  setCustomText(customTextProps);
   return (
     <Provider store={store}>
       <NavigationContainer>

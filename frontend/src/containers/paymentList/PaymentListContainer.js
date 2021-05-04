@@ -2,12 +2,18 @@
 /* eslint-disable react-hooks/exhaustive-deps*/
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {StyleSheet, View, TouchableHighlight} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TouchableHighlight,
+  TouchableOpacity,
+} from 'react-native';
 import {Content, Item, Text} from 'native-base';
 import {Picker} from '@react-native-picker/picker';
 import PaymentItem from '../../components/paymentList/PaymentItem';
 import {fetchPaymentList} from '../../modules/paymentList';
 import SetDurationModal from '../../components/paymentList/SetDurationModal';
+import AppText from '../../components/common/AppText';
 
 const PaymentListContainer = () => {
   const dispatch = useDispatch();
@@ -92,25 +98,40 @@ const PaymentListContainer = () => {
             <Item picker>
               <Picker
                 mode="dropdown"
-                style={[{width: '70%'}]}
+                style={{width: '65%'}}
                 selectedValue={selectedDuration}
                 onValueChange={itemValue => setSeletedDuration(itemValue)}>
-                <Picker.Item label="최근 3개월" value="최근 3개월" />
-                <Picker.Item label="최근 6개월" value="최근 6개월" />
-                <Picker.Item label="최근 9개월" value="최근 9개월" />
-                <Picker.Item label="최근 12개월" value="최근 12개월" />
-                {/* <Picker.Item label="기간 설정" value="기간 설정" /> */}
+                <Picker.Item
+                  label="최근 3개월"
+                  value="최근 3개월"
+                  style={styles.pickerItem}
+                />
+                <Picker.Item
+                  label="최근 6개월"
+                  value="최근 6개월"
+                  style={styles.pickerItem}
+                />
+                <Picker.Item
+                  label="최근 9개월"
+                  value="최근 9개월"
+                  style={styles.pickerItem}
+                />
+                <Picker.Item
+                  label="최근 12개월"
+                  value="최근 12개월"
+                  style={styles.pickerItem}
+                />
               </Picker>
             </Item>
-            <TouchableHighlight
+            <TouchableOpacity
               underlayColor="rgb(142, 144, 144)"
               style={styles.button}
               onPress={() => {
                 setSeletedDuration('기간 설정');
                 toggleModal();
               }}>
-              <Text>기간 설정</Text>
-            </TouchableHighlight>
+              <AppText style={{color: 'rgb(142, 144, 144)'}}>기간 설정</AppText>
+            </TouchableOpacity>
           </View>
         </View>
         <Content>
@@ -149,7 +170,11 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '20%',
-    color: 'rgb(142, 144, 144)',
     alignItems: 'center',
+  },
+  pickerItem: {
+    fontFamily: 'NotoSansCJKkr-Regular',
+    fontSize: 13,
+    color: 'rgb(144, 144, 144)',
   },
 });

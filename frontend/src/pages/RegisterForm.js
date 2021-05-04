@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import SubHeader from '../components/common/SubHeader';
 import * as registerAPI from '../lib/api/register';
+import AppText from '../components/common/AppText';
 
 const RegisterForm = ({navigation}) => {
   // 유저 정보
@@ -52,7 +53,7 @@ const RegisterForm = ({navigation}) => {
   };
 
   // 아이디 중복 체크
-  const onIdCheckHandler = async() => {
+  const onIdCheckHandler = async () => {
     if (id === '') {
       Alert.alert('ID 확인', 'ID를 입력해주세요.', [
         {
@@ -65,17 +66,17 @@ const RegisterForm = ({navigation}) => {
 
     // 이메일 형식 체크
     let reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-    
-    if(!reg_email.test(id)){
+
+    if (!reg_email.test(id)) {
       Alert.alert('ID 확인', 'Email의 형식을 확인해주세요!.', [
         {
           text: '확인',
           onPress: () => console.log('email check'),
         },
       ]);
-      return ;
+      return;
     }
-    
+
     // back에 아이디 있는지 확인 체크
     const response = await registerAPI.checkEmailAddress(id);
 
@@ -258,7 +259,7 @@ const RegisterForm = ({navigation}) => {
   const checkAllRegisterInfoHandler = () => {
     navigation.navigate('LoginPage');
     return;
-    
+
     if (!idCheck) {
       Alert.alert('ID 확인', 'ID 중복 체크를 해주세요!', [
         {
@@ -307,11 +308,11 @@ const RegisterForm = ({navigation}) => {
     // Back 통신
     const formData = new FormData();
 
-    formData.append("memberId", id);
-    formData.append("birth", birth);
-    formData.append("password", password);
-    formData.append("cell", cellnumber);
-    
+    formData.append('memberId', id);
+    formData.append('birth', birth);
+    formData.append('password', password);
+    formData.append('cell', cellnumber);
+
     const response = registerAPI.registerUser(formData);
 
     Alert.alert('완벽합니다!', '환영합니다! 회원가입에 성공했습니다!', [
@@ -328,7 +329,7 @@ const RegisterForm = ({navigation}) => {
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
         <View style={styles.inputForm}>
           <View>
-            <Text style={styles.titleText}>ID(Email)</Text>
+            <AppText style={styles.titleText}>ID(Email)</AppText>
             <View style={styles.inputWithBtnArea}>
               <TextInput
                 autoCompleteType={'email'}
@@ -340,24 +341,24 @@ const RegisterForm = ({navigation}) => {
               <TouchableOpacity
                 style={styles.CheckBtn}
                 onPress={onIdCheckHandler}>
-                <Text style={styles.btnText}>중복체크</Text>
+                <AppText style={styles.btnText}>중복체크</AppText>
               </TouchableOpacity>
             </View>
             <View>
               {idBlank ? null : idCheck ? (
                 isduplicated_id ? ( // 중복 여부
-                  <Text style={styles.afterCheck}>ID가 중복되었습니다!</Text>
+                  <AppText style={styles.afterCheck}>ID가 중복되었습니다!</AppText>
                 ) : (
-                  <Text style={styles.afterCheck}>사용가능한 ID 입니다!</Text>
+                  <AppText style={styles.afterCheck}>사용가능한 ID 입니다!</AppText>
                 )
               ) : (
                 // 중복체크
-                <Text style={styles.preCheck}>ID 중복체크를 해주세요.</Text>
+                <AppText style={styles.preCheck}>ID 중복체크를 해주세요.</AppText>
               )}
             </View>
           </View>
           <View>
-            <Text style={styles.titleText}>생일</Text>
+            <AppText style={styles.titleText}>생일</AppText>
             <TextInput
               style={[styles.textInput, {marginBottom: 6}]}
               keyboardType={'numeric'}
@@ -366,14 +367,12 @@ const RegisterForm = ({navigation}) => {
               onChangeText={text => onBirthCheckHandler(text)}
               value={birth}
             />
-            {birthBlank ? null : birthCheck ? (
-              null
-            ) : (
-              <Text style={styles.afterCheck}>생일을 확인해주세요</Text>
+            {birthBlank ? null : birthCheck ? null : (
+              <AppText style={styles.afterCheck}>생일을 확인해주세요</AppText>
             )}
           </View>
           <View>
-            <Text style={styles.titleText}>비밀 번호</Text>
+            <AppText style={styles.titleText}>비밀 번호</AppText>
             <TextInput
               style={styles.textInput}
               onChangeText={text => onPasswordHandler(text)}
@@ -382,16 +381,16 @@ const RegisterForm = ({navigation}) => {
             />
             <View>
               {pwFormBlank ? null : pwFormCheck ? (
-                <Text style={styles.afterCheck}>
+                <AppText style={styles.afterCheck}>
                   사용가능한 비밀번호입니다!
-                </Text>
+                </AppText>
               ) : (
-                <Text style={styles.afterCheck}>
+                <AppText style={styles.afterCheck}>
                   비밀번호 양식을 확인해주세요
-                </Text>
+                </AppText>
               )}
             </View>
-            <Text style={styles.titleText}>비밀 번호 확인</Text>
+            <AppText style={styles.titleText}>비밀 번호 확인</AppText>
             <TextInput
               style={[styles.textInput, {marginBottom: 10}]}
               placeholder="다시 한번 입력해주세요"
@@ -402,15 +401,15 @@ const RegisterForm = ({navigation}) => {
             />
             <View>
               {pwBlank ? null : pwCheck ? (
-                <Text style={styles.afterCheck}>확인되었습니다!</Text>
+                <AppText style={styles.afterCheck}>확인되었습니다!</AppText>
               ) : (
-                <Text style={styles.preCheck}>
+                <AppText style={styles.preCheck}>
                   비밀번호가 일치하지 않습니다!
-                </Text>
+                </AppText>
               )}
             </View>
           </View>
-          <Text style={styles.titleText}>휴대 전화</Text>
+          <AppText style={styles.titleText}>휴대 전화</AppText>
           <View style={styles.inputWithBtnArea}>
             <TextInput
               style={styles.inputWithBtn}
@@ -425,18 +424,18 @@ const RegisterForm = ({navigation}) => {
             <TouchableOpacity
               style={styles.CheckBtn}
               onPress={onCellCheckHandler}>
-              <Text style={styles.btnText}>중복체크</Text>
+              <AppText style={styles.btnText}>중복체크</AppText>
             </TouchableOpacity>
           </View>
           <View>
             {cellBlank ? null : cellCheck ? (
               isduplicated_cell ? (
-                <Text style={styles.preCheck}>휴대전화가 중복되었습니다.</Text>
+                <AppText style={styles.preCheck}>휴대전화가 중복되었습니다.</AppText>
               ) : (
-                <Text style={styles.afterCheck}>사용가능한 번호입니다!</Text>
+                <AppText style={styles.afterCheck}>사용가능한 번호입니다!</AppText>
               )
             ) : (
-              <Text style={styles.preCheck}>휴대전화 중복체크를 해주세요.</Text>
+              <AppText style={styles.preCheck}>휴대전화 중복체크를 해주세요.</AppText>
             )}
           </View>
         </View>
@@ -444,7 +443,7 @@ const RegisterForm = ({navigation}) => {
           <TouchableOpacity
             style={styles.registerBtn}
             onPress={checkAllRegisterInfoHandler}>
-            <Text style={styles.registerText}>회원가입</Text>
+            <AppText style={styles.registerText}>회원가입</AppText>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -480,7 +479,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: 'rgb(226,226,226)',
     marginBottom: 10,
-    width: 270,
+    width: '77%',
   },
   preCheck: {
     fontSize: 16,
@@ -499,8 +498,8 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   inputWithBtnArea: {
-    flex:1,
-    width:'100%',
+    flex: 1,
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -517,22 +516,19 @@ const styles = StyleSheet.create({
     color: 'white',
     margin: 6,
   },
-  timerText: {
-    fontSize: 28,
-    color: 'rgb(218, 41, 28)',
-    paddingBottom: 14,
-  },
   registerBtnArea: {
     marginTop: 80,
     marginBottom: 10,
   },
   registerBtn: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgb(218, 41, 28)',
+    height: 50,
   },
   registerText: {
     fontSize: 26,
     color: 'white',
-    margin: 6,
   },
 });
