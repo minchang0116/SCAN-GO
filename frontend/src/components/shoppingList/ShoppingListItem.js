@@ -8,6 +8,7 @@ import {
   updateShoppingListItem,
   isCheckedShoppingListItem,
 } from '../../modules/shoppingList';
+import AppText from '../common/AppText';
 
 const ShoppingListItem = ({
   imgUrl,
@@ -53,18 +54,18 @@ const ShoppingListItem = ({
         </Left>
       </TouchableOpacity>
       <Body style={listItemStyle.body}>
-        <Text style={listItemStyle.bodyTextName} numberOfLines={2}>
+        <AppText style={listItemStyle.bodyTextName} numberOfLines={2}>
           {prodName}
-        </Text>
-        <Text style={listItemStyle.bodyTextPrice} numberOfLines={1}>
+        </AppText>
+        <AppText style={listItemStyle.bodyTextPrice} numberOfLines={1}>
           {prodPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-        </Text>
+        </AppText>
       </Body>
       <Right style={listItemStyle.right}>
         <TouchableOpacity onPress={onDecrease}>
           <Icon style={listItemStyle.cntIcon} name="minus" />
         </TouchableOpacity>
-        <Text style={listItemStyle.cntText}>{qty}</Text>
+        <AppText style={listItemStyle.cntText}>{qty}</AppText>
         <TouchableOpacity onPress={onIncrease}>
           <Icon style={listItemStyle.cntIcon} name="plus" />
         </TouchableOpacity>

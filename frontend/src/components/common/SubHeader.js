@@ -2,6 +2,8 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {Body, Header, Left, Right, Title} from 'native-base';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AppText from './AppText';
+
 const SubHeader = ({title, navigation, isIcon = true}) => {
   return (
     <Header androidStatusBarColor={'rgb(240,41,28)'} style={styles.header}>
@@ -13,7 +15,7 @@ const SubHeader = ({title, navigation, isIcon = true}) => {
         </TouchableOpacity>
       </Left>
       <Body>
-        <Title style={styles.fontColor2}>{title}</Title>
+        <AppText style={styles.fontColor2}>{title}</AppText>
       </Body>
       <Right>
         {isIcon && (
@@ -43,7 +45,6 @@ const styles = StyleSheet.create({
   },
   button: {
     width: 50,
-
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',

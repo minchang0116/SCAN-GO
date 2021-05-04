@@ -1,8 +1,11 @@
-import {Footer, Left, Right, Text, View} from 'native-base';
-import React, {useEffect, useState} from 'react';
+/* eslint-disable react-native/no-inline-styles */
+import {Left, Right, View} from 'native-base';
+import React from 'react';
 import {Alert, StyleSheet, TouchableOpacity} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {requestPayment} from '../../modules/payment';
+import AppText from '../common/AppText';
+
 const ShoppingListFooter = ({shoppingList, sumPrice, navigation}) => {
   const dispatch = useDispatch();
 
@@ -33,7 +36,7 @@ const ShoppingListFooter = ({shoppingList, sumPrice, navigation}) => {
   return (
     <View style={styles.footer}>
       <Left style={styles.footerLeft}>
-        <Text>결제 예정금액 : {sumPrice}원</Text>
+        <AppText>결제 예정금액 : {sumPrice}원</AppText>
       </Left>
       <Right style={styles.footerRight}>
         <TouchableOpacity
@@ -41,7 +44,7 @@ const ShoppingListFooter = ({shoppingList, sumPrice, navigation}) => {
           onPress={() => {
             onPayment();
           }}>
-          <Text style={{color: 'white', fontSize: 20}}>결제하기</Text>
+          <AppText style={{color: 'white', fontSize: 20}}>결제하기</AppText>
         </TouchableOpacity>
       </Right>
     </View>

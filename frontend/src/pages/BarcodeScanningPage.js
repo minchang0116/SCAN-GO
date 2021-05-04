@@ -16,6 +16,7 @@ import {
   addShoppingListItemByBarcode,
   removeLastItem,
 } from '../modules/shoppingList';
+import AppText from '../components/common/AppText';
 // import IconEntypo from 'react-native-vector-icons/Entypo';
 
 const BarcodeScanningPage = ({navigation}) => {
