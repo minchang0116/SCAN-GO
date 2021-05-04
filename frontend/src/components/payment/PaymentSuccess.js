@@ -47,7 +47,6 @@ const PaymentSuccess = ({payment, navigation}) => {
 };
 
 const PaymentSuccessList = ({paymentList}) => {
-  console.log(paymentList);
   return (
     <List>
       {paymentList &&
@@ -66,7 +65,6 @@ const PaymentSuccessListItem = ({
   prodPrice,
   qty,
 }) => {
-  console.log(imgUrl);
   return (
     <ListItem style={listItemStyle.list}>
       <Left style={listItemStyle.left2}>
