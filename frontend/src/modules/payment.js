@@ -1,21 +1,32 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import * as paymentApi from '../lib/api/payment';
-import {NativeModules, Platform} from 'react-native';
 import {deleteAllShoppingListItem} from './shoppingList';
-
+import hmacSHA256 from 'crypto-js/hmac-sha256';
+import Base64 from 'crypto-js/enc-base64';
 export const requestPayment = createAsyncThunk(
   'payment/requestPayment',
   async (formData, {dispatch, getState}) => {
     try {
-      const {shoppingList} = getState();
-
-      // const SHA = NativeModules.Sha;
-      // const plainString = txSeq + txDateTime + storeId + clientNo;
-      // const key = 'incssafy12#$12#$';
-      // const authHash = await SHA.hmac256(plainString, key);
-      // const response = await paymentApi.requestPayment({});
-      dispatch(deleteAllShoppingListItem(1));
-      return shoppingList.shoppingList;
+      const {shoppingList, userInfo} = getState();
+      const txSeq = String(shoppingList.id);
+      const txDateTime = String(Date.now());
+      const clientNo = '1';
+      const plainString = txSeq + txDateTime + shoppingList.storeId + clientNo;
+      const key = 'incssafy12#$12#$';
+      const authHash = await Base64.stringify(hmacSHA256(plainString, key));
+      console.log(authHash);
+      const response = await paymentApi.requestPayment({
+        txSeq: txSeq,
+        txDateTime: txDateTime,
+        storeId: shoppingList.storeId,
+        clientNo: '1',
+        prodList: shoppingList.paymentDetail,
+        authHash: authHash,
+      });
+      if (response.status === 200) {
+        dispatch(deleteAllShoppingListItem(1));
+        return shoppingList.paymentDetail;
+      }
     } catch (e) {}
   },
 );
@@ -25,27 +36,7 @@ const paymentSlice = createSlice({
   initialState: {
     loading: false,
     hasErrors: false,
-    paymentList: [
-      {
-        prodId: 1,
-        memberId: 'sdfsdf',
-        isCheck: false,
-        prodName: '랭거스)크랜베리페트449ml',
-        prodPrice: '2800',
-        imgUrl: require('../../imgs/랭거스)크랜베리페트449ml.jpg'),
-        qty: 1,
-      },
-      {
-        prodId: 2,
-        memberId: 'sdfsdf',
-        isCheck: false,
-        prodCode: '',
-        prodName: '롯데)오늘의차황금보리500ml',
-        prodPrice: '1500',
-        imgUrl: require('../../imgs/롯데)오늘의차황금보리500ml.jpg'),
-        qty: 2,
-      },
-    ],
+    paymentList: [],
   },
   reducers: {},
   extraReducers: {

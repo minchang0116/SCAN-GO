@@ -117,8 +117,8 @@ const listItemStyle = StyleSheet.create({
     color: 'rgb(100,100,100)',
   },
   cntText: {
-    paddingLeft: 10,
-    paddingRight: 10,
+    textAlign: 'center',
+    width: 35,
   },
 });
 
