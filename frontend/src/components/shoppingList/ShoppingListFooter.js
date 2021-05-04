@@ -3,16 +3,8 @@ import React, {useEffect, useState} from 'react';
 import {Alert, StyleSheet, TouchableOpacity} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {requestPayment} from '../../modules/payment';
-const ShoppingListFooter = ({shoppingList, navigation}) => {
-  const [sumPrice, setSumPrice] = useState(0);
+const ShoppingListFooter = ({shoppingList, sumPrice, navigation}) => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    let price = 0;
-    for (let item of shoppingList.paymentDetail) {
-      price += item.prodPrice * item.qty;
-    }
-    setSumPrice(price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
-  }, [shoppingList]);
 
   const onPayment = () => {
     if (sumPrice === '0') {

@@ -12,7 +12,7 @@ import {
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 
-export const CameraFooter = () => {
+export const CameraFooter = ({sumPrice}) => {
   const navigation = useNavigation();
 
   return (
@@ -22,7 +22,7 @@ export const CameraFooter = () => {
           <Text style={[styles.footerText, styles.footerText1]}>
             결제예정금액
           </Text>
-          <Text style={[styles.footerText, {width: '50%'}]}>51,200원</Text>
+          <Text style={[styles.footerText, {width: '50%'}]}>{sumPrice}원</Text>
           <Button
             style={styles.goToCartBtn}
             onPress={() => {

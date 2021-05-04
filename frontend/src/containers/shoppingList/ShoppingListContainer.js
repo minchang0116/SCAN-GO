@@ -27,10 +27,16 @@ const ShoppingListContainer = ({navigation}) => {
   return (
     <>
       <ShoppingListForm
-        shoppingList={shoppingList.paymentDetail}
+        shoppingList={shoppingList}
         onDeleteShoppingListItem={onDeleteShoppingListItem}
       />
-      <ShoppingListFooter navigation={navigation} shoppingList={shoppingList} />
+      <ShoppingListFooter
+        navigation={navigation}
+        shoppingList={shoppingList}
+        sumPrice={shoppingList.sumPrice
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+      />
     </>
   );
 };

@@ -21,8 +21,11 @@ import {
 const BarcodeScanningPage = ({navigation}) => {
   const dispatch = useDispatch();
 
-  const {lastItem, error} = useSelector(({shoppingList}) => ({
+  const {lastItem, sumPrice, error} = useSelector(({shoppingList}) => ({
     lastItem: shoppingList.lastItem,
+    sumPrice: shoppingList.sumPrice
+      .toString()
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ','),
     error: shoppingList.hasErrors,
   }));
 
@@ -83,7 +86,7 @@ const BarcodeScanningPage = ({navigation}) => {
           />
         </View>
         {lastItem && <CameraItem lastItem={lastItem} />}
-        <CameraFooter navigation={navigation} />
+        <CameraFooter navigation={navigation} sumPrice={sumPrice} />
       </View>
     </SafeAreaView>
   );
