@@ -16,6 +16,10 @@ public interface PaymentService {
     @Transactional
     List<CustomerPaymentResponse> getCustomerPaymentList(long memberId, String date1, String date2, long pageNum) throws ParseException;
 
+    // HMAC 체크
+    @Transactional
+    public boolean checkAuthHash(Map<String, Object> payment);
+
     // 결제하기
     @Transactional
     public void doPay(Map<String, Object> payment) throws ParseException;

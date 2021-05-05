@@ -3,6 +3,7 @@ package com.ssg.member.data;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -10,12 +11,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssg.shopping.payment.data.Entity.CurrentPayment;
 import com.ssg.shopping.payment.data.Entity.CustomerPayment;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @Getter
 @Entity
+@Builder
+@AllArgsConstructor
 @Table(name = "member")
 public class Member {
     @Id
@@ -26,7 +30,7 @@ public class Member {
     private String phone;
     @Temporal(TemporalType.DATE)
     private Date birth;
-    private long grade;
+    private boolean activated;
 
     @JsonIgnore
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
@@ -35,4 +39,13 @@ public class Member {
     @JsonIgnore
     @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
     private CurrentPayment currentPayment;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_authority",
+            joinColumns = {@JoinColumn(name = "member_id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority_name")})
+    private Set<Authority> authorities;
+
+    public Member() {}
 }

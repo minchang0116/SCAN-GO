@@ -1,4 +1,4 @@
-package com.ssg;
+package com.ssg.config;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
