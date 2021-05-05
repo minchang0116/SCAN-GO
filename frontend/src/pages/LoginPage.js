@@ -1,10 +1,22 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {TextInput, StyleSheet, View, TouchableOpacity} from 'react-native';
 import IconAntD from 'react-native-vector-icons/FontAwesome5';
 import SubHeader from '../components/common/SubHeader';
 import AppText from '../components/common/AppText';
+import RNShake from 'react-native-shake';
 
 const LoginPage = ({navigation}) => {
+  useEffect(() => {
+    RNShake.addEventListener('ShakeEvent', () => {
+      console.log('쉐이킹!!');
+      navigation.navigate('BarcodeScanningPage');
+    });
+  }, []);
+  useEffect(() => {
+    console.log('쉐이킹 이벤트 제거');
+    return () => RNShake.removeEventListener('ShakeEvent');
+  }, []);
+
   const [autoLogin, setAutoLogin] = useState(false);
   const onToggle = () => {
     setAutoLogin(!autoLogin);
