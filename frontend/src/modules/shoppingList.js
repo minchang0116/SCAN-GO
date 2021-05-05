@@ -52,6 +52,7 @@ const shoppingListSlice = createSlice({
     loading: false,
     hasErrors: false,
     paymentDetail: [],
+    sumPrice: 0,
     lastItem: null,
   },
   reducers: {
