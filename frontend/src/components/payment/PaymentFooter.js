@@ -1,12 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
-import {Left, Right, View} from 'native-base';
+import {Right, View} from 'native-base';
 import React from 'react';
-import {Alert, StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {requestPayment} from '../../modules/payment';
 import AppText from '../common/AppText';
 
-const ShoppingListFooter = ({shoppingList, sumPrice, navigation}) => {
+const PaymentFooter = ({shoppingList, sumPrice, navigation}) => {
   const dispatch = useDispatch();
 
   const onPayment = () => {
@@ -18,9 +17,6 @@ const ShoppingListFooter = ({shoppingList, sumPrice, navigation}) => {
 
   return (
     <View style={styles.footer}>
-      <Left style={styles.footerLeft}>
-        <AppText>결제 예정금액 : {sumPrice}원</AppText>
-      </Left>
       <Right style={styles.footerRight}>
         <TouchableOpacity
           style={styles.footerRightBlock}
@@ -64,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ShoppingListFooter;
+export default PaymentFooter;
