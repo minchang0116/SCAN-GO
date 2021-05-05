@@ -2,7 +2,7 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import PaymentSuccess from '../../components/payment/PaymentSuccess';
 
-const PaymentContainer = ({navigation}) => {
+const PaymentSuccessContainer = ({navigation}) => {
   const {payment} = useSelector(({payment}) => ({
     payment: payment,
   }));
@@ -15,4 +15,4 @@ const PaymentContainer = ({navigation}) => {
   );
 };
 
-export default PaymentContainer;
+export default PaymentSuccessContainer;

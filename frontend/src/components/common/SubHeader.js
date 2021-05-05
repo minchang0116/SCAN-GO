@@ -39,7 +39,7 @@ const SubHeader = ({title, navigation, isIcon = true}) => {
 
 const styles = StyleSheet.create({
   header: {
-    marginBottom: 4,
+    marginBottom: 1,
     backgroundColor: 'white',
     height: 45,
   },

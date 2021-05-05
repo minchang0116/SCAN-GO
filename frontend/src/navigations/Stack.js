@@ -5,6 +5,7 @@ import {
   MainPage,
   PaymentList,
   ShoppingListPage,
+  PaymentSuccessPage,
   PaymentPage,
   ImageScanningPage,
   LoginPage,
@@ -54,6 +55,11 @@ const StackNav = () => {
       <Stack.Screen
         name="PaymentPage"
         component={PaymentPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="PaymentSuccessPage"
+        component={PaymentSuccessPage}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
