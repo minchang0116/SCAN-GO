@@ -1,18 +1,37 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Right, View} from 'native-base';
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {Alert, StyleSheet, TouchableOpacity} from 'react-native';
 import {useDispatch} from 'react-redux';
+import {requestPayment} from '../../modules/payment';
 import AppText from '../common/AppText';
 
-const PaymentFooter = ({shoppingList, sumPrice, navigation}) => {
+const PaymentFooter = ({sumPrice, navigation, paymentType}) => {
   const dispatch = useDispatch();
-
+  const type = ['', '카드', '현금', '카드'];
   const onPayment = () => {
     if (sumPrice === '0') {
       return;
     }
-    navigation.navigate('PaymentPage');
+
+    Alert.alert(
+      '결제 하시겠습니까?',
+      '총 금액 : ' + sumPrice + '원',
+      [
+        {
+          text: '아니요',
+          style: 'cancel',
+        },
+        {
+          text: '네',
+          onPress: () => {
+            dispatch(requestPayment(type[paymentType]));
+            navigation.navigate('PaymentSuccessPage');
+          },
+        },
+      ],
+      {cancelable: true},
+    );
   };
 
   return (
