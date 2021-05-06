@@ -1,23 +1,92 @@
-import React, {useState} from 'react';
-import {TextInput, StyleSheet, View, TouchableOpacity} from 'react-native';
+import React, {useState, useRef} from 'react';
+import {
+  TextInput,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import IconAntD from 'react-native-vector-icons/FontAwesome5';
 import SubHeader from '../components/common/SubHeader';
 import AppText from '../components/common/AppText';
+import {useDispatch} from 'react-redux';
+import {fetchUserInfo} from '../modules/auth';
+import * as loginAPI from '../lib/api/auth';
 
 const LoginPage = ({navigation}) => {
+  const [memberId, setId] = useState('');
+  const [password, setPw] = useState('');
+  const passwordRef = useRef();
+  const idRef = useRef();
   const [autoLogin, setAutoLogin] = useState(false);
+  const dispatch = useDispatch();
   const onToggle = () => {
     setAutoLogin(!autoLogin);
+  };
+
+  const loginBtn = async () => {
+    console.log('로그인');
+    if (memberId === '') {
+      Alert.alert('ID 확인', 'ID를 입력해주세요.', [
+        {
+          text: '확인',
+          onPress: () => idRef.current.focus(),
+        },
+      ]);
+      return;
+    }
+
+    if (password === '') {
+      Alert.alert('비밀번호 확인', '비밀번호를 입력해주세요.', [
+        {
+          text: '확인',
+          onPress: () => passwordRef.current.focus(),
+        },
+      ]);
+      return;
+    }
+    try {
+      let response = await loginAPI.LoginWithPassword({
+        loginId: memberId,
+        loginPwd: password,
+      });
+      console.log('token: ' + response.data.token);
+      if (response.status === 200) {
+        console.log("디스패치 전")
+        dispatch(fetchUserInfo(response.data.token));
+        navigation.navigate('MainPage');
+      }
+    } catch (e) {
+      Alert.alert('계정 확인', '없는 계정이거나 틀린 비밀번호입니다.', [
+        {
+          text: '확인',
+          onPress: () => console.log("계정 확인")
+        },
+      ]);
+      return;
+    }
   };
   return (
     <>
       <SubHeader title={'로그인'} navigation={navigation} isIcon={false} />
       <View style={styles.container}>
         <View style={styles.inputForm}>
-          <TextInput style={styles.textInput} placeholder="아이디" />
           <TextInput
+            ref={idRef}
+            style={styles.textInput}
+            keyboardType={'email-address'}
+            placeholder="아이디(email)"
+            value={memberId}
+            onChangeText={text => setId(text)}
+            onSubmitEditing={() => passwordRef.current.focus()}
+            returnKeyType="next"
+          />
+          <TextInput
+            ref={passwordRef}
             style={styles.textInput}
             secureTextEntry={true}
+            value={password}
+            onChangeText={text => setPw(text)}
             placeholder="비밀번호"
           />
         </View>
@@ -33,7 +102,7 @@ const LoginPage = ({navigation}) => {
           <TouchableOpacity
             style={styles.loginBtn}
             onPress={() => {
-              navigation.navigate('MainPage');
+              loginBtn();
             }}>
             <AppText style={styles.loginText}>로그인</AppText>
           </TouchableOpacity>

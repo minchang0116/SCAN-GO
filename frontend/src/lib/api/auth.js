@@ -1,8 +1,8 @@
 import client from './client';
 
 // 로그인 시도
-export const LoginWithPassword = ({formData}) => {
-  return client.post('/', formData);
+export const LoginWithPassword = (formData) => {
+  return client.post('/member/login', formData);
 };
 
 // 자동 로그인 토큰 검사
