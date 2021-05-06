@@ -1,13 +1,13 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import * as paymentListAPI from '../lib/api/paymentList';
 
-export const fetchPaymentList = formData =>
-  createAsyncThunk('payment/fetchPaymentList', async () => {
-    try {
-      const response = await paymentListAPI.readItems(formData);
-      return response;
-    } catch (e) {}
-  });
+export const fetchPaymentList = createAsyncThunk(
+  'payment/fetchPaymentList',
+  async formData => {
+    const response = await paymentListAPI.readItems(formData);
+    return response.data;
+  },
+);
 const paymentListSlice = createSlice({
   name: 'paymentList',
   initialState: {
@@ -21,7 +21,7 @@ const paymentListSlice = createSlice({
       state.loading = true;
     },
     [fetchPaymentList.fulfilled]: (state, {payload}) => {
-      state.paymentList = payload.data;
+      state.paymentList = payload;
       state.loading = false;
       state.hasErrors = false;
     },

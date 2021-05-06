@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -8,11 +8,12 @@ import {
   ScrollView,
   FlatList,
 } from 'react-native';
-import {Card, CardItem, AppText, Body, Left, Right} from 'native-base';
+import {Card, CardItem, Body, Left, Right} from 'native-base';
 import ProductItem from './ProductItem';
 import Modal from 'react-native-modal';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import ProductItemInModal from './ProductItemInModal';
+import AppText from '../../components/common/AppText';
 
 const PaymentItem = ({payment}) => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -20,6 +21,11 @@ const PaymentItem = ({payment}) => {
     setModalVisible(!isModalVisible);
   };
   console.log(typeof payment.txDateTime);
+  useEffect(() => {
+    console.log('들어왔다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    console.log('payment');
+    console.log(payment);
+  }, []);
   return (
     <>
       <Card>
@@ -27,7 +33,7 @@ const PaymentItem = ({payment}) => {
           <AppText style={{fontWeight: '700', fontSize: 22}}>
             {payment.txDateTime.slice(0, 10)}
           </AppText>
-          <AppText>&nbsp;&nbsp;({payment.orderNo})</AppText>
+          <AppText>&nbsp;&nbsp;({payment.id})</AppText>
         </CardItem>
         <CardItem>
           <Body>
