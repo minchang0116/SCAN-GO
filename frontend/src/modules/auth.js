@@ -3,24 +3,28 @@ import * as authAPI from '../lib/api/auth';
 
 
 export const fetchUserInfo = createAsyncThunk(
-    'user/fetchUserInfo',
-    async () => {
+    'userInfo/fetchUserInfo',
+    async (token) => {
       try {
-        const response = await authAPI.getUserInfo();
-        return response;
-      } catch (e) {}
+        //const response = await authAPI.getUserInfo(token);
+        // return response;
+        console.log("유저 정보 요청 dispatch 성공 - " + token)
+        return ;
+      } catch (e) {
+        console.log("유저 정보 요청 dispatch 실패 - " + token)
+      }
     },
   );
-  const userInfoSlice = createSlice({
+  const userSlice = createSlice({
     name: 'userInfo',
     initialState: {
       loading: false,
       hasErrors: false,
-      userInfo:{},
+      user:{},
     },
     reducers: {
         callUserLogout : () => {
-            state.userInfo = {};
+            state.user = {};
         }
     },
     extraReducers: {
@@ -28,7 +32,8 @@ export const fetchUserInfo = createAsyncThunk(
         state.loading = true;
       },
       [fetchUserInfo.fulfilled]: (state, {payload}) => {
-        state.userInfo = payload.data;
+        state.user = payload;
+        console.log("유저 정보 이행 user: " + state.user);
         state.loading = false;
         state.hasErrors = false;
       },
@@ -39,4 +44,5 @@ export const fetchUserInfo = createAsyncThunk(
     },
   });
   
-  export default userInfoSlice.reducer;
+  export const {} =  userSlice.actions;
+  export default userSlice.reducer;
