@@ -47,9 +47,7 @@ public class CustomerPayment {
         this.member = member;
     }
 
-    public void updatePay(Date txDateTime, String authHash) {
-        this.txDateTime = txDateTime;
-        this.authHash = authHash;
+    public void update() {
         long count = 0;
         long amount = 0;
         for(PaymentDetail pd : paymentDetail) {
@@ -58,6 +56,11 @@ public class CustomerPayment {
         }
         this.paymentCount = count;
         this.paymentAmount = amount;
+    }
+
+    public void updatePay(Date txDateTime, String authHash) {
+        this.txDateTime = txDateTime;
+        this.authHash = authHash;
     }
 
     public void updateResult(String paymentPlan, String paymentResult) {
