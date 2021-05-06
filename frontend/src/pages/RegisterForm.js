@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   TextInput,
   StyleSheet,
@@ -40,6 +40,13 @@ const RegisterForm = ({navigation}) => {
   const [pwBlank, setPwBlank] = useState(true);
   const [cellBlank, setCellBlank] = useState(true);
 
+  // Refs
+  const idRef = useRef();
+  const birthRef = useRef();
+  const pwRef = useRef();
+  const pwConfirmRef = useRef();
+  const phoneRef = useRef();
+
   // 아이디 입력 확인
   const onIdInputHandler = text => {
     let id = text;
@@ -58,7 +65,7 @@ const RegisterForm = ({navigation}) => {
       Alert.alert('ID 확인', 'ID를 입력해주세요.', [
         {
           text: '확인',
-          onPress: () => console.log('confirm Pressed'),
+          onPress: () => idRef.current.focus(),
         },
       ]);
       return;
@@ -267,7 +274,7 @@ const RegisterForm = ({navigation}) => {
       Alert.alert('번호 확인', '휴대 전화 번호를 입력해주세요!', [
         {
           text: '확인',
-          onPress: () => console.log('confirm Pressed'),
+          onPress: () => phoneRef.current.focus(),
         },
       ]);
       setCellBlank(true);
@@ -287,7 +294,7 @@ const RegisterForm = ({navigation}) => {
       Alert.alert('ID 확인', 'ID 중복 체크를 해주세요!', [
         {
           text: '확인',
-          onPress: () => console.log('confirm Pressed'),
+          onPress: () => idRef.current.focus(),
         },
       ]);
       return;
@@ -296,7 +303,7 @@ const RegisterForm = ({navigation}) => {
       Alert.alert('생일 확인', '생일을 확인 해주세요!', [
         {
           text: '확인',
-          onPress: () => console.log('confirm Pressed'),
+          onPress: () => birthRef.current.focus(),
         },
       ]);
       return;
@@ -305,7 +312,7 @@ const RegisterForm = ({navigation}) => {
       Alert.alert('비밀번호 확인', '비밀번호 양식을 확인 해주세요!', [
         {
           text: '확인',
-          onPress: () => console.log('confirm Pressed'),
+          onPress: () => pwRef.current.focus(),
         },
       ]);
       return;
@@ -314,7 +321,7 @@ const RegisterForm = ({navigation}) => {
       Alert.alert('비밀번호 확인', '비밀번호가 같은지 확인 해주세요!', [
         {
           text: '확인',
-          onPress: () => console.log('confirm Pressed'),
+          onPress: () => pwConfirmRef.current.focus(),
         },
       ]);
       return;
@@ -323,7 +330,7 @@ const RegisterForm = ({navigation}) => {
       Alert.alert('전화 번호 확인', '휴대전화 중복 체크를 해주세요!', [
         {
           text: '확인',
-          onPress: () => console.log('confirm Pressed'),
+          onPress: () => phoneRef.current.focus(),
         },
       ]);
       return;
@@ -342,7 +349,9 @@ const RegisterForm = ({navigation}) => {
         Alert.alert('완벽합니다!', '환영합니다! 회원가입에 성공했습니다!', [
           {
             text: '확인',
-            onPress: () => {console.log('confirm Pressed'), navigation.navigate('LoginPage')},
+            onPress: () => {
+              console.log('confirm Pressed'), navigation.navigate('LoginPage');
+            },
           },
         ]);
       } else {
@@ -380,8 +389,10 @@ const RegisterForm = ({navigation}) => {
             <AppText style={styles.titleText}>ID(Email)</AppText>
             <View style={styles.inputWithBtnArea}>
               <TextInput
+                ref={idRef}
                 autoCompleteType={'email'}
                 keyboardType={'email-address'}
+                returnKeyType="done"
                 style={styles.inputWithBtn}
                 placeholder="example@gmail.com"
                 onChangeText={text => onIdInputHandler(text)}
@@ -414,8 +425,11 @@ const RegisterForm = ({navigation}) => {
           <View>
             <AppText style={styles.titleText}>생일</AppText>
             <TextInput
+              ref={birthRef}
               style={[styles.textInput, {marginBottom: 6}]}
               keyboardType={'numeric'}
+              returnKeyType="next"
+              onSubmitEditing={() => pwRef.current.focus()}
               maxLength={10}
               placeholder="생년월일(19910622)"
               onChangeText={text => onBirthCheckHandler(text)}
@@ -428,9 +442,12 @@ const RegisterForm = ({navigation}) => {
           <View>
             <AppText style={styles.titleText}>비밀 번호</AppText>
             <TextInput
+              ref={pwRef}
               style={styles.textInput}
               onChangeText={text => onPasswordHandler(text)}
+              onSubmitEditing={() => pwConfirmRef.current.focus()}
               placeholder="영문,숫자,특수문자를 포함한 8~20자리"
+              returnKeyType="next"
               secureTextEntry={true}
             />
             <View>
@@ -446,12 +463,15 @@ const RegisterForm = ({navigation}) => {
             </View>
             <AppText style={styles.titleText}>비밀 번호 확인</AppText>
             <TextInput
+              ref={pwConfirmRef}
               style={[styles.textInput, {marginBottom: 10}]}
               placeholder="다시 한번 입력해주세요"
+              returnKeyType="next"
               secureTextEntry={true}
               onChangeText={text => {
                 onPasswordConfirmHandler(text);
               }}
+              onSubmitEditing={() => phoneRef.current.focus()}
             />
             <View>
               {pwBlank ? null : pwCheck ? (
@@ -466,8 +486,10 @@ const RegisterForm = ({navigation}) => {
           <AppText style={styles.titleText}>휴대 전화</AppText>
           <View style={styles.inputWithBtnArea}>
             <TextInput
+              ref={phoneRef}
               style={styles.inputWithBtn}
               keyboardType={'numeric'}
+              returnKeyType="done"
               maxLength={13}
               value={cellnumber}
               placeholder="휴대폰 번호를 입력해주세요."
