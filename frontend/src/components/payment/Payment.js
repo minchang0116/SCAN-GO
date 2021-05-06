@@ -1,55 +1,57 @@
-import {Left, List, ListItem, Radio, Right, Row, Text, View} from 'native-base';
-import React from 'react';
+import {List, ListItem, Radio, Text, View} from 'native-base';
+import React, {useState} from 'react';
 import {Image, ScrollView, StyleSheet} from 'react-native';
 import {PaymentSuccessListItem} from '../payment/PaymentSuccess';
-import PaymentFooter from './PaymentFooter';
 
-const Payment = ({navigation, shoppingList}) => {
+const Payment = ({shoppingList, sumPrice, paymentType, onChangeType}) => {
   return (
     <>
       <ScrollView>
         <View style={styles.paymentMethod}>
           <Text style={styles.title}>결제방법</Text>
-          <ListItem>
+          <ListItem onPressOut={() => onChangeType(1)}>
             <Radio
               style={styles.radio}
               color={'lightgrey'}
               selectedColor={'rgb(240,41,28)'}
-              selected={true}
+              selected={paymentType === 1 && true}
             />
             <Image
               style={styles.image}
               source={require('../../../imgs/SSGPAY.jpg')}
             />
-            <Text style={true && styles.selected}>카드</Text>
+            <Text style={paymentType === 1 && styles.selected}>카드</Text>
           </ListItem>
-          <ListItem>
+          <ListItem onPressOut={() => onChangeType(2)}>
             <Radio
               color={'lightgrey'}
               selectedColor={'rgb(240,41,28)'}
-              selected={true}
+              selected={paymentType === 2 && true}
             />
             <Image
               style={styles.image}
               source={require('../../../imgs/SSGPAY.jpg')}
             />
-            <Text>계좌</Text>
+            <Text style={paymentType === 2 && styles.selected}>계좌</Text>
           </ListItem>
-          <ListItem>
+          <ListItem onPressOut={() => onChangeType(3)}>
             <Radio
               color={'lightgrey'}
               selectedColor={'rgb(240,41,28)'}
-              selected={true}
+              selected={paymentType === 3 && true}
             />
-            <Text style={styles.bottomText}>다른 결제수단</Text>
+            <Text
+              style={[styles.bottomText, paymentType === 3 && styles.selected]}>
+              다른 결제수단
+            </Text>
           </ListItem>
         </View>
         <View style={styles.paymentMethod}>
           <Text style={styles.title}>결제 예정금액</Text>
           <View style={styles.body}>
             <View style={styles.span}>
-              <Text>총 결제에정금액</Text>
-              <Text>+189,000원</Text>
+              <Text>총 결제예정금액</Text>
+              <Text>+ {sumPrice}원</Text>
             </View>
           </View>
         </View>
