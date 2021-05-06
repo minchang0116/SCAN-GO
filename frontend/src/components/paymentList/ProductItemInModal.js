@@ -16,10 +16,10 @@ const ProductItemInModal = ({item}) => {
         />
         <View style={styles.productInfo}>
           <Text numberOfLines={2} ellipsizeMode="tail">
-            {item.name}
+            {item.prodName}
           </Text>
           <Text numberOfLines={1} ellipsizeMode="tail" style={{fontSize: 14}}>
-            {item.price}원 · {item.qty}개
+            {item.prodPrice}원 · {item.qty}개
           </Text>
         </View>
       </View>
