@@ -42,12 +42,11 @@ public class PaymentServiceImpl implements PaymentService {
             Member member = memberRepository.findById(memberId).get();
             customerPayment = customerPaymentRepository.save(new CustomerPayment("지점1", member));
             currentPaymentRepository.save(new CurrentPayment(member, customerPayment));
-            return new CustomerPaymentResponse(customerPayment);
         } else { // 있음
             customerPayment = customerPaymentRepository.findById(currentPayment.getCustomerPayment().getId()).get();
             customerPayment.update();
-            return new CustomerPaymentResponse(customerPayment);
         }
+        return new CustomerPaymentResponse(customerPayment);
     }
 
     // 거래내역 조회
@@ -56,7 +55,11 @@ public class PaymentServiceImpl implements PaymentService {
     public List<CustomerPaymentResponse> getCustomerPaymentList(long memberId, String date1, String date2, long pageNum) throws ParseException {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date txDate1 = df.parse(date1);
+        Calendar cal = Calendar.getInstance();
         Date txDate2 = df.parse(date2);
+        cal.setTime(txDate2);
+        cal.add(Calendar.DATE, 1);
+        txDate2 = cal.getTime();
         List<CustomerPayment> paymentList = customerPaymentRepository.findByMember_IdAndTxDateTimeIsGreaterThanAndTxDateTimeLessThan(memberId, txDate1, txDate2, PageRequest.of((int)pageNum, 10, Direction.DESC, "txDateTime"));
         List<CustomerPaymentResponse> customerPaymentList = new ArrayList<>();
         for(CustomerPayment payment : paymentList) {
