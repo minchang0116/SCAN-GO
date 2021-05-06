@@ -11,6 +11,7 @@ const Payment = ({shoppingList, sumPrice, paymentType, onChangeType}) => {
           <Text style={styles.title}>결제방법</Text>
           <ListItem onPressOut={() => onChangeType(1)}>
             <Radio
+              onPressOut={() => onChangeType(1)}
               style={styles.radio}
               color={'lightgrey'}
               selectedColor={'rgb(240,41,28)'}
@@ -20,10 +21,14 @@ const Payment = ({shoppingList, sumPrice, paymentType, onChangeType}) => {
               style={styles.image}
               source={require('../../../imgs/SSGPAY.jpg')}
             />
-            <Text style={paymentType === 1 && styles.selected}>카드</Text>
+            <Text
+              style={paymentType === 1 ? styles.selected : styles.unSelected}>
+              카드
+            </Text>
           </ListItem>
           <ListItem onPressOut={() => onChangeType(2)}>
             <Radio
+              onPressOut={() => onChangeType(2)}
               color={'lightgrey'}
               selectedColor={'rgb(240,41,28)'}
               selected={paymentType === 2 && true}
@@ -32,16 +37,23 @@ const Payment = ({shoppingList, sumPrice, paymentType, onChangeType}) => {
               style={styles.image}
               source={require('../../../imgs/SSGPAY.jpg')}
             />
-            <Text style={paymentType === 2 && styles.selected}>계좌</Text>
+            <Text
+              style={paymentType === 2 ? styles.selected : styles.unSelected}>
+              계좌
+            </Text>
           </ListItem>
           <ListItem onPressOut={() => onChangeType(3)}>
             <Radio
+              onPressOut={() => onChangeType(3)}
               color={'lightgrey'}
               selectedColor={'rgb(240,41,28)'}
               selected={paymentType === 3 && true}
             />
             <Text
-              style={[styles.bottomText, paymentType === 3 && styles.selected]}>
+              style={
+                (styles.bottomText,
+                paymentType === 3 ? styles.selected : styles.unSelected)
+              }>
               다른 결제수단
             </Text>
           </ListItem>
@@ -107,5 +119,6 @@ const styles = StyleSheet.create({
   selected: {
     fontWeight: 'bold',
   },
+  unSelected: {},
 });
 export default Payment;
