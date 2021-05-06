@@ -2,13 +2,8 @@
 /* eslint-disable react-hooks/exhaustive-deps*/
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  StyleSheet,
-  View,
-  TouchableHighlight,
-  TouchableOpacity,
-} from 'react-native';
-import {Content, Item, Text} from 'native-base';
+import {StyleSheet, View, TouchableOpacity, FlatList} from 'react-native';
+import {Content, Item} from 'native-base';
 import {Picker} from '@react-native-picker/picker';
 import PaymentItem from '../../components/paymentList/PaymentItem';
 import {fetchPaymentList} from '../../modules/paymentList';
@@ -25,13 +20,33 @@ const PaymentListContainer = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [isDatePass, setIsDatePass] = useState(true);
+  const [page, setPage] = useState(0);
+
   const toggleModal = () => {
     setDurationModalVisible(!durationModalVisible);
   };
   useEffect(() => {
+    startDate.setMonth(startDate.getMonth() - 3);
+    endDate.setMonth(endDate.getMonth() + 1);
+    const formData = {
+      memberId: 1,
+      date1:
+        startDate.getFullYear() +
+        '-' +
+        (startDate.getMonth() + 1) +
+        startDate.getDate(),
+      date2:
+        endDate.getFullYear() +
+        '-' +
+        (endDate.getMonth() + 1) +
+        endDate.getDate(),
+      pageNum: page,
+    };
+    dispatch(fetchPaymentList(formData));
+  }, []);
+  useEffect(() => {
     console.log('기간 변경됨');
     let date1 = new Date();
-    let date2 = new Date();
     switch (selectedDuration) {
       case '기간 설정':
         return;
@@ -48,16 +63,47 @@ const PaymentListContainer = () => {
         date1.setFullYear(date1.getFullYear() - 1);
         break;
     }
+    setStartDate(date1);
     const formData = {
       memberId: 1,
       date1:
-        date1.getFullYear() + '-' + (date1.getMonth() + 1) + date1.getDate(),
+        date1.getFullYear() +
+        '-' +
+        (date1.getMonth() + 2) +
+        '-' +
+        date1.getDate(),
       date2:
-        date2.getFullYear() + '-' + (date2.getMonth() + 1) + date2.getDate(),
-      pageNum: 0,
+        endDate.getFullYear() +
+        '-' +
+        (endDate.getMonth() + 1) +
+        '-' +
+        endDate.getDate(),
+      pageNum: page,
     };
+
     dispatch(fetchPaymentList(formData));
+    console.log(paymentList);
   }, [selectedDuration]);
+
+  useEffect(() => {
+    // const formData = {
+    //   memberId: 1,
+    //   date1:
+    //     startDate.getFullYear() +
+    //     '-' +
+    //     (startDate.getMonth() + 1) +
+    //     startDate.getDate(),
+    //   date2:
+    //     endDate.getFullYear() +
+    //     '-' +
+    //     (endDate.getMonth() + 1) +
+    //     endDate.getDate(),
+    //   pageNum: page,
+    // };
+    // dispatch(fetchPaymentList(formData));
+    console.log('paymentList');
+    console.log(paymentList);
+  }, [paymentList]);
 
   useEffect(() => {
     if (
@@ -134,12 +180,14 @@ const PaymentListContainer = () => {
             </TouchableOpacity>
           </View>
         </View>
-        <Content>
-          {paymentList &&
-            paymentList.map((item, index) => {
-              return <PaymentItem payment={item} key={index} />;
-            })}
-        </Content>
+
+        {/* <FlatList> */}
+        {paymentList &&
+          paymentList.map((payment, index) => {
+            console.log(payment);
+            return <PaymentItem payment={payment} key={index} />;
+          })}
+        {/* </FlatList> */}
       </Content>
       <SetDurationModal
         toggleModal={toggleModal}
