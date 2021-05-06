@@ -15,6 +15,6 @@ export const checkCellNumber = cellnumber => {
 };
 
 // 회원가입
-export const registerUser = ({formData}) => {
-  return client.post('/', formData);
+export const registerUser = (formData) => {
+  return client.post('/member/signup', formData);
 };

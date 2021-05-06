@@ -78,7 +78,7 @@ const RegisterForm = ({navigation}) => {
     }
 
     // back에 아이디 있는지 확인 체크
-    const response = await registerAPI.checkEmailAddress(id);
+    //const response = await registerAPI.checkEmailAddress(id);
 
     setIdCheck(true);
     setDid(false);
@@ -93,7 +93,7 @@ const RegisterForm = ({navigation}) => {
       setBirthBlank(true);
       return;
     }
-    const regex = /^[0-9]{0,4}$/;
+    const regex = /^[0-9]{0,8}$/;
     if (!regex.test(inbirth)) {
       inbirth = inbirth.replace(/[-,. a-zA-Z]/g, '');
       setBirth(inbirth);
@@ -102,14 +102,40 @@ const RegisterForm = ({navigation}) => {
     }
 
     setBirthBlank(false);
-    if (inbirth.length != 4) {
+    if (inbirth.length != 8) {
       setbirthCheck(false);
       return;
     }
 
-    let month = Number(inbirth.substr(0, 2));
-    let day = Number(inbirth.substr(2, 4));
+    inbirth = inbirth.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
+    setBirth(inbirth);
+    console.log(inbirth);
 
+    let year = Number(inbirth.substr(0, 4));
+    let month = Number(inbirth.substr(5, 2));
+    let day = Number(inbirth.substr(8, 2));
+    let today = new Date(); // 날짜 변수 선언
+    let yearNow = today.getFullYear(); // 올해 연도 가져옴
+
+    if (year < 1900 || year >= yearNow) {
+      setBirth('');
+      Alert.alert(
+        '생일 확인',
+        '년도를 확인해주세요. ' +
+          '\n' +
+          '(1900 ~ ' +
+          yearNow +
+          ' 까지 입력 가능합니다.',
+        [
+          {
+            text: '확인',
+            onPress: () => console.log('confirm Pressed'),
+          },
+        ],
+      );
+      setbirthCheck(false);
+      return;
+    }
     if (month < 1 || month > 12) {
       setBirth('');
       Alert.alert('생일 확인', '달은 1월부터 12월까지 입력 가능합니다.', [
@@ -249,17 +275,14 @@ const RegisterForm = ({navigation}) => {
     }
 
     // back에 휴대전화 있는지 확인 체크
-    const response = registerAPI.checkCellNumber(cellnumber);
+    //const response = registerAPI.checkCellNumber(cellnumber);
 
     setCellCheck(true);
     setDcell(false);
   };
 
   // 모든 정보가 제대로 입력되었는지 확인
-  const checkAllRegisterInfoHandler = () => {
-    navigation.navigate('LoginPage');
-    return;
-
+  const checkAllRegisterInfoHandler = async () => {
     if (!idCheck) {
       Alert.alert('ID 확인', 'ID 중복 체크를 해주세요!', [
         {
@@ -305,22 +328,47 @@ const RegisterForm = ({navigation}) => {
       ]);
       return;
     }
+
     // Back 통신
-    const formData = new FormData();
+    try {
+      const response = await registerAPI.registerUser({
+        loginId: id,
+        birth: birth,
+        loginPwd: password,
+        phone: cellnumber,
+      });
 
-    formData.append('memberId', id);
-    formData.append('birth', birth);
-    formData.append('password', password);
-    formData.append('cell', cellnumber);
-
-    const response = registerAPI.registerUser(formData);
-
-    Alert.alert('완벽합니다!', '환영합니다! 회원가입에 성공했습니다!', [
-      {
-        text: '확인',
-        onPress: () => console.log('confirm Pressed'),
-      },
-    ]);
+      if (response.status === 200) {
+        Alert.alert('완벽합니다!', '환영합니다! 회원가입에 성공했습니다!', [
+          {
+            text: '확인',
+            onPress: () => {console.log('confirm Pressed'), navigation.navigate('LoginPage')},
+          },
+        ]);
+      } else {
+        Alert.alert(
+          '문제가!!!',
+          '무언가 문제가 일어났습니다!' + '\n' + '다시 시도해주세요',
+          [
+            {
+              text: '확인',
+              onPress: () => console.log('confirm Pressed'),
+            },
+          ],
+        );
+      }
+    } catch (e) {
+      Alert.alert(
+        '문제가!!!',
+        '무언가 문제가 일어났습니다!' + '\n' + '다시 시도해주세요',
+        [
+          {
+            text: '확인',
+            onPress: () => console.log('confirm Pressed'),
+          },
+        ],
+      );
+    }
   };
 
   return (
@@ -347,13 +395,19 @@ const RegisterForm = ({navigation}) => {
             <View>
               {idBlank ? null : idCheck ? (
                 isduplicated_id ? ( // 중복 여부
-                  <AppText style={styles.afterCheck}>ID가 중복되었습니다!</AppText>
+                  <AppText style={styles.afterCheck}>
+                    ID가 중복되었습니다!
+                  </AppText>
                 ) : (
-                  <AppText style={styles.afterCheck}>사용가능한 ID 입니다!</AppText>
+                  <AppText style={styles.afterCheck}>
+                    사용가능한 ID 입니다!
+                  </AppText>
                 )
               ) : (
                 // 중복체크
-                <AppText style={styles.preCheck}>ID 중복체크를 해주세요.</AppText>
+                <AppText style={styles.preCheck}>
+                  ID 중복체크를 해주세요.
+                </AppText>
               )}
             </View>
           </View>
@@ -362,8 +416,8 @@ const RegisterForm = ({navigation}) => {
             <TextInput
               style={[styles.textInput, {marginBottom: 6}]}
               keyboardType={'numeric'}
-              maxLength={4}
-              placeholder="1231"
+              maxLength={10}
+              placeholder="생년월일(19910622)"
               onChangeText={text => onBirthCheckHandler(text)}
               value={birth}
             />
@@ -430,12 +484,18 @@ const RegisterForm = ({navigation}) => {
           <View>
             {cellBlank ? null : cellCheck ? (
               isduplicated_cell ? (
-                <AppText style={styles.preCheck}>휴대전화가 중복되었습니다.</AppText>
+                <AppText style={styles.preCheck}>
+                  휴대전화가 중복되었습니다.
+                </AppText>
               ) : (
-                <AppText style={styles.afterCheck}>사용가능한 번호입니다!</AppText>
+                <AppText style={styles.afterCheck}>
+                  사용가능한 번호입니다!
+                </AppText>
               )
             ) : (
-              <AppText style={styles.preCheck}>휴대전화 중복체크를 해주세요.</AppText>
+              <AppText style={styles.preCheck}>
+                휴대전화 중복체크를 해주세요.
+              </AppText>
             )}
           </View>
         </View>
