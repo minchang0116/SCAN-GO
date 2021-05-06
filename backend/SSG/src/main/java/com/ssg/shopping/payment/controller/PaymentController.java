@@ -42,6 +42,8 @@ public class PaymentController {
     @ApiOperation(value = "결제하기 (기업api 명세참고)", notes = "입력값 : payment(장바구니:api명세 참고)\n출력값 : resultCode(결제코드), resultMsg(결제메세지)")
     @PostMapping("/pay")
     public ResponseEntity<?> doPay(@RequestBody Map<String, Object> payment) throws ParseException {
+        if(!paymentService.checkAuthHash(payment))
+            return new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
         paymentService.doPay(payment);
         Map<String, String> result = new HashMap<>();
         result.put("resultCode", "000");
