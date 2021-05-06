@@ -5,6 +5,7 @@ import ShoppingListPage from './ShoppingListPage';
 import ImageScanningPage from './ImageScanningPage';
 import LoginPage from './LoginPage';
 import RegisterForm from './RegisterForm';
+import PaymentSuccessPage from './PaymentSuccessPage';
 import PaymentPage from './PaymentPage';
 
 export {
@@ -16,4 +17,5 @@ export {
   LoginPage,
   RegisterForm,
   PaymentPage,
+  PaymentSuccessPage,
 };

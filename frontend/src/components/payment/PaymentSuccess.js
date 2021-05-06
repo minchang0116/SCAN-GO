@@ -57,7 +57,7 @@ const PaymentSuccessList = ({paymentList}) => {
   );
 };
 
-const PaymentSuccessListItem = ({
+export const PaymentSuccessListItem = ({
   prodId,
   memberId,
   imgUrl,
