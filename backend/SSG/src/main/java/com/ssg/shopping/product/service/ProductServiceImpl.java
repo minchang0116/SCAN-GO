@@ -38,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
         // 없으면 장바구니 만들기
         if(currentPayment == null) {
             Member member = memberRepository.findById(memberId).get();
-            customerPayment = customerPaymentRepository.save(new CustomerPayment("이마트 동구미점", member));
+            customerPayment = customerPaymentRepository.save(new CustomerPayment("지점1", member));
             currentPaymentRepository.save(new CurrentPayment(member, customerPayment));
         } else { // 있으면 장바구니 정보 조회
             customerPayment = customerPaymentRepository.findById(currentPayment.getCustomerPayment().getId()).get();
