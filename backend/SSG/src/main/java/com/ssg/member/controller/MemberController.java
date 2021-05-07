@@ -2,6 +2,7 @@ package com.ssg.member.controller;
 
 import com.ssg.member.data.Dto.LoginDto;
 import com.ssg.member.data.Dto.MemberDto;
+import com.ssg.member.data.Dto.MemberResponse;
 import com.ssg.member.data.Dto.TokenDto;
 import com.ssg.member.data.Member;
 import com.ssg.member.jwt.JwtFilter;
@@ -45,13 +46,13 @@ public class MemberController {
         httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
 
         Member member = memberService.getMember(loginDto.getLoginId());
-        return new ResponseEntity<>(member, httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(new MemberResponse(member), httpHeaders, HttpStatus.OK);
     }
 
     @ApiOperation(value = "회원가입", notes = "입력값 : loginId, loginPwd, birth, phone\n출력값 : 회원정보")
     @PostMapping("/signup")
-    public ResponseEntity<Member> signup(@RequestBody MemberDto memberDto) {
-        return ResponseEntity.ok(memberService.signup(memberDto));
+    public ResponseEntity<?> signup(@RequestBody MemberDto memberDto) {
+        return ResponseEntity.ok(new MemberResponse(memberService.signup(memberDto)));
     }
 
     @ApiOperation(value = "아이디 중복 체크", notes = "입력값 : loginId\n출력값 : success(가능)/fail(불가능)")
