@@ -85,10 +85,20 @@ const RegisterForm = ({navigation}) => {
     }
 
     // back에 아이디 있는지 확인 체크
-    //const response = await registerAPI.checkEmailAddress(id);
-
-    setIdCheck(true);
-    setDid(false);
+    const response = await registerAPI.checkEmailAddress(id);
+    if(response.data === 'success')
+    {
+      setIdCheck(true);
+      setDid(false);
+    } else {
+      Alert.alert('ID 확인', '중복된 Email입니다!.', [
+        {
+          text: '확인',
+          onPress: () => console.log('email check'),
+        },
+      ]);
+      return ;
+    }
   };
 
   // 생일 입력 체크
@@ -280,12 +290,29 @@ const RegisterForm = ({navigation}) => {
       setCellBlank(true);
       return;
     }
-
+    if(cellnumber.length != 13){
+      Alert.alert('번호 확인', '휴대 전화 번호를 확인해주세요!', [
+        {
+          text: '확인',
+          onPress: () => phoneRef.current.focus(),
+        },
+      ]);
+      phoneRef.current.focus();
+      return;
+    }
     // back에 휴대전화 있는지 확인 체크
-    //const response = registerAPI.checkCellNumber(cellnumber);
-
-    setCellCheck(true);
-    setDcell(false);
+    const response = registerAPI.checkCellNumber(cellnumber);
+    if(response.data === 'success'){
+      setCellCheck(true);
+      setDcell(false);
+    } else {
+      Alert.alert('번호 확인', '중복된 휴대 전화 번호입니다!.', [
+        {
+          text: '확인',
+          onPress: () => console.log('email check'),
+        },
+      ]);
+    }
   };
 
   // 모든 정보가 제대로 입력되었는지 확인
