@@ -6,23 +6,17 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import IconAntD from 'react-native-vector-icons/FontAwesome5';
 import SubHeader from '../components/common/SubHeader';
 import AppText from '../components/common/AppText';
 import {useDispatch} from 'react-redux';
 import {fetchUserInfo} from '../modules/userInfo';
-import * as loginAPI from '../lib/api/auth';
 
 const LoginPage = ({navigation}) => {
   const [memberId, setId] = useState('');
   const [password, setPw] = useState('');
   const passwordRef = useRef();
   const idRef = useRef();
-  const [autoLogin, setAutoLogin] = useState(false);
   const dispatch = useDispatch();
-  const onToggle = () => {
-    setAutoLogin(!autoLogin);
-  };
 
   const loginBtn = async () => {
     console.log('로그인');
@@ -45,16 +39,14 @@ const LoginPage = ({navigation}) => {
       ]);
       return;
     }
-    try {
-      console.log('디스패치 전');
-      dispatch(
-        fetchUserInfo({
-          loginId: memberId,
-          loginPwd: password,
-        }),
-      );
-      navigation.navigate('MainPage');
-    } catch (e) {
+    console.log('디스패치 전');
+    const response = await dispatch(
+      fetchUserInfo({
+        loginId: memberId,
+        loginPwd: password,
+      }),
+    );
+    if (response.payload === undefined) {
       Alert.alert('계정 확인', '없는 계정이거나 틀린 비밀번호입니다.', [
         {
           text: '확인',
@@ -63,6 +55,7 @@ const LoginPage = ({navigation}) => {
       ]);
       return;
     }
+    navigation.navigate('MainPage');
   };
   return (
     <>
@@ -88,14 +81,6 @@ const LoginPage = ({navigation}) => {
             placeholder="비밀번호"
           />
         </View>
-        <TouchableOpacity style={styles.saveIdArea} onPress={onToggle}>
-          {autoLogin ? (
-            <IconAntD name="check-circle" size={20} color="rgb(218,41,28)" />
-          ) : (
-            <IconAntD name="check-circle" size={20} color="rgb(226,226,226)" />
-          )}
-          <AppText> 아이디 저장</AppText>
-        </TouchableOpacity>
         <View style={styles.loginBtnArea}>
           <TouchableOpacity
             style={styles.loginBtn}
@@ -127,7 +112,7 @@ const styles = StyleSheet.create({
     marginRight: '5%',
   },
   inputForm: {
-    paddingTop: '40%',
+    paddingTop: '50%',
   },
   textInput: {
     borderRightWidth: 1,
