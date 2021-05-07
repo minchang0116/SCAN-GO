@@ -1,8 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {CardItem, Text, Body, Thumbnail} from 'native-base';
+import {CardItem, Body, Thumbnail} from 'native-base';
+import AppText from '../common/AppText';
 
-const ProductItem = ({item}) => {
+const ProductItem = ({product}) => {
   return (
     <>
       <CardItem>
@@ -15,10 +16,11 @@ const ProductItem = ({item}) => {
           style={{flexDirection: 'row'}}
         />
         <Body style={{marginLeft: 15}}>
-          <Text style={{marginBottom: 5}}>{item.prodName}</Text>
-          <Text>
-            {item.prodPrice}원 · {item.qty}개
-          </Text>
+          <AppText style={{marginBottom: 5}}>{product.prodName}</AppText>
+          <AppText>
+            {parseInt(product.prodPrice, 10).toLocaleString()}원 · {product.qty}
+            개
+          </AppText>
         </Body>
       </CardItem>
     </>
