@@ -31,7 +31,13 @@ export const fetchUserInfo = createAsyncThunk(
         state.loading = true;
       },
       [fetchUserInfo.fulfilled]: (state, {payload}) => {
-        state.user = payload;
+        let tmp = {
+          memberId: payload.id,
+          loginId: payload.loginId,
+          birth: payload.birth,
+          phone: payload.phone,
+        }
+        state.user = tmp;
         console.log("유저 정보 이행 user: " + payload);
         state.loading = false;
         state.hasErrors = false;
