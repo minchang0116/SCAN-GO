@@ -17,7 +17,7 @@ export const fetchUserInfo = createAsyncThunk(
 
 export const fetchUserInfoWithToken = createAsyncThunk(
   'userInfo/fetchUserInfoWithToken',
-  async (token) => {
+  async token => {
     let response = await authAPI.getUserInfo(token);
     return response;
   },
@@ -28,7 +28,7 @@ const userSlice = createSlice({
   initialState: {
     loading: false,
     hasErrors: false,
-    memberId: '',
+    memberId: '32',
     loginId: '',
     birth: '',
     phone: '',
