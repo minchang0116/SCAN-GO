@@ -3,47 +3,86 @@ import * as shoppingListApi from '../lib/api/shoppingList';
 
 export const fetchShoppingList = createAsyncThunk(
   'shoppingList/fetchShoppingList',
-  async () => {
+  async (_, {getState, rejectWithValue}) => {
     try {
-      const response = await shoppingListApi.readItems();
+      const {userInfo} = getState();
+      if (!userInfo.memberId) {
+        throw Error('[fetchShoppingList] memberId 없음');
+      }
+      const response = await shoppingListApi.readItems(userInfo.memberId);
       return response.data;
-    } catch (e) {}
+    } catch (e) {
+      return rejectWithValue(e.message);
+    }
   },
 );
 export const updateShoppingListItem = createAsyncThunk(
   'shoppingList/updateShoppingListItem',
-  async ({prodId, memberId, qty}) => {
+  async ({prodId, qty}, {getState}) => {
     try {
-      await shoppingListApi.updateItem({prodId, memberId, qty});
+      const {userInfo} = getState();
+      if (!userInfo.memberId) {
+        throw Error('[updateShoppingListItem] memberId 없음');
+      }
+      await shoppingListApi.updateItem({
+        prodId,
+        memberId: userInfo.memberId,
+        qty,
+      });
       return {prodId, qty};
-    } catch (e) {}
+    } catch (e) {
+      console.log(e.message);
+    }
   },
 );
 export const deleteShoppingListItem = createAsyncThunk(
   'shoppingList/deleteShoppingListItem',
-  async ({memberId, prodIds}) => {
+  async ({prodIds}, {getState}) => {
+    const {userInfo} = getState();
+    if (!userInfo.memberId) {
+      throw Error('[deleteShoppingListItem] memberId 없음');
+    }
     //prodIds 배열
     try {
-      await shoppingListApi.deleteItem({memberId, prodIds});
+      await shoppingListApi.deleteItem({memberId: userInfo.memberId, prodIds});
       return prodIds;
-    } catch (e) {}
+    } catch (e) {
+      console.log(e.message);
+    }
   },
 );
 
 export const deleteAllShoppingListItem = createAsyncThunk(
   'shoppingList/deleteAllShoppingListItem',
-  async ({memberId}) => {
+  async (_, {getState}) => {
     //prodIds 배열
     try {
-      await shoppingListApi.deleteAllItem({memberId});
-    } catch (e) {}
+      const {userInfo} = getState();
+      if (!userInfo.memberId) {
+        throw Error('[deleteAllShoppingListItem] memberId 없음');
+      }
+      await shoppingListApi.deleteAllItem(userInfo.memberId);
+    } catch (e) {
+      console.log(e.message);
+    }
   },
 );
 export const addShoppingListItemByBarcode = createAsyncThunk(
   'shoppingList/addShoppingListItemByBarcode',
-  async formData => {
-    const response = await shoppingListApi.addItemByBarcode(formData);
-    return response.data;
+  async (formData, {getState}) => {
+    try {
+      const {userInfo} = getState();
+      if (!userInfo.memberId) {
+        throw Error('[addShoppingListItemByBarcode] memberId 없음');
+      }
+      const response = await shoppingListApi.addItemByBarcode({
+        ...formData,
+        memberId: userInfo.memberId,
+      });
+      return response.data;
+    } catch (e) {
+      console.log(e.message);
+    }
   },
 );
 const shoppingListSlice = createSlice({
@@ -89,9 +128,10 @@ const shoppingListSlice = createSlice({
       }
       state.sumPrice = sum;
     },
-    [fetchShoppingList.rejected]: state => {
+    [fetchShoppingList.rejected]: (state, {payload}) => {
       state.loading = false;
       state.hasErrors = true;
+      state.errorMsg = payload;
     },
     [updateShoppingListItem.fulfilled]: (state, {payload}) => {
       state.paymentDetail = state.paymentDetail.map(item => {

@@ -9,6 +9,7 @@ import {
   PaymentPage,
   ImageScanningPage,
   LoginPage,
+  ProductDetailPage,
   RegisterForm,
 } from '../pages';
 
@@ -30,6 +31,11 @@ const StackNav = () => {
       <Stack.Screen
         name="MainPage"
         component={MainPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ProductDetailPage"
+        component={ProductDetailPage}
         options={{headerShown: false}}
       />
       <Stack.Screen

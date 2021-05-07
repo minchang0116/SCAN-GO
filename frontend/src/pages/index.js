@@ -7,6 +7,7 @@ import LoginPage from './LoginPage';
 import RegisterForm from './RegisterForm';
 import PaymentSuccessPage from './PaymentSuccessPage';
 import PaymentPage from './PaymentPage';
+import ProductDetailPage from './ProductDetailPage';
 
 export {
   PaymentList,
@@ -18,4 +19,5 @@ export {
   RegisterForm,
   PaymentPage,
   PaymentSuccessPage,
+  ProductDetailPage,
 };
