@@ -7,12 +7,18 @@ export const LoginWithPassword = (formData) => {
 
 // 자동 로그인 토큰 검사
 export const checkTokenForAutoLogin = (token) => {
-    return client.post('/', token);
+    // return client.post('/', token);
 }
 
 // 회원 정보 가져오기
 export const getUserInfo = token => {
-    return client.get(`/token=${token}`);
+    //return client.get(`/token=${token}`);
+    let user = {
+        memberId: 'new0822@naver.com',
+        birth: '1995-01-16',
+        phone: '010-6889-5162',
+    }
+    return user;
 }
 
 // 로그 아웃
