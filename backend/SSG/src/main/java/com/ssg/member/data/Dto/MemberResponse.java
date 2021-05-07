@@ -13,12 +13,14 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberResponse {
+    private long id;
     private String loginId;
     private String phone;
     @Temporal(TemporalType.DATE)
     private Date birth;
 
     public MemberResponse(Member member) {
+        this.id = member.getId();
         this.loginId = member.getLoginId();
         this.phone = member.getPhone();
         this.birth = member.getBirth();
