@@ -4,12 +4,11 @@ import * as authAPI from '../lib/api/auth';
 
 export const fetchUserInfo = createAsyncThunk(
     'userInfo/fetchUserInfo',
-    async (token) => {
+    async (loginInfo) => {
       try {
-        const response = await authAPI.getUserInfo(token);
-        // return response;
         console.log("유저 정보 요청 dispatch 성공 - ")
-        return response;
+        let response = await authAPI.LoginWithPassword(loginInfo);
+        return response.data;
       } catch (e) {
         console.log("유저 정보 요청 dispatch 실패 - ")
       }
@@ -33,7 +32,7 @@ export const fetchUserInfo = createAsyncThunk(
       },
       [fetchUserInfo.fulfilled]: (state, {payload}) => {
         state.user = payload;
-        console.log("유저 정보 이행 user: ");
+        console.log("유저 정보 이행 user: " + payload);
         state.loading = false;
         state.hasErrors = false;
       },

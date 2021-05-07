@@ -46,21 +46,19 @@ const LoginPage = ({navigation}) => {
       return;
     }
     try {
-      let response = await loginAPI.LoginWithPassword({
-        loginId: memberId,
-        loginPwd: password,
-      });
-      console.log('token: ' + response.data.token);
-      if (response.status === 200) {
-        console.log("디스패치 전")
-        dispatch(fetchUserInfo(response.data.token));
-        navigation.navigate('MainPage');
-      }
+      console.log('디스패치 전');
+      dispatch(
+        fetchUserInfo({
+          loginId: memberId,
+          loginPwd: password,
+        }),
+      );
+      navigation.navigate('MainPage');
     } catch (e) {
       Alert.alert('계정 확인', '없는 계정이거나 틀린 비밀번호입니다.', [
         {
           text: '확인',
-          onPress: () => console.log("계정 확인")
+          onPress: () => console.log('계정 확인'),
         },
       ]);
       return;
