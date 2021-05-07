@@ -1,31 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  Button,
-  TouchableHighlight,
-  ScrollView,
-  FlatList,
-} from 'react-native';
-import {Card, CardItem, Body, Left, Right} from 'native-base';
+import React, {useState} from 'react';
+import {View, StyleSheet, TouchableHighlight} from 'react-native';
+import {Card, CardItem, Body, Left, Right, List, ListItem} from 'native-base';
 import ProductItem from './ProductItem';
 import Modal from 'react-native-modal';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import ProductItemInModal from './ProductItemInModal';
-import AppText from '../../components/common/AppText';
+import AppText from '../common/AppText';
 
 const PaymentItem = ({payment}) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-  console.log(typeof payment.txDateTime);
-  useEffect(() => {
-    console.log('들어왔다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-    console.log('payment');
-    console.log(payment);
-  }, []);
+
   return (
     <>
       <Card>
@@ -67,13 +55,13 @@ const PaymentItem = ({payment}) => {
         onBackdropPress={toggleModal}
         animationIn="zoomIn"
         animationOut="zoomOut">
-        <View style={{flex: 1}}>
+        <View style={{flex: 1, width: '100%'}}>
           <Card>
             <CardItem header style={styles.header}>
               <AppText style={{fontWeight: '700', fontSize: 22}}>
-                {payment.date}
+                {payment.txDateTime.slice(0, 10)}
               </AppText>
-              <AppText>&nbsp;&nbsp;({payment.orderNo})</AppText>
+              <AppText>&nbsp;&nbsp;({payment.id})</AppText>
               <TouchableHighlight
                 underlayColor="transparent"
                 style={styles.close}
@@ -82,12 +70,18 @@ const PaymentItem = ({payment}) => {
               </TouchableHighlight>
             </CardItem>
           </Card>
-          <FlatList
-            data={payment.products}
+          <List
+            data={payment.paymentDetail}
             renderItem={({item}) => {
-              return <ProductItemInModal item={item} />;
+              return (
+                <ListItem>
+                  <ProductItemInModal item={item} />;
+                </ListItem>
+              );
             }}
-            numColumns={3}
+            numColumns={1}
+            keyExtractor={item => item.prodId}
+            style={{width: '100%'}}
           />
         </View>
       </Modal>
@@ -122,9 +116,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   close: {
-    // zIndex: 5,
-    // width: 5,
-    // height: 5,
     position: 'absolute',
     left: '100%',
   },
