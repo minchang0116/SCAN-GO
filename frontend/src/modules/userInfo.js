@@ -4,9 +4,8 @@ import * as asyncStorage from '../AsyncStorage/asyncStorage';
 
 export const fetchUserInfo = createAsyncThunk(
   'userInfo/fetchUserInfo',
-  async loginInfo => {
+  async (loginInfo) => {
     let response = await authAPI.LoginWithPassword(loginInfo);
-    // 토큰 저장
     asyncStorage.storeData(
       'token',
       response.headers.authorization.split(' ')[1],
@@ -17,7 +16,7 @@ export const fetchUserInfo = createAsyncThunk(
 
 export const fetchUserInfoWithToken = createAsyncThunk(
   'userInfo/fetchUserInfoWithToken',
-  async (token) => {
+  async token => {
     let response = await authAPI.getUserInfo(token);
     return response;
   },
@@ -48,7 +47,6 @@ const userSlice = createSlice({
       console.log('유저 정보 이행');
 
       // 유저 정보 저장
-      console.log(payload);
       state.memberId = payload.data.id;
       state.loginId = payload.data.loginId;
       state.birth = payload.data.birth;
