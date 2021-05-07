@@ -10,7 +10,7 @@ import IconAntD from 'react-native-vector-icons/FontAwesome5';
 import SubHeader from '../components/common/SubHeader';
 import AppText from '../components/common/AppText';
 import {useDispatch} from 'react-redux';
-import {fetchUserInfo} from '../modules/auth';
+import {fetchUserInfo} from '../modules/userInfo';
 import * as loginAPI from '../lib/api/auth';
 
 const LoginPage = ({navigation}) => {
