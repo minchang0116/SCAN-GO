@@ -49,6 +49,25 @@ public class MemberService {
         return memberRepository.findOneWithAuthoritiesByLoginId(loginId);
     }
 
+    // 회원정보 조회
+    @Transactional
+    public Member getMember(String loginId) {
+        return memberRepository.findByLoginId(loginId);
+    }
+
+    // ID 중복 체크
+    @Transactional
+    public String checkId(String loginId) {
+        if(memberRepository.findByLoginId(loginId) == null) return "success";
+        else return "fail";
+    }
+
+    // 폰번호 중복 체크
+    @Transactional
+    public String checkPhone(String phone) {
+        if(memberRepository.findByPhone(phone) == null) return "success";
+        else return "fail";
+    }
 //    @Transactional(readOnly = true)
 //    public Optional<Member> getMyUserWithAuthorities() {
 //        return userRepository.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUsername);
