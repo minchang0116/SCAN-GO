@@ -2,9 +2,8 @@
 /* eslint-disable react-hooks/exhaustive-deps*/
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {SafeAreaView, FlatList, StyleSheet} from 'react-native';
+import {FlatList, SafeAreaView, StyleSheet} from 'react-native';
 import {Content} from 'native-base';
-
 import PaymentItem from '../../components/paymentList/PaymentItem';
 import {fetchPaymentList} from '../../modules/paymentList';
 import SetDurationPicker from '../../components/paymentList/SetDurationPicker';
@@ -52,8 +51,6 @@ const PaymentListContainer = () => {
     if (!startDate || !endDate) {
       return;
     }
-    console.log('startDate:' + startDate);
-    console.log('endDate:' + endDate);
     const formData = {
       memberId: 1,
       date1: changeDateFormat(startDate),
@@ -77,13 +74,14 @@ const PaymentListContainer = () => {
           endDate={endDate}
           setEndDate={setEndDate}
         />
-
-        {/* <FlatList> */}
-        {paymentList &&
-          paymentList.map((payment, index) => {
-            return <PaymentItem payment={payment} key={index} />;
-          })}
-        {/* </FlatList> */}
+        {paymentList && (
+          <FlatList
+            data={paymentList}
+            renderItem={({item}) => (
+              <PaymentItem payment={item} key={item.id} />
+            )}
+          />
+        )}
       </Content>
     </SafeAreaView>
   );
