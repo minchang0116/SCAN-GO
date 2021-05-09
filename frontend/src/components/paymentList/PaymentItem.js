@@ -1,14 +1,14 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {View, StyleSheet, TouchableHighlight} from 'react-native';
-import {Card, CardItem, Body, Left, Right, List, ListItem} from 'native-base';
+import {View, StyleSheet, FlatList} from 'react-native';
+import {Card, CardItem} from 'native-base';
 import ProductItem from './ProductItem';
-import Modal from 'react-native-modal';
-import IconAntD from 'react-native-vector-icons/AntDesign';
-import ProductItemInModal from './ProductItemInModal';
 import AppText from '../common/AppText';
+import DetailModal from './DetailModal';
 
 const PaymentItem = ({payment}) => {
+  console.log('왜 없어 왜');
+  console.log(payment);
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -17,74 +17,42 @@ const PaymentItem = ({payment}) => {
   return (
     <>
       <Card>
-        <CardItem header style={styles.header}>
+        <CardItem header>
           <AppText style={{fontWeight: '700', fontSize: 22}}>
-            {payment.txDateTime.slice(0, 10)}
+            {payment.txDateTime.substring(0, 10)}
+            <AppText style={{fontWeight: '400'}}>
+              &nbsp;&nbsp;({payment.id})
+            </AppText>
           </AppText>
-          <AppText>&nbsp;&nbsp;({payment.id})</AppText>
         </CardItem>
         <CardItem>
-          <Body>
-            <View style={styles.thumbnail}>
-              <Left>
-                <AppText>결제금액 {payment.paymentAmount}원</AppText>
-              </Left>
-              <Right>
-                <AppText>{payment.storeId}</AppText>
-              </Right>
-            </View>
-          </Body>
+          <View style={styles.header2}>
+            <AppText>
+              결제금액 {payment.paymentAmount.toLocaleString()}원
+            </AppText>
+            <AppText>{payment.storeId}</AppText>
+          </View>
         </CardItem>
-        {payment.paymentDetail
-          .slice(
+        <FlatList
+          data={payment.paymentDetail.slice(
             0,
             payment.paymentDetail.length < 2 ? payment.paymentDetail.length : 2,
-          )
-          .map((product, i) => {
-            return <ProductItem item={product} key={i} />;
-          })}
+          )}
+          renderItem={({item}) => (
+            <ProductItem product={item} key={item.prodId} />
+          )}
+        />
         <CardItem footer>
           <AppText style={styles.footer} onPress={toggleModal}>
             결제 상품 자세히 보기 &gt;{' '}
           </AppText>
         </CardItem>
       </Card>
-      <Modal
-        isVisible={isModalVisible}
-        style={styles.detail}
-        onBackdropPress={toggleModal}
-        animationIn="zoomIn"
-        animationOut="zoomOut">
-        <View style={{flex: 1, width: '100%'}}>
-          <Card>
-            <CardItem header style={styles.header}>
-              <AppText style={{fontWeight: '700', fontSize: 22}}>
-                {payment.txDateTime.slice(0, 10)}
-              </AppText>
-              <AppText>&nbsp;&nbsp;({payment.id})</AppText>
-              <TouchableHighlight
-                underlayColor="transparent"
-                style={styles.close}
-                onPress={toggleModal}>
-                <IconAntD name="close" size={30} color="rgb(142, 144, 144)" />
-              </TouchableHighlight>
-            </CardItem>
-          </Card>
-          <List
-            data={payment.paymentDetail}
-            renderItem={({item}) => {
-              return (
-                <ListItem>
-                  <ProductItemInModal item={item} />;
-                </ListItem>
-              );
-            }}
-            numColumns={1}
-            keyExtractor={item => item.prodId}
-            style={{width: '100%'}}
-          />
-        </View>
-      </Modal>
+      <DetailModal
+        isModalVisible={isModalVisible}
+        toggleModal={toggleModal}
+        payment={payment}
+      />
     </>
   );
 };
@@ -97,27 +65,12 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto',
   },
-  header: {
+  header2: {
     flexDirection: 'row',
-    borderBottomColor: 'rgb(213, 213, 213)',
-    borderBottomWidth: 1,
-    paddingBottom: 5,
-  },
-  thumbnail: {
-    flexDirection: 'row',
-    borderRadius: 6,
-  },
-  detail: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '20%',
-    marginBottom: '30%',
-    backgroundColor: 'rgb(255,255,255)',
-    borderRadius: 10,
-  },
-  close: {
-    position: 'absolute',
-    left: '100%',
+    justifyContent: 'space-between',
+    alignContent: 'center',
+    width: '100%',
+    marginTop: -15,
   },
 });
 
