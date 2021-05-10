@@ -1,11 +1,19 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {StyleSheet, View, TouchableOpacity} from 'react-native';
+import {Button} from 'native-base';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import DatePicker from './DatePicker';
 import AppText from '../common/AppText';
 
-const SetDuration = ({startDate, setStartDate, endDate, setEndDate}) => {
+const SetDuration = ({
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+  loadData,
+  setPage,
+}) => {
   const [showStartDatepicker, setShowStartDataPicker] = useState(false);
   const [showEndDatepicker, setShowEndDataPicker] = useState(false);
 
@@ -55,6 +63,16 @@ const SetDuration = ({startDate, setStartDate, endDate, setEndDate}) => {
             <IconAntD name="calendar" size={15} />
           </AppText>
         </TouchableOpacity>
+        {/* <Button
+          rounded
+          light
+          style={{height: 28, marginVertical: 5, paddingVertical: 5}}
+          onPress={() => {
+            setPage(0);
+            loadData(0);
+          }}>
+          <AppText>조회</AppText>
+        </Button> */}
       </View>
       {showStartDatepicker && (
         <DatePicker
@@ -95,5 +113,14 @@ const durationStyles = StyleSheet.create({
   },
   grayText: {
     color: 'rgb(100, 100, 100)',
+  },
+  okBtn: {
+    borderWidth: 1,
+    borderColor: 'rgb(144,144,144)',
+    borderRadius: 6,
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgb(255,255,255)',
   },
 });

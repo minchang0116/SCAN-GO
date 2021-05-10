@@ -1,14 +1,7 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {
-  Footer,
-  FooterTab,
-  Button,
-  Card,
-  CardItem,
-  Body,
-  Text,
-} from 'native-base';
+import {Footer, FooterTab, Button, Text} from 'native-base';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 
@@ -22,7 +15,9 @@ export const CameraFooter = ({sumPrice}) => {
           <Text style={[styles.footerText, styles.footerText1]}>
             결제예정금액
           </Text>
-          <Text style={[styles.footerText, {width: '50%'}]}>{sumPrice}원</Text>
+          <Text style={[styles.footerText, {width: '50%'}]}>
+            {Number(sumPrice).toLocaleString()}원
+          </Text>
           <Button
             style={styles.goToCartBtn}
             onPress={() => {

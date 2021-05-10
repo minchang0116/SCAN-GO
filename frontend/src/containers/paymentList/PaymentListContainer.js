@@ -2,28 +2,46 @@
 /* eslint-disable react-hooks/exhaustive-deps*/
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {FlatList, SafeAreaView, StyleSheet} from 'react-native';
-import {Content} from 'native-base';
+import {
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  ToastAndroid,
+} from 'react-native';
+import {Content, View} from 'native-base';
 import PaymentItem from '../../components/paymentList/PaymentItem';
 import {fetchPaymentList} from '../../modules/paymentList';
 import SetDurationPicker from '../../components/paymentList/SetDurationPicker';
 import SetDuration from '../../components/paymentList/SetDuration';
+import AppText from '../../components/common/AppText';
 
 const PaymentListContainer = () => {
   const dispatch = useDispatch();
-  const {paymentList, loading} = useSelector(({paymentList}) => ({
+  const {paymentList} = useSelector(({paymentList}) => ({
     paymentList: paymentList.paymentList,
-    loading: paymentList.loading,
   }));
   const [selectedDuration, setSeletedDuration] = useState('최근 3개월');
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [page, setPage] = useState(0);
+  const [curPaymentList, setCurPaymentList] = useState([]);
 
   const changeDateFormat = date => {
     return (
       date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     );
+  };
+
+  const loadData = PAGE => {
+    console.log(PAGE);
+    const formData = {
+      memberId: 1,
+      date1: changeDateFormat(startDate),
+      date2: changeDateFormat(endDate),
+      pageNum: PAGE,
+    };
+    dispatch(fetchPaymentList(formData));
+    console.log(paymentList);
   };
 
   useEffect(() => {
@@ -43,26 +61,35 @@ const PaymentListContainer = () => {
         date1.setFullYear(date1.getFullYear() - 1);
         break;
     }
+    setPage(0);
     setStartDate(date1);
     setEndDate(new Date());
   }, [selectedDuration]);
 
   useEffect(() => {
-    if (!startDate || !endDate) {
+    loadData(page);
+  }, [startDate, endDate, page]);
+
+  useEffect(() => {
+    if (paymentList.length === 0) {
+      ToastAndroid.showWithGravityAndOffset(
+        '결제내역이 없습니다.',
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER,
+        25,
+        100,
+      );
       return;
     }
-    const formData = {
-      memberId: 1,
-      date1: changeDateFormat(startDate),
-      date2: changeDateFormat(endDate),
-      pageNum: page,
-    };
-
-    dispatch(fetchPaymentList(formData));
-  }, [startDate, endDate]);
+    if (page === 0) {
+      setCurPaymentList(paymentList);
+    } else {
+      setCurPaymentList(curPaymentList.concat(...paymentList));
+    }
+  }, [paymentList]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Content>
         <SetDurationPicker
           selectedDuration={selectedDuration}
@@ -73,24 +100,46 @@ const PaymentListContainer = () => {
           setStartDate={setStartDate}
           endDate={endDate}
           setEndDate={setEndDate}
+          loadData={loadData}
+          setPage={setPage}
         />
-        {paymentList && (
+        {curPaymentList.length > 0 && (
           <FlatList
-            data={paymentList}
-            renderItem={({item}) => (
-              <PaymentItem payment={item} key={item.id} />
+            data={curPaymentList}
+            renderItem={({item, index}) => (
+              <PaymentItem payment={item} key={index} />
             )}
+            // onEndReachedThreshold={0.5}
+            // onEndReached={() => getMoreData()}
           />
         )}
+        <View style={styles.seeMoreBtn}>
+          <TouchableOpacity
+            onPress={() => {
+              setPage(page + 1);
+            }}>
+            <AppText style={{color: 'rgb(144,144,144)'}}>더보기</AppText>
+          </TouchableOpacity>
+        </View>
       </Content>
-    </SafeAreaView>
+    </View>
   );
 };
-
-export default PaymentListContainer;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  seeMoreBtn: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 35,
+    borderColor: 'rgb(144,144,144)',
+    borderWidth: 2,
+    borderRadius: 10,
+  },
 });
+
+export default PaymentListContainer;
