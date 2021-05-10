@@ -128,6 +128,7 @@ const shoppingListSlice = createSlice({
       state.loading = true;
     },
     [addShoppingListItemByBarcode.fulfilled]: (state, {payload}) => {
+      state.sumPrice += Number(payload.prodPrice);
       state.lastItem = payload;
       state.loading = false;
       state.hasErrors = false;

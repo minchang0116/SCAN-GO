@@ -7,8 +7,10 @@ import IconAntD from 'react-native-vector-icons/AntDesign';
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import AppText from './AppText';
+import {useNavigation} from '@react-navigation/native';
 
-const MainFooter = ({navigation}) => {
+const MainFooter = ({}) => {
+  const navigation = useNavigation();
   return (
     <Footer style={styles.footer}>
       <FooterTab style={styles.container}>
@@ -64,7 +66,7 @@ const MainFooter = ({navigation}) => {
         <TouchableOpacity
           style={styles.tochablePosition}
           onPress={() => {
-            navigation.navigate('ImageScanningPage');
+            navigation.navigate('MyInfoPage');
           }}>
           <IconFntAwesome
             name="user-circle"

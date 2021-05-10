@@ -7,6 +7,7 @@ import LoginPage from './LoginPage';
 import RegisterForm from './RegisterForm';
 import PaymentSuccessPage from './PaymentSuccessPage';
 import PaymentPage from './PaymentPage';
+import MyInfoPage from './MyInfoPage';
 
 export {
   PaymentList,
@@ -16,6 +17,7 @@ export {
   ImageScanningPage,
   LoginPage,
   RegisterForm,
+  MyInfoPage,
   PaymentPage,
   PaymentSuccessPage,
 };

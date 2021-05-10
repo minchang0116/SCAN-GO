@@ -3,8 +3,10 @@ import React from 'react';
 import {Body, Header, Left, Right, Title} from 'native-base';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AppText from './AppText';
+import {useNavigation} from '@react-navigation/native';
 
-const SubHeader = ({title, navigation, isIcon = true}) => {
+const SubHeader = ({title, isIcon = true}) => {
+  const navigation = useNavigation();
   return (
     <Header androidStatusBarColor={'rgb(240,41,28)'} style={styles.header}>
       <Left>
