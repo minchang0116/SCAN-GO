@@ -15,7 +15,11 @@ const paymentListSlice = createSlice({
     hasErrors: false,
     paymentList: [],
   },
-  reducers: {},
+  reducers: {
+    initPaymentList: state => {
+      state.paymentList = [];
+    },
+  },
   extraReducers: {
     [fetchPaymentList.pending]: state => {
       state.loading = true;
@@ -31,5 +35,7 @@ const paymentListSlice = createSlice({
     },
   },
 });
+
+export const {initPaymentList} = paymentListSlice.actions;
 
 export default paymentListSlice.reducer;

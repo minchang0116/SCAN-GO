@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-import {CameraFooter} from '../components/CameraFooter';
+import {CameraFooter} from '../components/scanning/CameraFooter';
 import IconAntD from 'react-native-vector-icons/AntDesign';
-import CameraItem from '../components/CameraItem';
+import CameraItem from '../components/scanning/CameraItem';
 import {RNCamera} from 'react-native-camera';
 
 const ImageScanningPage = ({navigation}) => {

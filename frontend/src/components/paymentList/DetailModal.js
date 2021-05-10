@@ -8,7 +8,6 @@ import {Card, CardItem} from 'native-base';
 import AppText from '../common/AppText';
 
 const DetailModal = ({isModalVisible, toggleModal, payment}) => {
-  console.log(payment.paymentDetail);
   return (
     <Modal
       isVisible={isModalVisible}
@@ -35,8 +34,8 @@ const DetailModal = ({isModalVisible, toggleModal, payment}) => {
         </Card>
         <FlatList
           data={payment.paymentDetail}
-          renderItem={({item}) => (
-            <ProductItemInModal item={item} key={item.prodId} />
+          renderItem={(item, index) => (
+            <ProductItemInModal item={item} key={index} />
           )}
           numColumns={3}
         />
@@ -48,6 +47,15 @@ const DetailModal = ({isModalVisible, toggleModal, payment}) => {
 export default DetailModal;
 
 const styles = StyleSheet.create({
+  detail: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '20%',
+    marginBottom: '30%',
+    backgroundColor: 'rgb(255,255,255)',
+    borderRadius: 10,
+  },
   header: {
     flexDirection: 'row',
     borderBottomColor: 'rgb(213, 213, 213)',
@@ -57,14 +65,6 @@ const styles = StyleSheet.create({
   thumbnail: {
     flexDirection: 'row',
     borderRadius: 6,
-  },
-  detail: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '20%',
-    marginBottom: '30%',
-    backgroundColor: 'rgb(255,255,255)',
-    borderRadius: 10,
   },
   close: {
     position: 'absolute',
