@@ -1,7 +1,6 @@
 import client from './client';
 
-export const addItemByBarcode = ({formData}) => {
-  console.log(formData);
+export const addItemByBarcode = formData => {
   return client.get('/product/product_insert', {params: {...formData}});
 };
 export const addItemByProductName = formData => {
@@ -38,7 +37,7 @@ export const decreaseItem = formData => {
 // formData => {memberId : }
 export const readItems = formData => {
   return client.get('/payment/get_customer_payment', {
-    params: {memberId: 1},
+    params: {memberId: formData},
   });
 };
 
