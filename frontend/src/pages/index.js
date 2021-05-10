@@ -8,6 +8,7 @@ import RegisterForm from './RegisterForm';
 import PaymentSuccessPage from './PaymentSuccessPage';
 import PaymentPage from './PaymentPage';
 import MyInfoPage from './MyInfoPage';
+import LoadingPage from './LoadingPage';
 
 export {
   PaymentList,
@@ -20,4 +21,5 @@ export {
   MyInfoPage,
   PaymentPage,
   PaymentSuccessPage,
+  LoadingPage,
 };
