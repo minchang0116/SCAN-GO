@@ -1,11 +1,11 @@
 import React from 'react';
 import {Text, Body, Thumbnail} from 'native-base';
-import {View, StyleSheet} from 'react-native';
+import { View } from 'react-native';
 
 const ProductItem = ({item}) => {
   return (
     <>
-      <View style={styles.wrap}>
+      <View>
         <Thumbnail
           square
           source={{
@@ -16,7 +16,9 @@ const ProductItem = ({item}) => {
         />
         <Body style={{marginLeft: 15}}>
           <Text style={{marginBottom: 5}}>{item.prodName}</Text>
-          <Text>{item.prodPrice}원</Text>
+          <Text>
+            {item.prodPrice}원
+          </Text>
         </Body>
       </View>
     </>
@@ -24,13 +26,3 @@ const ProductItem = ({item}) => {
 };
 
 export default ProductItem;
-
-const styles = StyleSheet.create({
-  wrap: {
-    width: '50%',
-    height: '100%',
-    paddingRight: 8,
-    paddingLeft: 8,
-    // marginBottom: -50,
-  },
-});
