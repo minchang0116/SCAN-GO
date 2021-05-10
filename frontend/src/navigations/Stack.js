@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {
   BarcodeScanningPage,
@@ -11,13 +11,43 @@ import {
   LoginPage,
   MyInfoPage,
   RegisterForm,
+  LoadingPage,
 } from '../pages';
+import * as asyncStorage from '../AsyncStorage/asyncStorage';
+import {useDispatch} from 'react-redux';
+import {fetchUserInfoWithAsyncStorage} from '../modules/userInfo';
 
 const Stack = createStackNavigator();
 
 const StackNav = () => {
+  const dispatch = useDispatch();
+  useEffect(async () => {
+    console.log('유저 정보 확인');
+    checkUserInfo();
+  }, []);
+
+  const checkUserInfo = async () => {
+    let userData = await asyncStorage.getObjectData('user');
+    if (userData !== null) {
+      console.log('유저 정보 Async 존재');
+      console.dir(userData);
+      let response = await dispatch(
+        fetchUserInfoWithAsyncStorage({userData: userData}),
+      );
+      if (response.payload !== undefined) {
+      }
+    } else {
+      console.log('저장된 유저 정보 없음! 로그인 필요!');
+    }
+  };
+
   return (
-    <Stack.Navigator initialRouteName="LoginPage">
+    <Stack.Navigator initialRouteName="LoadingPage">
+      <Stack.Screen
+        name="LoadingPage"
+        component={LoadingPage}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="LoginPage"
         component={LoginPage}
