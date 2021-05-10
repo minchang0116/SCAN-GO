@@ -22,7 +22,7 @@ const Stack = createStackNavigator();
 const StackNav = () => {
   const dispatch = useDispatch();
   useEffect(async () => {
-    console.log('유저 정보 확인');
+    console.log('Stack Header - 유저 정보 확인');
     checkUserInfo();
   }, []);
 
