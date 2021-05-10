@@ -1,16 +1,31 @@
 import {Alert, StyleSheet, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import AppText from './AppText';
 import {Container, List, ListItem, View} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import * as asyncStorage from '../../AsyncStorage/asyncStorage';
 
-const MyInfo = () => {
+const MyInfo = ({navigation}) => {
+  const [userInfo, setUserInfo] = useState({});
+  useEffect(async () => {
+    let user = await asyncStorage.getObjectData('user');
+    setUserInfo(user);
+  }, []);
+
+  const logout = async () => {
+    await asyncStorage.removeValue('token');
+    await asyncStorage.removeValue('user');
+    alert('로그아웃이 완료됐습니다.');
+    navigation.navigate('LoginPage');
+  };
+
   return (
     <Container>
       <View style={styles.profile}>
         <View style={styles.profileLeft}>
           <AppText style={styles.nameText}>
-            강민창<AppText style={styles.profileText}>님</AppText>
+            프론트파이팅{/* {userInfo.nickName} */}
+            <AppText style={styles.profileText}>님</AppText>
           </AppText>
 
           <AppText style={styles.profileText}>안녕하세요</AppText>
@@ -23,26 +38,24 @@ const MyInfo = () => {
         <View flexDirection={'row'}>
           <AppText style={styles.bodyText}>계정</AppText>
           <AppText style={styles.bodyText2} numberOfLines={1}>
-            new0822@naver.com
+            {userInfo.loginId}
           </AppText>
         </View>
         <View flexDirection={'row'}>
           <AppText style={styles.bodyText}>생일</AppText>
           <AppText style={styles.bodyText2} numberOfLines={1}>
-            1995.01.16
+            {userInfo.birth}
           </AppText>
         </View>
         <View flexDirection={'row'}>
           <AppText style={styles.bodyText}>전화번호</AppText>
           <AppText style={styles.bodyText2} numberOfLines={1}>
-            010-6889-5162
+            {userInfo.phone}
           </AppText>
         </View>
       </View>
       <List>
-        <ListItem
-          style={styles.listItem}
-          onPressOut={() => alert('로그아웃이 완료됐습니다.')}>
+        <ListItem style={styles.listItem} onPressOut={() => logout()}>
           <AppText>로그아웃</AppText>
           <Icon name={'arrow-forward-ios'} />
         </ListItem>

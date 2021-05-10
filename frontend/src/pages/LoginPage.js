@@ -62,6 +62,9 @@ const LoginPage = ({navigation}) => {
       ]);
       return;
     }
+    setId('');
+    setPw('');
+    setAutoLogin(false);
     navigation.navigate('MainPage');
   };
   return (

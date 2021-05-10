@@ -4,11 +4,11 @@ import MyInfo from '../components/common/MyInfo';
 import SubHeader from '../components/common/SubHeader';
 import MainFooter from '../components/common/MainFooter';
 
-const MyInfoPage = ({}) => {
+const MyInfoPage = ({navigation}) => {
   return (
     <Container>
       <SubHeader title={'내 정보'} isIcon={false} />
-      <MyInfo />
+      <MyInfo navigation={navigation} />
       <MainFooter />
     </Container>
   );
