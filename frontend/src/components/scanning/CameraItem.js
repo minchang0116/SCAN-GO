@@ -3,7 +3,9 @@ import React from 'react';
 import {Card, CardItem, Body, Text} from 'native-base';
 import {Image, StyleSheet, View} from 'react-native';
 
-const CameraItem = ({lastItem}) => {
+let STYLE;
+const CameraItem = ({lastItem, style}) => {
+  STYLE = style;
   return (
     <>
       <Card style={styles.card}>
@@ -33,18 +35,11 @@ const styles = StyleSheet.create({
     width: 100,
     height: '100%',
   },
-  card: {
-    zIndex: 5,
-    width: '95%',
-    marginTop: 0,
-    marginRight: 'auto',
-    marginBottom: 20,
-    marginLeft: 'auto',
-    borderRadius: 10,
-  },
   cardItem: {
     borderRadius: 10,
     height: 100,
   },
+  STYLE,
 });
+
 export default CameraItem;
