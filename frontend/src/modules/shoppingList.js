@@ -71,7 +71,7 @@ const shoppingListSlice = createSlice({
       });
     },
     removeLastItem: state => {
-      console.log('removeLastItem!!!!!!!!!!');
+      console.log('removeLastItem!');
       state.lastItem = null;
     },
   },
