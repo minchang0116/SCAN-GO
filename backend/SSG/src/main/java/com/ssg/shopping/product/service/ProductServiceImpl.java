@@ -12,8 +12,8 @@ import com.ssg.shopping.payment.data.Response.PaymentDetailResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ssg.shopping.product.data.Product;
-import com.ssg.shopping.product.data.ProductRepository;
+import com.ssg.shopping.product.data.Entity.Product;
+import com.ssg.shopping.product.data.Repository.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
 
