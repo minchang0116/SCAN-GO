@@ -1,14 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {View, StyleSheet, FlatList} from 'react-native';
-import {Card, CardItem} from 'native-base';
+import {View, StyleSheet} from 'react-native';
+import {Card, CardItem, List, ListItem} from 'native-base';
 import ProductItem from './ProductItem';
 import AppText from '../common/AppText';
 import DetailModal from './DetailModal';
 
 const PaymentItem = ({payment}) => {
-  console.log('왜 없어 왜');
-  console.log(payment);
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -33,15 +31,20 @@ const PaymentItem = ({payment}) => {
             <AppText>{payment.storeId}</AppText>
           </View>
         </CardItem>
-        <FlatList
-          data={payment.paymentDetail.slice(
-            0,
-            payment.paymentDetail.length < 2 ? payment.paymentDetail.length : 2,
-          )}
-          renderItem={({item}) => (
-            <ProductItem product={item} key={item.prodId} />
-          )}
-        />
+        <List>
+          {payment.paymentDetail
+            .slice(
+              0,
+              payment.paymentDetail.length < 2
+                ? payment.paymentDetail.length
+                : 2,
+            )
+            .map((item, index) => (
+              <ListItem>
+                <ProductItem product={item} key={index} />
+              </ListItem>
+            ))}
+        </List>
         <CardItem footer>
           <AppText style={styles.footer} onPress={toggleModal}>
             결제 상품 자세히 보기 &gt;{' '}

@@ -71,7 +71,7 @@ const shoppingListSlice = createSlice({
       });
     },
     removeLastItem: state => {
-      console.log('removeLastItem!!!!!!!!!!');
+      console.log('removeLastItem!');
       state.lastItem = null;
     },
   },
@@ -128,6 +128,10 @@ const shoppingListSlice = createSlice({
       state.loading = true;
     },
     [addShoppingListItemByBarcode.fulfilled]: (state, {payload}) => {
+      console.log('이거!!');
+      console.log(payload);
+      console.log(payload.prodPrice);
+      state.sumPrice += Number(payload.prodPrice);
       state.lastItem = payload;
       state.loading = false;
       state.hasErrors = false;

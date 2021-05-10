@@ -18,7 +18,7 @@ const CameraItem = ({lastItem}) => {
             />
             <View>
               <Text>{lastItem.prodName}</Text>
-              <Text>{lastItem.prodPrice}원</Text>
+              <Text>{Number(lastItem.prodPrice).toLocaleString()}원</Text>
             </View>
           </Body>
         </CardItem>

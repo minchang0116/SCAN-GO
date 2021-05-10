@@ -8,32 +8,28 @@ import {
   ToastAndroid,
 } from 'react-native';
 import {CameraScreen} from 'react-native-camera-kit';
-import {CameraFooter} from '../components/CameraFooter';
+import {CameraFooter} from '../components/scanning/CameraFooter';
 import IconAntD from 'react-native-vector-icons/AntDesign';
-import CameraItem from '../components/CameraItem';
+import CameraItem from '../components/scanning/CameraItem';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   addShoppingListItemByBarcode,
   removeLastItem,
 } from '../modules/shoppingList';
-import AppText from '../components/common/AppText';
-// import IconEntypo from 'react-native-vector-icons/Entypo';
 
 const BarcodeScanningPage = ({navigation}) => {
   const dispatch = useDispatch();
 
   const {lastItem, sumPrice, error} = useSelector(({shoppingList}) => ({
     lastItem: shoppingList.lastItem,
-    sumPrice: shoppingList.sumPrice
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+    sumPrice: shoppingList.sumPrice.toString().toLocaleString(),
     error: shoppingList.hasErrors,
   }));
 
   const [qrvalue, setQrvalue] = useState('');
 
   useEffect(() => {
-    if (!qrvalue) {
+    if (!qrvalue || (lastItem && qrvalue === lastItem.prodCode)) {
       return;
     }
     console.log('qrvalue : ' + qrvalue);
@@ -56,7 +52,6 @@ const BarcodeScanningPage = ({navigation}) => {
   }, [qrvalue]);
 
   useEffect(() => {
-    console.log('lastItem: ' + lastItem);
     setTimeout(() => {
       dispatch(removeLastItem());
       setQrvalue('');
@@ -71,11 +66,6 @@ const BarcodeScanningPage = ({navigation}) => {
           onPress={() => navigation.navigate('MainPage')}>
           <IconAntD name="close" size={30} color="rgb(255, 255, 255)" />
         </TouchableOpacity>
-        {/* <TouchableOpacity
-          style={styles.close}
-          onPress={() => navigation.navigate('MainPage')}>
-          <IconEntypo name="flashlight" size={30} color="rgb(255, 255, 255)" />
-        </TouchableOpacity> */}
         <View style={{flex: 1}}>
           <CameraScreen
             showFrame={true}
