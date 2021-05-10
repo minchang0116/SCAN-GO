@@ -37,8 +37,9 @@ const userSlice = createSlice({
   initialState: {
     loading: false,
     hasErrors: false,
-    memberId: '1',
+    memberId: '',
     loginId: '',
+    nickName: '',
     birth: '',
     phone: '',
   },
