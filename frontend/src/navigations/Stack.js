@@ -41,7 +41,11 @@ const StackNav = () => {
       <Stack.Screen
         name="BarcodeScanningPage"
         component={BarcodeScanningPage}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+          animationEnabled: false,
+          // cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        }}
       />
       <Stack.Screen
         name="ImageScanningPage"
