@@ -38,7 +38,7 @@ const DetailModal = ({isModalVisible, toggleModal, payment}) => {
           renderItem={({item}) => (
             <ProductItemInModal item={item} key={item.prodId} />
           )}
-          numColumns={3}
+          numColumns={2}
         />
       </View>
     </Modal>
