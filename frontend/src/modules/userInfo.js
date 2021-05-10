@@ -4,7 +4,7 @@ import * as asyncStorage from '../AsyncStorage/asyncStorage';
 
 export const fetchUserInfo = createAsyncThunk(
   'userInfo/fetchUserInfo',
-  async (loginInfo) => {
+  async loginInfo => {
     let response = await authAPI.LoginWithPassword(loginInfo);
     asyncStorage.storeData(
       'token',
@@ -27,7 +27,7 @@ const userSlice = createSlice({
   initialState: {
     loading: false,
     hasErrors: false,
-    memberId: '32',
+    memberId: '1',
     loginId: '',
     birth: '',
     phone: '',

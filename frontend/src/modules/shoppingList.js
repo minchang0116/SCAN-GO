@@ -67,6 +67,8 @@ export const deleteAllShoppingListItem = createAsyncThunk(
     }
   },
 );
+
+// try catch를 빼도 바로 reject로 넘어감
 export const addShoppingListItemByBarcode = createAsyncThunk(
   'shoppingList/addShoppingListItemByBarcode',
   async (formData, {getState}) => {
