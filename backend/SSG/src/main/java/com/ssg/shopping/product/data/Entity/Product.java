@@ -1,4 +1,4 @@
-package com.ssg.shopping.product.data;
+package com.ssg.shopping.product.data.Entity;
 
 import java.util.ArrayList;
 import java.util.List;

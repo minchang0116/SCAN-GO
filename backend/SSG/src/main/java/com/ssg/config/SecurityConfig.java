@@ -51,7 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/webjars/**",
                         "/swagger/**",
                         "/payment/**",
-                        "/product/**");
+                        "/product/**",
+                        "/event/**");
     }
 
     @Override

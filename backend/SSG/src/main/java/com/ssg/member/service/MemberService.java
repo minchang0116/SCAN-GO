@@ -65,7 +65,7 @@ public class MemberService {
     // 폰번호 중복 체크
     @Transactional
     public String checkPhone(String phone) {
-        if(memberRepository.findByPhone(phone) == null) return "success";
+        if (memberRepository.findByPhone(phone) == null) return "success";
         else return "fail";
     }
 //    @Transactional(readOnly = true)
