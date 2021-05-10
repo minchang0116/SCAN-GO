@@ -33,12 +33,8 @@ const BarcodeScanningPage = ({navigation}) => {
       return;
     }
     console.log('qrvalue : ' + qrvalue);
-    const formData = {
-      memberId: 1,
-      prodCode: qrvalue,
-    };
     console.log('dispatch');
-    dispatch(addShoppingListItemByBarcode({formData}));
+    dispatch(addShoppingListItemByBarcode({qrvalue}));
 
     if (error) {
       ToastAndroid.showWithGravityAndOffset(
