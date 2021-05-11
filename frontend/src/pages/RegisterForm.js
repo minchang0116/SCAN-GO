@@ -290,7 +290,7 @@ const RegisterForm = ({navigation}) => {
     setCellBlank(false);
   };
   // 휴대전화 중복 체크
-  const onCellCheckHandler = () => {
+  const onCellCheckHandler = async () => {
     if (cellnumber === '') {
       Alert.alert('번호 확인', '휴대 전화 번호를 입력해주세요!', [
         {
@@ -312,7 +312,7 @@ const RegisterForm = ({navigation}) => {
       return;
     }
     // back에 휴대전화 있는지 확인 체크
-    const response = registerAPI.checkCellNumber(cellnumber);
+    const response = await registerAPI.checkCellNumber(cellnumber);
     if (response.data === 'success') {
       setCellCheck(true);
       setDcell(false);
@@ -387,7 +387,7 @@ const RegisterForm = ({navigation}) => {
     try {
       const response = await registerAPI.registerUser({
         loginId: id,
-        nickName: nickName,
+        nickname: nickName,
         birth: birth,
         loginPwd: password,
         phone: cellnumber,

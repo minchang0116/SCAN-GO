@@ -24,7 +24,7 @@ const MyInfo = ({navigation}) => {
       <View style={styles.profile}>
         <View style={styles.profileLeft}>
           <AppText style={styles.nameText}>
-            프론트파이팅{/* {userInfo.nickName} */}
+            {userInfo.nickname}
             <AppText style={styles.profileText}>님</AppText>
           </AppText>
 
