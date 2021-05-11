@@ -39,7 +39,7 @@ const userSlice = createSlice({
     hasErrors: false,
     memberId: '',
     loginId: '',
-    nickName: '',
+    nickname: '',
     birth: '',
     phone: '',
   },
@@ -60,6 +60,7 @@ const userSlice = createSlice({
       // 유저 정보 저장
       state.memberId = payload.data.id;
       state.loginId = payload.data.loginId;
+      state.nickname = payload.data.nickname;
       state.birth = payload.data.birth;
       state.phone = payload.data.phone;
       state.loading = false;
@@ -80,6 +81,7 @@ const userSlice = createSlice({
       console.log('Token으로 유저 정보 이행');
       state.memberId = payload.data.id;
       state.loginId = payload.data.loginId;
+      state.nickname = payload.data.nickname;
       state.birth = payload.data.birth;
       state.phone = payload.data.phone;
       state.loading = false;
@@ -99,6 +101,7 @@ const userSlice = createSlice({
       console.log('AsyncSotrage로 유저 정보 이행');
       state.memberId = payload.id;
       state.loginId = payload.loginId;
+      state.nickname = payload.nickname;
       state.birth = payload.birth;
       state.phone = payload.phone;
       state.loading = false;
