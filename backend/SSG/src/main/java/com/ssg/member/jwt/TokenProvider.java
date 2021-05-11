@@ -60,6 +60,7 @@ public class TokenProvider implements InitializingBean {
                 .claim(AUTHORITIES_KEY, authorities)
                 .claim("memberId", member.getId())
                 .claim("loginId", member.getLoginId())
+                .claim("nickname", member.getNickname())
                 .claim("birth", member.getBirth())
                 .claim("phone", member.getPhone())
                 .signWith(key, SignatureAlgorithm.HS512)
