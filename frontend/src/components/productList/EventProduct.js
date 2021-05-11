@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     marginRight: '3%',
   },
   subContainer: {
-    marginBottom: '15%',
+    marginBottom: '5%',
   },
   title: {
     fontWeight: 'bold',
