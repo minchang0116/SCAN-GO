@@ -1,103 +1,93 @@
-import React from 'react';
-import {View, SafeAreaView, StyleSheet, Text} from 'react-native';
+/* eslint-disable react-native/no-inline-styles */
+import React, {useEffect, useState} from 'react';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
-import ProductItem from './ProductItem';
 import AppText from '../common/AppText';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  fetchBeerRanking,
+  fetchIcecreamRanking,
+  fetchSnackRanking,
+} from '../../modules/rankingProduct';
+import ProductItem from './ProductItem';
+import {Thumbnail} from 'native-base';
 
 const PopularProduct = () => {
-  const items = [
-    {
-      id: 1,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 2,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 3,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 4,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 5,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 6,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 7,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 8,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 9,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 10,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 11,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 12,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 13,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 14,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 15,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-  ];
+  const dispatch = useDispatch();
+  const {beer, icecream, snack} = useSelector(({rankingProduct}) => ({
+    beer: rankingProduct.beer,
+    icecream: rankingProduct.icecream,
+    snack: rankingProduct.snack,
+  }));
+  const [category, setCategory] = useState('icecream');
+
+  useEffect(() => {
+    dispatch(fetchBeerRanking());
+    dispatch(fetchIcecreamRanking());
+    dispatch(fetchSnackRanking());
+  }, []);
+
+  let rank = 1;
   return (
     <>
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <AppText style={styles.title}>인기 상품</AppText>
         <AppText style={styles.subTitle}>
           이번 주 가장 인기있는 상품을 만나보세요!
         </AppText>
+        <View style={styles.category}>
+          <TouchableOpacity
+            style={styles.categoryItem}
+            onPress={() => setCategory('icecream')}>
+            <View
+              style={[
+                styles.circle,
+                category === 'icecream' ? {borderColor: 'rgb(240,41,28)'} : '',
+              ]}>
+              <Thumbnail source={require('../../../imgs/icecream.jpg')} />
+            </View>
+            <AppText style={styles.categoryTxt}>아이스크림</AppText>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.categoryItem}
+            onPress={() => setCategory('beer')}>
+            <View
+              style={[
+                styles.circle,
+                category === 'beer' ? {borderColor: 'rgb(240,41,28)'} : '',
+              ]}>
+              <Thumbnail source={require('../../../imgs/beer.jpg')} />
+            </View>
+            <AppText style={styles.categoryTxt}>맥주</AppText>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.categoryItem}
+            onPress={() => setCategory('snack')}>
+            <View
+              style={[
+                styles.circle,
+                category === 'snack' ? {borderColor: 'rgb(240,41,28)'} : '',
+              ]}>
+              <Thumbnail source={require('../../../imgs/snack.jpg')} />
+            </View>
+            <AppText style={styles.categoryTxt}>과자</AppText>
+          </TouchableOpacity>
+        </View>
         <FlatList
           style={styles.scrollContainer}
-          vertical
           showsVerticalScrollIndicator={false}
-          data={items}
+          data={
+            category === 'icecream'
+              ? icecream
+              : category === 'snack'
+              ? snack
+              : beer
+          }
           keyExtractor={item => item.id}
-          renderItem={({item}) => <ProductItem item={item} />}
-          numColumns={2}></FlatList>
-      </SafeAreaView>
+          renderItem={({item}) => <ProductItem item={item} rank={item.id} />}
+          numColumns={2}
+        />
+      </View>
     </>
   );
 };
@@ -119,8 +109,34 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: 'rgb(100,100,100)',
   },
+  sectionTitle: {
+    fontSize: 20,
+  },
   scrollContainer: {
+    width: '100%',
     marginTop: '3%',
     marginBottom: '7%',
+  },
+  category: {
+    marginVertical: 10,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  categoryItem: {
+    marginRight: 10,
+    alignItems: 'center',
+  },
+  circle: {
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: 'rgb(255,255,255)',
+    width: 60,
+    height: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 2,
+  },
+  categoryTxt: {
+    fontSize: 10,
   },
 });

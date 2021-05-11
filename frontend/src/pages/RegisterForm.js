@@ -3,7 +3,6 @@ import {
   TextInput,
   StyleSheet,
   View,
-  Text,
   TouchableOpacity,
   ScrollView,
   Alert,
@@ -18,6 +17,10 @@ const RegisterForm = ({navigation}) => {
   const [idCheck, setIdCheck] = useState(false);
   const [id, setId] = useState('');
   const [isduplicated_id, setDid] = useState(false);
+
+  // 닉네임
+  const [nickName, setNickName] = useState('');
+
   // 생일
   const [birthCheck, setbirthCheck] = useState(false);
   const [birth, setBirth] = useState('');
@@ -46,6 +49,7 @@ const RegisterForm = ({navigation}) => {
   const pwRef = useRef();
   const pwConfirmRef = useRef();
   const phoneRef = useRef();
+  const nickNameRef = useRef();
 
   // 아이디 입력 확인
   const onIdInputHandler = text => {
@@ -86,8 +90,7 @@ const RegisterForm = ({navigation}) => {
 
     // back에 아이디 있는지 확인 체크
     const response = await registerAPI.checkEmailAddress(id);
-    if(response.data === 'success')
-    {
+    if (response.data === 'success') {
       setIdCheck(true);
       setDid(false);
     } else {
@@ -97,8 +100,16 @@ const RegisterForm = ({navigation}) => {
           onPress: () => console.log('email check'),
         },
       ]);
-      return ;
+      return;
     }
+  };
+
+  // 닉네임 입력
+  const onNickNameHandler = text => {
+    let inNick = text;
+    inNick = inNick.replace(/\s/, '');
+    inNick = inNick.replace(/[!~@#$%^*()\-_=+\\\|\[\]{};:\'",.<>\/?]/, '');
+    setNickName(inNick);
   };
 
   // 생일 입력 체크
@@ -279,7 +290,7 @@ const RegisterForm = ({navigation}) => {
     setCellBlank(false);
   };
   // 휴대전화 중복 체크
-  const onCellCheckHandler = () => {
+  const onCellCheckHandler = async () => {
     if (cellnumber === '') {
       Alert.alert('번호 확인', '휴대 전화 번호를 입력해주세요!', [
         {
@@ -290,7 +301,7 @@ const RegisterForm = ({navigation}) => {
       setCellBlank(true);
       return;
     }
-    if(cellnumber.length != 13){
+    if (cellnumber.length != 13) {
       Alert.alert('번호 확인', '휴대 전화 번호를 확인해주세요!', [
         {
           text: '확인',
@@ -301,8 +312,8 @@ const RegisterForm = ({navigation}) => {
       return;
     }
     // back에 휴대전화 있는지 확인 체크
-    const response = registerAPI.checkCellNumber(cellnumber);
-    if(response.data === 'success'){
+    const response = await registerAPI.checkCellNumber(cellnumber);
+    if (response.data === 'success') {
       setCellCheck(true);
       setDcell(false);
     } else {
@@ -322,6 +333,15 @@ const RegisterForm = ({navigation}) => {
         {
           text: '확인',
           onPress: () => idRef.current.focus(),
+        },
+      ]);
+      return;
+    }
+    if (nickName.length === 0) {
+      Alert.alert('닉네임 확인', '닉네임을 확인 해주세요!', [
+        {
+          text: '확인',
+          onPress: () => nickNameRef.current.focus(),
         },
       ]);
       return;
@@ -367,6 +387,7 @@ const RegisterForm = ({navigation}) => {
     try {
       const response = await registerAPI.registerUser({
         loginId: id,
+        nickname: nickName,
         birth: birth,
         loginPwd: password,
         phone: cellnumber,
@@ -448,6 +469,19 @@ const RegisterForm = ({navigation}) => {
                 </AppText>
               )}
             </View>
+          </View>
+          <View>
+            <AppText style={styles.titleText}>닉네임</AppText>
+            <TextInput
+              ref={nickNameRef}
+              style={[styles.textInput, {marginBottom: 6}]}
+              returnKeyType="next"
+              onSubmitEditing={() => birthRef.current.focus()}
+              maxLength={7}
+              placeholder="특수문자를 제외한 7자리"
+              onChangeText={text => onNickNameHandler(text)}
+              value={nickName}
+            />
           </View>
           <View>
             <AppText style={styles.titleText}>생일</AppText>

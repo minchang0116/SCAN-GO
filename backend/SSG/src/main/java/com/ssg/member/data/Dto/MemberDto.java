@@ -14,6 +14,7 @@ import java.util.Date;
 public class MemberDto {
     private String loginId;
     private String loginPwd;
+    private String nickname;
     private String phone;
     @Temporal(TemporalType.DATE)
     private Date birth;

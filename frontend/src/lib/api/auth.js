@@ -1,24 +1,24 @@
 import client from './client';
 
 // 로그인 시도
-export const LoginWithPassword = (formData) => {
+export const LoginWithPassword = formData => {
   return client.post('/member/login', formData);
 };
 
 // 자동 로그인 토큰 검사
-export const checkTokenForAutoLogin = (token) => {
-    // return client.post('/', token);
-}
+export const checkTokenForAutoLogin = token => {
+  // return client.post('/', token);
+};
 
 // 회원 정보 가져오기
 export const getUserInfo = token => {
-    return client.post(`/token=${token}`);
-}
+  return client.post(`/token=${token}`);
+};
 
 // 로그 아웃
 export const logout = token => {
-    return client.post(`/token=${token}`);
-}
+  return client.post(`/token=${token}`);
+};
 
 // import client from './client';
 

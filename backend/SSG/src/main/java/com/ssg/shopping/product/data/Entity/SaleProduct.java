@@ -14,7 +14,8 @@ public class SaleProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String prodName;
-    private String prodOriginalPrice;
+    @Column(name = "prod_original_price")
+    private String prodPrice;
     private String prodSalePrice;
     private String image;
 }
