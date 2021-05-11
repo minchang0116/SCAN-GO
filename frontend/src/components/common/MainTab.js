@@ -42,7 +42,7 @@ const ProductListTab = () => {
           }}
           textStyle={{color: 'black', fontFamily: 'NotoSansCJKkr-Regular'}}
           tabStyle={{backgroundColor: 'white'}}
-          heading="이벤트">
+          heading="홈">
           <VirtualizedView>
             <HomeProduct />
           </VirtualizedView>
