@@ -10,6 +10,7 @@ export const fetchUserInfo = createAsyncThunk(
       'token',
       response.headers.authorization.split(' ')[1],
     );
+    asyncStorage.storeObjectData('user', response.data);
     return response;
   },
 );
@@ -22,13 +23,21 @@ export const fetchUserInfoWithToken = createAsyncThunk(
   },
 );
 
+export const fetchUserInfoWithAsyncStorage = createAsyncThunk(
+  'userInfo/fetchUserInfoWithAsyncStorage',
+  async ({userData}) => {
+    return userData;
+  },
+);
+
 const userSlice = createSlice({
   name: 'userInfo',
   initialState: {
     loading: false,
     hasErrors: false,
-    memberId: '1',
+    memberId: '',
     loginId: '',
+    nickname: '',
     birth: '',
     phone: '',
   },
@@ -49,6 +58,7 @@ const userSlice = createSlice({
       // 유저 정보 저장
       state.memberId = payload.data.id;
       state.loginId = payload.data.loginId;
+      state.nickname = payload.data.nickname;
       state.birth = payload.data.birth;
       state.phone = payload.data.phone;
       state.loading = false;
@@ -69,6 +79,7 @@ const userSlice = createSlice({
       console.log('Token으로 유저 정보 이행');
       state.memberId = payload.data.id;
       state.loginId = payload.data.loginId;
+      state.nickname = payload.data.nickname;
       state.birth = payload.data.birth;
       state.phone = payload.data.phone;
       state.loading = false;
@@ -76,6 +87,26 @@ const userSlice = createSlice({
     },
     [fetchUserInfoWithToken.rejected]: state => {
       console.log('Token으로 유저 정보 요청 dispatch 실패 - ');
+      state.loading = false;
+      state.hasErrors = true;
+    },
+    // AsyncStorage 유저 정보 이행
+    [fetchUserInfoWithAsyncStorage.pending]: state => {
+      state.loading = true;
+    },
+    [fetchUserInfoWithAsyncStorage.fulfilled]: (state, {payload}) => {
+      console.log('AsyncSotrage로 유저 정보 요청 dispatch 성공 - ');
+      console.log('AsyncSotrage로 유저 정보 이행');
+      state.memberId = payload.id;
+      state.loginId = payload.loginId;
+      state.nickname = payload.nickname;
+      state.birth = payload.birth;
+      state.phone = payload.phone;
+      state.loading = false;
+      state.hasErrors = false;
+    },
+    [fetchUserInfoWithAsyncStorage.rejected]: state => {
+      console.log('AsyncSotrage로 유저 정보 요청 dispatch 실패 - ');
       state.loading = false;
       state.hasErrors = true;
     },

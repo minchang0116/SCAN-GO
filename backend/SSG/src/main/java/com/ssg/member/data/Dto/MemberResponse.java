@@ -15,6 +15,7 @@ import java.util.Date;
 public class MemberResponse {
     private long id;
     private String loginId;
+    private String nickname;
     private String phone;
     @Temporal(TemporalType.DATE)
     private Date birth;
@@ -22,6 +23,7 @@ public class MemberResponse {
     public MemberResponse(Member member) {
         this.id = member.getId();
         this.loginId = member.getLoginId();
+        this.nickname = member.getNickname();
         this.phone = member.getPhone();
         this.birth = member.getBirth();
     }

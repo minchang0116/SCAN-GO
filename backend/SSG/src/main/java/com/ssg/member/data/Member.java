@@ -27,6 +27,7 @@ public class Member {
     private long id;
     private String loginId;
     private String loginPwd;
+    private String nickname;
     private String phone;
     @Temporal(TemporalType.DATE)
     private Date birth;
