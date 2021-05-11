@@ -12,7 +12,7 @@ import {Link} from 'react-router-dom';
 
 export const mainListItems = (
   <div>
-    <Link to={'/'} style={{textDecoration: 'none'}}>
+    <Link to={'/dashboard'} style={{textDecoration: 'none'}}>
       <ListItem button>
         <ListItemIcon>
           <DashboardIcon />
