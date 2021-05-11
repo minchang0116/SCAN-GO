@@ -1,15 +1,27 @@
 import client from './client';
 
-export const readPlusOneProductList = formData => {
-  return client.get('/event/get_plus', formData);
+export const readPlusOneProductList = () => {
+  return client.get('/event/get_plus');
 };
 
-export const readSaleProductList = formData => {
-  return client.get('/event/get_sale', formData);
+export const readSaleProductList = () => {
+  return client.get('/event/get_sale');
 };
 
-export const readFreeGiftProductList = formData => {
-  return client.get('/event/get_dum', formData);
+export const readFreeGiftProductList = () => {
+  return client.get('/event/get_dum');
+};
+
+export const readBeerRanking = () => {
+  return client.get('/event/get_beer');
+};
+
+export const readIcecreamRanking = () => {
+  return client.get('/event/get_icecream');
+};
+
+export const readSnackRanking = () => {
+  return client.get('/event/get_snack');
 };
 
 export const readEvents = formData => {
