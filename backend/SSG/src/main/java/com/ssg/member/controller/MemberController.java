@@ -3,19 +3,14 @@ package com.ssg.member.controller;
 import com.ssg.member.data.Dto.LoginDto;
 import com.ssg.member.data.Dto.MemberDto;
 import com.ssg.member.data.Dto.MemberResponse;
-import com.ssg.member.data.Dto.TokenDto;
 import com.ssg.member.data.Member;
-import com.ssg.member.jwt.JwtFilter;
 import com.ssg.member.jwt.TokenProvider;
 import com.ssg.member.service.MemberService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,21 +28,9 @@ public class MemberController {
 
     @ApiOperation(value = "로그인", notes = "입력값 : loginId, loginPwd\n출력값 : 회원정보")
     @PostMapping("/login")
-    public ResponseEntity<?> authorize(@RequestBody LoginDto loginDto) {
-
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginDto.getLoginId(), loginDto.getLoginPwd());
-
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
+    public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
+        HttpHeaders httpHeaders = memberService.login(loginDto);
         Member member = memberService.getMember(loginDto.getLoginId());
-
-        String jwt = tokenProvider.createToken(authentication, member);
-
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
-
         return new ResponseEntity<>(new MemberResponse(member), httpHeaders, HttpStatus.OK);
     }
 
