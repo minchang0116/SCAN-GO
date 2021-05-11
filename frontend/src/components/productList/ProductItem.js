@@ -1,23 +1,26 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Text, Body, Thumbnail} from 'native-base';
-import {View, StyleSheet} from 'react-native';
+import {Thumbnail} from 'native-base';
+import {View, StyleSheet, Dimensions} from 'react-native';
+import AppText from '../common/AppText';
 
-const ProductItem = ({item}) => {
+const ProductItem = ({item, rank}) => {
   return (
     <>
       <View style={styles.wrap}>
+        <View style={styles.badge}>
+          <AppText style={{color: 'white'}}>{rank}</AppText>
+        </View>
         <Thumbnail
           square
+          style={styles.image}
           source={{
-            uri:
-              'http://image3.compuzone.co.kr/img/product_img/2021/0219/764689/764689_600.jpg',
+            uri: item.image,
           }}
-          style={{flexDirection: 'row'}}
         />
-        <Body style={{marginLeft: 15}}>
-          <Text style={{marginBottom: 5}}>{item.prodName}</Text>
-          <Text>{item.prodPrice}원</Text>
-        </Body>
+        <AppText numberOfLines={2} ellipsizeMode="tail">
+          {item.prodName}
+        </AppText>
       </View>
     </>
   );
@@ -27,10 +30,30 @@ export default ProductItem;
 
 const styles = StyleSheet.create({
   wrap: {
-    width: '50%',
-    height: '100%',
+    flex: 1,
+    // width: Dimensions.get('window').width / 2,
     paddingRight: 8,
     paddingLeft: 8,
-    // marginBottom: -50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  badge: {
+    backgroundColor: 'rgb(240,41,28)',
+    color: 'white',
+    position: 'absolute',
+    width: 30,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 6,
+    right: '88%',
+    bottom: '85%',
+    zIndex: 5,
+  },
+  image: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'contain',
   },
 });

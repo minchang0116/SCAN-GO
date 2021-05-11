@@ -1,55 +1,33 @@
-import React from 'react';
-import {View, StyleSheet, Text, SafeAreaView} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, StyleSheet} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import EventProductItem from './EventProductItem';
 import AppText from '../common/AppText';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  fetchPlusOneProductList,
+  fetchSaleProductList,
+  fetchFreeGiftProductList,
+} from '../../modules/eventProductList';
 
 const EventProduct = () => {
-  const items = [
-    {
-      id: 1,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 2,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 3,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 4,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 5,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 6,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 7,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-    {
-      id: 8,
-      prodName: '테스트입니다',
-      prodPrice: 10000,
-    },
-  ];
+  const dispatch = useDispatch();
+  const {plusOne, saleProduct, freeGift} = useSelector(
+    ({eventProductList}) => ({
+      plusOne: eventProductList.plusOneList,
+      saleProduct: eventProductList.saleList,
+      freeGift: eventProductList.freeGiftList,
+    }),
+  );
+  useEffect(() => {
+    dispatch(fetchPlusOneProductList());
+    dispatch(fetchSaleProductList());
+    dispatch(fetchFreeGiftProductList());
+  }, []);
+
   return (
     <>
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.subContainer}>
           <View>
             <AppText style={styles.title}>오늘의 1+1 행사 상품</AppText>
@@ -58,19 +36,16 @@ const EventProduct = () => {
             </AppText>
           </View>
           <View>
-            <FlatList
-              style={styles.scrollContainer}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={items}
-              keyExtractor={item => item.id}
-              renderItem={({item}) => <EventProductItem item={item} />}
-              ListFooterComponent={
-                <View>
-                  <AppText style={{fontSize: 20}}>끝</AppText>
-                </View>
-              }
-            />
+            {plusOne && (
+              <FlatList
+                style={styles.scrollContainer}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={plusOne}
+                keyExtractor={item => item.id}
+                renderItem={({item}) => <EventProductItem item={item} />}
+              />
+            )}
           </View>
         </View>
         <View style={styles.subContainer}>
@@ -81,19 +56,16 @@ const EventProduct = () => {
             </AppText>
           </View>
           <View>
-            <FlatList
-              style={styles.scrollContainer}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={items}
-              keyExtractor={item => item.id}
-              renderItem={({item}) => <EventProductItem item={item} />}
-              ListFooterComponent={
-                <View>
-                  <Text style={{fontSize: 20}}>끝</Text>
-                </View>
-              }
-            />
+            {saleProduct && (
+              <FlatList
+                style={styles.scrollContainer}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={saleProduct}
+                keyExtractor={item => item.id}
+                renderItem={({item}) => <EventProductItem item={item} />}
+              />
+            )}
           </View>
         </View>
         <View style={styles.subContainer}>
@@ -104,22 +76,19 @@ const EventProduct = () => {
             </AppText>
           </View>
           <View>
-            <FlatList
-              style={styles.scrollContainer}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              data={items}
-              keyExtractor={item => item.id}
-              renderItem={({item}) => <EventProductItem item={item} />}
-              ListFooterComponent={
-                <View>
-                  <Text style={{fontSize: 20}}>끝</Text>
-                </View>
-              }
-            />
+            {freeGift && (
+              <FlatList
+                style={styles.scrollContainer}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={freeGift}
+                keyExtractor={item => item.id}
+                renderItem={({item}) => <EventProductItem item={item} />}
+              />
+            )}
           </View>
         </View>
-      </SafeAreaView>
+      </View>
     </>
   );
 };
@@ -134,7 +103,7 @@ const styles = StyleSheet.create({
     marginRight: '3%',
   },
   subContainer: {
-    marginBottom: '15%',
+    marginBottom: '5%',
   },
   title: {
     fontWeight: 'bold',
