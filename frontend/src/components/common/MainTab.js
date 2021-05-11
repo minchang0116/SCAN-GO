@@ -32,6 +32,7 @@ const ProductListTab = () => {
       <Tabs
         tabBarUnderlineStyle={{backgroundColor: 'rgb(240,41,28)'}}
         tabBarBackgroundColor="white"
+        locked={true}
         renderTabBar={renderTabBar}>
         <Tab
           activeTabStyle={{backgroundColor: 'white'}}

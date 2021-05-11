@@ -11,3 +11,7 @@ export const readSaleProductList = formData => {
 export const readFreeGiftProductList = formData => {
   return client.get('/event/get_dum', formData);
 };
+
+export const readEvents = formData => {
+  return client.get('/event/get_events', formData);
+};
