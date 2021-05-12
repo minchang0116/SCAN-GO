@@ -1,30 +1,16 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Container, ScrollableTab, Tab, Tabs} from 'native-base';
 import React from 'react';
-import {FlatList} from 'react-native';
 import HomeProduct from '../productList/HomeProduct';
 import EventProduct from '../productList/EventProduct';
 import PopularProduct from '../productList/PopularProduct';
+import VirtualizedView from '../common/VirtualizedView';
 
 const ProductListTab = () => {
   const renderTabBar = props => {
     props.tabStyle = Object.create(props.tabStyle);
     return <ScrollableTab {...props} />;
   };
-
-  function VirtualizedView(props) {
-    return (
-      <FlatList
-        data={[]}
-        ListEmptyComponent={null}
-        keyExtractor={() => 'dummy'}
-        renderItem={null}
-        ListHeaderComponent={() => (
-          <React.Fragment>{props.children}</React.Fragment>
-        )}
-      />
-    );
-  }
 
   return (
     <Container>
