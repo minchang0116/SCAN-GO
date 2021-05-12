@@ -22,6 +22,7 @@ export const fetchFreeGiftProductList = createAsyncThunk(
     return response.data;
   },
 );
+
 const eventProductListSlice = createSlice({
   name: 'eventProductList',
   initialState: {
@@ -31,7 +32,11 @@ const eventProductListSlice = createSlice({
     saleList: [],
     freeGiftList: [],
   },
-  reducers: {},
+  reducers: {
+    saveEventDetail: (state, {payload}) => {
+      state.eventDetailImg = payload;
+    },
+  },
   extraReducers: {
     [fetchPlusOneProductList.pending]: state => {
       state.loading = true;
@@ -72,4 +77,5 @@ const eventProductListSlice = createSlice({
   },
 });
 
+export const {saveEventDetail} = eventProductListSlice.actions;
 export default eventProductListSlice.reducer;

@@ -5,7 +5,6 @@ import {FlatList} from 'react-native';
 import HomeProduct from '../productList/HomeProduct';
 import EventProduct from '../productList/EventProduct';
 import PopularProduct from '../productList/PopularProduct';
-import NewProduct from '../productList/NewProduct';
 
 const ProductListTab = () => {
   const renderTabBar = props => {
@@ -32,6 +31,7 @@ const ProductListTab = () => {
       <Tabs
         tabBarUnderlineStyle={{backgroundColor: 'rgb(240,41,28)'}}
         tabBarBackgroundColor="white"
+        locked={true}
         renderTabBar={renderTabBar}>
         <Tab
           activeTabStyle={{backgroundColor: 'white'}}
@@ -73,20 +73,6 @@ const ProductListTab = () => {
           heading="인기 상품">
           <VirtualizedView>
             <PopularProduct />
-          </VirtualizedView>
-        </Tab>
-        <Tab
-          activeTabStyle={{backgroundColor: 'white'}}
-          activeTextStyle={{
-            color: 'black',
-            fontWeight: 'bold',
-            fontFamily: 'NotoSansCJKkr-Regular',
-          }}
-          textStyle={{color: 'black', fontFamily: 'NotoSansCJKkr-Regular'}}
-          tabStyle={{backgroundColor: 'white'}}
-          heading="신상품">
-          <VirtualizedView>
-            <NewProduct />
           </VirtualizedView>
         </Tab>
       </Tabs>
