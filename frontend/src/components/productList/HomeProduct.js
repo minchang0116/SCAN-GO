@@ -56,7 +56,6 @@ const HomeProduct = () => {
       <View>
         <SwiperFlatList
           showPagination
-          autoplayLoop={true}
           paginationStyleItem={{width: 10, height: 10}}>
           {eventList &&
             eventList.map(item => (
@@ -148,7 +147,7 @@ const styles = StyleSheet.create({
   text: {fontSize: width * 0.5, textAlign: 'center'},
   image: {
     width: '100%',
-    height: 200,
+    height: 190,
     resizeMode: 'stretch',
     borderRadius: 1,
   },
