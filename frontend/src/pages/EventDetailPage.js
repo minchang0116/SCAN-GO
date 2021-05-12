@@ -1,6 +1,13 @@
 import {Container} from 'native-base';
-import React from 'react';
-import {Image, ImageBackground, ScrollView, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  Dimensions,
+  Image,
+  ImageBackground,
+  ScrollView,
+  View,
+} from 'react-native';
+import {WebView} from 'react-native-webview';
 import {useSelector} from 'react-redux';
 import SubHeader from '../components/common/SubHeader';
 const EventDetailPage = () => {
@@ -10,16 +17,18 @@ const EventDetailPage = () => {
   console.log(img);
   return (
     <>
-      <SubHeader title="이벤트 정보" />
-      <ScrollView>
-        <Container>
-          {img && (
-            <Image
-              source={{uri: img}}
-              style={{width: '100%', height: '100%'}}></Image>
-          )}
-        </Container>
-      </ScrollView>
+      <SubHeader title="이벤트 정보" isIcon={false} />
+      <WebView javaScriptEnabled={false} source={{uri: img}} />
+      {/* <ScrollView style={{flex: 1, backgroundColor: 'blue'}}>
+        {img && (
+          <Image
+            source={{uri: img}}
+            style={{
+              width: imgSize.width,
+              height: imgSize.height,
+            }}></Image>
+        )}
+      </ScrollView> */}
     </>
   );
 };
