@@ -43,8 +43,8 @@ const PaymentItem = ({payment}) => {
                 : 2,
             )
             .map((item, index) => (
-              <ListItem>
-                <ProductItem product={item} key={index} />
+              <ListItem key={index}>
+                <ProductItem product={item} />
               </ListItem>
             ))}
         </List>
