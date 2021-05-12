@@ -9,6 +9,7 @@ import PaymentSuccessPage from './PaymentSuccessPage';
 import PaymentPage from './PaymentPage';
 import MyInfoPage from './MyInfoPage';
 import LoadingPage from './LoadingPage';
+import EventDetailPage from './EventDetailPage';
 
 export {
   PaymentList,
@@ -22,4 +23,5 @@ export {
   PaymentPage,
   PaymentSuccessPage,
   LoadingPage,
+  EventDetailPage,
 };
