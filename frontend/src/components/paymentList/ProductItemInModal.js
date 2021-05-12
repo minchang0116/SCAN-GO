@@ -4,7 +4,8 @@ import {StyleSheet, View} from 'react-native';
 import AppText from '../common/AppText';
 import {Thumbnail} from 'native-base';
 
-const ProductItemInModal = ({item}) => {
+const ProductItemInModal = ({product}) => {
+  console.log(product.item);
   return (
     <>
       <View style={styles.wrap}>
@@ -17,13 +18,14 @@ const ProductItemInModal = ({item}) => {
           }}
         />
         <AppText numberOfLines={2} ellipsizeMode="tail">
-          {item.prodName}
+          {product.item.prodName}
         </AppText>
         <AppText
           numberOfLines={1}
           ellipsizeMode="tail"
           style={{fontSize: 14, marginTop: 5}}>
-          {parseInt(item.prodPrice, 10).toLocaleString()}원 · {item.qty}개
+          {parseInt(product.item.prodPrice, 10).toLocaleString()}원 ·{' '}
+          {product.item.qty}개
         </AppText>
       </View>
     </>
