@@ -72,7 +72,7 @@ export const deleteAllShoppingListItem = createAsyncThunk(
 // try catch를 빼도 바로 reject로 넘어감
 export const addShoppingListItemByBarcode = createAsyncThunk(
   'shoppingList/addShoppingListItemByBarcode',
-  async (formData, {getState}) => {
+  async (formData, {getState, dispatch}) => {
     try {
       const {userInfo} = getState();
       if (!userInfo.memberId) {
@@ -82,6 +82,7 @@ export const addShoppingListItemByBarcode = createAsyncThunk(
         ...formData,
         memberId: userInfo.memberId,
       });
+      dispatch(fetchShoppingList());
       return response.data;
     } catch (e) {
       console.log(e.message);
@@ -122,6 +123,7 @@ const shoppingListSlice = createSlice({
       state.loading = true;
     },
     [fetchShoppingList.fulfilled]: (state, {payload}) => {
+      state.loading = false;
       state.id = payload.id;
       state.storeId = payload.storeId;
       state.paymentDetail = payload.paymentDetail;
@@ -130,7 +132,6 @@ const shoppingListSlice = createSlice({
         sum += Number(item.prodPrice) * Number(item.qty);
       }
       state.sumPrice = sum;
-      state.loading = false;
     },
     [fetchShoppingList.rejected]: (state, {payload}) => {
       state.loading = false;

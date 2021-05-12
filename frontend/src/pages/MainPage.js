@@ -1,11 +1,12 @@
-import {Container, Text} from 'native-base';
-import React, {useEffect, useState} from 'react';
+import {Container} from 'native-base';
+import React, {useEffect} from 'react';
 import MainFooter from '../components/common/MainFooter';
 import MainHeader from '../components/common/MainHeader';
 import MainTab from '../components/common/MainTab';
 import RNShake from 'react-native-shake';
-import {Alert, BackHandler, ToastAndroid} from 'react-native';
+import {BackHandler, ToastAndroid} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
+
 const MainPage = () => {
   const navigation = useNavigation();
   // const [isExitApp, setIsExitApp] = useState(false);
