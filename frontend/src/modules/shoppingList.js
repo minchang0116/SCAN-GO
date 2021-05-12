@@ -9,7 +9,9 @@ export const fetchShoppingList = createAsyncThunk(
       if (!userInfo.memberId) {
         throw Error('[fetchShoppingList] memberId 없음');
       }
-      const response = await shoppingListApi.readItems(userInfo.memberId);
+      const response = await shoppingListApi.readItems({
+        memberId: userInfo.memberId,
+      });
       return response.data;
     } catch (e) {
       return rejectWithValue(e.message);
@@ -42,9 +44,11 @@ export const deleteShoppingListItem = createAsyncThunk(
     if (!userInfo.memberId) {
       throw Error('[deleteShoppingListItem] memberId 없음');
     }
-    //prodIds 배열
     try {
-      await shoppingListApi.deleteItem({memberId: userInfo.memberId, prodIds});
+      await shoppingListApi.deleteItem({
+        memberId: userInfo.memberId,
+        prodIds,
+      });
       return prodIds;
     } catch (e) {
       console.log(e.message);
@@ -55,13 +59,14 @@ export const deleteShoppingListItem = createAsyncThunk(
 export const deleteAllShoppingListItem = createAsyncThunk(
   'shoppingList/deleteAllShoppingListItem',
   async (_, {getState}) => {
-    //prodIds 배열
     try {
       const {userInfo} = getState();
       if (!userInfo.memberId) {
         throw Error('[deleteAllShoppingListItem] memberId 없음');
       }
-      await shoppingListApi.deleteAllItem(userInfo.memberId);
+      await shoppingListApi.deleteAllItem({
+        memberId: userInfo.memberId,
+      });
     } catch (e) {
       console.log(e.message);
     }
