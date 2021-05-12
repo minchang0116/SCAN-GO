@@ -1,9 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Left, Right, View} from 'native-base';
 import React from 'react';
-import {Alert, StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {requestPayment} from '../../modules/payment';
 import AppText from '../common/AppText';
 
 const ShoppingListFooter = ({shoppingList, sumPrice, navigation}) => {

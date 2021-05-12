@@ -1,12 +1,4 @@
-import {Container} from 'native-base';
-import React, {useEffect, useState} from 'react';
-import {
-  Dimensions,
-  Image,
-  ImageBackground,
-  ScrollView,
-  View,
-} from 'react-native';
+import React from 'react';
 import {WebView} from 'react-native-webview';
 import {useSelector} from 'react-redux';
 import SubHeader from '../components/common/SubHeader';

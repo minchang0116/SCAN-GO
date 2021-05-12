@@ -1,6 +1,6 @@
-import {List, ListItem} from 'native-base';
+import {List} from 'native-base';
 import React from 'react';
-import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
 import Modal from 'react-native-modal';
 
 function MyModal({isModalVisible, toggleModal}) {
