@@ -3,8 +3,13 @@ import * as paymentListAPI from '../lib/api/paymentList';
 
 export const fetchPaymentList = createAsyncThunk(
   'payment/fetchPaymentList',
-  async formData => {
-    const response = await paymentListAPI.readItems(formData);
+  async (formData, {getState}) => {
+    const {userInfo} = getState();
+    console.log(userInfo.memberId);
+    const response = await paymentListAPI.readItems({
+      ...formData,
+      memberId: userInfo.memberId,
+    });
     return response.data;
   },
 );

@@ -6,6 +6,7 @@ import IconAntD from 'react-native-vector-icons/AntDesign';
 import ProductItemInModal from './ProductItemInModal';
 import {Card, CardItem} from 'native-base';
 import AppText from '../common/AppText';
+import VirtualizedView from './VirtualizedView';
 
 const DetailModal = ({isModalVisible, toggleModal, payment}) => {
   return (
@@ -32,13 +33,15 @@ const DetailModal = ({isModalVisible, toggleModal, payment}) => {
             </TouchableOpacity>
           </CardItem>
         </Card>
-        <FlatList
-          data={payment.paymentDetail}
-          renderItem={(item, index) => (
-            <ProductItemInModal item={item} key={index} />
-          )}
-          numColumns={3}
-        />
+        <VirtualizedView>
+          <FlatList
+            data={payment.paymentDetail}
+            renderItem={(item, index) => (
+              <ProductItemInModal item={item} key={index} />
+            )}
+            numColumns={3}
+          />
+        </VirtualizedView>
       </View>
     </Modal>
   );

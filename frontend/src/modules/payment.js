@@ -11,7 +11,6 @@ export const requestPayment = createAsyncThunk(
       const {shoppingList, userInfo} = getState();
       const txSeq = String(shoppingList.id);
       const txDateTime = String(moment().format('YYYYMMDDHHmmss'));
-      const clientNo = '1';
       const plainString = txSeq + txDateTime + shoppingList.storeId + clientNo;
       const key = 'incssafy12#$12#$';
       const authHash = await Base64.stringify(hmacSHA256(plainString, key));
@@ -20,7 +19,7 @@ export const requestPayment = createAsyncThunk(
         txSeq: txSeq,
         txDateTime: txDateTime,
         storeId: shoppingList.storeId,
-        clientNo: '1',
+        clientNo: userInfo.memberId,
         prodList: shoppingList.paymentDetail,
         authHash: authHash,
       });

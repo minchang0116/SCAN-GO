@@ -19,7 +19,7 @@ const MainFooter = ({}) => {
           onPress={() => {
             navigation.navigate('MainPage');
           }}>
-          <IconFntAwesome name="home" size={30} color="rgb(91, 103, 112)" />
+          <IconFntAwesome name="home" size={27} color="rgb(91, 103, 112)" />
           <AppText style={{color: 'rgb(91, 103, 112)', fontSize: 10}}>
             홈
           </AppText>
@@ -31,7 +31,7 @@ const MainFooter = ({}) => {
           }}>
           <IconFntAwesome
             name="clipboard"
-            size={30}
+            size={28}
             color="rgb(91, 103, 112)"
           />
           <AppText style={{color: 'rgb(91, 103, 112)', fontSize: 10}}>
@@ -43,22 +43,14 @@ const MainFooter = ({}) => {
           onPress={() => {
             navigation.navigate('BarcodeScanningPage');
           }}>
-          <IconMaterial name="barcode-scan" size={40} color="rgb(218,41,28)" />
-          <AppText
-            style={{
-              color: 'rgb(91, 103, 112)',
-              fontSize: 10,
-              fontFamily: 'NotoSansCJKkr-Regular',
-            }}>
-            QR/바코드
-          </AppText>
+          <IconMaterial name="barcode-scan" size={30} color="white" />
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.tochablePosition}
           onPress={() => {
             navigation.navigate('ShoppingListPage');
           }}>
-          <IconAntD name="shoppingcart" size={33} color="rgb(91, 103, 112)" />
+          <IconAntD name="shoppingcart" size={30} color="rgb(91, 103, 112)" />
           <AppText style={{color: 'rgb(91, 103, 112)', fontSize: 10}}>
             장바구니
           </AppText>
@@ -70,7 +62,7 @@ const MainFooter = ({}) => {
           }}>
           <IconFntAwesome
             name="user-circle"
-            size={32}
+            size={28}
             color="rgb(91, 103, 112)"
           />
           <AppText style={{color: 'rgb(91, 103, 112)', fontSize: 10}}>
@@ -98,7 +90,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: 'rgb(226,226,226)',
     backgroundColor: 'white',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center',
   },
   tochablePosition: {
@@ -108,10 +100,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tochableBarcode: {
-    width: '100%',
-    flex: 1,
+    top: -10,
+    backgroundColor: 'rgb(240,41,28)',
+    borderRadius: 100,
+    width: 58,
+    height: 58,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 10,
   },
 });

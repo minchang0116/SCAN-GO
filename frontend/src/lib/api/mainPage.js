@@ -23,3 +23,7 @@ export const readIcecreamRanking = () => {
 export const readSnackRanking = () => {
   return client.get('/event/get_snack');
 };
+
+export const readEvents = formData => {
+  return client.get('/event/get_events', formData);
+};
