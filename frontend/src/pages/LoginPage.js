@@ -13,16 +13,11 @@ import {fetchUserInfo} from '../modules/userInfo';
 import IconAntD from 'react-native-vector-icons/FontAwesome5';
 
 const LoginPage = ({navigation}) => {
-  const [autoLogin, setAutoLogin] = useState(false);
   const [memberId, setId] = useState('');
   const [password, setPw] = useState('');
   const passwordRef = useRef();
   const idRef = useRef();
   const dispatch = useDispatch();
-
-  const onToggle = () => {
-    setAutoLogin(!autoLogin);
-  };
 
   const loginBtn = async () => {
     console.log('로그인');
@@ -50,7 +45,6 @@ const LoginPage = ({navigation}) => {
       fetchUserInfo({
         loginId: memberId,
         loginPwd: password,
-        autoLogin: autoLogin,
       }),
     );
     if (response.payload === undefined) {
@@ -64,7 +58,6 @@ const LoginPage = ({navigation}) => {
     }
     setId('');
     setPw('');
-    setAutoLogin(false);
     navigation.navigate('MainPage');
   };
   return (
