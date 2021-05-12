@@ -1,9 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Container, ScrollableTab, Tab, Tabs} from 'native-base';
 import React from 'react';
-import HomeProduct from '../productList/HomeProduct';
-import EventProduct from '../productList/EventProduct';
-import PopularProduct from '../productList/PopularProduct';
+import HomeProduct from '../main/HomeProduct';
+import EventProduct from '../main/EventProduct';
+import PopularProduct from '../main/PopularProduct';
 import VirtualizedView from '../common/VirtualizedView';
 
 const ProductListTab = () => {

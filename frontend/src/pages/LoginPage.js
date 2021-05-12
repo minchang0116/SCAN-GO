@@ -10,7 +10,6 @@ import SubHeader from '../components/common/SubHeader';
 import AppText from '../components/common/AppText';
 import {useDispatch} from 'react-redux';
 import {fetchUserInfo} from '../modules/userInfo';
-import IconAntD from 'react-native-vector-icons/FontAwesome5';
 
 const LoginPage = ({navigation}) => {
   const [memberId, setId] = useState('');
