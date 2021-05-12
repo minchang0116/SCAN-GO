@@ -1,6 +1,5 @@
-/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps*/
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   FlatList,
@@ -8,13 +7,12 @@ import {
   TouchableOpacity,
   ToastAndroid,
 } from 'react-native';
-import {Container, Content, View} from 'native-base';
+import {Content, View} from 'native-base';
 import PaymentItem from '../../components/paymentList/PaymentItem';
 import {fetchPaymentList} from '../../modules/paymentList';
 import SetDurationPicker from '../../components/paymentList/SetDurationPicker';
 import SetDuration from '../../components/paymentList/SetDuration';
 import AppText from '../../components/common/AppText';
-import VirtualizedView from '../../components/paymentList/VirtualizedView';
 import Spinner from '../../components/common/Spinner';
 
 const PaymentListContainer = () => {
@@ -90,6 +88,9 @@ const PaymentListContainer = () => {
     }
   }, [paymentList]);
 
+  const renderItem = useCallback(({item}) => <PaymentItem payment={item} />);
+  const keyExtractor = useCallback(item => item.id);
+
   return (
     <>
       <View style={styles.container}>
@@ -107,23 +108,23 @@ const PaymentListContainer = () => {
             loadData={loadData}
             setPage={setPage}
           />
-          {curPaymentList.length > 0 && (
-            <VirtualizedView>
-              <FlatList
-                data={curPaymentList}
-                keyExtractor={item => item.id}
-                renderItem={({item}) => <PaymentItem payment={item} />}
-                // onEndReachedThreshold={0.5}
-                // onEndReached={() => getMoreData()}
-              />
-            </VirtualizedView>
+          {curPaymentList.length > 0 ? (
+            <FlatList
+              data={curPaymentList}
+              keyExtractor={keyExtractor}
+              renderItem={renderItem}
+            />
+          ) : (
+            <View style={styles.emptyContainer}>
+              <AppText style={styles.grayText}>결제 내역이 없습니다.</AppText>
+            </View>
           )}
           <View style={styles.seeMoreBtn}>
             <TouchableOpacity
               onPress={() => {
                 setPage(page + 1);
               }}>
-              <AppText style={{color: 'rgb(144,144,144)'}}>더보기</AppText>
+              <AppText style={styles.grayText}>더보기</AppText>
             </TouchableOpacity>
           </View>
         </Content>
@@ -145,6 +146,15 @@ const styles = StyleSheet.create({
     borderColor: 'rgb(144,144,144)',
     borderWidth: 2,
     borderRadius: 10,
+  },
+  emptyContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 150,
+    flex: 1,
+  },
+  grayText: {
+    color: 'rgb(144,144,144)',
   },
 });
 
