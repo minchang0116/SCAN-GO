@@ -54,7 +54,7 @@ if __name__ == "__main__" :
 
 	while line:
 	#for i in range(3):
-		if index >= 284:
+		if index >= 739:
 			search_selenium(line,index)
 			line = f.readline()
 			index = index + 1
