@@ -1,6 +1,6 @@
 import {Body, Button, Left, List, ListItem, Right, View} from 'native-base';
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
+import {BackHandler, ScrollView, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppText from '../common/AppText';
 
@@ -13,6 +13,27 @@ const PaymentSuccess = ({payment, navigation}) => {
     }
     setSumPrice(price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
   }, [payment]);
+
+  const backAction = () => {
+    navigation.navigate('MainPage');
+    return true;
+  };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('blur', () => {
+      console.log('이벤트blur');
+      BackHandler.removeEventListener('hardwareBackPress', backAction);
+    });
+    return unsubscribe;
+  }, [navigation]);
+
+  useEffect(() => {
+    const unsubscribe2 = navigation.addListener('focus', () => {
+      console.log('이벤트focus');
+      BackHandler.addEventListener('hardwareBackPress', backAction);
+    });
+    return unsubscribe2;
+  }, [navigation]);
 
   return (
     <>

@@ -6,6 +6,8 @@ import {Image, StyleSheet, View} from 'react-native';
 let STYLE;
 const CameraItem = ({lastItem, style}) => {
   STYLE = style;
+  console.log('lastItem');
+  console.log(lastItem);
   return (
     <>
       <Card style={styles.card}>

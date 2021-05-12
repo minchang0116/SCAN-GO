@@ -28,9 +28,9 @@ const eventProductListSlice = createSlice({
   initialState: {
     loading: false,
     hasErrors: false,
-    plusOneList: [],
-    saleList: [],
-    freeGiftList: [],
+    plusOneList: null,
+    saleList: null,
+    freeGiftList: null,
   },
   reducers: {
     saveEventDetail: (state, {payload}) => {

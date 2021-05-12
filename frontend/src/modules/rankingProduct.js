@@ -27,9 +27,9 @@ const rankingProductSlice = createSlice({
   initialState: {
     loading: false,
     hasErrors: false,
-    beer: [],
-    icecream: [],
-    snack: [],
+    beer: null,
+    icecream: null,
+    snack: null,
   },
   reducers: {},
   extraReducers: {

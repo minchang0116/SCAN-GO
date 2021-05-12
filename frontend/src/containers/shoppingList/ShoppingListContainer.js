@@ -17,15 +17,14 @@ const ShoppingListContainer = ({navigation}) => {
   useEffect(() => {
     onFetchShoppingList();
   }, []);
+
   return (
     <>
       <ShoppingListForm shoppingList={shoppingList} />
       <ShoppingListFooter
         navigation={navigation}
         shoppingList={shoppingList}
-        sumPrice={shoppingList.sumPrice
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+        sumPrice={shoppingList.sumPrice.toLocaleString()}
       />
     </>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
+import Spinner from '../../components/common/Spinner';
 import PaymentSuccess from '../../components/payment/PaymentSuccess';
 
 const PaymentSuccessContainer = ({navigation}) => {
@@ -8,8 +9,10 @@ const PaymentSuccessContainer = ({navigation}) => {
   }));
   return (
     <>
-      {payment.paymentList && (
+      {payment ? (
         <PaymentSuccess payment={payment} navigation={navigation} />
+      ) : (
+        <Spinner />
       )}
     </>
   );
