@@ -12,7 +12,6 @@ import {
   removeLastItem,
 } from '../modules/shoppingList';
 import AppText from '../components/common/AppText';
-import Spinner from '../components/common/Spinner';
 
 const BarcodeScanningPage = ({navigation}) => {
   const dispatch = useDispatch();
@@ -50,6 +49,13 @@ const BarcodeScanningPage = ({navigation}) => {
       setQrvalue('');
     }, 5000);
   }, [lastItem]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(removeLastItem());
+      setQrvalue('');
+    };
+  }, []);
 
   return (
     <>
