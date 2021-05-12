@@ -32,12 +32,14 @@ const EventProductItem = ({item}) => {
             {item.prodPrice}원
           </AppText>
         )}
-        <AppText
-          numberOfLines={1}
-          ellipsizeMode="tail"
-          style={{fontSize: 14, marginTop: 5}}>
-          {item.prodSalePrice ? item.prodSalePrice : item.prodPrice}원
-        </AppText>
+        {item.prodPrice && (
+          <AppText
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            style={{fontSize: 14, marginTop: 5}}>
+            {item.prodSalePrice ? item.prodSalePrice : item.prodPrice}원
+          </AppText>
+        )}
       </View>
     </>
   );
