@@ -8,17 +8,20 @@ import {
   TouchableOpacity,
   ToastAndroid,
 } from 'react-native';
-import {Content, View} from 'native-base';
+import {Container, Content, View} from 'native-base';
 import PaymentItem from '../../components/paymentList/PaymentItem';
 import {fetchPaymentList} from '../../modules/paymentList';
 import SetDurationPicker from '../../components/paymentList/SetDurationPicker';
 import SetDuration from '../../components/paymentList/SetDuration';
 import AppText from '../../components/common/AppText';
+import VirtualizedView from '../../components/paymentList/VirtualizedView';
+import Spinner from '../../components/common/Spinner';
 
 const PaymentListContainer = () => {
   const dispatch = useDispatch();
-  const {paymentList} = useSelector(({paymentList}) => ({
+  const {paymentList, loading} = useSelector(({paymentList}) => ({
     paymentList: paymentList.paymentList,
+    loading: paymentList.loading,
   }));
   const [selectedDuration, setSeletedDuration] = useState('최근 3개월');
   const [startDate, setStartDate] = useState(new Date());
@@ -33,7 +36,6 @@ const PaymentListContainer = () => {
   };
 
   const loadData = PAGE => {
-    console.log(PAGE);
     const formData = {
       memberId: 1,
       date1: changeDateFormat(startDate),
@@ -71,58 +73,62 @@ const PaymentListContainer = () => {
   }, [startDate, endDate, page]);
 
   useEffect(() => {
-    if (paymentList.length === 0) {
-      ToastAndroid.showWithGravityAndOffset(
-        '결제내역이 없습니다.',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
-        25,
-        100,
-      );
-      return;
-    }
     if (page === 0) {
       setCurPaymentList(paymentList);
     } else {
+      if (paymentList.length === 0) {
+        ToastAndroid.showWithGravityAndOffset(
+          '결제내역이 없습니다.',
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER,
+          25,
+          100,
+        );
+        return;
+      }
       setCurPaymentList(curPaymentList.concat(...paymentList));
     }
   }, [paymentList]);
 
   return (
-    <View style={styles.container}>
-      <Content>
-        <SetDurationPicker
-          selectedDuration={selectedDuration}
-          setSeletedDuration={setSeletedDuration}
-        />
-        <SetDuration
-          startDate={startDate}
-          setStartDate={setStartDate}
-          endDate={endDate}
-          setEndDate={setEndDate}
-          loadData={loadData}
-          setPage={setPage}
-        />
-        {curPaymentList.length > 0 && (
-          <FlatList
-            data={curPaymentList}
-            renderItem={({item, index}) => (
-              <PaymentItem payment={item} key={index} />
-            )}
-            // onEndReachedThreshold={0.5}
-            // onEndReached={() => getMoreData()}
+    <>
+      <View style={styles.container}>
+        <Content>
+          {loading && <Spinner />}
+          <SetDurationPicker
+            selectedDuration={selectedDuration}
+            setSeletedDuration={setSeletedDuration}
           />
-        )}
-        <View style={styles.seeMoreBtn}>
-          <TouchableOpacity
-            onPress={() => {
-              setPage(page + 1);
-            }}>
-            <AppText style={{color: 'rgb(144,144,144)'}}>더보기</AppText>
-          </TouchableOpacity>
-        </View>
-      </Content>
-    </View>
+          <SetDuration
+            startDate={startDate}
+            setStartDate={setStartDate}
+            endDate={endDate}
+            setEndDate={setEndDate}
+            loadData={loadData}
+            setPage={setPage}
+          />
+          {curPaymentList.length > 0 && (
+            <VirtualizedView>
+              <FlatList
+                data={curPaymentList}
+                keyExtractor={item => item.id}
+                renderItem={({item}) => <PaymentItem payment={item} />}
+                // onEndReachedThreshold={0.5}
+                // onEndReached={() => getMoreData()}
+              />
+            </VirtualizedView>
+          )}
+          <View style={styles.seeMoreBtn}>
+            <TouchableOpacity
+              onPress={() => {
+                setPage(page + 1);
+              }}>
+              <AppText style={{color: 'rgb(144,144,144)'}}>더보기</AppText>
+            </TouchableOpacity>
+          </View>
+        </Content>
+      </View>
+    </>
   );
 };
 
