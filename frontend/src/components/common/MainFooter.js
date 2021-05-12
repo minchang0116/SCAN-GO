@@ -31,7 +31,7 @@ const MainFooter = ({}) => {
           }}>
           <IconFntAwesome
             name="clipboard"
-            size={28}
+            size={25}
             color="rgb(91, 103, 112)"
           />
           <AppText style={{color: 'rgb(91, 103, 112)', fontSize: 10}}>
