@@ -53,10 +53,10 @@ const RegisterForm = ({navigation}) => {
 
   // 아이디 입력 확인
   const onIdInputHandler = text => {
-    let id = text;
-    setId(id);
+    let inputid = text;
+    setId(inputid);
     setIdCheck(false);
-    if (id === '') {
+    if (inputid === '') {
       setIdBlank(true);
       return;
     }
@@ -398,7 +398,7 @@ const RegisterForm = ({navigation}) => {
           {
             text: '확인',
             onPress: () => {
-              console.log('confirm Pressed'), navigation.navigate('LoginPage');
+              navigation.navigate('LoginPage');
             },
           },
         ]);
