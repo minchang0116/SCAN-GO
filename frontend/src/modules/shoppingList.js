@@ -93,7 +93,7 @@ const shoppingListSlice = createSlice({
   initialState: {
     loading: false,
     hasErrors: false,
-    paymentDetail: [],
+    paymentDetail: null,
     sumPrice: 0,
     lastItem: null,
   },
@@ -130,6 +130,7 @@ const shoppingListSlice = createSlice({
         sum += Number(item.prodPrice) * Number(item.qty);
       }
       state.sumPrice = sum;
+      state.loading = false;
     },
     [fetchShoppingList.rejected]: (state, {payload}) => {
       state.loading = false;
@@ -137,6 +138,7 @@ const shoppingListSlice = createSlice({
       state.errorMsg = payload;
     },
     [updateShoppingListItem.fulfilled]: (state, {payload}) => {
+      state.loading = false;
       state.paymentDetail = state.paymentDetail.map(item => {
         if (item.prodId === payload.prodId) {
           console.log(payload.qty);
@@ -151,6 +153,7 @@ const shoppingListSlice = createSlice({
       });
     },
     [deleteShoppingListItem.fulfilled]: (state, {payload}) => {
+      state.loading = false;
       state.paymentDetail = state.paymentDetail.filter(list => {
         for (let i of payload) {
           if (list.prodId === i) {
@@ -164,6 +167,7 @@ const shoppingListSlice = createSlice({
       });
     },
     [deleteAllShoppingListItem.fulfilled]: state => {
+      state.loading = false;
       state.paymentDetail = [];
       state.sumPrice = 0;
     },

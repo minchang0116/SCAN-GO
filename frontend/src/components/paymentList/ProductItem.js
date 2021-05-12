@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+import {StyleSheet} from 'react-native';
 import {CardItem, Body, Thumbnail} from 'native-base';
 import AppText from '../common/AppText';
 
@@ -28,3 +29,9 @@ const ProductItem = ({product}) => {
 };
 
 export default ProductItem;
+
+const styles = StyleSheet.create({
+  font15: {
+    fontSize: 15,
+  },
+});

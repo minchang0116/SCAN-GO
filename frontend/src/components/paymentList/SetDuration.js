@@ -1,18 +1,10 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import AppText from '../common/AppText';
 import DatePicker from './DatePicker';
 
-const SetDuration = ({
-  startDate,
-  setStartDate,
-  endDate,
-  setEndDate,
-  loadData,
-  setPage,
-}) => {
+const SetDuration = ({startDate, setStartDate, endDate, setEndDate}) => {
   const [showStartDatepicker, setShowStartDataPicker] = useState(false);
   const [showEndDatepicker, setShowEndDataPicker] = useState(false);
 

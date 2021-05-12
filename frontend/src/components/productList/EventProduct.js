@@ -9,6 +9,7 @@ import {
   fetchSaleProductList,
   fetchFreeGiftProductList,
 } from '../../modules/eventProductList';
+import Spinner from '../common/Spinner';
 
 const EventProduct = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const EventProduct = () => {
       freeGift: eventProductList.freeGiftList,
     }),
   );
+  console.log(plusOne);
   useEffect(() => {
     dispatch(fetchPlusOneProductList());
     dispatch(fetchSaleProductList());
@@ -36,7 +38,7 @@ const EventProduct = () => {
             </AppText>
           </View>
           <View>
-            {plusOne && (
+            {plusOne ? (
               <FlatList
                 style={styles.scrollContainer}
                 horizontal
@@ -45,6 +47,8 @@ const EventProduct = () => {
                 keyExtractor={item => item.id}
                 renderItem={({item}) => <EventProductItem item={item} />}
               />
+            ) : (
+              <Spinner />
             )}
           </View>
         </View>
@@ -56,7 +60,7 @@ const EventProduct = () => {
             </AppText>
           </View>
           <View>
-            {saleProduct && (
+            {saleProduct ? (
               <FlatList
                 style={styles.scrollContainer}
                 horizontal
@@ -65,6 +69,8 @@ const EventProduct = () => {
                 keyExtractor={item => item.id}
                 renderItem={({item}) => <EventProductItem item={item} />}
               />
+            ) : (
+              <Spinner />
             )}
           </View>
         </View>
@@ -76,7 +82,7 @@ const EventProduct = () => {
             </AppText>
           </View>
           <View>
-            {freeGift && (
+            {freeGift ? (
               <FlatList
                 style={styles.scrollContainer}
                 horizontal
@@ -85,6 +91,8 @@ const EventProduct = () => {
                 keyExtractor={item => item.id}
                 renderItem={({item}) => <EventProductItem item={item} />}
               />
+            ) : (
+              <Spinner />
             )}
           </View>
         </View>
