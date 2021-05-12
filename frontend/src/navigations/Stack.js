@@ -11,6 +11,7 @@ import {
   LoginPage,
   MyInfoPage,
   RegisterForm,
+  EventDetailPage,
   LoadingPage,
 } from '../pages';
 import * as asyncStorage from '../AsyncStorage/asyncStorage';
@@ -100,6 +101,11 @@ const StackNav = () => {
       <Stack.Screen
         name="PaymentSuccessPage"
         component={PaymentSuccessPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="EventDetailPage"
+        component={EventDetailPage}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
