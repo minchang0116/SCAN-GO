@@ -72,7 +72,7 @@ export const deleteAllShoppingListItem = createAsyncThunk(
 // try catch를 빼도 바로 reject로 넘어감
 export const addShoppingListItemByBarcode = createAsyncThunk(
   'shoppingList/addShoppingListItemByBarcode',
-  async (formData, {getState}) => {
+  async (formData, {getState, dispatch}) => {
     try {
       const {userInfo} = getState();
       if (!userInfo.memberId) {
@@ -82,6 +82,7 @@ export const addShoppingListItemByBarcode = createAsyncThunk(
         ...formData,
         memberId: userInfo.memberId,
       });
+      dispatch(fetchShoppingList());
       return response.data;
     } catch (e) {
       console.log(e.message);
@@ -93,7 +94,7 @@ const shoppingListSlice = createSlice({
   initialState: {
     loading: false,
     hasErrors: false,
-    paymentDetail: [],
+    paymentDetail: null,
     sumPrice: 0,
     lastItem: null,
   },
@@ -122,6 +123,7 @@ const shoppingListSlice = createSlice({
       state.loading = true;
     },
     [fetchShoppingList.fulfilled]: (state, {payload}) => {
+      state.loading = false;
       state.id = payload.id;
       state.storeId = payload.storeId;
       state.paymentDetail = payload.paymentDetail;
@@ -137,6 +139,7 @@ const shoppingListSlice = createSlice({
       state.errorMsg = payload;
     },
     [updateShoppingListItem.fulfilled]: (state, {payload}) => {
+      state.loading = false;
       state.paymentDetail = state.paymentDetail.map(item => {
         if (item.prodId === payload.prodId) {
           console.log(payload.qty);
@@ -151,6 +154,7 @@ const shoppingListSlice = createSlice({
       });
     },
     [deleteShoppingListItem.fulfilled]: (state, {payload}) => {
+      state.loading = false;
       state.paymentDetail = state.paymentDetail.filter(list => {
         for (let i of payload) {
           if (list.prodId === i) {
@@ -164,6 +168,7 @@ const shoppingListSlice = createSlice({
       });
     },
     [deleteAllShoppingListItem.fulfilled]: state => {
+      state.loading = false;
       state.paymentDetail = [];
       state.sumPrice = 0;
     },

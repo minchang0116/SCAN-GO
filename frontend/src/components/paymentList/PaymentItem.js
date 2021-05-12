@@ -19,6 +19,9 @@ const PaymentItem = ({payment}) => {
           <AppText style={{fontWeight: '700', fontSize: 22}}>
             {payment.txDateTime.substring(0, 10)}
             <AppText style={{fontWeight: '400'}}>
+              &nbsp;&nbsp;{payment.txDateTime.substring(11, 19)}
+            </AppText>
+            <AppText style={{fontWeight: '400'}}>
               &nbsp;&nbsp;({payment.id})
             </AppText>
           </AppText>
@@ -40,8 +43,8 @@ const PaymentItem = ({payment}) => {
                 : 2,
             )
             .map((item, index) => (
-              <ListItem>
-                <ProductItem product={item} key={index} />
+              <ListItem key={index}>
+                <ProductItem product={item} />
               </ListItem>
             ))}
         </List>
@@ -74,6 +77,9 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     width: '100%',
     marginTop: -15,
+  },
+  font15: {
+    fontSize: 15,
   },
 });
 

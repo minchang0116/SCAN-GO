@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.access.prepost.PreAuthorize;
+
+import java.text.ParseException;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,10 +28,17 @@ public class AdminController {
         return new ResponseEntity<>(adminService.getMemberList(pageNum), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "사용자별 결제내역 조회(10개씩)", notes = "입력값 : loginId(로그인아이디), pageNum(페이지번호:0번부터시작)\n출력값 : 결제 내역 정보")
-    @GetMapping("/payments")
+    @ApiOperation(value = "사용자 결제내역 전체 조회(10개씩)", notes = "입력값 : loginId(로그인아이디), pageNum(페이지번호:0번부터시작)\n출력값 : 결제 내역 정보")
+    @GetMapping("/payments_all")
     //@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-    public ResponseEntity<?> getPayments(@RequestParam String loginId, @RequestParam long pageNum) {
-        return new ResponseEntity<>(adminService.getCustomerPaymentList(loginId, pageNum), HttpStatus.OK);
+    public ResponseEntity<?> getAllPayments(@RequestParam String loginId, @RequestParam long pageNum) {
+        return new ResponseEntity<>(adminService.getAllCustomerPaymentList(loginId, pageNum), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "사용자 결제내역 날짜별 조회(10개씩)", notes = "입력값 : loginId(로그인아이디), date1(날짜1), date2(날짜2), pageNum(페이지번호:0번부터시작)\n출력값 : 결제 내역 정보")
+    @GetMapping("/payments_date")
+    //@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    public ResponseEntity<?> getDatePayments(@RequestParam String loginId, @RequestParam String date1, @RequestParam String date2, @RequestParam long pageNum) throws ParseException {
+        return new ResponseEntity<>(adminService.getDateCustomerPaymentList(loginId, date1, date2, pageNum), HttpStatus.OK);
     }
 }
