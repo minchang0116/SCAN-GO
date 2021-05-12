@@ -57,11 +57,11 @@
    https://reactnative.dev/docs/environment-setup
 
 2. 제어판 > 시스템 및 보안 > 시스템 > 고급 시스템 설정 > 환경 변수 > 사용자 변수에 아래 추가
-  변수 이름 : ANDROID_HOME
-  변수 값 : C:\Users\사용자명\AppData\Local\Android\Sdk
+    변수 이름 : ANDROID_HOME
+    변수 값 : C:\Users\사용자명\AppData\Local\Android\Sdk
 
 3. 시스템 변수 > Path >  새로 만들기
-  C:\Users\사용자명\AppData\Local\Android\Sdk\platform-tools
+    C:\Users\사용자명\AppData\Local\Android\Sdk\platform-tools
 
 4. 안드로이드 스튜디오에서 frontend 폴더 열기
 
@@ -93,7 +93,14 @@
 
 4. 개발자 옵션에서 USB 디버깅을 허용
 
-5. visual studio code 에서 frontend 폴더 열기
+5. 컴퓨터 제어판 > 시스템 및 보안 > 시스템 > 고급 시스템 설정 > 환경 변수 > 사용자 변수에 아래 추가
+   변수 이름 : ANDROID_HOME
+     변수 값 : C:\Users\사용자명\AppData\Local\Android\Sdk
+
+6. 시스템 변수 > Path >  새로 만들기
+   C:\Users\사용자명\AppData\Local\Android\Sdk\platform-tools
+
+7. visual studio code 에서 frontend 폴더 열기
 
    ```
    cd frontend
