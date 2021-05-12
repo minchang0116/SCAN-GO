@@ -9,13 +9,17 @@ import {
 } from '../../modules/shoppingList';
 import AppText from '../common/AppText';
 import ShoppingListItem from './ShoppingListItem';
+import Spinner from '../common/Spinner';
 
-const ShoppingListForm = ({shoppingList, onFetchShoppingList}) => {
+const ShoppingListForm = ({shoppingList}) => {
   const [checkCnt, setCheckCnt] = useState(0);
   const [prodIds, setProdIds] = useState([]);
   const [allChecked, setAllchecked] = useState(false);
 
   useEffect(() => {
+    if (shoppingList.paymentDetail === null) {
+      return;
+    }
     let list = [];
     let cnt = 0;
     for (let item of shoppingList.paymentDetail) {
@@ -59,10 +63,13 @@ const ShoppingListForm = ({shoppingList, onFetchShoppingList}) => {
       </Header>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <List>
-          {shoppingList.paymentDetail &&
+          {shoppingList.paymentDetail ? (
             shoppingList.paymentDetail.map(item => (
               <ShoppingListItem key={item.prodId} {...item} />
-            ))}
+            ))
+          ) : (
+            <Spinner />
+          )}
         </List>
       </ScrollView>
     </>
@@ -101,6 +108,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginLeft: 8,
   },
-  headerRightText: {color: 'rgb(130,130,130)', marginRight: 10},
+  headerRightText: {
+    color: 'rgb(130,130,130)',
+    marginRight: 10,
+  },
 });
 export default ShoppingListForm;

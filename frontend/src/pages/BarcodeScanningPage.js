@@ -1,10 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react-hooks/exhaustive-deps*/
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, TouchableOpacity, ToastAndroid} from 'react-native';
 import {CameraScreen} from 'react-native-camera-kit';
 import {CameraFooter} from '../components/scanning/CameraFooter';
 import IconAntD from 'react-native-vector-icons/AntDesign';
-import IconF from 'react-native-vector-icons/Feather';
 import CameraItem from '../components/scanning/CameraItem';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -12,6 +12,7 @@ import {
   removeLastItem,
 } from '../modules/shoppingList';
 import AppText from '../components/common/AppText';
+import Spinner from '../components/common/Spinner';
 
 const BarcodeScanningPage = ({navigation}) => {
   const dispatch = useDispatch();
@@ -51,32 +52,33 @@ const BarcodeScanningPage = ({navigation}) => {
   }, [lastItem]);
 
   return (
-    <View style={{flex: 1}}>
-      <TouchableOpacity
-        style={styles.close}
-        onPress={() => navigation.navigate('MainPage')}>
-        <IconAntD name="close" size={30} color="rgb(255, 255, 255)" />
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.imageBtn}
-        onPress={() => navigation.navigate('ImageScanningPage')}>
-        <IconF name="camera" size={30} color="rgb(255, 255, 255)" />
-        <AppText style={{color: 'rgb(255,255,255)'}}>상품이미지</AppText>
-        <AppText style={{color: 'rgb(255,255,255)'}}>스캔</AppText>
-      </TouchableOpacity>
+    <>
       <View style={{flex: 1}}>
-        <CameraScreen
-          showFrame={true}
-          scanBarcode={true}
-          laserColor={'transparent'}
-          frameColor={'red'}
-          colorForScannerFrame={'white'}
-          onReadCode={event => setQrvalue(event.nativeEvent.codeStringValue)}
-        />
+        <TouchableOpacity
+          style={styles.close}
+          onPress={() => navigation.navigate('MainPage')}>
+          <IconAntD name="close" size={30} style={styles.whiteText} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.imageBtn}
+          onPress={() => navigation.navigate('ImageScanningPage')}>
+          <AppText style={styles.white11Text}>이미지</AppText>
+          <AppText style={styles.white11Text}>스캔</AppText>
+        </TouchableOpacity>
+        <View style={{flex: 1}}>
+          <CameraScreen
+            showFrame={true}
+            scanBarcode={true}
+            laserColor={'transparent'}
+            frameColor={'red'}
+            colorForScannerFrame={'white'}
+            onReadCode={event => setQrvalue(event.nativeEvent.codeStringValue)}
+          />
+        </View>
+        {lastItem && <CameraItem lastItem={lastItem} style={styles.card} />}
+        <CameraFooter navigation={navigation} sumPrice={sumPrice} />
       </View>
-      {lastItem && <CameraItem lastItem={lastItem} style={styles.card} />}
-      <CameraFooter navigation={navigation} sumPrice={sumPrice} />
-    </View>
+    </>
   );
 };
 
@@ -94,12 +96,12 @@ const styles = StyleSheet.create({
   imageBtn: {
     backgroundColor: 'rgb(218,41,28)',
     zIndex: 5,
-    // width: 60,
-    // height: 60,
+    width: 50,
+    height: 50,
     position: 'absolute',
-    left: '75%',
+    left: '82%',
     top: '10%',
-    borderRadius: 6,
+    borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -110,5 +112,12 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     marginLeft: 'auto',
     borderRadius: 10,
+  },
+  whiteText: {
+    color: 'rgb(255,255,255)',
+  },
+  white11Text: {
+    color: 'rgb(255,255,255)',
+    fontSize: 11,
   },
 });
