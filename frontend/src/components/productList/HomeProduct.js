@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/core';
 import {Thumbnail, View} from 'native-base';
 import React, {useEffect, useState} from 'react';
@@ -19,6 +20,7 @@ import {
 } from '../../modules/rankingProduct';
 import AppText from '../common/AppText';
 import EventProductItem from './EventProductItem';
+import Spinner from '../common/Spinner';
 
 const HomeProduct = () => {
   const navigation = useNavigation();
@@ -54,13 +56,13 @@ const HomeProduct = () => {
   return (
     <>
       <View>
-        <SwiperFlatList
-          showPagination
-          autoplayDelay={10}
-          autoplayLoop={true}
-          paginationStyleItem={{width: 10, height: 10}}>
-          {eventList &&
-            eventList.map(item => (
+        {eventList ? (
+          <SwiperFlatList
+            showPagination
+            autoplayDelay={10}
+            autoplayLoop={true}
+            paginationStyleItem={{width: 10, height: 10}}>
+            {eventList.map(item => (
               <TouchableOpacity
                 key={item.id}
                 onPress={() => {
@@ -71,7 +73,10 @@ const HomeProduct = () => {
                 </View>
               </TouchableOpacity>
             ))}
-        </SwiperFlatList>
+          </SwiperFlatList>
+        ) : (
+          <Spinner />
+        )}
       </View>
       <View style={styles.container}>
         <View style={styles.subContainer}>
@@ -117,7 +122,7 @@ const HomeProduct = () => {
             </TouchableOpacity>
           </View>
           <View>
-            {icecream && (
+            {beer && icecream && snack ? (
               <FlatList
                 style={styles.scrollContainer}
                 horizontal
@@ -132,6 +137,8 @@ const HomeProduct = () => {
                 keyExtractor={item => item.id}
                 renderItem={({item}) => <EventProductItem item={item} />}
               />
+            ) : (
+              <Spinner />
             )}
           </View>
         </View>

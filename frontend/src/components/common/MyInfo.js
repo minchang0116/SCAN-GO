@@ -1,12 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps*/
 import {Container, List, ListItem, View} from 'native-base';
 import React, {useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as asyncStorage from '../../AsyncStorage/asyncStorage';
 import AppText from './AppText';
+import Spinner from './Spinner';
 
 const MyInfo = ({navigation}) => {
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState(null);
   useEffect(async () => {
     let user = await asyncStorage.getObjectData('user');
     setUserInfo(user);
@@ -21,45 +23,50 @@ const MyInfo = ({navigation}) => {
 
   return (
     <Container>
-      <View style={styles.profile}>
-        <View style={styles.profileLeft}>
-          <AppText style={styles.nameText}>
-            {userInfo.nickname}
-            <AppText style={styles.profileText}>님</AppText>
-          </AppText>
-
-          <AppText style={styles.profileText}>안녕하세요</AppText>
-        </View>
-        <View style={styles.profileRight}>
-          <Icon style={styles.profileIcon} name={'person'} />
-        </View>
-      </View>
-      <View style={styles.body}>
-        <View flexDirection={'row'}>
-          <AppText style={styles.bodyText}>계정</AppText>
-          <AppText style={styles.bodyText2} numberOfLines={1}>
-            {userInfo.loginId}
-          </AppText>
-        </View>
-        <View flexDirection={'row'}>
-          <AppText style={styles.bodyText}>생일</AppText>
-          <AppText style={styles.bodyText2} numberOfLines={1}>
-            {userInfo.birth}
-          </AppText>
-        </View>
-        <View flexDirection={'row'}>
-          <AppText style={styles.bodyText}>전화번호</AppText>
-          <AppText style={styles.bodyText2} numberOfLines={1}>
-            {userInfo.phone}
-          </AppText>
-        </View>
-      </View>
-      <List>
-        <ListItem style={styles.listItem} onPressOut={() => logout()}>
-          <AppText>로그아웃</AppText>
-          <Icon name={'arrow-forward-ios'} />
-        </ListItem>
-      </List>
+      {userInfo ? (
+        <>
+          <View style={styles.profile}>
+            <View style={styles.profileLeft}>
+              <AppText style={styles.nameText}>
+                {userInfo.nickname}
+                <AppText style={styles.profileText}>님</AppText>
+              </AppText>
+              <AppText style={styles.profileText}>안녕하세요</AppText>
+            </View>
+            <View style={styles.profileRight}>
+              <Icon style={styles.profileIcon} name={'person'} />
+            </View>
+          </View>
+          <View style={styles.body}>
+            <View flexDirection={'row'}>
+              <AppText style={styles.bodyText}>계정</AppText>
+              <AppText style={styles.bodyText2} numberOfLines={1}>
+                {userInfo.loginId}
+              </AppText>
+            </View>
+            <View flexDirection={'row'}>
+              <AppText style={styles.bodyText}>생일</AppText>
+              <AppText style={styles.bodyText2} numberOfLines={1}>
+                {userInfo.birth}
+              </AppText>
+            </View>
+            <View flexDirection={'row'}>
+              <AppText style={styles.bodyText}>전화번호</AppText>
+              <AppText style={styles.bodyText2} numberOfLines={1}>
+                {userInfo.phone}
+              </AppText>
+            </View>
+          </View>
+          <List>
+            <ListItem style={styles.listItem} onPressOut={() => logout()}>
+              <AppText>로그아웃</AppText>
+              <Icon name={'arrow-forward-ios'} />
+            </ListItem>
+          </List>
+        </>
+      ) : (
+        <Spinner />
+      )}
     </Container>
   );
 };
