@@ -6,10 +6,12 @@ import {useSelector} from 'react-redux';
 import SubHeader from '../components/common/SubHeader';
 import Payment from '../components/payment/Payment';
 import PaymentFooter from '../components/payment/PaymentFooter';
+import Spinner from '../components/common/Spinner';
 
 const PaymentPage = ({navigation}) => {
-  const {shoppingList} = useSelector(({shoppingList}) => ({
+  const {shoppingList, loading} = useSelector(({shoppingList}) => ({
     shoppingList: shoppingList,
+    loading: shoppingList.loading,
   }));
   const [paymentType, setPaymentType] = useState(1);
   const onChangeType = typeNo => {
@@ -18,7 +20,7 @@ const PaymentPage = ({navigation}) => {
   return (
     <Container style={styles.container}>
       <SubHeader navigation={navigation} title={'결제하기'} isIcon={false} />
-
+      {loading && <Spinner />}
       <Payment
         shoppingList={shoppingList}
         sumPrice={shoppingList.sumPrice
