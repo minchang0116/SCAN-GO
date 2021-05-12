@@ -1,9 +1,9 @@
-import {Alert, StyleSheet, TouchableOpacity} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import AppText from './AppText';
 import {Container, List, ListItem, View} from 'native-base';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as asyncStorage from '../../AsyncStorage/asyncStorage';
+import AppText from './AppText';
 
 const MyInfo = ({navigation}) => {
   const [userInfo, setUserInfo] = useState({});

@@ -1,9 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import {StyleSheet, View, TouchableOpacity} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
-import AppText from '../../components/common/AppText';
 import {Item} from 'native-base';
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
 
 const SetDurationPicker = ({selectedDuration, setSeletedDuration}) => {
   return (

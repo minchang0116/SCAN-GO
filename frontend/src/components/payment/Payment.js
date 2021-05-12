@@ -1,5 +1,5 @@
 import {List, ListItem, Radio, Text, View} from 'native-base';
-import React, {useState} from 'react';
+import React from 'react';
 import {Image, ScrollView, StyleSheet} from 'react-native';
 import {PaymentSuccessListItem} from '../payment/PaymentSuccess';
 
