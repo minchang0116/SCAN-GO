@@ -35,7 +35,7 @@
 ## 🛠 Using Technology
 
 <div align="center" style="display:flex;">
-	<img src="./readme_images/skill.jpg" width="50%"/>
+	<img src="./readme_images/skill.JPG" width="50%"/>
 </div>
 
 
