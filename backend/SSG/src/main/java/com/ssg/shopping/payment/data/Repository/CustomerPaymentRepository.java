@@ -10,4 +10,5 @@ import java.util.List;
 public interface CustomerPaymentRepository extends JpaRepository<CustomerPayment, Long> {
     public List<CustomerPayment> findByMember_IdAndTxDateTimeIsGreaterThanAndTxDateTimeLessThan(long memberId, Date date1, Date date2, Pageable page);
     public List<CustomerPayment> findByMemberLoginId(String loginId, Pageable page);
+    public List<CustomerPayment> findByMemberLoginIdAndTxDateTimeIsGreaterThanAndTxDateTimeLessThan(String loginId, Date date1, Date date2, Pageable page);
 }
