@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
 import {Thumbnail} from 'native-base';
-import {View, StyleSheet, Dimensions} from 'react-native';
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
 import AppText from '../common/AppText';
 
 const ProductItem = ({item, rank}) => {

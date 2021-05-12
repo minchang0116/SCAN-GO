@@ -1,23 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useRef, useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  ToastAndroid,
-} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {CameraFooter} from '../components/scanning/CameraFooter';
+import React, {useRef, useState} from 'react';
+import {StyleSheet, ToastAndroid, TouchableOpacity, View} from 'react-native';
+import {RNCamera} from 'react-native-camera';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import IconF from 'react-native-vector-icons/Feather';
+import {useDispatch, useSelector} from 'react-redux';
+import {CameraFooter} from '../components/scanning/CameraFooter';
 import CameraItem from '../components/scanning/CameraItem';
-import {RNCamera} from 'react-native-camera';
-import {
-  addShoppingListItemByBarcode,
-  removeLastItem,
-} from '../modules/shoppingList';
-import AppText from '../components/common/AppText';
+import {addShoppingListItemByBarcode} from '../modules/shoppingList';
 
 const ImageScanningPage = ({navigation}) => {
   const dispatch = useDispatch();

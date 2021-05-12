@@ -1,10 +1,9 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {useState} from 'react';
-import {StyleSheet, View, TouchableOpacity} from 'react-native';
-import {Button} from 'native-base';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import IconAntD from 'react-native-vector-icons/AntDesign';
-import DatePicker from './DatePicker';
 import AppText from '../common/AppText';
+import DatePicker from './DatePicker';
 
 const SetDuration = ({
   startDate,

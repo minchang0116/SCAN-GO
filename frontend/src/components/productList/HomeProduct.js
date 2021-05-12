@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/core';
-import {Container, Thumbnail, View} from 'native-base';
+import {Thumbnail, View} from 'native-base';
 import React, {useEffect, useState} from 'react';
 import {
   Dimensions,

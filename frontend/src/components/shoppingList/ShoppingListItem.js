@@ -1,12 +1,12 @@
-import {Body, Left, ListItem, Right, Text, View} from 'native-base';
-import React, {useCallback, useState} from 'react';
+import {Body, Left, ListItem, Right} from 'native-base';
+import React from 'react';
 import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch} from 'react-redux';
 import {
-  updateShoppingListItem,
   isCheckedShoppingListItem,
+  updateShoppingListItem,
 } from '../../modules/shoppingList';
 import AppText from '../common/AppText';
 

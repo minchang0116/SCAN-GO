@@ -1,13 +1,4 @@
-import {
-  Body,
-  Button,
-  Image,
-  Left,
-  List,
-  ListItem,
-  Right,
-  View,
-} from 'native-base';
+import {Body, Button, Left, List, ListItem, Right, View} from 'native-base';
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';

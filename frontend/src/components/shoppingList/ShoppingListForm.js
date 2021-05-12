@@ -1,14 +1,14 @@
-import {Header, List, Right, Text} from 'native-base';
+import {Header, List, Right} from 'native-base';
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
-import ShoppingListItem from './ShoppingListItem';
+import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {
-  deleteShoppingListItem,
-  allCheckShoppingListItem,
-} from '../../modules/shoppingList';
 import {useDispatch} from 'react-redux';
+import {
+  allCheckShoppingListItem,
+  deleteShoppingListItem,
+} from '../../modules/shoppingList';
 import AppText from '../common/AppText';
+import ShoppingListItem from './ShoppingListItem';
 
 const ShoppingListForm = ({shoppingList, onFetchShoppingList}) => {
   const [checkCnt, setCheckCnt] = useState(0);
