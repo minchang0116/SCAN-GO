@@ -8,7 +8,7 @@ const MainHeader = () => {
   return (
     <Header androidStatusBarColor={'rgb(240,41,28)'} style={styles.header}>
       <AppText style={styles.font}>SSG/ </AppText>
-      <AppText style={styles.font2}>신세계몰</AppText>
+      <AppText style={styles.font2}>셀프스토어</AppText>
     </Header>
   );
 };

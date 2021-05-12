@@ -35,7 +35,8 @@ const StackNav = () => {
       let response = await dispatch(
         fetchUserInfoWithAsyncStorage({userData: userData}),
       );
-      if (response.payload !== undefined) {
+      if (response.payload === undefined) {
+        console.log('async 에러');
       }
     } else {
       console.log('저장된 유저 정보 없음! 로그인 필요!');
