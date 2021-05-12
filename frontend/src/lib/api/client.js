@@ -7,9 +7,9 @@ const token = asyncStorage.getData('token');
 const client = axios.create({
   baseURL: host,
   withCredentials: true,
-  headers: {
-    authorization: token,
-  },
+  // headers: {
+  //   authorization: token,
+  // },
 });
 
 export default client;

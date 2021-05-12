@@ -9,9 +9,7 @@ export const fetchShoppingList = createAsyncThunk(
       if (!userInfo.memberId) {
         throw Error('[fetchShoppingList] memberId 없음');
       }
-      const response = await shoppingListApi.readItems({
-        memberId: userInfo.memberId,
-      });
+      const response = await shoppingListApi.readItems(userInfo.memberId);
       return response.data;
     } catch (e) {
       return rejectWithValue(e.message);
@@ -64,9 +62,7 @@ export const deleteAllShoppingListItem = createAsyncThunk(
       if (!userInfo.memberId) {
         throw Error('[deleteAllShoppingListItem] memberId 없음');
       }
-      await shoppingListApi.deleteAllItem({
-        memberId: userInfo.memberId,
-      });
+      await shoppingListApi.deleteAllItem(userInfo.memberId);
     } catch (e) {
       console.log(e.message);
     }
