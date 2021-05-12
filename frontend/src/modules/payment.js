@@ -11,16 +11,15 @@ export const requestPayment = createAsyncThunk(
       const {shoppingList, userInfo} = getState();
       const txSeq = String(shoppingList.id);
       const txDateTime = String(moment().format('YYYYMMDDHHmmss'));
-      const plainString =
-        txSeq + txDateTime + shoppingList.storeId + userInfo.memberId;
+      const clientNo = String(userInfo.memberId);
+      const plainString = txSeq + txDateTime + shoppingList.storeId + clientNo;
       const key = 'incssafy12#$12#$';
       const authHash = await Base64.stringify(hmacSHA256(plainString, key));
-      console.log(authHash);
       const response = await paymentApi.requestPayment({
         txSeq: txSeq,
         txDateTime: txDateTime,
         storeId: shoppingList.storeId,
-        clientNo: userInfo.memberId,
+        clientNo: clientNo,
         prodList: shoppingList.paymentDetail,
         authHash: authHash,
       });
@@ -31,7 +30,7 @@ export const requestPayment = createAsyncThunk(
           paymentPlan: formData,
           paymentResult: '성공',
         });
-        dispatch(deleteAllShoppingListItem(1));
+        dispatch(deleteAllShoppingListItem());
         return shoppingList.paymentDetail;
       }
     } catch (e) {}
