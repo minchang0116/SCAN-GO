@@ -56,6 +56,8 @@ const HomeProduct = () => {
       <View>
         <SwiperFlatList
           showPagination
+          autoplayDelay={10}
+          autoplayLoop={true}
           paginationStyleItem={{width: 10, height: 10}}>
           {eventList &&
             eventList.map(item => (
