@@ -19,8 +19,8 @@ import {
   fetchSnackRanking,
 } from '../../modules/rankingProduct';
 import AppText from '../common/AppText';
-import EventProductItem from './EventProductItem';
 import Spinner from '../common/Spinner';
+import MainPopularProductItem from './MainPopularProductItem';
 
 const HomeProduct = () => {
   const navigation = useNavigation();
@@ -136,7 +136,7 @@ const HomeProduct = () => {
                 }
                 keyExtractor={item => item.id}
                 renderItem={({item}) => (
-                  <EventProductItem item={item} home={true} />
+                  <MainPopularProductItem item={item} home={true} />
                 )}
               />
             ) : (
