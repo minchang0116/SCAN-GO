@@ -18,7 +18,7 @@ const MainPopularProductItem = ({item, home}) => {
         </View>
         <AppText
           numberOfLines={2}
-          style={{marginTop: 10, fontSize: 15}}
+          style={{marginTop: 10, fontSize: 13}}
           ellipsizeMode="tail">
           {item.prodName}
         </AppText>
