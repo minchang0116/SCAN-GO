@@ -1,4 +1,5 @@
-import React, {useEffect} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps*/
+import React, {useCallback, useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import EventProductItem from './EventProductItem';
@@ -20,11 +21,17 @@ const EventProduct = () => {
       freeGift: eventProductList.freeGiftList,
     }),
   );
+
   useEffect(() => {
     dispatch(fetchPlusOneProductList());
     dispatch(fetchSaleProductList());
     dispatch(fetchFreeGiftProductList());
   }, []);
+
+  const keyExtractor = useCallback(item => item.id);
+  const renderItem = useCallback(({item}) => (
+    <EventProductItem item={item} home={false} />
+  ));
 
   return (
     <>
@@ -33,7 +40,7 @@ const EventProduct = () => {
           <View>
             <AppText style={styles.title}>오늘의 1+1 행사 상품</AppText>
             <AppText style={styles.subTitle}>
-              상품 하나 사면 하나 더 드려요!
+              상품을 사면 하나 더 드려요!
             </AppText>
           </View>
           <View>
@@ -42,11 +49,53 @@ const EventProduct = () => {
                 style={styles.scrollContainer}
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                data={plusOne}
-                keyExtractor={item => item.id}
-                renderItem={({item}) => (
-                  <EventProductItem item={item} home={false} />
-                )}
+                data={plusOne.filter(item => item.type === 1)}
+                keyExtractor={keyExtractor}
+                renderItem={renderItem}
+              />
+            ) : (
+              <Spinner />
+            )}
+          </View>
+        </View>
+        <View style={styles.subContainer}>
+          <View>
+            <AppText style={styles.title}>오늘의 2+1 행사 상품</AppText>
+            <AppText style={styles.subTitle}>
+              상품을 사면 하나 더 드려요!
+            </AppText>
+          </View>
+          <View>
+            {plusOne ? (
+              <FlatList
+                style={styles.scrollContainer}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={plusOne.filter(item => item.type === 2)}
+                keyExtractor={keyExtractor}
+                renderItem={renderItem}
+              />
+            ) : (
+              <Spinner />
+            )}
+          </View>
+        </View>
+        <View style={styles.subContainer}>
+          <View>
+            <AppText style={styles.title}>오늘의 3+1 행사 상품</AppText>
+            <AppText style={styles.subTitle}>
+              상품을 사면 하나 더 드려요!
+            </AppText>
+          </View>
+          <View>
+            {plusOne ? (
+              <FlatList
+                style={styles.scrollContainer}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={plusOne.filter(item => item.type === 3)}
+                keyExtractor={keyExtractor}
+                renderItem={renderItem}
               />
             ) : (
               <Spinner />
@@ -81,7 +130,7 @@ const EventProduct = () => {
           <View>
             <AppText style={styles.title}>덤 증정 상품</AppText>
             <AppText style={styles.subTitle}>
-              상품을 구매하면 다른 물품이 덤!
+              상품을 구매하면 다른 상품이 덤!
             </AppText>
           </View>
           <View>
@@ -117,10 +166,12 @@ const styles = StyleSheet.create({
   },
   subContainer: {
     marginBottom: '5%',
+    // borderBottomColor: 'rgb(220,220,220)',
+    // borderBottomWidth: 1,
   },
   title: {
     fontWeight: 'bold',
-    fontSize: 25,
+    fontSize: 19,
   },
   subTitle: {
     fontSize: 12,
