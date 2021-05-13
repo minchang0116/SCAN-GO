@@ -4,7 +4,7 @@ import {Thumbnail} from 'native-base';
 import {View, StyleSheet} from 'react-native';
 import AppText from '../common/AppText';
 
-const EventProductItem = ({item}) => {
+const EventProductItem = ({item, home}) => {
   return (
     <>
       <View style={styles.wrap}>
@@ -13,7 +13,7 @@ const EventProductItem = ({item}) => {
           large
           style={styles.image}
           source={{
-            uri: item.image,
+            uri: (home ? 'data:image/png;base64,' : '') + item.image,
           }}
         />
         <AppText numberOfLines={2} ellipsizeMode="tail">
@@ -58,5 +58,6 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     resizeMode: 'contain',
+    borderRadius: 10,
   },
 });
