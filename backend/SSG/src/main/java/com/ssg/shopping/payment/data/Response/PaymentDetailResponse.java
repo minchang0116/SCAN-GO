@@ -12,7 +12,7 @@ public class PaymentDetailResponse {
     private String prodCode;
     private String prodName;
     private String prodPrice;
-    private byte[] prodImage;
+    private String prodImage;
     private long qty;
 
     public PaymentDetailResponse(PaymentDetail paymentDetail) {
@@ -23,7 +23,7 @@ public class PaymentDetailResponse {
         this.qty = paymentDetail.getQty();
     }
 
-    public void updateProductImage(byte[] prodImage) {
+    public void updateProductImage(String prodImage) {
         this.prodImage = prodImage;
     }
 }
