@@ -44,7 +44,9 @@ const EventProduct = () => {
                 showsHorizontalScrollIndicator={false}
                 data={plusOne}
                 keyExtractor={item => item.id}
-                renderItem={({item}) => <EventProductItem item={item} />}
+                renderItem={({item}) => (
+                  <EventProductItem item={item} home={false} />
+                )}
               />
             ) : (
               <Spinner />
@@ -66,7 +68,9 @@ const EventProduct = () => {
                 showsHorizontalScrollIndicator={false}
                 data={saleProduct}
                 keyExtractor={item => item.id}
-                renderItem={({item}) => <EventProductItem item={item} />}
+                renderItem={({item}) => (
+                  <EventProductItem item={item} home={false} />
+                )}
               />
             ) : (
               <Spinner />
@@ -88,7 +92,9 @@ const EventProduct = () => {
                 showsHorizontalScrollIndicator={false}
                 data={freeGift}
                 keyExtractor={item => item.id}
-                renderItem={({item}) => <EventProductItem item={item} />}
+                renderItem={({item}) => (
+                  <EventProductItem item={item} home={false} />
+                )}
               />
             ) : (
               <Spinner />
