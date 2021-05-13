@@ -11,6 +11,8 @@ import {addShoppingListItemByBarcode} from '../modules/shoppingList';
 import AppText from '../components/common/AppText';
 import Spinner from '../components/common/Spinner';
 
+import axios from 'axios';
+
 const ImageScanningPage = ({navigation}) => {
   const dispatch = useDispatch();
 
@@ -30,13 +32,29 @@ const ImageScanningPage = ({navigation}) => {
       const options = {quality: 0.5, base64: true};
       const data = await cameraRef.current.takePictureAsync(options);
       console.log('data!!! :  ' + data.uri);
+
+      /*
       const formData = {
         prodCode: getProductCode().toString(),
       };
       console.log(getProductCode().toString());
       dispatch(addShoppingListItemByBarcode({formData}));
+      */
+      
+      var frd = new FormData();
+      frd.append('file', { uri: data.uri, name: 'picture.jpg', type: 'image/jpg' });
+      
+      let starttime = new Date().getTime();
+      
+      const response = await axios.post('http://70.12.130.104:5000/predict', frd, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
 
+      /*
       if (error) {
+        console.log("error!");
         ToastAndroid.showWithGravityAndOffset(
           '찾을 수 없는 상품입니다. 다시 촬영해주세요.',
           ToastAndroid.SHORT,
@@ -45,13 +63,21 @@ const ImageScanningPage = ({navigation}) => {
           100,
         );
       }
+      */
+      
+      console.log(response.data)
+
+      let endtime = new Date().getTime() - starttime;
+      console.log("소요된 시간: " + endtime +"ms");
     }
   };
 
+  /*
   const getProductCode = () => {
     return 8992839913137;
   };
-
+  */
+  
   return (
     <View style={{flex: 1}}>
       {/* {loading ? (
