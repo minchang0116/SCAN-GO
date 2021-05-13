@@ -7,7 +7,7 @@ let STYLE;
 const CameraItem = ({lastItem, style}) => {
   STYLE = style;
   console.log('lastItem');
-  console.log(lastItem);
+  console.log('data:image/png;base64,' + lastItem.prodImage);
   return (
     <>
       <Card style={styles.card}>
@@ -15,8 +15,7 @@ const CameraItem = ({lastItem, style}) => {
           <Body style={{flexDirection: 'row'}}>
             <Image
               source={{
-                uri:
-                  'http://image3.compuzone.co.kr/img/product_img/2021/0219/764689/764689_600.jpg',
+                uri: 'data:image/png;base64,' + lastItem.prodImage,
               }}
               style={styles.productImg}
             />
@@ -40,6 +39,7 @@ const styles = StyleSheet.create({
   cardItem: {
     borderRadius: 10,
     height: 100,
+    marginHorizontal: 10,
   },
   STYLE,
 });

@@ -20,7 +20,6 @@ const EventProduct = () => {
       freeGift: eventProductList.freeGiftList,
     }),
   );
-  console.log(plusOne);
   useEffect(() => {
     dispatch(fetchPlusOneProductList());
     dispatch(fetchSaleProductList());
