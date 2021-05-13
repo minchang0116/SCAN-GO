@@ -38,13 +38,18 @@ public class PaymentService {
         CustomerPayment customerPayment = null;
         // 현재 작성중인 장바구니가 없음
         if(currentPayment == null) {
-            Member member = memberRepository.findById(memberId).get();
-            customerPayment = customerPaymentRepository.save(new CustomerPayment("지점1", member));
-            currentPaymentRepository.save(new CurrentPayment(member, customerPayment));
+            if(memberRepository.findById(memberId).isPresent()) {
+                Member member = memberRepository.findById(memberId).get();
+                customerPayment = customerPaymentRepository.save(new CustomerPayment("지점1", member));
+                currentPaymentRepository.save(new CurrentPayment(member, customerPayment));
+            }
         } else { // 있음
-            customerPayment = customerPaymentRepository.findById(currentPayment.getCustomerPayment().getId()).get();
-            customerPayment.update();
+            if(customerPaymentRepository.findById(currentPayment.getCustomerPayment().getId()).isPresent()) {
+                customerPayment = customerPaymentRepository.findById(currentPayment.getCustomerPayment().getId()).get();
+                customerPayment.update();
+            }
         }
+
         return new CustomerPaymentResponse(customerPayment);
     }
 

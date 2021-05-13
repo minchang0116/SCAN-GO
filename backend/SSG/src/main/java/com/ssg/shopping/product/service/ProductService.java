@@ -38,11 +38,14 @@ public class ProductService {
         CustomerPayment customerPayment = null;
         // 없으면 장바구니 만들기
         if(currentPayment == null) {
-            Member member = memberRepository.findById(memberId).get();
-            customerPayment = customerPaymentRepository.save(new CustomerPayment("지점1", member));
-            currentPaymentRepository.save(new CurrentPayment(member, customerPayment));
+            if(memberRepository.findById(memberId).isPresent()) {
+                Member member = memberRepository.findById(memberId).get();
+                customerPayment = customerPaymentRepository.save(new CustomerPayment("지점1", member));
+                currentPaymentRepository.save(new CurrentPayment(member, customerPayment));
+            }
         } else { // 있으면 장바구니 정보 조회
-            customerPayment = customerPaymentRepository.findById(currentPayment.getCustomerPayment().getId()).get();
+            if(customerPaymentRepository.findById(currentPayment.getCustomerPayment().getId()).isPresent())
+                customerPayment = customerPaymentRepository.findById(currentPayment.getCustomerPayment().getId()).get();
         }
         Product product = productRepository.findByProdCode(prodCode);
         // 장바구니에 이미 있는 상품인지 검사
@@ -54,7 +57,8 @@ public class ProductService {
 
         // 상품 이미지 추가
         PaymentDetailResponse pdr = new PaymentDetailResponse(paymentDetail);
-        pdr.updateProductImage(productImageRepository.findByProdName(pdr.getProdName()).getImage());
+        if (productImageRepository.findByProdName(pdr.getProdName()) != null)
+            pdr.updateProductImage(productImageRepository.findByProdName(pdr.getProdName()).getImage());
 
         return pdr;
     }

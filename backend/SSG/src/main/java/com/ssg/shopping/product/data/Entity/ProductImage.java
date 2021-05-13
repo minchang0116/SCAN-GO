@@ -14,5 +14,5 @@ public class ProductImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String prodName;
-    private byte[] image;
+    private String image;
 }
