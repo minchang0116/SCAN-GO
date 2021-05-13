@@ -17,5 +17,11 @@ export const getTodayPrice = () => {
 
 // 관리자 로그인
 export const adminLogin = formData => {
-  return client.post('/admin/login', formData);
+  return client.post('/member/login', formData);
+};
+
+// 유저 기반 구매리스트 호출
+export const getCostomerPaymentList = formData => {
+  console.log(formData);
+  return client.get('/admin/payments_date', formData);
 };
