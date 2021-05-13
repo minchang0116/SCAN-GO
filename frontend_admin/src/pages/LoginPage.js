@@ -98,11 +98,15 @@ const LoginPage = () => {
     }
     //history.push('/dashboard');
     try {
-      let response = await managingAPI.adminLogin({
-        id: adminId,
-        password: adminPw,
-      });
-      if (response.status === 200) history.push('/search');
+      let formData = {
+        loginId: adminId,
+        loginPwd: adminPw,
+      };
+      let response = await managingAPI.adminLogin(formData);
+      if (response.status === 200) {
+        console.log('로그인 성공!');
+        history.push('/search');
+      }
     } catch (e) {
       history.push('/search');
     }
