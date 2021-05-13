@@ -4,7 +4,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import AppText from '../common/AppText';
 
-const ProductItem = ({item, rank}) => {
+const RankingItem = ({item, rank}) => {
   return (
     <>
       <View style={styles.wrap}>
@@ -18,7 +18,7 @@ const ProductItem = ({item, rank}) => {
             uri: 'data:image/png;base64,' + item.image,
           }}
         />
-        <AppText numberOfLines={2} ellipsizeMode="tail">
+        <AppText numberOfLines={2} ellipsizeMode="tail" style={styles.prodName}>
           {item.prodName}
         </AppText>
       </View>
@@ -26,12 +26,12 @@ const ProductItem = ({item, rank}) => {
   );
 };
 
-export default ProductItem;
+export default RankingItem;
 
 const styles = StyleSheet.create({
   wrap: {
     flex: 1,
-    // width: Dimensions.get('window').width / 2,
+    width: 200,
     paddingRight: 8,
     paddingLeft: 8,
     justifyContent: 'center',
@@ -56,5 +56,9 @@ const styles = StyleSheet.create({
     height: 200,
     resizeMode: 'contain',
     borderRadius: 10,
+  },
+  prodName: {
+    marginTop: 4,
+    fontSize: 13,
   },
 });

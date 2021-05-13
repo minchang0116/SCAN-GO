@@ -16,19 +16,14 @@ const EventProductItem = ({item, home}) => {
             uri: (home ? 'data:image/png;base64,' : '') + item.image,
           }}
         />
-        <AppText numberOfLines={2} ellipsizeMode="tail">
+        <AppText numberOfLines={2} ellipsizeMode="tail" style={styles.prodName}>
           {item.prodName}
         </AppText>
         {item.prodSalePrice && (
           <AppText
             numberOfLines={1}
             ellipsizeMode="tail"
-            style={{
-              fontSize: 10,
-              marginTop: 5,
-              textDecorationLine: 'line-through',
-              color: 'rgb(144,144,144)',
-            }}>
+            style={styles.prodPrice}>
             {item.prodPrice}원
           </AppText>
         )}
@@ -36,7 +31,7 @@ const EventProductItem = ({item, home}) => {
           <AppText
             numberOfLines={1}
             ellipsizeMode="tail"
-            style={{fontSize: 14, marginTop: 5}}>
+            style={styles.prodSalePrice}>
             {item.prodSalePrice ? item.prodSalePrice : item.prodPrice}원
           </AppText>
         )}
@@ -55,9 +50,25 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
   },
   image: {
-    width: 150,
+    width: 140,
     height: 150,
-    resizeMode: 'contain',
+    resizeMode: 'stretch',
     borderRadius: 10,
+  },
+  prodName: {
+    fontSize: 12,
+    width: 140,
+    height: 35,
+  },
+  prodPrice: {
+    fontSize: 10,
+    marginTop: 5,
+    textDecorationLine: 'line-through',
+    color: 'rgb(144,144,144)',
+  },
+  prodSalePrice: {
+    fontSize: 14,
+    marginTop: 5,
+    fontWeight: '700',
   },
 });

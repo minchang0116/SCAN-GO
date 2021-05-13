@@ -9,7 +9,7 @@ import {
   fetchIcecreamRanking,
   fetchSnackRanking,
 } from '../../modules/rankingProduct';
-import ProductItem from './ProductItem';
+import RankingItem from './RankingItem';
 import {Thumbnail} from 'native-base';
 import Spinner from '../common/Spinner';
 
@@ -85,7 +85,7 @@ const PopularProduct = () => {
                 : beer
             }
             keyExtractor={item => item.id}
-            renderItem={({item}) => <ProductItem item={item} rank={item.id} />}
+            renderItem={({item}) => <RankingItem item={item} rank={item.id} />}
             numColumns={2}
           />
         ) : (
