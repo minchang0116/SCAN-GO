@@ -21,7 +21,7 @@ const SearchContainer = () => {
   const [page, setPage] = useState(0);
 
   // 현재 고객의 구매 내역 리스트
-  const [curPaymentList, setCurPaymentList] = useState([]);
+  const [paymentList, setPaymentList] = useState([]);
 
   //인풋 변경 이벤트 핸들러
   const onChange = e => {
@@ -48,14 +48,19 @@ const SearchContainer = () => {
 
   const loadData = async PAGE => {
     console.log(PAGE);
-    const formData = {
-      memberId: keyword,
-      date1: dateToString(startDate),
-      date2: dateToString(endDate),
-      pageNum: PAGE,
-    };
-    let response = await managingAPI.getCostomerPaymentList(formData);
-    console.log(response);
+    if (isBtnClicked === '전체') {
+      let response = await managingAPI.getCostomerAllPaymentList(keyword, PAGE);
+      console.log(response);
+    } else {
+      let response = await managingAPI.getCostomerPaymentList(
+        dateToString(startDate),
+        dateToString(endDate),
+        keyword,
+        PAGE,
+      );
+      console.log(response);
+      setPaymentList(response.data);
+    }
   };
 
   useEffect(() => {
@@ -83,32 +88,48 @@ const SearchContainer = () => {
     };
   }
 
-  const paymentList = [
-    createData(0, '1', '20210503120000', '1', '카드', '성공', {
-      prodID: 1,
-      prodName: '테스트1',
-    }),
-    createData(1, '1', '20210503120000', '1', '카드', '성공', {
-      prodID: 1,
-      prodName: '테스트2',
-    }),
-    createData(2, '1', '20210503120000', '1', '카드', '성공', {
-      prodID: 1,
-      prodName: '테스트3',
-    }),
-    createData(3, '1', '20210503120000', '1', '카드', '성공', {
-      prodID: 1,
-      prodName: '테스트4',
-    }),
-    createData(4, '1', '20210503120000', '1', '카드', '성공', {
-      prodID: 1,
-      prodName: '테스트5',
-    }),
-    createData(5, '1', '20210503120000', '1', '현금', '성공', {
-      prodID: 1,
-      prodName: '테스트6',
-    }),
-  ];
+  // const paymentList = [
+  //   createData(0, '1', '20210503120000', '1', '카드', '성공', [
+  //     {
+  //       prodID: 1,
+  //       prodName: '테스트1',
+  //     },
+  //     {
+  //       prodID: 2,
+  //       prodName: '테스트2',
+  //     },
+  //   ]),
+  //   createData(1, '1', '20210503120000', '1', '카드', '성공', [
+  //     {
+  //       prodID: 1,
+  //       prodName: '테스트2',
+  //     },
+  //   ]),
+  //   createData(2, '1', '20210503120000', '1', '카드', '성공', [
+  //     {
+  //       prodID: 1,
+  //       prodName: '테스트3',
+  //     },
+  //   ]),
+  //   createData(3, '1', '20210503120000', '1', '카드', '성공', [
+  //     {
+  //       prodID: 1,
+  //       prodName: '테스트4',
+  //     },
+  //   ]),
+  //   createData(4, '1', '20210503120000', '1', '카드', '성공', [
+  //     {
+  //       prodID: 1,
+  //       prodName: '테스트5',
+  //     },
+  //   ]),
+  //   createData(5, '1', '20210503120000', '1', '현금', '성공', [
+  //     {
+  //       prodID: 1,
+  //       prodName: '테스트6',
+  //     },
+  //   ]),
+  // ];
 
   return (
     <>
