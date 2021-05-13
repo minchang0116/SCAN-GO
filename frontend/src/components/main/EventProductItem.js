@@ -13,7 +13,7 @@ const EventProductItem = ({item}) => {
           large
           style={styles.image}
           source={{
-            uri: item.image,
+            uri: 'data:image/png;base64,' + item.image,
           }}
         />
         <AppText numberOfLines={2} ellipsizeMode="tail">
