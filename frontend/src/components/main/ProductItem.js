@@ -15,7 +15,7 @@ const ProductItem = ({item, rank}) => {
           square
           style={styles.image}
           source={{
-            uri: item.image,
+            uri: 'data:image/png;base64,' + item.image,
           }}
         />
         <AppText numberOfLines={2} ellipsizeMode="tail">
@@ -55,5 +55,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 200,
     resizeMode: 'contain',
+    borderRadius: 10,
   },
 });
