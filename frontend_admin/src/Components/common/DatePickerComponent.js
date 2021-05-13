@@ -85,6 +85,7 @@ const DatePickerComponent = ({
             startDate={startDate}
             minDate={startDate}
             maxDate={new Date()}
+            onChange={date => setEndDate(date)}
             onCalendarOpen={onCalendarOpen}
             onCalendarClose={onCalendarClose}
             customInput={<CustomInput />}
