@@ -5,12 +5,16 @@ import useStyles from '../../css/useStyles';
 import DatePickerComponent from '../../Components/common/DatePickerComponent';
 import SetDuration from '../../Components/common/SetDuration';
 import * as managingAPI from '../../lib/api/managing';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import {IconButton} from '@material-ui/core';
 
 const SearchContainer = () => {
   const classes = useStyles();
 
   // 고객 번호 검색 키워드
   const [keyword, setKeyword] = useState('');
+  // Enter 입력 확인
+  const [isEnter, setIsEnter] = useState(false);
 
   // 구매 기한
   const [startDate, setStartDate] = useState(new Date());
@@ -22,6 +26,7 @@ const SearchContainer = () => {
 
   // 현재 고객의 구매 내역 리스트
   const [paymentList, setPaymentList] = useState([]);
+  const [curPaymentList, setCurPaymentList] = useState([]);
 
   //인풋 변경 이벤트 핸들러
   const onChange = e => {
@@ -31,6 +36,7 @@ const SearchContainer = () => {
   // 검색 엔터 이벤트 핸들러
   const onKeyPress = e => {
     if (e.key === 'Enter') {
+      setIsEnter(!isEnter);
       loadData(page);
     }
   };
@@ -48,9 +54,10 @@ const SearchContainer = () => {
 
   const loadData = async PAGE => {
     console.log(PAGE);
+    console.log(paymentList);
     if (isBtnClicked === '전체') {
       let response = await managingAPI.getCostomerAllPaymentList(keyword, PAGE);
-      console.log(response);
+      setPaymentList(response.data);
     } else {
       let response = await managingAPI.getCostomerPaymentList(
         dateToString(startDate),
@@ -58,78 +65,35 @@ const SearchContainer = () => {
         keyword,
         PAGE,
       );
-      console.log(response);
       setPaymentList(response.data);
     }
   };
 
   useEffect(() => {
+    console.log('결제 내역 리스트 변경');
+    if (page === 0) {
+      setCurPaymentList(paymentList);
+    } else {
+      setCurPaymentList(curPaymentList.concat(paymentList));
+    }
+  }, [paymentList]);
+
+  useEffect(() => {
+    console.log('기간 / 키워드 변경');
     setPage(0);
+    loadData(page);
   }, [startDate, endDate]);
 
-  // Generate paymentList Data
-  function createData(
-    id,
-    storedId,
-    txDateTime,
-    paymentAmount,
-    paymentPlan,
-    paymentResult,
-    paymentDetail,
-  ) {
-    return {
-      id,
-      storedId,
-      txDateTime,
-      paymentAmount,
-      paymentPlan,
-      paymentResult,
-      paymentDetail,
-    };
-  }
+  useEffect(() => {
+    console.log('Page 변경');
+    loadData(page);
+  }, [page]);
 
-  // const paymentList = [
-  //   createData(0, '1', '20210503120000', '1', '카드', '성공', [
-  //     {
-  //       prodID: 1,
-  //       prodName: '테스트1',
-  //     },
-  //     {
-  //       prodID: 2,
-  //       prodName: '테스트2',
-  //     },
-  //   ]),
-  //   createData(1, '1', '20210503120000', '1', '카드', '성공', [
-  //     {
-  //       prodID: 1,
-  //       prodName: '테스트2',
-  //     },
-  //   ]),
-  //   createData(2, '1', '20210503120000', '1', '카드', '성공', [
-  //     {
-  //       prodID: 1,
-  //       prodName: '테스트3',
-  //     },
-  //   ]),
-  //   createData(3, '1', '20210503120000', '1', '카드', '성공', [
-  //     {
-  //       prodID: 1,
-  //       prodName: '테스트4',
-  //     },
-  //   ]),
-  //   createData(4, '1', '20210503120000', '1', '카드', '성공', [
-  //     {
-  //       prodID: 1,
-  //       prodName: '테스트5',
-  //     },
-  //   ]),
-  //   createData(5, '1', '20210503120000', '1', '현금', '성공', [
-  //     {
-  //       prodID: 1,
-  //       prodName: '테스트6',
-  //     },
-  //   ]),
-  // ];
+  useEffect(() => {
+    console.log('Enter 입력');
+    setPage(0);
+    loadData(page);
+  }, [isEnter]);
 
   return (
     <>
@@ -156,7 +120,23 @@ const SearchContainer = () => {
         />
       </div>
       <div className={classes.paper}>
-        <ItemList paymentList={paymentList} />
+        {curPaymentList.length === 0 ? (
+          <>
+            <div className={classes.noPaymentList}>구매 내역이 없습니다.</div>
+          </>
+        ) : (
+          <React.Fragment>
+            <ItemList paymentList={curPaymentList} />
+            <div className={classes.morePaymentListArea}>
+              <IconButton
+                aria-label="more"
+                className={classes.morePaymentListBtn}
+                onClick={() => setPage(page + 1)}>
+                <ArrowDropDownIcon />
+              </IconButton>
+            </div>
+          </React.Fragment>
+        )}
       </div>
     </>
   );
