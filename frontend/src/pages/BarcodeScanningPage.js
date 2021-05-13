@@ -23,15 +23,29 @@ const BarcodeScanningPage = ({navigation}) => {
   }));
 
   const [qrvalue, setQrvalue] = useState('');
-
-  useEffect(() => {
-    if (!qrvalue || (lastItem && qrvalue === lastItem.prodCode)) {
+  let flag = false;
+  const onChangeQrvalue = qr => {
+    if (flag === true || qrvalue) {
       return;
     }
-    console.log('qrvalue : ' + qrvalue);
-    console.log('dispatch');
-    dispatch(addShoppingListItemByBarcode({prodCode: qrvalue}));
+    setQrvalue(qr);
+    dispatch(addShoppingListItemByBarcode({prodCode: qr}));
+    flag = true;
 
+    setTimeout(() => {
+      dispatch(removeLastItem());
+      setQrvalue('');
+    }, 2000);
+  };
+
+  useEffect(() => {
+    return () => {
+      dispatch(removeLastItem());
+      setQrvalue('');
+    };
+  }, []);
+
+  useEffect(() => {
     if (error) {
       ToastAndroid.showWithGravityAndOffset(
         '찾을 수 없는 상품입니다. 다시 스캔해주세요.',
@@ -41,21 +55,7 @@ const BarcodeScanningPage = ({navigation}) => {
         100,
       );
     }
-  }, [qrvalue]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch(removeLastItem());
-      setQrvalue('');
-    }, 5000);
-  }, [lastItem]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(removeLastItem());
-      setQrvalue('');
-    };
-  }, []);
+  }, [error]);
 
   return (
     <>
@@ -78,7 +78,9 @@ const BarcodeScanningPage = ({navigation}) => {
             laserColor={'transparent'}
             frameColor={'red'}
             colorForScannerFrame={'white'}
-            onReadCode={event => setQrvalue(event.nativeEvent.codeStringValue)}
+            onReadCode={event =>
+              onChangeQrvalue(event.nativeEvent.codeStringValue)
+            }
           />
         </View>
         {lastItem && <CameraItem lastItem={lastItem} style={styles.card} />}
