@@ -19,7 +19,7 @@ import {
   fetchSnackRanking,
 } from '../../modules/rankingProduct';
 import AppText from '../common/AppText';
-import EventProductItem from './EventProductItem';
+import MainRankingProductItem from './MainRankingProductItem';
 import Spinner from '../common/Spinner';
 
 const HomeProduct = () => {
@@ -135,7 +135,7 @@ const HomeProduct = () => {
                     : beer
                 }
                 keyExtractor={item => item.id}
-                renderItem={({item}) => <EventProductItem item={item} />}
+                renderItem={({item}) => <MainRankingProductItem item={item} />}
               />
             ) : (
               <Spinner />

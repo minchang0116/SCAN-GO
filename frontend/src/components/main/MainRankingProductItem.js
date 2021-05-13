@@ -4,7 +4,7 @@ import {Thumbnail} from 'native-base';
 import {View, StyleSheet} from 'react-native';
 import AppText from '../common/AppText';
 
-const EventProductItem = ({item}) => {
+const MainRankingProduct = ({item}) => {
   return (
     <>
       <View style={styles.wrap}>
@@ -13,7 +13,7 @@ const EventProductItem = ({item}) => {
           large
           style={styles.image}
           source={{
-            uri: item.image,
+            uri: 'data:image/png;base64,' + item.image,
           }}
         />
         <AppText numberOfLines={2} ellipsizeMode="tail">
@@ -45,7 +45,7 @@ const EventProductItem = ({item}) => {
   );
 };
 
-export default EventProductItem;
+export default MainRankingProduct;
 
 const styles = StyleSheet.create({
   wrap: {
