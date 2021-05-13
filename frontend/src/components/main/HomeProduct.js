@@ -19,7 +19,7 @@ import {
   fetchSnackRanking,
 } from '../../modules/rankingProduct';
 import AppText from '../common/AppText';
-import MainRankingProductItem from './MainRankingProductItem';
+import EventProductItem from './EventProductItem';
 import Spinner from '../common/Spinner';
 
 const HomeProduct = () => {
@@ -135,7 +135,9 @@ const HomeProduct = () => {
                     : beer
                 }
                 keyExtractor={item => item.id}
-                renderItem={({item}) => <MainRankingProductItem item={item} />}
+                renderItem={({item}) => (
+                  <EventProductItem item={item} home={true} />
+                )}
               />
             ) : (
               <Spinner />
@@ -199,5 +201,9 @@ const styles = StyleSheet.create({
   },
   categoryTxt: {
     fontSize: 10,
+  },
+  scrollContainer: {
+    marginTop: '3%',
+    marginBottom: '7%',
   },
 });
