@@ -1,65 +1,17 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
-import {makeStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from '../outline/Title';
+import {Button} from '@material-ui/core';
 
-// Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return {id, date, name, shipTo, paymentMethod, amount};
-}
+const onClickedDetail = item => {
+  console.log(item);
+};
 
-const rows = [
-  createData(
-    0,
-    '1',
-    '2021050312000000',
-    '1',
-    '1',
-  ),
-  createData(
-    0,
-    '1',
-    '2021050312000000',
-    '1',
-    '1',
-  ),
-  createData(
-    0,
-    '1',
-    '2021050312000000',
-    '1',
-    '1',
-  ),
-  createData(
-    0,
-    '1',
-    '2021050312000000',
-    '1',
-    '1',
-  ),
-  createData(
-    0,
-    '1',
-    '2021050312000000',
-    '1',
-    '1',
-  ),
-  createData(
-    0,
-    '1',
-    '2021050312000000',
-    '1',
-    '1',
-  ),
-  
-];
-
-const ItemList = () => {
+const ItemList = ({paymentList}) => {
   return (
     <>
       <React.Fragment>
@@ -68,18 +20,30 @@ const ItemList = () => {
           <TableHead>
             <TableRow>
               <TableCell>결제 번호</TableCell>
+              <TableCell>매장 이름</TableCell>
               <TableCell>구매 날짜</TableCell>
-              <TableCell>매장 번호</TableCell>
-              <TableCell>고객 번호</TableCell>
+              <TableCell>거래 금액</TableCell>
+              <TableCell>지불 방식</TableCell>
+              <TableCell>거래 결과</TableCell>
+              <TableCell style={{paddingLeft: 31}}>거래 물품</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(row => (
-              <TableRow key={row.id}>
-                <TableCell>{row.date}</TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.shipTo}</TableCell>
-                <TableCell>{row.paymentMethod}</TableCell>
+            {paymentList.map(item => (
+              <TableRow key={item.id}>
+                <TableCell>{item.id}</TableCell>
+                <TableCell>{item.storedId}</TableCell>
+                <TableCell>{item.txDateTime}</TableCell>
+                <TableCell>{item.paymentAmount}</TableCell>
+                <TableCell>{item.paymentPlan}</TableCell>
+                <TableCell>{item.paymentResult}</TableCell>
+                <TableCell>
+                  <Button
+                    variant="outlined"
+                    onClick={() => onClickedDetail(item.paymentDetail)}>
+                    상세보기
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
