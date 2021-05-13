@@ -83,14 +83,6 @@ const LoginPage = ({navigation}) => {
             placeholder="비밀번호"
           />
         </View>
-        {/* <TouchableOpacity style={styles.saveIdArea} onPress={onToggle}>
-          {autoLogin ? (
-            <IconAntD name="check-circle" size={20} color="rgb(218,41,28)" />
-          ) : (
-            <IconAntD name="check-circle" size={20} color="rgb(226,226,226)" />
-          )}
-          <AppText> 아이디 저장</AppText>
-        </TouchableOpacity> */}
         <View style={styles.loginBtnArea}>
           <TouchableOpacity
             style={styles.loginBtn}

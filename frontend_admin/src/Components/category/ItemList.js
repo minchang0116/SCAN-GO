@@ -6,7 +6,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from '../outline/Title';
 import {Button} from '@material-ui/core';
-import {Fragment} from 'react';
 
 const ItemList = ({paymentList}) => {
   const [detailId, setDetailId] = useState(-1);
@@ -53,7 +52,7 @@ const ItemList = ({paymentList}) => {
                   </TableCell>
                 </TableRow>
                 {detailId === item.id ? (
-                  <Fragment>
+                  <React.Fragment>
                     <TableCell colSpan={10}>
                       <TableHead>
                         <TableRow>
@@ -76,7 +75,7 @@ const ItemList = ({paymentList}) => {
                         ))}
                       </TableBody>
                     </TableCell>
-                  </Fragment>
+                  </React.Fragment>
                 ) : null}
               </>
             ))}
