@@ -1,29 +1,56 @@
 package com.ssg.shopping.product.service;
 
 import com.ssg.shopping.product.data.Entity.*;
+import com.ssg.shopping.product.data.Repository.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public interface EventService {
-    @Transactional
-    List<Events> getEventsList();
+@RequiredArgsConstructor
+@Service
+public class EventService {
+    private final EventsRepository eventsRepository;
+    private final DumProductRepository dumProductRepository;
+    private final SaleProductRepository saleProductRepository;
+    private final PlusOneProductRepository plusOneProductRepository;
+    private final BeerRankingRepository beerRankingRepository;
+    private final IcecreamRankingRepository icecreamRankingRepository;
+    private final SnackRankingRepository snackRankingRepository;
 
     @Transactional
-    List<DumProduct> getDumProductList();
+    public List<Events> getEventsList() {
+        return eventsRepository.findAll();
+    }
 
     @Transactional
-    List<SaleProduct> getSaleProductList();
+    public List<DumProduct> getDumProductList() {
+        return dumProductRepository.findAll();
+    }
 
     @Transactional
-    List<PlusOneProduct> getPlusOneProductList();
+    public List<SaleProduct> getSaleProductList() {
+        return saleProductRepository.findAll();
+    }
 
     @Transactional
-    List<BeerRanking> getBeerRanking();
+    public List<PlusOneProduct> getPlusOneProductList() {
+        return plusOneProductRepository.findAll();
+    }
 
     @Transactional
-    List<IcecreamRanking> getIcecreamRanking();
+    public List<BeerRanking> getBeerRanking() {
+        return beerRankingRepository.findAll();
+    }
 
     @Transactional
-    List<SnackRanking> getSnackRanking();
+    public List<IcecreamRanking> getIcecreamRanking() {
+        return icecreamRankingRepository.findAll();
+    }
+
+    @Transactional
+    public List<SnackRanking> getSnackRanking() {
+        return snackRankingRepository.findAll();
+    }
 }

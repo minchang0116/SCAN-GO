@@ -6,6 +6,7 @@ import userInfo from './userInfo';
 import payment from './payment';
 import eventProductList from './eventProductList';
 import rankingProduct from './rankingProduct';
+import imageProduct from './imageProduct';
 
 const rootReducer = combineReducers({
   loading,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   payment,
   eventProductList,
   rankingProduct,
+  imageProduct,
 });
 
 export default rootReducer;

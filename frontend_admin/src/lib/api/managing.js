@@ -17,5 +17,20 @@ export const getTodayPrice = () => {
 
 // 관리자 로그인
 export const adminLogin = formData => {
-  return client.post('/admin/login', formData);
+  return client.post('/member/login', formData);
+};
+
+// 유저 검색 구매리스트 호출 (기간설정)
+export const getCostomerPaymentList = (date1, date2, loginId, pageNum) => {
+  return client.get(
+    `/admin/payments_date?date1=${date1}&date2=${date2}&loginId=${loginId}&pageNum=${pageNum}`,
+  );
+};
+
+// 유저 검색 구매리스트 호출 (전체 기간)
+export const getCostomerAllPaymentList = (loginId, pageNum) => {
+  console.log(loginId, pageNum);
+  return client.get(
+    `/admin/payments_all?loginId=${loginId}&pageNum=${pageNum}`,
+  );
 };

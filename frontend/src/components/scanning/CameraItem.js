@@ -13,8 +13,7 @@ const CameraItem = ({lastItem, style}) => {
           <Body style={{flexDirection: 'row'}}>
             <Image
               source={{
-                uri:
-                  'http://image3.compuzone.co.kr/img/product_img/2021/0219/764689/764689_600.jpg',
+                uri: 'data:image/png;base64,' + lastItem.prodImage,
               }}
               style={styles.productImg}
             />
@@ -34,10 +33,13 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     width: 100,
     height: '100%',
+    marginRight: 10,
   },
   cardItem: {
     borderRadius: 10,
     height: 100,
+    marginHorizontal: 10,
+    marginVertical: 10,
   },
   STYLE,
 });

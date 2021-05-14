@@ -21,19 +21,19 @@ const PaymentListContainer = () => {
     paymentList: paymentList.paymentList,
     loading: paymentList.loading,
   }));
-  const [selectedDuration, setSeletedDuration] = useState('최근 3개월');
+  const [selectedDuration, setSelectedDuration] = useState('최근 3개월');
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [page, setPage] = useState(0);
-  const [curPaymentList, setCurPaymentList] = useState([]);
+  const [curPaymentList, setCurPaymentList] = useState(null);
 
-  const changeDateFormat = date => {
+  const changeDateFormat = useCallback(date => {
     return (
       date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     );
-  };
+  });
 
-  const loadData = PAGE => {
+  const loadData = useCallback(PAGE => {
     const formData = {
       memberId: 1,
       date1: changeDateFormat(startDate),
@@ -42,7 +42,7 @@ const PaymentListContainer = () => {
     };
     dispatch(fetchPaymentList(formData));
     console.log(paymentList);
-  };
+  });
 
   useEffect(() => {
     console.log('기간 picker 변경됨');
@@ -95,20 +95,18 @@ const PaymentListContainer = () => {
     <>
       <View style={styles.container}>
         <Content>
-          {loading && <Spinner />}
           <SetDurationPicker
             selectedDuration={selectedDuration}
-            setSeletedDuration={setSeletedDuration}
+            setSelectedDuration={setSelectedDuration}
           />
           <SetDuration
             startDate={startDate}
             setStartDate={setStartDate}
             endDate={endDate}
             setEndDate={setEndDate}
-            loadData={loadData}
-            setPage={setPage}
           />
-          {curPaymentList.length > 0 ? (
+          {loading && <Spinner />}
+          {curPaymentList && curPaymentList.length > 0 ? (
             <FlatList
               data={curPaymentList}
               keyExtractor={keyExtractor}
@@ -132,6 +130,8 @@ const PaymentListContainer = () => {
     </>
   );
 };
+
+export default PaymentListContainer;
 
 const styles = StyleSheet.create({
   container: {
@@ -157,5 +157,3 @@ const styles = StyleSheet.create({
     color: 'rgb(144,144,144)',
   },
 });
-
-export default PaymentListContainer;

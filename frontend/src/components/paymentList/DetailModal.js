@@ -18,9 +18,12 @@ const DetailModal = ({isModalVisible, toggleModal, payment}) => {
       <View style={{flex: 1, width: '100%'}}>
         <Card>
           <CardItem header style={styles.header}>
-            <AppText style={{fontWeight: '700', fontSize: 22}}>
-              {payment.txDateTime.slice(0, 10)}
-              <AppText style={{fontWeight: '400'}}>
+            <AppText style={{fontWeight: '700', fontSize: 20}}>
+              {payment.txDateTime.substring(0, 10)}
+              <AppText style={styles.fontHeader2}>
+                &nbsp;&nbsp;{payment.txDateTime.substring(11, 19)}
+              </AppText>
+              <AppText style={styles.fontHeader2}>
                 &nbsp;&nbsp;({payment.id})
               </AppText>
             </AppText>
@@ -68,5 +71,9 @@ const styles = StyleSheet.create({
   close: {
     position: 'absolute',
     left: '100%',
+  },
+  fontHeader2: {
+    fontWeight: '400',
+    fontSize: 15,
   },
 });

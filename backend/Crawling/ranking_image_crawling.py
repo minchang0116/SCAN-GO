@@ -31,7 +31,7 @@ def search_selenium(search_name, index) :
         connection = pymysql.connect(host='k4d101.p.ssafy.io',port=3306,user="ssafy",password="ssafy",db="ssg", cursorclass=pymysql.cursors.DictCursor)
 
         with connection.cursor() as cursor:
-           sql = "INSERT INTO product_image(prod_name,image) VALUES (%s,%s)"
+           sql = "INSERT INTO snack_ranking(prod_name,image) VALUES (%s,%s)"
            values = (str(search_name),base64string)
            cursor.execute(sql, values)
            connection.commit()
@@ -43,7 +43,7 @@ def search_selenium(search_name, index) :
         browser.close()
 
     except:
-        f = open('new.txt', 'a')
+        f = open('tmp.txt', 'a')
         f.write(search_name)
         f.close()
  
@@ -51,13 +51,13 @@ def search_selenium(search_name, index) :
  
 if __name__ == "__main__" :
  
-	f = open('except.txt', 'r', encoding='UTF-8')
+	f = open('beer.txt', 'r', encoding='UTF-8')
 	line = f.readline()
 	index = 1
 
 	while line:
 	#for i in range(3):
-		if index >= 19:
+		if index >= 1:
 			search_selenium(line,index)
 			line = f.readline()
 			index = index + 1

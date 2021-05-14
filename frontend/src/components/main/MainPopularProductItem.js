@@ -1,22 +1,25 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {Thumbnail} from 'native-base';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Image} from 'react-native';
 import AppText from '../common/AppText';
 
-const EventProductItem = ({item}) => {
+const MainPopularProductItem = ({item, home}) => {
   return (
     <>
       <View style={styles.wrap}>
-        <Thumbnail
-          square
-          large
-          style={styles.image}
-          source={{
-            uri: item.image,
-          }}
-        />
-        <AppText numberOfLines={2} ellipsizeMode="tail">
+        <View style={styles.imageWrap}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: (home ? 'data:image/png;base64,' : '') + item.image,
+            }}
+          />
+        </View>
+        <AppText
+          numberOfLines={2}
+          style={{marginTop: 10, fontSize: 13}}
+          ellipsizeMode="tail">
           {item.prodName}
         </AppText>
         {item.prodSalePrice && (
@@ -45,18 +48,20 @@ const EventProductItem = ({item}) => {
   );
 };
 
-export default EventProductItem;
+export default MainPopularProductItem;
 
 const styles = StyleSheet.create({
-  wrap: {
-    width: 150,
-    height: '100%',
-    paddingRight: 8,
-    paddingLeft: 8,
-  },
+  wrap: {width: 120, marginRight: 20},
   image: {
-    width: 150,
-    height: 150,
-    resizeMode: 'contain',
+    width: 110,
+    height: 110,
+    resizeMode: 'stretch',
+    borderRadius: 10,
+  },
+  imageWrap: {
+    width: 120,
+    height: 120,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
