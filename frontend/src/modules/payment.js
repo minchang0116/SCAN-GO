@@ -4,6 +4,7 @@ import {deleteAllShoppingListItem} from './shoppingList';
 import hmacSHA256 from 'crypto-js/hmac-sha256';
 import Base64 from 'crypto-js/enc-base64';
 import moment from 'moment';
+import {HMACK_KEY} from '@env';
 export const requestPayment = createAsyncThunk(
   'payment/requestPayment',
   async (formData, {dispatch, getState}) => {
@@ -13,7 +14,7 @@ export const requestPayment = createAsyncThunk(
       const txDateTime = String(moment().format('YYYYMMDDHHmmss'));
       const clientNo = String(userInfo.memberId);
       const plainString = txSeq + txDateTime + shoppingList.storeId + clientNo;
-      const key = 'incssafy12#$12#$';
+      const key = HMACK_KEY;
       const authHash = await Base64.stringify(hmacSHA256(plainString, key));
       const response = await paymentApi.requestPayment({
         txSeq: txSeq,
@@ -44,13 +45,16 @@ const paymentSlice = createSlice({
     hasErrors: false,
     paymentList: [],
   },
-  reducers: {},
+  reducers: {
+    deletePayment: state => {
+      state.paymentList = [];
+    },
+  },
   extraReducers: {
     [requestPayment.pending]: state => {
       state.loading = true;
     },
     [requestPayment.fulfilled]: (state, {payload}) => {
-      console.log(payload);
       state.paymentList = payload;
       state.loading = false;
       state.hasErrors = false;
@@ -62,5 +66,5 @@ const paymentSlice = createSlice({
   },
 });
 
-export const {} = paymentSlice.actions;
+export const {deletePayment} = paymentSlice.actions;
 export default paymentSlice.reducer;

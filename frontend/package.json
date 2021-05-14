@@ -27,6 +27,7 @@
     "react-native": "0.64.0",
     "react-native-camera": "^3.43.6",
     "react-native-camera-kit": "^11.1.0",
+    "react-native-dotenv": "^2.5.5",
     "react-native-easy-grid": "^0.2.2",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-modal": "^11.10.0",

@@ -22,10 +22,6 @@ const Stack = createStackNavigator();
 
 const StackNav = () => {
   const dispatch = useDispatch();
-  useEffect(async () => {
-    console.log('Stack Header - 유저 정보 확인');
-    checkUserInfo();
-  }, []);
 
   const checkUserInfo = async () => {
     let userData = await asyncStorage.getObjectData('user');
@@ -42,7 +38,7 @@ const StackNav = () => {
       console.log('저장된 유저 정보 없음! 로그인 필요!');
     }
   };
-
+  checkUserInfo();
   return (
     <Stack.Navigator initialRouteName="LoadingPage">
       <Stack.Screen

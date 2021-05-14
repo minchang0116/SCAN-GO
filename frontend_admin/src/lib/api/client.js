@@ -4,7 +4,6 @@ const host = 'http://k4d101.p.ssafy.io:9000/ssg';
 
 const client = axios.create({
   baseURL: host,
-  withCredentials: true,
 });
 
 export default client;

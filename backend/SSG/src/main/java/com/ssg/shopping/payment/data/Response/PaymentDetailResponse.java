@@ -1,6 +1,7 @@
 package com.ssg.shopping.payment.data.Response;
 
 import com.ssg.shopping.payment.data.Entity.PaymentDetail;
+import com.ssg.shopping.product.data.Repository.ProductImageRepository;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ public class PaymentDetailResponse {
     private String prodCode;
     private String prodName;
     private String prodPrice;
+    private String prodImage;
     private long qty;
 
     public PaymentDetailResponse(PaymentDetail paymentDetail) {
@@ -19,5 +21,9 @@ public class PaymentDetailResponse {
         this.prodName = paymentDetail.getProduct().getProdName();
         this.prodPrice = paymentDetail.getProduct().getProdPrice();
         this.qty = paymentDetail.getQty();
+    }
+
+    public void updateProductImage(String prodImage) {
+        this.prodImage = prodImage;
     }
 }
