@@ -1,39 +1,19 @@
+import {useNavigation} from '@react-navigation/core';
 import {Body, Button, Left, List, ListItem, Right, View} from 'native-base';
 import React, {useEffect, useState} from 'react';
 import {BackHandler, ScrollView, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppText from '../common/AppText';
 
-const PaymentSuccess = ({payment, navigation}) => {
+const PaymentSuccess = ({payment, backAction}) => {
   const [sumPrice, setSumPrice] = useState(0);
   useEffect(() => {
     let price = 0;
     for (let item of payment.paymentList) {
       price += item.prodPrice * item.qty;
     }
-    setSumPrice(price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+    setSumPrice(price.toLocaleString());
   }, [payment]);
-
-  const backAction = () => {
-    navigation.navigate('MainPage');
-    return true;
-  };
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('blur', () => {
-      console.log('이벤트blur');
-      BackHandler.removeEventListener('hardwareBackPress', backAction);
-    });
-    return unsubscribe;
-  }, [navigation]);
-
-  useEffect(() => {
-    const unsubscribe2 = navigation.addListener('focus', () => {
-      console.log('이벤트focus');
-      BackHandler.addEventListener('hardwareBackPress', backAction);
-    });
-    return unsubscribe2;
-  }, [navigation]);
 
   return (
     <>
@@ -48,9 +28,7 @@ const PaymentSuccess = ({payment, navigation}) => {
             <AppText>결제가 완료되었습니다.</AppText>
           </View>
         </View>
-        <Button
-          style={styles.button}
-          onPress={() => navigation.navigate('MainPage')}>
+        <Button style={styles.button} onPress={() => backAction()}>
           <AppText style={styles.buttonText}>홈으로</AppText>
         </Button>
       </View>
