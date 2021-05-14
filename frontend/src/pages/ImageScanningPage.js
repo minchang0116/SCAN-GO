@@ -46,7 +46,7 @@ const ImageScanningPage = ({navigation}) => {
       
       let starttime = new Date().getTime();
       
-      const response = await axios.post('http://70.12.130.104:5000/predict', frd, {
+      const response = await axios.post('http://3.18.221.184:5000/predict', frd, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -65,7 +65,7 @@ const ImageScanningPage = ({navigation}) => {
       }
       */
       
-      console.log(response.data)
+      console.log(response.data);
 
       let endtime = new Date().getTime() - starttime;
       console.log("소요된 시간: " + endtime +"ms");
