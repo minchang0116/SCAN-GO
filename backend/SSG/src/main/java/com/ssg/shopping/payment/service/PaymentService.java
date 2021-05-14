@@ -63,7 +63,7 @@ public class PaymentService {
         cal.setTime(txDate2);
         cal.add(Calendar.DATE, 1);
         txDate2 = cal.getTime();
-        List<CustomerPayment> paymentList = customerPaymentRepository.findByMember_IdAndTxDateTimeIsGreaterThanAndTxDateTimeLessThan(memberId, txDate1, txDate2, PageRequest.of((int)pageNum, 10, Direction.DESC, "txDateTime"));
+        List<CustomerPayment> paymentList = customerPaymentRepository.findByMember_IdAndTxDateTimeGreaterThanAndTxDateTimeLessThan(memberId, txDate1, txDate2, PageRequest.of((int)pageNum, 10, Direction.DESC, "txDateTime"));
         List<CustomerPaymentResponse> customerPaymentList = new ArrayList<>();
         for(CustomerPayment payment : paymentList) {
             if(payment.getPaymentResult().equals("")) continue;
