@@ -6,8 +6,6 @@ import {Image, StyleSheet, View} from 'react-native';
 let STYLE;
 const CameraItem = ({lastItem, style}) => {
   STYLE = style;
-  console.log('lastItem');
-  console.log('data:image/png;base64,' + lastItem.prodImage);
   return (
     <>
       <Card style={styles.card}>
@@ -35,6 +33,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     width: 100,
     height: '100%',
+    marginRight: 10,
   },
   cardItem: {
     borderRadius: 10,
