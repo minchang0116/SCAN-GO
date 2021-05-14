@@ -37,9 +37,9 @@ public class AdminService {
         return list;
     }
 
-    // 거래내역 전체 조회
+    // 사용자 거래내역 전체 조회
     @Transactional
-    public List<CustomerPaymentResponse> getAllCustomerPaymentList(String loginId, long pageNum) {
+    public List<CustomerPaymentResponse> getMemberCustomerPaymentListAll(String loginId, long pageNum) {
         List<CustomerPaymentResponse> list = new ArrayList<>();
         List<CustomerPayment> customerPayments = customerPaymentRepository.findByMemberLoginId(loginId, PageRequest.of((int)pageNum, 10, Sort.Direction.DESC, "txDateTime"));
         for(CustomerPayment customerPayment : customerPayments) {
@@ -48,9 +48,9 @@ public class AdminService {
         return list;
     }
 
-    // 거래내역 날짜별 조회
+    // 사용자 거래내역 날짜별 조회
     @Transactional
-    public List<CustomerPaymentResponse> getDateCustomerPaymentList(String loginId, String date1, String date2, long pageNum) throws ParseException {
+    public List<CustomerPaymentResponse> getMemberCustomerPaymentListDate(String loginId, String date1, String date2, long pageNum) throws ParseException {
         List<CustomerPaymentResponse> customerPaymentList = new ArrayList<>();
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date txDate1 = df.parse(date1);
@@ -59,16 +59,34 @@ public class AdminService {
         cal.setTime(txDate2);
         cal.add(Calendar.DATE, 1);
         txDate2 = cal.getTime();
-        System.out.println(txDate1.toString()+" "+txDate2.toString());
-        List<CustomerPayment> paymentList = customerPaymentRepository.findByMemberLoginIdAndTxDateTimeIsGreaterThanAndTxDateTimeLessThan(loginId, txDate1, txDate2, PageRequest.of((int)pageNum, 10, Sort.Direction.DESC, "txDateTime"));
+        List<CustomerPayment> paymentList = customerPaymentRepository.findByMemberLoginIdAndTxDateTimeGreaterThanAndTxDateTimeLessThan(loginId, txDate1, txDate2, PageRequest.of((int)pageNum, 10, Sort.Direction.DESC, "txDateTime"));
         if(paymentList != null) {
-            System.out.println(txDate1+" "+txDate2);
             for(CustomerPayment payment : paymentList) {
                 if(payment.getPaymentResult().equals("")) continue;
                 customerPaymentList.add(new CustomerPaymentResponse(payment));
             }
         }
+        return customerPaymentList;
+    }
 
+    // 특정 날짜 거래내역 조회
+    @Transactional
+    public List<CustomerPaymentResponse> getCustomerPaymentByDate(String date, long pageNum) throws ParseException {
+        List<CustomerPaymentResponse> customerPaymentList = new ArrayList<>();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date txDate1 = df.parse(date);
+        Calendar cal = Calendar.getInstance();
+        Date txDate2 = df.parse(date);
+        cal.setTime(txDate2);
+        cal.add(Calendar.DATE, 1);
+        txDate2 = cal.getTime();
+        List<CustomerPayment> paymentList = customerPaymentRepository.findByTxDateTimeGreaterThanAndTxDateTimeLessThan(txDate1, txDate2, PageRequest.of((int)pageNum, 10, Sort.Direction.DESC, "txDateTime"));
+        if(paymentList != null) {
+            for(CustomerPayment payment : paymentList) {
+                if(payment.getPaymentResult().equals("")) continue;
+                customerPaymentList.add(new CustomerPaymentResponse(payment));
+            }
+        }
         return customerPaymentList;
     }
 }
