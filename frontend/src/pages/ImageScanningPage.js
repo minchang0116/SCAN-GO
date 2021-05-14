@@ -1,6 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useCallback, useEffect, useRef} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps*/
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {StyleSheet, ToastAndroid, TouchableOpacity, View} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
 import {RNCamera} from 'react-native-camera';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import IconF from 'react-native-vector-icons/Feather';
@@ -13,7 +15,6 @@ import {
 } from '../modules/shoppingList';
 import {fetchBarcode, removeBarcode} from '../modules/imageProduct';
 import AppText from '../components/common/AppText';
-import Spinner from '../components/common/Spinner';
 
 const ImageScanningPage = ({navigation}) => {
   const dispatch = useDispatch();
@@ -41,6 +42,16 @@ const ImageScanningPage = ({navigation}) => {
   }));
 
   const cameraRef = useRef(null);
+  const [focusedScreen, setFocusedScreen] = useState();
+  useFocusEffect(
+    useCallback(() => {
+      setFocusedScreen(true);
+      return () => {
+        setFocusedScreen(false);
+      };
+    }, []),
+  );
+
   useEffect(() => {
     if (loading1 || loading2) {
       return;
@@ -51,7 +62,7 @@ const ImageScanningPage = ({navigation}) => {
       setTimeout(() => {
         dispatch(removeLastItem());
         dispatch(removeBarcode());
-      }, 2000);
+      }, 3000);
     }
   }, [barcode]);
 
@@ -77,9 +88,7 @@ const ImageScanningPage = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      {loading1 || loading2 ? (
-        <Spinner style={styles.spinner} />
-      ) : (
+      {focusedScreen ? (
         <>
           <TouchableOpacity
             style={styles.close}
@@ -108,6 +117,10 @@ const ImageScanningPage = ({navigation}) => {
           </TouchableOpacity>
           <CameraFooter sumPrice={sumPrice} qtyProduct={qtyProduct} />
         </>
+      ) : (
+        <View>
+          <AppText>pause</AppText>
+        </View>
       )}
     </View>
   );
@@ -140,9 +153,8 @@ const styles = StyleSheet.create({
   card: {
     zIndex: 5,
     width: '95%',
-    marginRight: 'auto',
+    marginVertical: 20,
     marginBottom: 80,
-    marginLeft: 'auto',
     borderRadius: 10,
   },
   redText: {
@@ -166,10 +178,5 @@ const styles = StyleSheet.create({
   white11Text: {
     color: 'rgb(255,255,255)',
     fontSize: 11,
-  },
-  spinner: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
   },
 });
