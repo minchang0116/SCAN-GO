@@ -106,12 +106,15 @@ const PaymentListContainer = () => {
             setEndDate={setEndDate}
           />
           {loading && <Spinner />}
-          {curPaymentList ? (
-            <FlatList
-              data={curPaymentList}
-              keyExtractor={keyExtractor}
-              renderItem={renderItem}
-            />
+          {curPaymentList && curPaymentList.length > 0 ? (
+            <>
+              {console.log(curPaymentList)}
+              <FlatList
+                data={curPaymentList}
+                keyExtractor={keyExtractor}
+                renderItem={renderItem}
+              />
+            </>
           ) : (
             <View style={styles.emptyContainer}>
               <AppText style={styles.grayText}>결제 내역이 없습니다.</AppText>
