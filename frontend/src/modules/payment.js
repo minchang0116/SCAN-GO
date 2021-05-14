@@ -45,13 +45,16 @@ const paymentSlice = createSlice({
     hasErrors: false,
     paymentList: [],
   },
-  reducers: {},
+  reducers: {
+    deletePayment: state => {
+      state.paymentList = [];
+    },
+  },
   extraReducers: {
     [requestPayment.pending]: state => {
       state.loading = true;
     },
     [requestPayment.fulfilled]: (state, {payload}) => {
-      console.log(payload);
       state.paymentList = payload;
       state.loading = false;
       state.hasErrors = false;
@@ -63,5 +66,5 @@ const paymentSlice = createSlice({
   },
 });
 
-export const {} = paymentSlice.actions;
+export const {deletePayment} = paymentSlice.actions;
 export default paymentSlice.reducer;

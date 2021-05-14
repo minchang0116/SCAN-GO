@@ -1,4 +1,4 @@
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {Body, Header, Left, Right} from 'native-base';
 import React from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
@@ -7,12 +7,18 @@ import AppText from './AppText';
 
 const SubHeader = ({title, isIcon = true}) => {
   const navigation = useNavigation();
+  const onGoBack = () => {
+    if (title === '결제 완료 페이지') {
+      navigation.navigate('MainPage');
+    } else {
+      navigation.goBack();
+    }
+  };
+
   return (
     <Header androidStatusBarColor={'rgb(240,41,28)'} style={styles.header}>
       <Left>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={styles.button} onPress={() => onGoBack()}>
           <Icon style={styles.fontColor1} name="arrow-back" />
         </TouchableOpacity>
       </Left>

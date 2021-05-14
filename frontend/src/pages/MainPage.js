@@ -5,7 +5,7 @@ import MainHeader from '../components/common/MainHeader';
 import MainTab from '../components/common/MainTab';
 import RNShake from 'react-native-shake';
 import {BackHandler, ToastAndroid} from 'react-native';
-import {useNavigation} from '@react-navigation/core';
+import {useFocusEffect, useNavigation} from '@react-navigation/core';
 
 const MainPage = () => {
   const navigation = useNavigation();
@@ -35,21 +35,15 @@ const MainPage = () => {
     }
     return true;
   };
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('blur', () => {
-      console.log('이벤트blur');
-      BackHandler.removeEventListener('hardwareBackPress', backAction);
-    });
-    return unsubscribe;
-  }, [navigation]);
 
-  useEffect(() => {
-    const unsubscribe2 = navigation.addListener('focus', () => {
-      console.log('이벤트focus');
+  useFocusEffect(
+    React.useCallback(() => {
       BackHandler.addEventListener('hardwareBackPress', backAction);
-    });
-    return unsubscribe2;
-  }, [navigation]);
+      return () => {
+        BackHandler.removeEventListener('hardwareBackPress', backAction);
+      };
+    }, []),
+  );
 
   return (
     <Container>
