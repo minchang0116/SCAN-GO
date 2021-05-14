@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useRef} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {StyleSheet, ToastAndroid, TouchableOpacity, View} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import IconAntD from 'react-native-vector-icons/AntDesign';
@@ -7,111 +7,108 @@ import IconF from 'react-native-vector-icons/Feather';
 import {useDispatch, useSelector} from 'react-redux';
 import {CameraFooter} from '../components/scanning/CameraFooter';
 import CameraItem from '../components/scanning/CameraItem';
-import {addShoppingListItemByBarcode} from '../modules/shoppingList';
+import {
+  addShoppingListItemByBarcode,
+  removeLastItem,
+} from '../modules/shoppingList';
+import {fetchBarcode, removeBarcode} from '../modules/imageProduct';
 import AppText from '../components/common/AppText';
 import Spinner from '../components/common/Spinner';
-
-import axios from 'axios';
 
 const ImageScanningPage = ({navigation}) => {
   const dispatch = useDispatch();
 
-  const {lastItem, sumPrice, error, loading} = useSelector(
-    ({shoppingList}) => ({
-      lastItem: shoppingList.lastItem,
-      sumPrice: shoppingList.sumPrice.toString().toLocaleString(),
-      error: shoppingList.hasErrors,
-      loading: shoppingList.loading,
-    }),
-  );
+  const {
+    qtyProduct,
+    lastItem,
+    sumPrice,
+    error1,
+    error2,
+    loading1,
+    loading2,
+    barcode,
+  } = useSelector(({shoppingList, imageProduct}) => ({
+    lastItem: shoppingList.lastItem,
+    sumPrice: shoppingList.sumPrice.toString().toLocaleString(),
+    error1: shoppingList.hasErrors,
+    error2: imageProduct.hasErrors,
+    loading1: shoppingList.loading,
+    loading2: imageProduct.loading,
+    barcode: imageProduct.barcode,
+    qtyProduct: shoppingList.paymentDetail
+      ? shoppingList.paymentDetail.length
+      : 0,
+  }));
 
   const cameraRef = useRef(null);
+  useEffect(() => {
+    if (loading1 || loading2) {
+      return;
+    }
+    if (barcode) {
+      console.log(barcode);
+      dispatch(addShoppingListItemByBarcode({prodCode: barcode}));
+      setTimeout(() => {
+        dispatch(removeLastItem());
+        dispatch(removeBarcode());
+      }, 2000);
+    }
+  }, [barcode]);
 
-  const takePhoto = async () => {
+  useEffect(() => {
+    if (error1 || error2) {
+      ToastAndroid.showWithGravityAndOffset(
+        '찾을 수 없는 상품입니다. 다시 촬영해주세요.',
+        ToastAndroid.SHORT,
+        ToastAndroid.TOP,
+        25,
+        100,
+      );
+    }
+  }, [error1, error2]);
+
+  const takePhoto = useCallback(async () => {
     if (cameraRef) {
       const options = {quality: 0.5, base64: true};
       const data = await cameraRef.current.takePictureAsync(options);
-      console.log('data!!! :  ' + data.uri);
-
-      /*
-      const formData = {
-        prodCode: getProductCode().toString(),
-      };
-      console.log(getProductCode().toString());
-      dispatch(addShoppingListItemByBarcode({formData}));
-      */
-      
-      var frd = new FormData();
-      frd.append('file', { uri: data.uri, name: 'picture.jpg', type: 'image/jpg' });
-      
-      let starttime = new Date().getTime();
-      
-      const response = await axios.post('http://70.12.130.104:5000/predict', frd, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
-
-      /*
-      if (error) {
-        console.log("error!");
-        ToastAndroid.showWithGravityAndOffset(
-          '찾을 수 없는 상품입니다. 다시 촬영해주세요.',
-          ToastAndroid.SHORT,
-          ToastAndroid.TOP,
-          25,
-          100,
-        );
-      }
-      */
-      
-      console.log(response.data)
-
-      let endtime = new Date().getTime() - starttime;
-      console.log("소요된 시간: " + endtime +"ms");
+      dispatch(fetchBarcode(data.uri));
     }
-  };
+  }, []);
 
-  /*
-  const getProductCode = () => {
-    return 8992839913137;
-  };
-  */
-  
   return (
     <View style={{flex: 1}}>
-      {/* {loading ? (
-        <Spinner />
-      ) : ( */}
-      <>
-        <TouchableOpacity
-          style={styles.close}
-          onPress={() => navigation.navigate('MainPage')}>
-          <IconAntD name="close" size={30} style={styles.whiteText} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.barcodeBtn}
-          onPress={() => navigation.navigate('BarcodeScanningPage')}>
-          <AppText style={styles.white11Text}>바코드</AppText>
-          <AppText style={styles.white11Text}>스캔</AppText>
-        </TouchableOpacity>
-        <View style={{flex: 1}}>
-          <RNCamera
-            ref={cameraRef}
-            style={({width: '100%'}, {height: '100%'})}
-            type={RNCamera.Constants.Type.back}
-            captureAudio={false}
-          />
-        </View>
-        {lastItem && <CameraItem lastItem={lastItem} style={styles.card} />}
-        <TouchableOpacity
-          style={styles.takePhotoBtn}
-          onPress={() => takePhoto()}>
-          <IconF name="camera" size={30} style={styles.redText} />
-        </TouchableOpacity>
-        <CameraFooter navigation={navigation} sumPrice={sumPrice} />
-      </>
-      {/* )} */}
+      {loading1 || loading2 ? (
+        <Spinner style={styles.spinner} />
+      ) : (
+        <>
+          <TouchableOpacity
+            style={styles.close}
+            onPress={() => navigation.navigate('MainPage')}>
+            <IconAntD name="close" size={30} style={styles.whiteText} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.barcodeBtn}
+            onPress={() => navigation.navigate('BarcodeScanningPage')}>
+            <AppText style={styles.white11Text}>바코드</AppText>
+            <AppText style={styles.white11Text}>스캔</AppText>
+          </TouchableOpacity>
+          <View style={{flex: 1}}>
+            <RNCamera
+              ref={cameraRef}
+              style={({width: '100%'}, {height: '100%'})}
+              type={RNCamera.Constants.Type.back}
+              captureAudio={false}
+            />
+          </View>
+          {lastItem && <CameraItem lastItem={lastItem} style={styles.card} />}
+          <TouchableOpacity
+            style={styles.takePhotoBtn}
+            onPress={() => takePhoto()}>
+            <IconF name="camera" size={30} style={styles.redText} />
+          </TouchableOpacity>
+          <CameraFooter sumPrice={sumPrice} qtyProduct={qtyProduct} />
+        </>
+      )}
     </View>
   );
 };
@@ -169,5 +166,10 @@ const styles = StyleSheet.create({
   white11Text: {
     color: 'rgb(255,255,255)',
     fontSize: 11,
+  },
+  spinner: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
   },
 });

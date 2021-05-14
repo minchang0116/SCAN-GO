@@ -1,10 +1,10 @@
 import {Content, Spinner} from 'native-base';
 import React from 'react';
 
-const spinner = () => {
+const spinner = ({style}) => {
   return (
     <Content>
-      <Spinner color="red" />
+      <Spinner color="red" style={style} />
     </Content>
   );
 };
