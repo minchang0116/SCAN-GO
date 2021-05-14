@@ -7,6 +7,7 @@ import SetDuration from '../../Components/common/SetDuration';
 import * as managingAPI from '../../lib/api/managing';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import {IconButton} from '@material-ui/core';
+import {dateToString} from '../../lib/function/dateToString';
 
 const SearchContainer = () => {
   const classes = useStyles();
@@ -39,17 +40,6 @@ const SearchContainer = () => {
       setIsEnter(!isEnter);
       loadData(page);
     }
-  };
-
-  const dateToString = date => {
-    console.log(date);
-    return (
-      date.getFullYear() +
-      '-' +
-      (date.getMonth() + 1).toString().padStart(2, '0') +
-      '-' +
-      date.getDate().toString().padStart(2, '0')
-    );
   };
 
   const loadData = async PAGE => {

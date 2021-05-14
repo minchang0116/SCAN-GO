@@ -6,6 +6,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from '../outline/Title';
 import {Button} from '@material-ui/core';
+import {dateToStringWithTime} from '../../lib/function/dateToString';
 
 const ItemList = ({paymentList}) => {
   const [detailId, setDetailId] = useState(-1);
@@ -39,7 +40,7 @@ const ItemList = ({paymentList}) => {
                 <TableRow key={item.id}>
                   <TableCell>{item.id}</TableCell>
                   <TableCell>{item.storeId}</TableCell>
-                  <TableCell>{item.txDateTime}</TableCell>
+                  <TableCell>{dateToStringWithTime(item.txDateTime)}</TableCell>
                   <TableCell>{item.paymentAmount}</TableCell>
                   <TableCell>{item.paymentPlan}</TableCell>
                   <TableCell>{item.paymentResult}</TableCell>
