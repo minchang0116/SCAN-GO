@@ -1,7 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps*/
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, TouchableOpacity, ToastAndroid} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ToastAndroid,
+  Dimensions,
+} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import {CameraScreen} from 'react-native-camera-kit';
 import {CameraFooter} from '../components/scanning/CameraFooter';
@@ -140,9 +146,8 @@ const styles = StyleSheet.create({
   card: {
     zIndex: 5,
     width: '95%',
-    marginRight: 'auto',
     marginBottom: 40,
-    marginLeft: 'auto',
+    marginHorizontal: 20,
     borderRadius: 10,
   },
   whiteText: {
