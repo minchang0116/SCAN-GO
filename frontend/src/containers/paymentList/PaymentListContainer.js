@@ -21,17 +21,17 @@ const PaymentListContainer = () => {
     paymentList: paymentList.paymentList,
     loading: paymentList.loading,
   }));
-  const [selectedDuration, setSeletedDuration] = useState('최근 3개월');
+  const [selectedDuration, setSelectedDuration] = useState('최근 3개월');
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [page, setPage] = useState(0);
   const [curPaymentList, setCurPaymentList] = useState(null);
 
-  const changeDateFormat = date => {
+  const changeDateFormat = useCallback(date => {
     return (
       date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     );
-  };
+  });
 
   const loadData = useCallback(PAGE => {
     const formData = {
@@ -97,7 +97,7 @@ const PaymentListContainer = () => {
         <Content>
           <SetDurationPicker
             selectedDuration={selectedDuration}
-            setSeletedDuration={setSeletedDuration}
+            setSelectedDuration={setSelectedDuration}
           />
           <SetDuration
             startDate={startDate}
@@ -107,14 +107,11 @@ const PaymentListContainer = () => {
           />
           {loading && <Spinner />}
           {curPaymentList && curPaymentList.length > 0 ? (
-            <>
-              {console.log(curPaymentList)}
-              <FlatList
-                data={curPaymentList}
-                keyExtractor={keyExtractor}
-                renderItem={renderItem}
-              />
-            </>
+            <FlatList
+              data={curPaymentList}
+              keyExtractor={keyExtractor}
+              renderItem={renderItem}
+            />
           ) : (
             <View style={styles.emptyContainer}>
               <AppText style={styles.grayText}>결제 내역이 없습니다.</AppText>

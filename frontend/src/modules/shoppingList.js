@@ -73,22 +73,17 @@ export const deleteAllShoppingListItem = createAsyncThunk(
 // try catch를 했을때 catch에서 return rejectWithValue()해야 rejected로 넘어감
 export const addShoppingListItemByBarcode = createAsyncThunk(
   'shoppingList/addShoppingListItemByBarcode',
-  async (formData, {getState, dispatch, rejectWithValue}) => {
-    try {
-      const {userInfo} = getState();
-      if (!userInfo.memberId) {
-        throw Error('[addShoppingListItemByBarcode] memberId 없음');
-      }
-      const response = await shoppingListApi.addItemByBarcode({
-        ...formData,
-        memberId: userInfo.memberId,
-      });
-      dispatch(fetchShoppingList());
-      return response.data;
-    } catch (e) {
-      console.log(e.message);
-      return rejectWithValue(e.message);
+  async (formData, {getState, dispatch}) => {
+    const {userInfo} = getState();
+    if (!userInfo.memberId) {
+      throw Error('[addShoppingListItemByBarcode] memberId 없음');
     }
+    const response = await shoppingListApi.addItemByBarcode({
+      ...formData,
+      memberId: userInfo.memberId,
+    });
+    dispatch(fetchShoppingList());
+    return response.data;
   },
 );
 const shoppingListSlice = createSlice({

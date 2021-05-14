@@ -1,12 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Footer, FooterTab, Button, Text, Badge} from 'native-base';
+import {StyleSheet} from 'react-native';
+import {Footer, FooterTab, Button, Badge} from 'native-base';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 import AppText from '../common/AppText';
 
-export const CameraFooter = ({sumPrice}) => {
+export const CameraFooter = ({sumPrice, qtyProduct}) => {
   const navigation = useNavigation();
 
   return (
@@ -26,12 +26,9 @@ export const CameraFooter = ({sumPrice}) => {
             }}>
             <Badge style={styles.qtyCart}>
               <AppText style={{color: 'rgb(255,255,255)', fontSize: 11}}>
-                1
+                {qtyProduct}
               </AppText>
             </Badge>
-            {/* <View style={styles.qtyCart}>
-              <AppText style={{color: 'rgb(255,255,255)'}}>1</AppText>
-            </View> */}
             <IconAntD name="shoppingcart" size={40} color="rgb(218, 41, 28)" />
           </Button>
         </FooterTab>

@@ -2,6 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps*/
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, TouchableOpacity, ToastAndroid} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
 import {CameraScreen} from 'react-native-camera-kit';
 import {CameraFooter} from '../components/scanning/CameraFooter';
 import IconAntD from 'react-native-vector-icons/AntDesign';
@@ -16,11 +17,26 @@ import AppText from '../components/common/AppText';
 const BarcodeScanningPage = ({navigation}) => {
   const dispatch = useDispatch();
 
-  const {lastItem, sumPrice, error} = useSelector(({shoppingList}) => ({
-    lastItem: shoppingList.lastItem,
-    sumPrice: shoppingList.sumPrice.toString().toLocaleString(),
-    error: shoppingList.hasErrors,
-  }));
+  const {qtyProduct, lastItem, sumPrice, error} = useSelector(
+    ({shoppingList}) => ({
+      lastItem: shoppingList.lastItem,
+      sumPrice: shoppingList.sumPrice.toString().toLocaleString(),
+      error: shoppingList.hasErrors,
+      qtyProduct: shoppingList.paymentDetail
+        ? shoppingList.paymentDetail.length
+        : 0,
+    }),
+  );
+
+  const [focusedScreen, setFocusedScreen] = useState();
+  useFocusEffect(
+    React.useCallback(() => {
+      setFocusedScreen(true);
+      return () => {
+        setFocusedScreen(false);
+      };
+    }, []),
+  );
 
   const [qrvalue, setQrvalue] = useState('');
   let flag = false;
@@ -35,7 +51,7 @@ const BarcodeScanningPage = ({navigation}) => {
     setTimeout(() => {
       dispatch(removeLastItem());
       setQrvalue('');
-    }, 2000);
+    }, 3000);
   };
 
   useEffect(() => {
@@ -60,31 +76,39 @@ const BarcodeScanningPage = ({navigation}) => {
   return (
     <>
       <View style={{flex: 1}}>
-        <TouchableOpacity
-          style={styles.close}
-          onPress={() => navigation.navigate('MainPage')}>
-          <IconAntD name="close" size={30} style={styles.whiteText} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.imageBtn}
-          onPress={() => navigation.navigate('ImageScanningPage')}>
-          <AppText style={styles.white11Text}>이미지</AppText>
-          <AppText style={styles.white11Text}>스캔</AppText>
-        </TouchableOpacity>
-        <View style={{flex: 1}}>
-          <CameraScreen
-            showFrame={true}
-            scanBarcode={true}
-            laserColor={'transparent'}
-            frameColor={'red'}
-            colorForScannerFrame={'white'}
-            onReadCode={event =>
-              onChangeQrvalue(event.nativeEvent.codeStringValue)
-            }
-          />
-        </View>
-        {lastItem && <CameraItem lastItem={lastItem} style={styles.card} />}
-        <CameraFooter navigation={navigation} sumPrice={sumPrice} />
+        {focusedScreen ? (
+          <>
+            <TouchableOpacity
+              style={styles.close}
+              onPress={() => navigation.navigate('MainPage')}>
+              <IconAntD name="close" size={30} style={styles.whiteText} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.imageBtn}
+              onPress={() => navigation.navigate('ImageScanningPage')}>
+              <AppText style={styles.white11Text}>이미지</AppText>
+              <AppText style={styles.white11Text}>스캔</AppText>
+            </TouchableOpacity>
+            <View style={{flex: 1}}>
+              <CameraScreen
+                showFrame={true}
+                scanBarcode={true}
+                laserColor={'transparent'}
+                frameColor={'red'}
+                colorForScannerFrame={'white'}
+                onReadCode={event =>
+                  onChangeQrvalue(event.nativeEvent.codeStringValue)
+                }
+              />
+            </View>
+            {lastItem && <CameraItem lastItem={lastItem} style={styles.card} />}
+            <CameraFooter sumPrice={sumPrice} qtyProduct={qtyProduct} />
+          </>
+        ) : (
+          <View>
+            <AppText>pause</AppText>
+          </View>
+        )}
       </View>
     </>
   );
