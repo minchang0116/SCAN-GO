@@ -6,8 +6,8 @@ export const getTotalDeposit = () => {
 };
 
 // 최근 판매 리스트, 페이징
-export const getRecentOrder = pageNum => {
-  return client.get(`/?pageNum=${pageNum}`);
+export const getRecentOrder = (date, pageNum) => {
+  return client.get(`/admin/payments_one_date?date=${date}&pageNum=${pageNum}`);
 };
 
 // 하루 매출액 -> 시간별
