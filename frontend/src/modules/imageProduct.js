@@ -10,9 +10,35 @@ export const fetchBarcode = createAsyncThunk(
       name: 'picture.jpg',
       type: 'image/jpg',
     });
-    // const response = await imageAPI.getBarcode(formData);
-    // return response.data;
-    return '8806002005638';
+
+    let result = '';
+
+    const response = await imageAPI.getBarcode(formData);
+    console.log(response.data);
+    
+    var t = response.data;
+    t = JSON.stringify(t);
+    console.log(t);
+
+    if(t === '{"class_name":"001.vita"}') {
+      result = '8806002001845';
+    } else if(t === '{"class_name":"002.lemonwater"}') {
+      result = '8801056042134';
+    } else if(t === '{"class_name":"003.coke"}') {
+      result = '8801094017606';
+    } else if(t === '{"class_name":"004.toreta"}') {
+      result = '8801094412005';
+    } else if(t === '{"class_name":"005.bakasf"}') {
+      result = '8804381000343';
+    } else if(t === '{"class_name":"006.hwal"}') {
+      result = '8806016310018';
+    } else if(t === '{"class_name":"007.pear"}') {
+      result = '8801105000535';
+    } else {
+      result = '0000050396238';
+    }
+
+    return result;
   },
 );
 const imageProductSlice = createSlice({
