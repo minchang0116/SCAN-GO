@@ -19,7 +19,7 @@ const RankingItem = ({item, rank}) => {
           }}
         />
         <AppText numberOfLines={2} ellipsizeMode="tail" style={styles.prodName}>
-          {item.prodName}
+          {item.prodName.trim()}
         </AppText>
       </View>
     </>
@@ -46,19 +46,21 @@ const styles = StyleSheet.create({
     height: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 6,
-    right: '88%',
-    bottom: '85%',
+    borderTopLeftRadius: 6,
+    borderBottomRightRadius: 6,
+    right: '87%',
+    bottom: '87.5%',
     zIndex: 5,
   },
   image: {
     width: '100%',
     height: 200,
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     borderRadius: 10,
   },
   prodName: {
     marginTop: 4,
     fontSize: 13,
+    height: 33,
   },
 });
