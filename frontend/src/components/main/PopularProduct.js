@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import AppText from '../common/AppText';
@@ -27,6 +27,11 @@ const PopularProduct = () => {
     dispatch(fetchIcecreamRanking());
     dispatch(fetchSnackRanking());
   }, []);
+
+  const renderItem = useCallback(
+    ({item}) => <RankingItem item={item} rank={item.id} />,
+    [],
+  );
 
   return (
     <>
@@ -85,7 +90,7 @@ const PopularProduct = () => {
                 : beer
             }
             keyExtractor={item => item.id}
-            renderItem={({item}) => <RankingItem item={item} rank={item.id} />}
+            renderItem={renderItem}
             numColumns={2}
           />
         ) : (
