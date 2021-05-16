@@ -9,6 +9,7 @@ import com.ssg.shopping.payment.data.Repository.CustomerPaymentRepository;
 import com.ssg.shopping.payment.data.Repository.PaymentDetailRepository;
 import com.ssg.shopping.payment.data.Response.CustomerPaymentResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,8 @@ public class PaymentService {
     private final PaymentDetailRepository paymentDetailRepository;
     private final CurrentPaymentRepository currentPaymentRepository;
     private final MemberRepository memberRepository;
-
+    @Value("${hmac.secret}") String secret;
+    
     // 장바구니 조회
     @Transactional
     public CustomerPaymentResponse getCustomerPayment(long memberId) {
@@ -49,7 +51,6 @@ public class PaymentService {
                 customerPayment.update();
             }
         }
-
         return new CustomerPaymentResponse(customerPayment);
     }
 
@@ -87,7 +88,6 @@ public class PaymentService {
         sb.append(clientNo);
 
         String SIGNATURE_ALGORITHM = "HmacSHA256";
-        String secret = "incssafy12#$12#$";
         byte[] key = secret.getBytes();
         SecretKeySpec secretKey = new SecretKeySpec(key, SIGNATURE_ALGORITHM);
         try {

@@ -69,9 +69,9 @@ public class AdminService {
         return customerPaymentList;
     }
 
-    // 특정 날짜 거래내역 조회
+    // 특정 날짜 거래내역 조회 (10개씩)
     @Transactional
-    public List<CustomerPaymentResponse> getCustomerPaymentByDate(String date, long pageNum) throws ParseException {
+    public List<CustomerPaymentResponse> getCustomerPaymentByDate(int ord, String date, long pageNum) throws ParseException {
         List<CustomerPaymentResponse> customerPaymentList = new ArrayList<>();
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date txDate1 = df.parse(date);
@@ -80,7 +80,11 @@ public class AdminService {
         cal.setTime(txDate2);
         cal.add(Calendar.DATE, 1);
         txDate2 = cal.getTime();
-        List<CustomerPayment> paymentList = customerPaymentRepository.findByTxDateTimeGreaterThanAndTxDateTimeLessThan(txDate1, txDate2, PageRequest.of((int)pageNum, 10, Sort.Direction.DESC, "txDateTime"));
+        List<CustomerPayment> paymentList = null;
+        if(ord == 1)
+            paymentList = customerPaymentRepository.findByTxDateTimeGreaterThanAndTxDateTimeLessThan(txDate1, txDate2, PageRequest.of((int)pageNum, 10, Sort.Direction.DESC, "txDateTime"));
+        else
+            paymentList = customerPaymentRepository.findByTxDateTimeGreaterThanAndTxDateTimeLessThan(txDate1, txDate2);
         if(paymentList != null) {
             for(CustomerPayment payment : paymentList) {
                 if(payment.getPaymentResult().equals("")) continue;

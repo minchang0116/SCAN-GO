@@ -20,10 +20,11 @@ public class PaymentDetailResponse {
         this.prodCode = paymentDetail.getProduct().getProdCode();
         this.prodName = paymentDetail.getProduct().getProdName();
         this.prodPrice = paymentDetail.getProduct().getProdPrice();
+        this.prodImage = paymentDetail.getProduct().getProductImage().getImage();
         this.qty = paymentDetail.getQty();
     }
 
-    public void updateProductImage(String prodImage) {
-        this.prodImage = prodImage;
-    }
+//    public void updateProductImage(String prodImage) {
+//        this.prodImage = prodImage;
+//    }
 }

@@ -55,12 +55,7 @@ public class ProductService {
         // 있으면 개수 1 추가
         else paymentDetail.update(paymentDetail.getQty()+1);
 
-        // 상품 이미지 추가
-        PaymentDetailResponse pdr = new PaymentDetailResponse(paymentDetail);
-        if (productImageRepository.findByProdName(pdr.getProdName()) != null)
-            pdr.updateProductImage(productImageRepository.findByProdName(pdr.getProdName()).getImage());
-
-        return pdr;
+        return new PaymentDetailResponse(paymentDetail);
     }
 
     // 장바구니 내 상품 개수 변경

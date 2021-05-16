@@ -2,15 +2,17 @@ package com.ssg.shopping.payment.data.Entity;
 
 import com.ssg.member.data.Member;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Getter
 @Entity
+@NoArgsConstructor
 @Table(name = "current_payment")
 public class CurrentPayment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -20,8 +22,6 @@ public class CurrentPayment {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_id")
     private CustomerPayment customerPayment;
-
-    public CurrentPayment() {}
 
     public CurrentPayment(Member member, CustomerPayment customerPayment) {
         this.member = member;

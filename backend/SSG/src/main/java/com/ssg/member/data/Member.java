@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "member")
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String loginId;
     private String loginPwd;
@@ -32,14 +32,6 @@ public class Member {
     @Temporal(TemporalType.DATE)
     private Date birth;
     private boolean activated;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    private List<CustomerPayment> customerPayment = new ArrayList<CustomerPayment>();
-
-    @JsonIgnore
-    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
-    private CurrentPayment currentPayment;
 
     @ManyToMany
     @JoinTable(

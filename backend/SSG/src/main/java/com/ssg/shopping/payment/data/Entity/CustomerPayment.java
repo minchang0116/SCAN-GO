@@ -10,14 +10,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssg.member.data.Member;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Getter
 @Entity
+@NoArgsConstructor
 @Table(name = "customer_payment")
 public class CustomerPayment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String storeId;
     @Temporal(TemporalType.TIMESTAMP)
@@ -33,14 +35,8 @@ public class CustomerPayment {
     private Member member;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "customerPayment", fetch = FetchType.LAZY)
-    private List<PaymentDetail> paymentDetail = new ArrayList<PaymentDetail>();
-
-    @JsonIgnore
-    @OneToOne(mappedBy = "customerPayment", fetch = FetchType.LAZY)
-    private CurrentPayment currentPayment;
-
-    public CustomerPayment() {}
+    @OneToMany(mappedBy = "customerPayment")
+    private List<PaymentDetail> paymentDetail = new ArrayList<>();
 
     public CustomerPayment(String storeId, Member member) {
         this.storeId = storeId;
