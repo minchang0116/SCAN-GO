@@ -43,6 +43,13 @@ public class AdminController {
     @GetMapping("/payments_one_date")
     //@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<?> getOneDatePayments(@RequestParam String date, @RequestParam long pageNum) throws ParseException {
-        return new ResponseEntity<>(adminService.getCustomerPaymentByDate(date, pageNum), HttpStatus.OK);
+        return new ResponseEntity<>(adminService.getCustomerPaymentByDate(1, date, pageNum), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "특정 날짜 결제내역 조회(전체)", notes = "입력값 : date(날짜)\n출력값 : 결제 내역 정보")
+    @GetMapping("/payments_one_date_all")
+    //@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    public ResponseEntity<?> getOneDateAllPayments(@RequestParam String date) throws ParseException {
+        return new ResponseEntity<>(adminService.getCustomerPaymentByDate(2, date, 0), HttpStatus.OK);
     }
 }

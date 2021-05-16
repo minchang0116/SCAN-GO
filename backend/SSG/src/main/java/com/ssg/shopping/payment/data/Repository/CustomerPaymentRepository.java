@@ -12,4 +12,5 @@ public interface CustomerPaymentRepository extends JpaRepository<CustomerPayment
     public List<CustomerPayment> findByMemberLoginId(String loginId, Pageable page);
     public List<CustomerPayment> findByMemberLoginIdAndTxDateTimeGreaterThanAndTxDateTimeLessThan(String loginId, Date date1, Date date2, Pageable page);
     public List<CustomerPayment> findByTxDateTimeGreaterThanAndTxDateTimeLessThan(Date date1, Date date2, Pageable page);
+    public List<CustomerPayment> findByTxDateTimeGreaterThanAndTxDateTimeLessThan(Date date1, Date date2);
 }
