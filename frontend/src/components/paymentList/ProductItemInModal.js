@@ -5,7 +5,6 @@ import AppText from '../common/AppText';
 import {Thumbnail} from 'native-base';
 
 const ProductItemInModal = ({product}) => {
-  console.log(product);
   return (
     <>
       <View style={styles.wrap}>
@@ -18,7 +17,7 @@ const ProductItemInModal = ({product}) => {
         />
         <View style={styles.prodInfo}>
           <AppText
-            numberOfLines={2}
+            numberOfLines={1}
             ellipsizeMode="tail"
             style={{...styles.font12, ...styles.prodName}}>
             {product.item.prodName}
@@ -40,27 +39,31 @@ export default ProductItemInModal;
 
 const styles = StyleSheet.create({
   wrap: {
-    width: '30%',
-    height: 160,
-    marginHorizontal: 5,
-    paddingRight: 8,
-    paddingLeft: 8,
-    marginBottom: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 70,
+    marginHorizontal: 9,
+    paddingHorizontal: 8,
+    marginVertical: 2,
+    borderBottomColor: 'rgb(144,144,144)',
+    borderBottomWidth: 0.5,
   },
   font12: {
     fontSize: 12,
   },
   prodImage: {
-    resizeMode: 'contain',
-    width: '100%',
-    height: 100,
+    resizeMode: 'cover',
+    width: 55,
+    height: 55,
+    borderRadius: 10,
   },
   prodInfo: {
-    marginTop: 5,
+    justifyContent: 'center',
     height: 50,
+    marginLeft: 10,
   },
   prodName: {
-    height: 30,
+    // height: 20,
   },
   prodPrice: {
     marginTop: 5,
