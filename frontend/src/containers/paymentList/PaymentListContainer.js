@@ -34,7 +34,6 @@ const PaymentListContainer = () => {
   });
 
   const loadData = useCallback(() => {
-    console.log(changeDateFormat(startDate) + '~' + changeDateFormat(endDate));
     const formData = {
       memberId: 1,
       date1: changeDateFormat(startDate),
@@ -76,10 +75,8 @@ const PaymentListContainer = () => {
 
   useEffect(() => {
     if (page === 0) {
-      console.log('page 0');
       setCurPaymentList(paymentList);
     } else {
-      console.log('page 1');
       if (paymentList.length === 0) {
         ToastAndroid.showWithGravityAndOffset(
           '결제내역이 없습니다.',
