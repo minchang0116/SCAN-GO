@@ -16,7 +16,6 @@ import {IconButton} from '@material-ui/core';
 import {dateToString} from '../lib/function/dateToString';
 import DatePickerComponentJustOne from '../Components/common/DatePickerComponentJustOne';
 import {useHistory} from 'react-router-dom';
-import useConfirm from '../Components/common/useConfirm';
 
 export default function Dashboard() {
   // history
