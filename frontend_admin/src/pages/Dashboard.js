@@ -14,43 +14,72 @@ import * as managingAPI from '../lib/api/managing';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import {IconButton} from '@material-ui/core';
 import {dateToString} from '../lib/function/dateToString';
+import DatePickerComponentJustOne from '../Components/common/DatePickerComponentJustOne';
+import {useHistory} from 'react-router-dom';
+import useConfirm from '../Components/common/useConfirm';
 
 export default function Dashboard() {
+  // history
+  const history = useHistory();
+  // css
   const classes = useStyles();
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  // state
+  const [page, setPage] = useState(0);
   const [paymentList, setPaymentList] = useState([]);
   const [curPaymentList, setCurPaymentList] = useState([]);
+  const [allPaymentList, setAllPaymentList] = useState([]);
   const [deposit, setDeposit] = useState(0);
-  const [page, setPage] = useState(0);
   const [specificDate, setSpecificDate] = useState(new Date());
 
-  const loadData = async PAGE => {
+  // 페이지 변경 시 호출. ex 더보기
+  const loadData = async page => {
     console.log('dashboard load');
     let response = await managingAPI.getRecentOrder(
       dateToString(specificDate),
-      PAGE,
+      page,
     );
     setPaymentList(response.data);
   };
 
+  // 날짜 변경 시 호출.
+  const laodDataBySpecificDate = async () => {
+    loadData(0);
+    let response = await managingAPI.getCostomerAllPaymentListByDate(
+      dateToString(specificDate),
+    );
+    setAllPaymentList(response.data);
+    console.log(allPaymentList);
+  };
+
+  // 결제 리스트 페이징
   useEffect(() => {
-    if (page === 0) {
-      setCurPaymentList(paymentList);
-    } else {
+    if (page == 0) setCurPaymentList(paymentList);
+    else {
       setCurPaymentList(curPaymentList.concat(paymentList));
     }
-
-    let sumDeposit = 0;
-    for (let i = 0; i < paymentList.length; i++) {
-      sumDeposit += paymentList[i].paymentAmount;
-    }
-    setDeposit(deposit + sumDeposit);
   }, [paymentList]);
 
+  // 전체 결제 리스트. 금액 계산
   useEffect(() => {
-    console.log('dashboard Page 변경');
+    let sumDeposit = 0;
+    for (let i = 0; i < allPaymentList.length; i++) {
+      sumDeposit += allPaymentList[i].paymentAmount;
+    }
+    setDeposit(sumDeposit);
+  }, [allPaymentList]);
+
+  // 페이지 변경
+  useEffect(() => {
     loadData(page);
   }, [page]);
+
+  // 날짜 변경
+  useEffect(() => {
+    setPage(0);
+    laodDataBySpecificDate();
+  }, [specificDate]);
 
   return (
     <div className={classes.root}>
@@ -58,11 +87,17 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
+          <div>
+            <DatePickerComponentJustOne
+              setSpecificDate={setSpecificDate}
+              specificDate={specificDate}
+            />
+          </div>
           <Grid container spacing={3}>
             {/* Chart */}
             <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>
-                <Chart paymentList={curPaymentList} />
+                <Chart paymentList={allPaymentList} />
               </Paper>
             </Grid>
             {/* Recent Deposits */}
@@ -74,7 +109,7 @@ export default function Dashboard() {
             {/* Recent Orders */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                {curPaymentList.length === 0 ? (
+                {allPaymentList.length === 0 ? (
                   <>
                     <div className={classes.noPaymentList}>
                       구매 내역이 없습니다.
