@@ -1,6 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Thumbnail} from 'native-base';
 import {View, StyleSheet, Image} from 'react-native';
 import AppText from '../common/AppText';
 
@@ -25,27 +24,6 @@ const MainPopularProductItem = ({item, rank}) => {
           ellipsizeMode="tail">
           {item.prodName}
         </AppText>
-        {item.prodSalePrice && (
-          <AppText
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            style={{
-              fontSize: 10,
-              marginTop: 5,
-              textDecorationLine: 'line-through',
-              color: 'rgb(144,144,144)',
-            }}>
-            {item.prodPrice}원
-          </AppText>
-        )}
-        {item.prodPrice && (
-          <AppText
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            style={{fontSize: 14, marginTop: 5}}>
-            {item.prodSalePrice ? item.prodSalePrice : item.prodPrice}원
-          </AppText>
-        )}
       </View>
     </>
   );
