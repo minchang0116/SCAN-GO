@@ -40,10 +40,12 @@ export default ProductItemInModal;
 
 const styles = StyleSheet.create({
   wrap: {
-    width: '33.33%',
+    width: '30%',
     height: 160,
+    marginHorizontal: 5,
     paddingRight: 8,
     paddingLeft: 8,
+    marginBottom: 15,
   },
   font12: {
     fontSize: 12,

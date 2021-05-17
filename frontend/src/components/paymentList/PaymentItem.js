@@ -22,7 +22,7 @@ const PaymentItem = ({payment}) => {
               &nbsp;&nbsp;{payment.txDateTime.substring(11, 19)}
             </AppText>
             <AppText style={styles.fontHeader2}>
-              &nbsp;&nbsp;({payment.id})
+              &nbsp;&nbsp;(No.{payment.id})
             </AppText>
           </AppText>
         </CardItem>

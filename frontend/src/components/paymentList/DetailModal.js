@@ -16,25 +16,23 @@ const DetailModal = ({isModalVisible, toggleModal, payment}) => {
       animationIn="zoomIn"
       animationOut="zoomOut">
       <View style={{flex: 1, width: '100%'}}>
-        <Card>
-          <CardItem header style={styles.header}>
-            <AppText style={{fontWeight: '700', fontSize: 20}}>
-              {payment.txDateTime.substring(0, 10)}
-              <AppText style={styles.fontHeader2}>
-                &nbsp;&nbsp;{payment.txDateTime.substring(11, 19)}
-              </AppText>
-              <AppText style={styles.fontHeader2}>
-                &nbsp;&nbsp;({payment.id})
-              </AppText>
+        <CardItem header style={styles.header}>
+          <AppText style={{fontWeight: '700', fontSize: 20}}>
+            {payment.txDateTime.substring(0, 10)}
+            <AppText style={styles.fontHeader2}>
+              &nbsp;&nbsp;{payment.txDateTime.substring(11, 19)}
             </AppText>
-            <TouchableOpacity
-              underlayColor="transparent"
-              style={styles.close}
-              onPress={toggleModal}>
-              <IconAntD name="close" size={30} color="rgb(142, 144, 144)" />
-            </TouchableOpacity>
-          </CardItem>
-        </Card>
+            <AppText style={styles.fontHeader2}>
+              &nbsp;&nbsp;({payment.id})
+            </AppText>
+          </AppText>
+          <TouchableOpacity
+            underlayColor="transparent"
+            style={styles.close}
+            onPress={toggleModal}>
+            <IconAntD name="close" size={30} color="rgb(142, 144, 144)" />
+          </TouchableOpacity>
+        </CardItem>
         <FlatList
           data={payment.paymentDetail}
           keyExtractor={item => item.prodId}
@@ -59,10 +57,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   header: {
-    flexDirection: 'row',
-    borderBottomColor: 'rgb(213, 213, 213)',
-    borderBottomWidth: 1,
+    marginHorizontal: 9,
     paddingBottom: 5,
+    borderBottomColor: 'rgb(144,144,144)',
+    borderBottomWidth: 0.5,
+    marginBottom: 15,
   },
   thumbnail: {
     flexDirection: 'row',
