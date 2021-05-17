@@ -7,7 +7,7 @@ RUN yarn build
 
 FROM nginx:stable-alpine as production-stage
 RUN rm /etc/nginx/conf.d/default.conf
-COPY ./nginx/admin.conf /etc/nginx/conf.d/admin.conf
+COPY ./nginx/default /etc/nginx/sites-enabled/default
 
 COPY --from=build-stage ./build /usr/share/nginx/html
 EXPOSE 3000
