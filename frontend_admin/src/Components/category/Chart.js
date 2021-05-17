@@ -14,7 +14,6 @@ import {getTimeInfo} from '../../lib/function/dateToString';
 export default function Chart({paymentList}) {
   // Generate Sales Data
   function createData(time, amount) {
-    console.log(time, amount);
     return {time, amount};
   }
 
@@ -24,15 +23,15 @@ export default function Chart({paymentList}) {
     setData(tmp);
   }, [paymentList]);
 
+  const [data, setData] = useState([]);
   const tmp = [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ];
-  const [data, setData] = useState([]);
 
   const sumPaymentWithTime = item => {
     let price = parseInt(item.paymentAmount);
     let time = parseInt(getTimeInfo(item.txDateTime));
-    tmp[time] = parseInt(data[time]) + price;
+    tmp[time] = parseInt(tmp[time]) + price;
   };
   return (
     <React.Fragment>
