@@ -21,17 +21,17 @@ const ShoppingListItem = ({
   const dispatch = useDispatch();
   const onIncrease = () => {
     if (qty > 98) {
-      dispatch(updateShoppingListItem({qty: 99}));
+      dispatch(updateShoppingListItem({prodId, qty: 99}));
       return;
     }
-    dispatch(updateShoppingListItem({qty: qty + 1}));
+    dispatch(updateShoppingListItem({prodId, qty: qty + 1}));
   };
   const onDecrease = () => {
     if (qty < 2) {
-      dispatch(updateShoppingListItem({qty: 1}));
+      dispatch(updateShoppingListItem({prodId, qty: 1}));
       return;
     }
-    dispatch(updateShoppingListItem({qty: qty - 1}));
+    dispatch(updateShoppingListItem({prodId, qty: qty - 1}));
   };
   const onIsChecked = () => {
     dispatch(isCheckedShoppingListItem({prodId}));
