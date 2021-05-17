@@ -34,3 +34,8 @@ export const getCostomerAllPaymentList = (loginId, pageNum) => {
     `/admin/payments_all?loginId=${loginId}&pageNum=${pageNum}`,
   );
 };
+
+// 해당 날짜 전체 구매리스트 호출
+export const getCostomerAllPaymentListByDate = date => {
+  return client.get(`/admin/payments_one_date_all?date=${date}`);
+};
