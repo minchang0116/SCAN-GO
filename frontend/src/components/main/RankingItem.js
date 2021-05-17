@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 6,
     borderBottomRightRadius: 6,
     top: 0,
-    left: 22,
+    left: '10.5%',
     zIndex: 5,
   },
   image: {
