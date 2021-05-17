@@ -33,12 +33,13 @@ const PaymentListContainer = () => {
     );
   });
 
-  const loadData = useCallback(PAGE => {
+  const loadData = useCallback(() => {
+    console.log(changeDateFormat(startDate) + '~' + changeDateFormat(endDate));
     const formData = {
       memberId: 1,
       date1: changeDateFormat(startDate),
       date2: changeDateFormat(endDate),
-      pageNum: PAGE,
+      pageNum: page,
     };
     dispatch(fetchPaymentList(formData));
   });
@@ -60,19 +61,25 @@ const PaymentListContainer = () => {
         date1.setFullYear(date1.getFullYear() - 1);
         break;
     }
-    setPage(0);
     setStartDate(date1);
     setEndDate(new Date());
   }, [selectedDuration]);
 
   useEffect(() => {
-    loadData(page);
-  }, [startDate, endDate, page]);
+    loadData();
+  }, [page]);
+
+  useEffect(() => {
+    setPage(0);
+    loadData();
+  }, [startDate, endDate]);
 
   useEffect(() => {
     if (page === 0) {
+      console.log('page 0');
       setCurPaymentList(paymentList);
     } else {
+      console.log('page 1');
       if (paymentList.length === 0) {
         ToastAndroid.showWithGravityAndOffset(
           '결제내역이 없습니다.',
