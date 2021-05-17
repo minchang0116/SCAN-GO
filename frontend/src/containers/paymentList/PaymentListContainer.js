@@ -100,7 +100,7 @@ const PaymentListContainer = () => {
         <Content>
           <SetDurationPicker
             selectedDuration={selectedDuration}
-            setSelectedDuration={setSelectedDuration}
+            changeValue={setSelectedDuration}
           />
           <SetDuration
             startDate={startDate}

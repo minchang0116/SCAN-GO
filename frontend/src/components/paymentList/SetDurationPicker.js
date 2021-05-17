@@ -4,7 +4,7 @@ import {Item} from 'native-base';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 
-const SetDurationPicker = ({selectedDuration, setSeletedDuration}) => {
+const SetDurationPicker = ({selectedDuration, changeValue}) => {
   return (
     <View style={styles.headerContainer}>
       <Item picker>
@@ -12,7 +12,10 @@ const SetDurationPicker = ({selectedDuration, setSeletedDuration}) => {
           mode="dropdown"
           style={{width: '60%'}}
           selectedValue={selectedDuration}
-          onValueChange={itemValue => setSeletedDuration(itemValue)}>
+          onValueChange={itemValue => {
+            changeValue(itemValue);
+            console.log(itemValue);
+          }}>
           <Picker.Item
             label="최근 3개월"
             value="최근 3개월"
