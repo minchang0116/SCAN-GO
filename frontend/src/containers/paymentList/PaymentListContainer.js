@@ -41,7 +41,6 @@ const PaymentListContainer = () => {
       pageNum: PAGE,
     };
     dispatch(fetchPaymentList(formData));
-    console.log(paymentList);
   });
 
   useEffect(() => {
