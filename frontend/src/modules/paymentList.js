@@ -5,7 +5,6 @@ export const fetchPaymentList = createAsyncThunk(
   'payment/fetchPaymentList',
   async (formData, {getState}) => {
     const {userInfo} = getState();
-    console.log(userInfo.memberId);
     const response = await paymentListAPI.readItems({
       ...formData,
       memberId: userInfo.memberId,
