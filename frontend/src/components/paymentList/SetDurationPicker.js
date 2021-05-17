@@ -10,7 +10,7 @@ const SetDurationPicker = ({selectedDuration, changeValue}) => {
       <Item picker>
         <Picker
           mode="dropdown"
-          style={{width: '60%'}}
+          style={{width: '60%', color: 'rgb(144, 144, 144)'}}
           selectedValue={selectedDuration}
           onValueChange={itemValue => {
             changeValue(itemValue);
