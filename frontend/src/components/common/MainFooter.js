@@ -65,17 +65,16 @@ export default MainFooter;
 
 const styles = StyleSheet.create({
   footer: {
-    height: 65,
+    height: 63,
     backgroundColor: 'white',
   },
   container: {
     height: '100%',
     width: '100%',
-    marginTop: '1%',
     paddingLeft: '4%',
     paddingRight: '4%',
-    borderTopWidth: 1,
-    borderColor: 'rgb(226,226,226)',
+    borderTopWidth: 0.7,
+    borderColor: 'rgb(230,230,230)',
     backgroundColor: 'white',
     justifyContent: 'space-around',
     alignItems: 'center',

@@ -57,7 +57,7 @@ const BarcodeScanningPage = ({navigation}) => {
     setTimeout(() => {
       dispatch(removeLastItem());
       setQrvalue('');
-    }, 3000);
+    }, 5000);
   };
 
   useEffect(() => {
