@@ -29,7 +29,7 @@ const PaymentItem = ({payment}) => {
         <CardItem>
           <View style={styles.header2}>
             <AppText style={styles.font15}>
-              결제금액 {payment.paymentAmount.toLocaleString()}원
+              결제금액 {Number(payment.paymentAmount).toLocaleString()}원
             </AppText>
             <AppText style={styles.font15}>{payment.storeId}</AppText>
           </View>

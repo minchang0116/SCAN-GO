@@ -107,12 +107,12 @@ const BarcodeScanningPage = ({navigation}) => {
                 }
               />
             </View>
-            {lastItem && <CameraItem lastItem={lastItem} style={styles.card} />}
+            {lastItem && <CameraItem lastItem={lastItem} />}
             <CameraFooter sumPrice={sumPrice} qtyProduct={qtyProduct} />
           </>
         ) : (
           <View>
-            <AppText>pause</AppText>
+            <AppText>카메라 중지</AppText>
           </View>
         )}
       </View>
@@ -142,13 +142,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  card: {
-    zIndex: 5,
-    width: '95%',
-    marginBottom: 40,
-    marginHorizontal: 20,
-    borderRadius: 10,
   },
   whiteText: {
     color: 'rgb(255,255,255)',
