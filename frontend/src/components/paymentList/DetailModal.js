@@ -15,7 +15,7 @@ const DetailModal = ({isModalVisible, toggleModal, payment}) => {
       onBackdropPress={toggleModal}
       animationIn="zoomIn"
       animationOut="zoomOut">
-      <View style={{flex: 1, width: '100%'}}>
+      <View style={styles.container}>
         <CardItem header style={styles.header}>
           <AppText style={{fontWeight: '700', fontSize: 20}}>
             {payment.txDateTime.substring(0, 10)}
@@ -47,6 +47,11 @@ const DetailModal = ({isModalVisible, toggleModal, payment}) => {
 export default DetailModal;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: '100%',
+    marginBottom: 15,
+  },
   detail: {
     flex: 1,
     justifyContent: 'center',
@@ -58,14 +63,10 @@ const styles = StyleSheet.create({
   },
   header: {
     marginHorizontal: 9,
-    paddingBottom: 5,
+    paddingBottom: 8,
     borderBottomColor: 'rgb(144,144,144)',
     borderBottomWidth: 0.5,
     marginBottom: 8,
-  },
-  thumbnail: {
-    flexDirection: 'row',
-    borderRadius: 6,
   },
   close: {
     position: 'absolute',
