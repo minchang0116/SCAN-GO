@@ -37,8 +37,8 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: 'row',
     height: 50,
-    borderTopColor: 'rgb(240,240,240)',
-    borderTopWidth: 1,
+    borderTopWidth: 0.7,
+    borderColor: 'rgb(230,230,230)',
     backgroundColor: 'white',
   },
   footerRight: {
