@@ -31,12 +31,11 @@ export default RankingItem;
 const styles = StyleSheet.create({
   wrap: {
     flex: 1,
-    width: 200,
     paddingRight: 8,
     paddingLeft: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 20,
   },
   badge: {
     backgroundColor: 'rgb(128,128,128)',
@@ -48,13 +47,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopLeftRadius: 6,
     borderBottomRightRadius: 6,
-    right: '87.5%',
-    bottom: '86%',
+    top: 0,
+    left: 22,
     zIndex: 5,
   },
   image: {
-    width: '100%',
-    height: 180,
+    width: 150,
+    height: 140,
     resizeMode: 'cover',
     borderRadius: 10,
   },
