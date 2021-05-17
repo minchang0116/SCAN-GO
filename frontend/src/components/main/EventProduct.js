@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     marginRight: '3%',
   },
   subContainer: {
-    marginBottom: '5%',
+    marginBottom: '10%',
     // borderBottomColor: 'rgb(220,220,220)',
     // borderBottomWidth: 1,
   },
