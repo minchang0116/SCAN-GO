@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 35,
     borderColor: 'rgb(144,144,144)',
-    borderWidth: 2,
+    borderWidth: 1,
     borderRadius: 10,
   },
   emptyContainer: {
