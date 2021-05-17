@@ -80,6 +80,11 @@ const ImageScanningPage = ({navigation}) => {
 
   const takePhoto = useCallback(async () => {
     if (cameraRef) {
+      ToastAndroid.showWithGravity(
+        '처리 중 ...',
+        ToastAndroid.LONG,
+        ToastAndroid.CENTER,
+      );
       const options = {quality: 0.5, base64: true};
       const data = await cameraRef.current.takePictureAsync(options);
       dispatch(fetchBarcode(data.uri));
@@ -109,7 +114,7 @@ const ImageScanningPage = ({navigation}) => {
               captureAudio={false}
             />
           </View>
-          {lastItem && <CameraItem lastItem={lastItem} style={styles.card} />}
+          {lastItem && <CameraItem lastItem={lastItem} />}
           <TouchableOpacity
             style={styles.takePhotoBtn}
             onPress={() => takePhoto()}>
@@ -119,7 +124,7 @@ const ImageScanningPage = ({navigation}) => {
         </>
       ) : (
         <View>
-          <AppText>pause</AppText>
+          <AppText>loading ...</AppText>
         </View>
       )}
     </View>
@@ -149,13 +154,6 @@ const styles = StyleSheet.create({
     top: '88%',
     left: '50%',
     transform: [{translateX: -30}, {translateY: -50}],
-  },
-  card: {
-    zIndex: 5,
-    width: '95%',
-    marginVertical: 20,
-    marginBottom: 80,
-    borderRadius: 10,
   },
   redText: {
     color: 'rgb(218,41,28)',
