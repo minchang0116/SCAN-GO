@@ -11,8 +11,7 @@ const ProductItem = ({product}) => {
         <Thumbnail
           square
           source={{
-            uri:
-              'http://image3.compuzone.co.kr/img/product_img/2021/0219/764689/764689_600.jpg',
+            uri: 'data:image/png;base64,' + product.prodImage,
           }}
           style={styles.prodImage}
         />
@@ -21,8 +20,7 @@ const ProductItem = ({product}) => {
             {product.prodName}
           </AppText>
           <AppText style={styles.font14}>
-            {parseInt(product.prodPrice, 10).toLocaleString()}원 · {product.qty}
-            개
+            {Number(product.prodPrice).toLocaleString()}원 · {product.qty}개
           </AppText>
         </Body>
       </CardItem>
@@ -37,7 +35,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   prodImage: {
-    flexDirection: 'row',
+    // flexDirection: 'row',
     width: 50,
     height: 50,
   },

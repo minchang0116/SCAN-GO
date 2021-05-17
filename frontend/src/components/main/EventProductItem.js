@@ -20,7 +20,7 @@ const EventProductItem = ({item, home}) => {
             numberOfLines={1}
             ellipsizeMode="tail"
             style={styles.prodPrice}>
-            {item.prodPrice}원
+            {Number(item.prodPrice).toLocaleString()}원
           </AppText>
         )}
         {item.prodPrice && (
@@ -28,7 +28,10 @@ const EventProductItem = ({item, home}) => {
             numberOfLines={1}
             ellipsizeMode="tail"
             style={styles.prodSalePrice}>
-            {item.prodSalePrice ? item.prodSalePrice : item.prodPrice}원
+            {item.prodSalePrice
+              ? Number(item.prodSalePrice).toLocaleString()
+              : Number(item.prodPrice).toLocaleString()}
+            원
           </AppText>
         )}
       </View>

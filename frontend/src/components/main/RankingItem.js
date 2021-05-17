@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   badge: {
-    backgroundColor: 'rgb(240,41,28)',
+    backgroundColor: 'rgb(128,128,128)',
     color: 'white',
     position: 'absolute',
     width: 30,
