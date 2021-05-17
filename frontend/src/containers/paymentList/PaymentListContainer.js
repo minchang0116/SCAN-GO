@@ -117,14 +117,14 @@ const PaymentListContainer = () => {
               <AppText style={styles.grayText}>결제 내역이 없습니다.</AppText>
             </View>
           )}
-          <View style={styles.seeMoreBtn}>
-            <TouchableOpacity
-              onPress={() => {
-                setPage(page + 1);
-              }}>
+          <TouchableOpacity
+            onPress={() => {
+              setPage(page + 1);
+            }}>
+            <View style={styles.seeMoreBtn}>
               <AppText style={styles.grayText}>더보기</AppText>
-            </TouchableOpacity>
-          </View>
+            </View>
+          </TouchableOpacity>
         </Content>
       </View>
     </>
@@ -143,9 +143,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 35,
-    borderColor: 'rgb(144,144,144)',
+    marginBottom: 10,
+    borderColor: 'rgb(180,180,180)',
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 50,
   },
   emptyContainer: {
     justifyContent: 'center',

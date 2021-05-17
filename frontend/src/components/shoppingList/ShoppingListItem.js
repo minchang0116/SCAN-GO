@@ -37,7 +37,6 @@ const ShoppingListItem = ({
     dispatch(isCheckedShoppingListItem({prodId}));
   };
 
-  console.log(prodImage);
   return (
     <ListItem>
       <TouchableOpacity onPress={onIsChecked}>

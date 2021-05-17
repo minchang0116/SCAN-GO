@@ -1,7 +1,6 @@
-import {useNavigation} from '@react-navigation/core';
 import {Body, Button, Left, List, ListItem, Right, View} from 'native-base';
 import React, {useEffect, useState} from 'react';
-import {BackHandler, ScrollView, StyleSheet} from 'react-native';
+import {Image, ScrollView, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppText from '../common/AppText';
 
@@ -48,9 +47,7 @@ const PaymentSuccessList = ({paymentList}) => {
 };
 
 export const PaymentSuccessListItem = ({
-  prodId,
-  memberId,
-  imgUrl,
+  prodImage,
   prodName,
   prodPrice,
   qty,
@@ -58,14 +55,17 @@ export const PaymentSuccessListItem = ({
   return (
     <ListItem style={listItemStyle.list}>
       <Left style={listItemStyle.left2}>
-        {/* <Image style={listItemStyle.left} source={imgUrl} /> */}
+        <Image
+          style={listItemStyle.left}
+          source={{uri: 'data:image/png;base64,' + prodImage}}
+        />
       </Left>
       <Body style={listItemStyle.body}>
         <AppText style={listItemStyle.bodyTextName} numberOfLines={2}>
           {prodName}
         </AppText>
         <AppText style={listItemStyle.bodyTextPrice} numberOfLines={1}>
-          {prodPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          {prodPrice.toLocaleString()}원
         </AppText>
       </Body>
       <Right style={listItemStyle.right}>
@@ -141,8 +141,10 @@ const listItemStyle = StyleSheet.create({
     fontWeight: 'bold',
   },
   left: {
-    width: 60,
-    height: 60,
+    marginHorizontal: 10,
+    width: 50,
+    height: 50,
+    resizeMode: 'stretch',
   },
   right: {
     flex: 1,
