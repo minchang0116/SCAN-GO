@@ -4,7 +4,7 @@ import {View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import Modal from 'react-native-modal';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import ProductItemInModal from './ProductItemInModal';
-import {Card, CardItem} from 'native-base';
+import {CardItem} from 'native-base';
 import AppText from '../common/AppText';
 
 const DetailModal = ({isModalVisible, toggleModal, payment}) => {
@@ -37,7 +37,7 @@ const DetailModal = ({isModalVisible, toggleModal, payment}) => {
           data={payment.paymentDetail}
           keyExtractor={item => item.prodId}
           renderItem={item => <ProductItemInModal product={item} />}
-          numColumns={3}
+          numColumns={1}
         />
       </View>
     </Modal>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     borderBottomColor: 'rgb(144,144,144)',
     borderBottomWidth: 0.5,
-    marginBottom: 15,
+    marginBottom: 8,
   },
   thumbnail: {
     flexDirection: 'row',
