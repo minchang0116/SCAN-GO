@@ -136,7 +136,7 @@ const HomeProduct = () => {
                 }
                 keyExtractor={item => item.id}
                 renderItem={({item}) => (
-                  <MainPopularProductItem item={item} home={true} />
+                  <MainPopularProductItem item={item} rank={item.id} />
                 )}
               />
             ) : (
