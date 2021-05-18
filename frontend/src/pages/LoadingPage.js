@@ -3,6 +3,7 @@ import React, {useEffect} from 'react';
 import {View, StyleSheet} from 'react-native';
 import AppText from '../components/common/AppText';
 import * as asyncStorage from '../AsyncStorage/asyncStorage';
+import {loadToken} from '../lib/api/client';
 
 const LoadingPage = ({navigation}) => {
   useEffect(async () => {
@@ -15,6 +16,7 @@ const LoadingPage = ({navigation}) => {
     } else {
       // 토큰 있는 경우에는 유저 정보도 있다. MainPage로
       console.log('Loading페이지 토큰 있음');
+      await loadToken();
       navigation.navigate('MainPage');
     }
   }, []);

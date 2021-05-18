@@ -10,6 +10,7 @@ import SubHeader from '../components/common/SubHeader';
 import AppText from '../components/common/AppText';
 import {useDispatch} from 'react-redux';
 import {fetchUserInfo} from '../modules/userInfo';
+import {loadToken} from '../lib/api/client';
 
 const LoginPage = ({navigation}) => {
   const [memberId, setId] = useState('');
@@ -57,6 +58,7 @@ const LoginPage = ({navigation}) => {
     }
     setId('');
     setPw('');
+    await loadToken();
     navigation.navigate('MainPage');
   };
   return (
