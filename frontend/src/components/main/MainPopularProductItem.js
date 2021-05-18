@@ -20,7 +20,7 @@ const MainPopularProductItem = ({item, rank}) => {
         </View>
         <AppText
           numberOfLines={2}
-          style={{marginTop: 10, fontSize: 13}}
+          style={{marginTop: 10, fontSize: 13, marginLeft: 8}}
           ellipsizeMode="tail">
           {item.prodName}
         </AppText>
