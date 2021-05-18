@@ -49,11 +49,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-resources/**",
                         "/swagger-ui.html",
                         "/webjars/**",
-                        "/swagger/**",
-                        "/payment/**",
-                        "/product/**",
-                        "/event/**",
-                        "/admin/**");
+                        "/swagger/**");
+//                        "/payment/**",
+//                        "/product/**",
+//                        "/event/**",
+//                        "/admin/**");
     }
 
     @Override
