@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const host = 'https://k4d101.p.ssafy.io:9000/ssg';
+const host = 'https://k4d101.p.ssafy.io/ssg';
 
 export const loadToken = async () => {
   client.defaults.headers.common['Authorization'] = await sessionStorage.getData(

@@ -27,6 +27,15 @@ const PaymentListContainer = () => {
   const [page, setPage] = useState(0);
   const [curPaymentList, setCurPaymentList] = useState(null);
 
+  const memberId = useSelector(state => state.userInfo.memberId);
+  useEffect(() => {
+    ToastAndroid.showWithGravity(
+      memberId.toString(),
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER,
+    );
+  }, []);
+
   const changeDateFormat = useCallback(date => {
     return (
       date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()

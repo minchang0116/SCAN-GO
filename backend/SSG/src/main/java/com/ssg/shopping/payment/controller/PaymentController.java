@@ -16,7 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"https://k4d101.p.ssafy.io"})
+@CrossOrigin(origins = {"https://k4d101.p.ssafy.io", "http://localhost:3000"})
 @RequestMapping("/payment")
 public class PaymentController {
     @Autowired
