@@ -16,8 +16,7 @@ public class CorsConfig {
         config.setAllowCredentials(true);
         config.addAllowedOrigin("https://k4d101.p.ssafy.io");
         config.addAllowedOrigin("http://localhost:3000");
-        config.addAllowedHeader("https://k4d101.p.ssafy.io");
-        config.addAllowedHeader("http://localhost:3000");
+        config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 
         source.registerCorsConfiguration("/member/**", config);
