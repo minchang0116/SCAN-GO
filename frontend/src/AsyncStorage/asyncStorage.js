@@ -43,6 +43,4 @@ export const removeValue = async key => {
   } catch (e) {
     // remove error
   }
-
-  console.log('Done remove AsyncStorage');
 };

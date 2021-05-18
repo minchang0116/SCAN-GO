@@ -13,12 +13,10 @@ const MainPage = () => {
   let isExitApp = false;
   useEffect(() => {
     RNShake.addEventListener('ShakeEvent', () => {
-      console.log('쉐이킹!!');
       navigation.navigate('BarcodeScanningPage');
     });
 
     return () => {
-      console.log('쉐이킹 이벤트 제거');
       RNShake.removeEventListener('ShakeEvent');
     };
   }, []);
@@ -55,4 +53,3 @@ const MainPage = () => {
 };
 
 export default MainPage;
-

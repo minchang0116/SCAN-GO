@@ -57,7 +57,6 @@ const ImageScanningPage = ({navigation}) => {
       return;
     }
     if (barcode) {
-      console.log(barcode);
       dispatch(addShoppingListItemByBarcode({prodCode: barcode}));
       setTimeout(() => {
         dispatch(removeLastItem());

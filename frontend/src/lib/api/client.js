@@ -7,7 +7,6 @@ export const loadToken = async () => {
     'token',
   );
 };
-console.log(asyncStorage.getData('token'));
 const client = axios.create({
   baseURL: host,
   withCredentials: true,

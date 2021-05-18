@@ -12,12 +12,11 @@ export const fetchBarcode = createAsyncThunk(
     });
 
     const response = await imageAPI.getBarcode(formData);
-    console.log(response.data);
-    
+
     let t = response.data;
-     
-    let value = t.Prediction_probability
-    let product = t.class_name
+
+    let value = t.Prediction_probability;
+    let product = t.class_name;
 
     let result = null;
 
@@ -59,7 +58,6 @@ const imageProductSlice = createSlice({
   },
   reducers: {
     removeBarcode: state => {
-      console.log('removeBarcode!');
       state.barcode = null;
     },
   },

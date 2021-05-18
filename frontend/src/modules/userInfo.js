@@ -7,7 +7,6 @@ export const fetchUserInfo = createAsyncThunk(
   async loginInfo => {
     let response = await authAPI.LoginWithPassword(loginInfo);
     await asyncStorage.storeData('token', response.headers.authorization);
-    console.log('token: ' + response.headers.authorization);
     await asyncStorage.storeObjectData('user', response.data);
     return response;
   },
@@ -45,9 +44,6 @@ const userSlice = createSlice({
       state.loading = true;
     },
     [fetchUserInfo.fulfilled]: (state, {payload}) => {
-      console.log('유저 정보 요청 dispatch 성공 - ');
-      console.log('유저 정보 이행');
-
       // 유저 정보 저장
       state.memberId = Number(payload.data.id);
       state.loginId = payload.data.loginId;
@@ -58,7 +54,6 @@ const userSlice = createSlice({
       state.hasErrors = false;
     },
     [fetchUserInfo.rejected]: state => {
-      console.log('유저 정보 요청 dispatch 실패 - ');
       state.loading = false;
       state.hasErrors = true;
     },
@@ -68,8 +63,6 @@ const userSlice = createSlice({
       state.loading = true;
     },
     [fetchUserInfoWithToken.fulfilled]: (state, {payload}) => {
-      console.log('Token으로 유저 정보 요청 dispatch 성공 - ');
-      console.log('Token으로 유저 정보 이행');
       state.memberId = Number(payload.data.id);
       state.loginId = payload.data.loginId;
       state.nickname = payload.data.nickname;
@@ -79,7 +72,6 @@ const userSlice = createSlice({
       state.hasErrors = false;
     },
     [fetchUserInfoWithToken.rejected]: state => {
-      console.log('Token으로 유저 정보 요청 dispatch 실패 - ');
       state.loading = false;
       state.hasErrors = true;
     },
@@ -88,8 +80,6 @@ const userSlice = createSlice({
       state.loading = true;
     },
     [fetchUserInfoWithAsyncStorage.fulfilled]: (state, {payload}) => {
-      console.log('AsyncSotrage로 유저 정보 요청 dispatch 성공 - ');
-      console.log('AsyncSotrage로 유저 정보 이행');
       state.memberId = Number(payload.id);
       state.loginId = payload.loginId;
       state.nickname = payload.nickname;
@@ -99,7 +89,6 @@ const userSlice = createSlice({
       state.hasErrors = false;
     },
     [fetchUserInfoWithAsyncStorage.rejected]: state => {
-      console.log('AsyncSotrage로 유저 정보 요청 dispatch 실패 - ');
       state.loading = false;
       state.hasErrors = true;
     },
