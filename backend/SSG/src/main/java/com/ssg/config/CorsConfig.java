@@ -14,7 +14,7 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://k4d101.p.ssafy.io");
+        config.addAllowedOrigin("https://k4d101.p.ssafy.io");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 

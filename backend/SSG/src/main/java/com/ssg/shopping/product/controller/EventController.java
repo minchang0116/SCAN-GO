@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://k4d101.p.ssafy.io"})
+@CrossOrigin(origins = {"https://k4d101.p.ssafy.io"})
 @RequestMapping("/event")
 public class EventController {
     @Autowired
