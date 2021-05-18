@@ -5,12 +5,14 @@ import {
   View,
   TouchableOpacity,
   Alert,
+  BackHandler,
 } from 'react-native';
 import SubHeader from '../components/common/SubHeader';
 import AppText from '../components/common/AppText';
 import {useDispatch} from 'react-redux';
 import {fetchUserInfo} from '../modules/userInfo';
 import {loadToken} from '../lib/api/client';
+import {useFocusEffect} from '@react-navigation/core';
 
 const LoginPage = ({navigation}) => {
   const [memberId, setId] = useState('');
@@ -18,6 +20,19 @@ const LoginPage = ({navigation}) => {
   const passwordRef = useRef();
   const idRef = useRef();
   const dispatch = useDispatch();
+  const backAction = () => {
+    BackHandler.exitApp();
+    return true;
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      BackHandler.addEventListener('hardwareBackPress', backAction);
+      return () => {
+        BackHandler.removeEventListener('hardwareBackPress', backAction);
+      };
+    }, []),
+  );
 
   const loginBtn = async () => {
     console.log('로그인');
