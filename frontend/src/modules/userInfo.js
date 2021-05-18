@@ -33,16 +33,11 @@ const userSlice = createSlice({
   initialState: {
     loading: false,
     hasErrors: false,
-    memberId: '',
+    memberId: 0,
     loginId: '',
     nickname: '',
     birth: '',
     phone: '',
-  },
-  reducers: {
-    callUserLogout: () => {
-      state.user = {};
-    },
   },
   extraReducers: {
     // 일반 로그인
@@ -54,7 +49,7 @@ const userSlice = createSlice({
       console.log('유저 정보 이행');
 
       // 유저 정보 저장
-      state.memberId = payload.data.id;
+      state.memberId = Number(payload.data.id);
       state.loginId = payload.data.loginId;
       state.nickname = payload.data.nickname;
       state.birth = payload.data.birth;
@@ -75,7 +70,7 @@ const userSlice = createSlice({
     [fetchUserInfoWithToken.fulfilled]: (state, {payload}) => {
       console.log('Token으로 유저 정보 요청 dispatch 성공 - ');
       console.log('Token으로 유저 정보 이행');
-      state.memberId = payload.data.id;
+      state.memberId = Number(payload.data.id);
       state.loginId = payload.data.loginId;
       state.nickname = payload.data.nickname;
       state.birth = payload.data.birth;
@@ -95,7 +90,7 @@ const userSlice = createSlice({
     [fetchUserInfoWithAsyncStorage.fulfilled]: (state, {payload}) => {
       console.log('AsyncSotrage로 유저 정보 요청 dispatch 성공 - ');
       console.log('AsyncSotrage로 유저 정보 이행');
-      state.memberId = payload.id;
+      state.memberId = Number(payload.id);
       state.loginId = payload.loginId;
       state.nickname = payload.nickname;
       state.birth = payload.birth;
@@ -111,5 +106,4 @@ const userSlice = createSlice({
   },
 });
 
-export const {} = userSlice.actions;
 export default userSlice.reducer;
