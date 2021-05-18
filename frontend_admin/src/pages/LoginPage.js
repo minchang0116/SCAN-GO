@@ -105,10 +105,12 @@ const LoginPage = () => {
       let response = await managingAPI.adminLogin(formData);
       if (response.status === 200) {
         console.log('로그인 성공!');
+        console.dir(response);
         history.push('/search');
       }
     } catch (e) {
-      history.push('/search');
+      console.log('로그인 실패');
+      // history.push('/search');
     }
   };
   return (
