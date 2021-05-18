@@ -89,11 +89,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileIcon: {
-    fontSize: 90,
+    fontSize: 80,
     color: 'white',
     backgroundColor: 'lightgrey',
     borderRadius: 100,
-    marginRight: 30,
   },
   profileText: {fontSize: 30},
   nameText: {fontSize: 30, color: '#fcb326'},
