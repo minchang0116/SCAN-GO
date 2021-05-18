@@ -79,7 +79,7 @@ pipeline {
 				//| xargs -r docker rmi'
 				// docker container 실행
 				// sh 'docker run -d --name <front-image-name> -p 80:80 <front-image-name>:latest'
-				sh 'docker run -d --name frontend_image -p 80:80 --network ServerToDB frontend_image:latest'
+				sh 'docker run -d --name frontend_image -p 80:80 -p 443:443 --network ServerToDB frontend_image:latest'
 				sh 'docker run -d --name backend_image -p 9000:9000 --network ServerToDB backend_image:latest'
 				//sh 'docker run --detach --env MYSQL_ROOT_PASSWORD="root" \
 				//--env MYSQL_USER="ssafy" \
