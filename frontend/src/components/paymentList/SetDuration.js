@@ -10,11 +10,9 @@ const SetDuration = ({startDate, setStartDate, endDate, setEndDate}) => {
 
   const toggleStartDatePicker = () => {
     setShowStartDataPicker(!showStartDatepicker);
-    console.log(showStartDatepicker);
   };
   const toggleEndDatePicker = () => {
     setShowEndDataPicker(!showEndDatepicker);
-    console.log(showEndDatepicker);
   };
 
   const onChangeStartDate = (event, selectedDate) => {

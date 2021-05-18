@@ -14,7 +14,6 @@ const SetDurationPicker = ({selectedDuration, changeValue}) => {
           selectedValue={selectedDuration}
           onValueChange={itemValue => {
             changeValue(itemValue);
-            console.log(itemValue);
           }}>
           <Picker.Item
             label="최근 3개월"

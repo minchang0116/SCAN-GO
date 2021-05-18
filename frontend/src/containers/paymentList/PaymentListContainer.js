@@ -44,7 +44,6 @@ const PaymentListContainer = () => {
   });
 
   useEffect(() => {
-    console.log('기간 picker 변경됨');
     let date1 = new Date();
     switch (selectedDuration) {
       case '최근 3개월':

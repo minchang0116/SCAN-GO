@@ -13,7 +13,6 @@ export const requestPayment = createAsyncThunk(
       const {shoppingList, userInfo} = getState();
       const txSeq = String(shoppingList.id);
       const txDateTime = String(moment().format('YYYYMMDDHHmmss'));
-      console.log(txDateTime);
       const clientNo = String(userInfo.memberId);
       const plainString = txSeq + txDateTime + shoppingList.storeId + clientNo;
       const key = HMACK_KEY;
@@ -27,7 +26,6 @@ export const requestPayment = createAsyncThunk(
         authHash: authHash,
       });
       if (response.status === 200) {
-        console.log(formData);
         await paymentApi.resultPayment({
           paymentId: shoppingList.id,
           paymentPlan: formData,

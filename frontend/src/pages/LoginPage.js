@@ -35,7 +35,6 @@ const LoginPage = ({navigation}) => {
   );
 
   const loginBtn = async () => {
-    console.log('로그인');
     if (memberId === '') {
       Alert.alert('ID 확인', 'ID를 입력해주세요.', [
         {
@@ -55,7 +54,6 @@ const LoginPage = ({navigation}) => {
       ]);
       return;
     }
-    console.log('디스패치 전');
     const response = await dispatch(
       fetchUserInfo({
         loginId: memberId,

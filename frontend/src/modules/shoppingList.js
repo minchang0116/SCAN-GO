@@ -30,9 +30,7 @@ export const updateShoppingListItem = createAsyncThunk(
         qty,
       });
       return {prodId, qty};
-    } catch (e) {
-      console.log(e.message);
-    }
+    } catch (e) {}
   },
 );
 export const deleteShoppingListItem = createAsyncThunk(
@@ -48,9 +46,7 @@ export const deleteShoppingListItem = createAsyncThunk(
         prodIds,
       });
       return prodIds;
-    } catch (e) {
-      console.log(e.message);
-    }
+    } catch (e) {}
   },
 );
 
@@ -63,9 +59,7 @@ export const deleteAllShoppingListItem = createAsyncThunk(
         throw Error('[deleteAllShoppingListItem] memberId 없음');
       }
       await shoppingListApi.deleteAllItem(userInfo.memberId);
-    } catch (e) {
-      console.log(e.message);
-    }
+    } catch (e) {}
   },
 );
 
@@ -111,7 +105,6 @@ const shoppingListSlice = createSlice({
       });
     },
     removeLastItem: state => {
-      console.log('removeLastItem!');
       state.lastItem = null;
     },
   },
@@ -139,7 +132,6 @@ const shoppingListSlice = createSlice({
       state.loading = false;
       state.paymentDetail = state.paymentDetail.map(item => {
         if (item.prodId === payload.prodId) {
-          console.log(payload.qty);
           state.sumPrice =
             state.sumPrice -
             Number(item.prodPrice) * Number(item.qty) +
@@ -155,7 +147,6 @@ const shoppingListSlice = createSlice({
       state.paymentDetail = state.paymentDetail.filter(list => {
         for (let i of payload) {
           if (list.prodId === i) {
-            console.log(list.prodPrice);
             state.sumPrice =
               state.sumPrice - Number(list.prodPrice) * Number(list.qty);
             return false;
