@@ -6,13 +6,12 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import * as asyncStorage from '../../AsyncStorage/asyncStorage';
 import AppText from './AppText';
 import Spinner from './Spinner';
+import {useSelector} from 'react-redux';
 
 const MyInfo = ({navigation}) => {
-  const [userInfo, setUserInfo] = useState(null);
-  useEffect(async () => {
-    let user = await asyncStorage.getObjectData('user');
-    setUserInfo(user);
-  }, []);
+  const {userInfo} = useSelector(({userInfo})=> ({
+    userInfo: userInfo,
+  }));
 
   const logout = async () => {
     await asyncStorage.removeValue('token');
@@ -38,6 +37,12 @@ const MyInfo = ({navigation}) => {
             </View>
           </View>
           <View style={styles.body}>
+            <View flexDirection={'row'}>
+              <AppText style={styles.bodyText}>고객번호</AppText>
+              <AppText style={styles.bodyText2} numberOfLines={1}>
+                {userInfo.memberId}
+              </AppText>
+            </View>
             <View flexDirection={'row'}>
               <AppText style={styles.bodyText}>계정</AppText>
               <AppText style={styles.bodyText2} numberOfLines={1}>
@@ -84,11 +89,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileIcon: {
-    fontSize: 90,
+    fontSize: 80,
     color: 'white',
     backgroundColor: 'lightgrey',
     borderRadius: 100,
-    marginRight: 30,
   },
   profileText: {fontSize: 30},
   nameText: {fontSize: 30, color: '#fcb326'},

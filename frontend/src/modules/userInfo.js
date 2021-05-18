@@ -6,9 +6,9 @@ export const fetchUserInfo = createAsyncThunk(
   'userInfo/fetchUserInfo',
   async loginInfo => {
     let response = await authAPI.LoginWithPassword(loginInfo);
-    asyncStorage.storeData('token', response.headers.authorization);
+    await asyncStorage.storeData('token', response.headers.authorization);
     console.log('token: ' + response.headers.authorization);
-    asyncStorage.storeObjectData('user', response.data);
+    await asyncStorage.storeObjectData('user', response.data);
     return response;
   },
 );
