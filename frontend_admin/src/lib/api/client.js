@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const host = 'http://k4d101.p.ssafy.io:9000/ssg';
+const host = 'https://k4d101.p.ssafy.io:9000/ssg';
 
 const client = axios.create({
   baseURL: host,
