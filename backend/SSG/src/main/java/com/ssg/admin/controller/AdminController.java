@@ -12,7 +12,7 @@ import java.text.ParseException;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:3000"})
+@CrossOrigin(origins = {"http://k4d101.p.ssafy.io"})
 @RequestMapping("/admin")
 public class AdminController {
     @Autowired
