@@ -4,7 +4,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import {InputBase} from '@material-ui/core';
 import * as managingAPI from '../lib/api/managing';
 import {useHistory} from 'react-router-dom';
-import {loadToken} from '../lib/api/client'
+import {loadToken} from '../lib/api/client';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -101,22 +101,19 @@ const LoginPage = () => {
     try {
       let formData = {
         loginId: adminId,
-        loginPwd: adminPw
-      }
+        loginPwd: adminPw,
+      };
       let response = await managingAPI.adminLogin(formData);
-      console.dir(response);
-      console.dir(response.headers);
-      console.dir(response.data);
       if (response.status === 200) {
         console.log('로그인 성공!');
         sessionStorage.setItem('token', response.headers.authorization);
+        console.log('token:', sessionStorage.getItem('token'));
         await loadToken();
-        history.push('/search');
+        history.push('/dashboard');
       }
     } catch (e) {
       console.log('로그인 실패');
       alert('로그인에 실패하였습니다.');
-      // history.push('/search');
     }
   };
   return (
