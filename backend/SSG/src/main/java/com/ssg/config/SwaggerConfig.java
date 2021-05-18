@@ -46,7 +46,7 @@ public class SwaggerConfig {
         aParameters.add(aParameterBuilder.build());
 
         return new Docket(DocumentationType.SWAGGER_2)
-                //.globalOperationParameters(aParameters)
+                .globalOperationParameters(aParameters)
                 .apiInfo(this.apiInfo())
                 .select()
                 .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))

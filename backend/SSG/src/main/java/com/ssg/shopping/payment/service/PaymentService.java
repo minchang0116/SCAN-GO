@@ -113,7 +113,7 @@ public class PaymentService {
         sb.insert(7, '-');
         sb.insert(10, ' ');
         sb.insert(13, ':');
-        sb.insert(15, ':');
+        sb.insert(16, ':');
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date txDateTime = df.parse(sb.toString());
         customerPayment.update();
