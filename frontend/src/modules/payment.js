@@ -3,8 +3,8 @@ import * as paymentApi from '../lib/api/payment';
 import {deleteAllShoppingListItem} from './shoppingList';
 import hmacSHA256 from 'crypto-js/hmac-sha256';
 import Base64 from 'crypto-js/enc-base64';
-import moment from 'moment';
 import {HMACK_KEY} from '@env';
+import moment from 'moment';
 export const requestPayment = createAsyncThunk(
   'payment/requestPayment',
   async (formData, {dispatch, getState}) => {
@@ -12,6 +12,7 @@ export const requestPayment = createAsyncThunk(
       const {shoppingList, userInfo} = getState();
       const txSeq = String(shoppingList.id);
       const txDateTime = String(moment().format('YYYYMMDDHHmmss'));
+      console.log(txDateTime);
       const clientNo = String(userInfo.memberId);
       const plainString = txSeq + txDateTime + shoppingList.storeId + clientNo;
       const key = HMACK_KEY;

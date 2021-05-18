@@ -17,7 +17,7 @@ const PaymentSuccessContainer = ({backAction}) => {
   }, []);
   return (
     <>
-      {payment.paymentList.length !== 0 ? (
+      {payment.paymentList && payment.paymentList.length !== 0 ? (
         <PaymentSuccess payment={payment} backAction={backAction} />
       ) : (
         <Spinner />
