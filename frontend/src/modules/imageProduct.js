@@ -13,36 +13,39 @@ export const fetchBarcode = createAsyncThunk(
 
     const response = await imageAPI.getBarcode(formData);
     console.log(response.data);
-
+    
     let t = response.data;
-    t = JSON.stringify(t);
-    console.log(t);
+     
+    let value = t.Prediction_probability
+    let product = t.class_name
 
     let result = null;
-    switch (t) {
-      case '{"class_name":"001.vita"}':
-        result = '8806002001845';
-        break;
-      case '{"class_name":"002.lemonwater"}':
-        result = '8801056042134';
-        break;
-      case '{"class_name":"003.coke"}':
-        result = '8801094017606';
-        break;
-      case '{"class_name":"004.toreta"}':
-        result = '8801094412005';
-        break;
-      case '{"class_name":"005.bakasf"}':
-        result = '8804381000343';
-        break;
-      case '{"class_name":"006.hwal"}':
-        result = '8806016310018';
-        break;
-      case '{"class_name":"007.pear"}':
-        result = '8801105000535';
-        break;
-    }
 
+    if (value >= 0.99) {
+      switch (product) {
+        case '001.vita':
+          result = '8806002001845';
+          break;
+        case '002.lemonwater':
+          result = '8801056042134';
+          break;
+        case '003.coke':
+          result = '8801094017606';
+          break;
+        case '004.toreta':
+          result = '8801094412005';
+          break;
+        case '005.bakasf':
+          result = '8804381000343';
+          break;
+        case '006.hwal':
+          result = '8806016310018';
+          break;
+        case '007.pear':
+          result = '8801105000535';
+          break;
+      }
+    }
     return result;
   },
 );
