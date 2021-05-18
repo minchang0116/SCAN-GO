@@ -31,7 +31,6 @@ const LoadingPage = ({navigation}) => {
     }, []),
   );
 
-  
   const dispatch = useDispatch();
 
   const checkUserInfo = async () => {
@@ -39,9 +38,7 @@ const LoadingPage = ({navigation}) => {
     if (userData !== false) {
       console.log('유저 정보 Async 존재');
       console.dir(userData);
-      let response = await dispatch(
-        fetchUserInfoWithAsyncStorage({userData: userData}),
-      );
+      let response = await dispatch(fetchUserInfoWithAsyncStorage({userData}));
       if (response.payload === false) {
         console.log('async 에러');
       }
