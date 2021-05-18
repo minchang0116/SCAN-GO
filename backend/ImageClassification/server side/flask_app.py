@@ -11,8 +11,7 @@ image_size = EfficientNet.get_image_size(
     'efficientnet-b0')  
 model = EfficientNet.from_pretrained(
     'efficientnet-b0', num_classes=7)  
-model.load_state_dict(torch.load("./model.pt")
-                      )  
+model.load_state_dict(torch.load("./model.pt", map_location = torch.device('cpu')))  
 model.eval()  
 
 
@@ -38,12 +37,15 @@ def transform_image(image_bytes):
 
 
 def get_prediction(image_bytes):
-    
     tensor = transform_image(image_bytes=image_bytes)
     outputs = model.forward(tensor)
+    pred = torch.sigmoid(outputs)
     _, y_hat = outputs.max(1)
+    Prediction_probability = pred[0][y_hat.item()]
+    Prediction_probability = Prediction_probability.item()
     predicted_idx = str(y_hat.item())
-    return imagenet_class_index[predicted_idx]
+
+    return imagenet_class_index[predicted_idx], Prediction_probability
 
 
 app = Flask(__name__)
@@ -58,18 +60,13 @@ def ping():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    
     if request.method == 'POST':
-        
         file = request.files['file']
-        
         img_bytes = file.read()
-        
-        class_name = get_prediction(image_bytes=img_bytes)
-        
+        class_name, Prediction_probability = get_prediction(image_bytes=img_bytes)
         print("예측결과 : " + class_name)
-        
-        return jsonify({'class_name': class_name})
+
+        return jsonify({'class_name': class_name, 'Prediction_probability': Prediction_probability})
 
 
 if __name__ == '__main__':
