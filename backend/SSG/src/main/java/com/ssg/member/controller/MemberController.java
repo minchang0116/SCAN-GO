@@ -32,24 +32,28 @@ public class MemberController {
     public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
         HttpHeaders httpHeaders = memberService.login(loginDto);
         Member member = memberService.getMember(loginDto.getLoginId());
+        System.out.println("<회원 : 로그인> 로그인아이디 : "+loginDto.getLoginId());
         return new ResponseEntity<>(new MemberResponse(member), httpHeaders, HttpStatus.OK);
     }
 
     @ApiOperation(value = "회원가입", notes = "입력값 : loginId, loginPwd, birth, phone\n출력값 : 회원정보")
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody MemberDto memberDto) {
+        System.out.println("<회원 : 회원가입> 로그인아이디 : "+memberDto.getLoginId());
         return ResponseEntity.ok(new MemberResponse(memberService.signup(memberDto)));
     }
 
     @ApiOperation(value = "아이디 중복 체크", notes = "입력값 : loginId\n출력값 : success(가능)/fail(불가능)")
     @GetMapping("/checkId")
     public ResponseEntity<?> checkId(@RequestParam String loginId) {
+        System.out.println("<회원 : 아이디 중복체크> 로그인아이디 : "+loginId);
         return ResponseEntity.ok(memberService.checkId(loginId));
     }
 
     @ApiOperation(value = "폰번호 중복 체크", notes = "입력값 : phone\n출력값 : success(가능)/fail(불가능)")
     @GetMapping("/checkPhone")
     public ResponseEntity<?> checkPhone(@RequestParam String phone) {
+        System.out.println("<회원 : 폰번호 중복체크> 폰번호 : "+phone);
         return ResponseEntity.ok(memberService.checkPhone(phone));
     }
 }

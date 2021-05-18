@@ -23,6 +23,7 @@ public class AdminController {
     @GetMapping("/members")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<?> getMembers(@RequestParam long pageNum) {
+        System.out.println("<관리자 : 사용자 목록 조회> 페이지번호 : "+pageNum);
         return new ResponseEntity<>(adminService.getMemberList(pageNum), HttpStatus.OK);
     }
 
@@ -30,6 +31,7 @@ public class AdminController {
     @GetMapping("/payments_all")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<?> getAllPayments(@RequestParam String loginId, @RequestParam long pageNum) {
+        System.out.println("<관리자 : 사용자 결제내역 전체 조회(10개씩)> 로그인아이디 : "+loginId);
         return new ResponseEntity<>(adminService.getMemberCustomerPaymentListAll(loginId, pageNum), HttpStatus.OK);
     }
 
@@ -37,6 +39,7 @@ public class AdminController {
     @GetMapping("/payments_date")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<?> getDatePayments(@RequestParam String loginId, @RequestParam String date1, @RequestParam String date2, @RequestParam long pageNum) throws ParseException {
+        System.out.println("<관리자 : 사용자 결제내역 날짜별 조회(10개씩)> 로그인아이디 : "+loginId+", 날짜1 : "+date1+", 날짜2 : "+date2);
         return new ResponseEntity<>(adminService.getMemberCustomerPaymentListDate(loginId, date1, date2, pageNum), HttpStatus.OK);
     }
 
@@ -44,6 +47,7 @@ public class AdminController {
     @GetMapping("/payments_one_date")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<?> getOneDatePayments(@RequestParam String date, @RequestParam long pageNum) throws ParseException {
+        System.out.println("<관리자 : 특정 날짜 결제내역 조회(10개씩)> 날짜 : "+date);
         return new ResponseEntity<>(adminService.getCustomerPaymentByDate(1, date, pageNum), HttpStatus.OK);
     }
 
@@ -51,6 +55,7 @@ public class AdminController {
     @GetMapping("/payments_one_date_all")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity<?> getOneDateAllPayments(@RequestParam String date) throws ParseException {
+        System.out.println("<관리자 : 특정 날짜 결제내역 조회(전체)> 날짜 : "+date);
         return new ResponseEntity<>(adminService.getCustomerPaymentByDate(2, date, 0), HttpStatus.OK);
     }
 }
