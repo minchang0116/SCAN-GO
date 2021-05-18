@@ -99,14 +99,13 @@ const LoginPage = () => {
     }
     //history.push('/dashboard');
     try {
-      let formData = {
+      let response = await managingAPI.adminLogin({
         loginId: adminId,
-        loginPwd: adminPw,
-      };
-      let response = await managingAPI.adminLogin(formData);
+        loginPwd: adminPw
+      });
+      console.dir(response);
       if (response.status === 200) {
         console.log('로그인 성공!');
-        console.dir(response);
         console.log('token: ' + response.headers.authorization);
         sessionStorage.setItem('token', response.headers.authorization);
         await loadToken();
