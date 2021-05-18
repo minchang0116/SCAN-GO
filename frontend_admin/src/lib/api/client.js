@@ -2,8 +2,18 @@ import axios from 'axios';
 
 const host = 'https://k4d101.p.ssafy.io:9000/ssg';
 
+export const loadToken = async () => {
+  client.defaults.headers.common['Authorization'] = await sessionStorage.getData(
+    'token',
+  );
+};
+
 const client = axios.create({
   baseURL: host,
+  withCredentials: true,
+  //headers: {
+    //       'Content-type': 'application/json',
+    //     },
 });
 
 export default client;

@@ -4,6 +4,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import {InputBase} from '@material-ui/core';
 import * as managingAPI from '../lib/api/managing';
 import {useHistory} from 'react-router-dom';
+import {loadToken} from '../lib/api/client'
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -106,10 +107,14 @@ const LoginPage = () => {
       if (response.status === 200) {
         console.log('로그인 성공!');
         console.dir(response);
+        console.log('token: ' + response.headers.authorization);
+        sessionStorage.setItem('token', response.headers.authorization);
+        await loadToken();
         history.push('/search');
       }
     } catch (e) {
       console.log('로그인 실패');
+      alert('로그인에 실패하였습니다.');
       // history.push('/search');
     }
   };
