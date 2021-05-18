@@ -14,7 +14,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = {"https://k4d101.p.ssafy.io"})
+@CrossOrigin(origins = {"https://k4d101.p.ssafy.io", "http://localhost:3000"})
 @RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
