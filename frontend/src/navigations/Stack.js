@@ -14,31 +14,10 @@ import {
   EventDetailPage,
   LoadingPage,
 } from '../pages';
-import * as asyncStorage from '../AsyncStorage/asyncStorage';
-import {useDispatch} from 'react-redux';
-import {fetchUserInfoWithAsyncStorage} from '../modules/userInfo';
 
 const Stack = createStackNavigator();
 
 const StackNav = () => {
-  const dispatch = useDispatch();
-
-  const checkUserInfo = async () => {
-    let userData = await asyncStorage.getObjectData('user');
-    if (userData !== null) {
-      console.log('유저 정보 Async 존재');
-      console.dir(userData);
-      let response = await dispatch(
-        fetchUserInfoWithAsyncStorage({userData: userData}),
-      );
-      if (response.payload === undefined) {
-        console.log('async 에러');
-      }
-    } else {
-      console.log('저장된 유저 정보 없음! 로그인 필요!');
-    }
-  };
-  checkUserInfo();
   return (
     <Stack.Navigator initialRouteName="LoadingPage">
       <Stack.Screen
