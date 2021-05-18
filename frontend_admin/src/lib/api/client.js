@@ -10,7 +10,7 @@ export const loadToken = async () => {
 
 const client = axios.create({
   baseURL: host,
-  // withCredentials: true,
+  withCredentials: true,
   //headers: {
     //       'Content-type': 'application/json',
     //     },
