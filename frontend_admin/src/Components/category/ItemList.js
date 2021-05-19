@@ -11,7 +11,6 @@ import {dateToStringWithTime} from '../../lib/function/dateToString';
 const ItemList = ({paymentList}) => {
   const [detailId, setDetailId] = useState(-1);
   const onClickDetailHandler = id => {
-    console.log(id);
     if (id == detailId) {
       setDetailId(-1);
     } else {

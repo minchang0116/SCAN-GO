@@ -34,7 +34,6 @@ export default function Dashboard() {
 
   // 페이지 변경 시 호출. ex 더보기
   const loadData = async page => {
-    console.log('dashboard load');
     let response = await managingAPI.getRecentOrder(
       dateToString(specificDate),
       page,
@@ -49,7 +48,6 @@ export default function Dashboard() {
       dateToString(specificDate),
     );
     setAllPaymentList(response.data);
-    console.log(allPaymentList);
   };
 
   // 결제 리스트 페이징
