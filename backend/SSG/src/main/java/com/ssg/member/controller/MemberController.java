@@ -1,5 +1,6 @@
 package com.ssg.member.controller;
 
+import com.ssg.member.data.Authority;
 import com.ssg.member.data.Dto.LoginDto;
 import com.ssg.member.data.Dto.MemberDto;
 import com.ssg.member.data.Dto.MemberResponse;
@@ -27,12 +28,19 @@ public class MemberController {
         this.authenticationManagerBuilder = authenticationManagerBuilder;
     }
 
-    @ApiOperation(value = "로그인", notes = "입력값 : loginId, loginPwd\n출력값 : 회원정보")
+    @ApiOperation(value = "로그인", notes = "입력값 : loginId, loginPwd, grade\n출력값 : 회원정보")
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
-        HttpHeaders httpHeaders = memberService.login(loginDto);
         Member member = memberService.getMember(loginDto.getLoginId());
-        System.out.println("<회원 : 로그인> 로그인아이디 : "+loginDto.getLoginId());
+        boolean flag = false;
+        if(loginDto.getGrade() == 0) {
+            for(Authority auth : member.getAuthorities())
+                if(auth.getAuthorityName().equals("ROLE_ADMIN")) flag = true;
+            if(!flag) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        HttpHeaders httpHeaders = memberService.login(loginDto);
+        System.out.println("<회원 : 로그인> 로그인아이디 : "+loginDto.getLoginId()+", 등급 : "+(loginDto.getGrade()==0?"관리자":"일반"));
         return new ResponseEntity<>(new MemberResponse(member), httpHeaders, HttpStatus.OK);
     }
 

@@ -10,4 +10,5 @@ import lombok.*;
 public class LoginDto {
     private String loginId;
     private String loginPwd;
+    private int grade;
 }
