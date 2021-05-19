@@ -43,8 +43,6 @@ const SearchContainer = () => {
   };
 
   const loadData = async PAGE => {
-    console.log(PAGE);
-    console.log(paymentList);
     if (isBtnClicked === '전체') {
       let response = await managingAPI.getCostomerAllPaymentList(keyword, PAGE);
       setPaymentList(response.data);
@@ -60,7 +58,6 @@ const SearchContainer = () => {
   };
 
   useEffect(() => {
-    console.log('결제 내역 리스트 변경');
     if (page === 0) {
       setCurPaymentList(paymentList);
     } else {
@@ -69,18 +66,15 @@ const SearchContainer = () => {
   }, [paymentList]);
 
   useEffect(() => {
-    console.log('기간 / 키워드 변경');
     setPage(0);
     loadData(page);
   }, [startDate, endDate]);
 
   useEffect(() => {
-    console.log('Page 변경');
     loadData(page);
   }, [page]);
 
   useEffect(() => {
-    console.log('Enter 입력');
     setPage(0);
     loadData(page);
   }, [isEnter]);
