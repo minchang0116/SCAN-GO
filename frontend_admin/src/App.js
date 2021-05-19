@@ -1,9 +1,17 @@
 import React, {useEffect} from 'react';
 import {Route, useHistory} from 'react-router-dom';
+import {loadToken} from './lib/api/client';
 import {SearchPage, Dashboard, LoginPage} from './pages';
 
 function App() {
   const history = useHistory();
+  useEffect(async () => {
+    // 토큰 있는 경우.. ex 새로고침, 뒤로가기
+    if (sessionStorage.getItem('token')) {
+      await loadToken();
+    }
+  }, []);
+
   useEffect(() => {
     // 토큰 없는 상황
     if (!sessionStorage.getItem('token')) {
