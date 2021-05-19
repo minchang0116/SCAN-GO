@@ -106,14 +106,11 @@ const LoginPage = () => {
       };
       let response = await managingAPI.adminLogin(formData);
       if (response.status === 200) {
-        console.log('로그인 성공!');
         sessionStorage.setItem('token', response.headers.authorization);
-        console.log('token:', sessionStorage.getItem('token'));
         await loadToken();
         history.replace('/dashboard');
       }
     } catch (e) {
-      console.log('로그인 실패');
       sessionStorage.removeItem('token');
       alert('로그인에 실패하였습니다. 아이디 혹은 비밀번호를 확인하세요');
     }

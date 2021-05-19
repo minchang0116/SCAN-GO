@@ -19,7 +19,6 @@ export const getCostomerPaymentList = (date1, date2, loginId, pageNum) => {
 
 // 유저 검색 구매리스트 호출 (전체 기간)
 export const getCostomerAllPaymentList = (loginId, pageNum) => {
-  console.log(loginId, pageNum);
   return client.get(
     `/admin/payments_all?loginId=${loginId}&pageNum=${pageNum}`,
   );
