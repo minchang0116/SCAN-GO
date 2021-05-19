@@ -15,7 +15,7 @@ function App() {
         return;
       }
       alert('관리자 로그인이 필요합니다.');
-      history.push('/login');
+      history.replace('/login');
     }
   }, [history.location.pathname]);
 

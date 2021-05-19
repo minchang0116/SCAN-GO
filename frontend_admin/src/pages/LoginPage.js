@@ -110,11 +110,12 @@ const LoginPage = () => {
         sessionStorage.setItem('token', response.headers.authorization);
         console.log('token:', sessionStorage.getItem('token'));
         await loadToken();
-        history.push('/dashboard');
+        history.replace('/dashboard');
       }
     } catch (e) {
       console.log('로그인 실패');
-      alert('로그인에 실패하였습니다.');
+      sessionStorage.removeItem('token');
+      alert('로그인에 실패하였습니다. 아이디 혹은 비밀번호를 확인하세요');
     }
   };
   return (
