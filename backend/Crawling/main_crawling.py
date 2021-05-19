@@ -84,9 +84,9 @@ def search_product(search_name) :
     browser = webdriver.Chrome(executable_path = 'C:/chromedriver_win32/chromedriver.exe', options = options)
     browser.get(search_url)
     
-    browser.implicitly_wait(5)
+    browser.implicitly_wait(10)
 
-    image = browser.find_element_by_xpath('/html/body/div[2]/c-wiz/div[3]/div[1]/div/div/div/div[1]/div[1]/div[1]/div[2]/a[1]/div[1]/img')
+    image = browser.find_element_by_xpath('/html/body/div[2]/c-wiz/div[3]/div[1]/div/div/div/div/div[1]/div[1]/div[2]/a[1]/div[1]/img')
     base64string = image.get_attribute('src')
 
     try:
