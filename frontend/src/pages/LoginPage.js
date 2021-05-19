@@ -58,6 +58,7 @@ const LoginPage = ({navigation}) => {
       fetchUserInfo({
         loginId: memberId,
         loginPwd: password,
+        grade: 1,
       }),
     );
     if (response.payload === undefined) {

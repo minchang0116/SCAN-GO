@@ -102,6 +102,7 @@ const LoginPage = () => {
       let formData = {
         loginId: adminId,
         loginPwd: adminPw,
+        grade: 0,
       };
       let response = await managingAPI.adminLogin(formData);
       if (response.status === 200) {
