@@ -41,17 +41,17 @@
 - 사용자 정보 조회
 - 관리자 페이지(사용자 통계 조회)
 
-![image-20210520105846156](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20210520105846156.png)
+![image](./readme_images/admin-main.png)
 
 ​                   Dashboard : 사용자 결제내역 및 통계 조회
 
-​				   ![image](./readme_images/admin-dashboard.gif)
+​				   <img src="./readme_images/admin-dashboard.gif" alt="image" style="zoom:150%;" />
 
 
 
 ​				Search : 고객번호 검색으로 사용자별 결제내역 조회
 
-​				![image](./readme_images/admin-search.gif)
+​				<img src="./readme_images/admin-search.gif" alt="image" style="zoom:150%;" />
 
 
 
