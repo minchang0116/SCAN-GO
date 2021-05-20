@@ -132,18 +132,18 @@
 
 ##### 
 
-1. 링크에서 안드로이드 스튜디오 설치
+1. **링크에서 안드로이드 스튜디오 설치**
 
    https://reactnative.dev/docs/environment-setup
 
-2. 제어판 > 시스템 및 보안 > 시스템 > 고급 시스템 설정 > 환경 변수 > 사용자 변수에 아래 추가
+2. **제어판 > 시스템 및 보안 > 시스템 > 고급 시스템 설정 > 환경 변수 > 사용자 변수에 아래 추가**
     변수 이름 : ANDROID_HOME
     변수 값 : C:\Users\사용자명\AppData\Local\Android\Sdk
 
-3. 시스템 변수 > Path >  새로 만들기
+3. **시스템 변수 > Path >  새로 만들기**
     C:\Users\사용자명\AppData\Local\Android\Sdk\platform-tools
 
-4. 에뮬레이터 or 실기기 연결
+4. **에뮬레이터 or 실기기 연결**
 
     - **안드로이드 폰이 없는 경우 (안드로이드 스튜디오를 이용해 컴퓨터에서 에뮬레이터 실행)**
 
@@ -160,7 +160,7 @@
 
     
 
-5. 프론트엔드 실행
+5. **프론트엔드 실행**
 
    ```
    cd frontend
@@ -174,9 +174,33 @@
    react-native run-android
    ```
 
+   **이 때 최초 react-native run-android 실행 시 RNCameraKitModule 오류가 발생합니다.**
+   
+   ```
+   node_modules/react-native-camera-kit/android/src/main/java/com/rncamerakit/RNCameraKitModule.kt
+   ```
+   
+   위 경로에서
+   
+   <img src="./readme_images/error.png" alt="image" />
+   
+   **위 사진처럼 uiManager 뒤에 ? 를 붙여주셔야 합니다.**
    
    
-6. 백엔드 실행
+   
+   그 후에도 react-native run-android 명령어를 쳤을 때 에러가 발생한다면
+   
+   한 번 더 react-native run-android 를 실행하거나
+   
+   react-native link 후 react-native run-android 를 실행해주세요.
+   
+   
+   
+   
+   
+   
+   
+6. **백엔드 실행**
 
     ```
     cd backend/SSG
@@ -187,7 +211,6 @@
     
     java -jar *.jar
     ```
-
 
 
 
