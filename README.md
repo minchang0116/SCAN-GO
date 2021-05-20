@@ -1,4 +1,4 @@
-## 신세계 아이앤씨 가상 장바구니 App Web 개발 (안드로이드 앱)
+신세계 아이앤씨 가상 장바구니 App Web 개발 (안드로이드 앱)
 
 ​                     
 
@@ -19,56 +19,73 @@
 | ![image](./readme_images/jira.jpg) |
 | Jira를 이용한 애자일 개발 방식     |
 
-​                          
+
+
+## 🎨 기획 배경
+
+> 셀프 서비스 스토어가 미래형 유통 매장의 비전으로 제시되는 요즘, 
+>
+> 결제 모듈을 이용한 셀프 결제 형식이 제시되지만 모듈 운반, 설치, 파손, 고객 부주의 등 문제점이 있습니다.
+>
+> 따라서 '헬로뉴월드' 팀은 셀프 결제 매장에서 결제모듈을 대체할 수 있는 방안으로
+>
+> 셀프스토어 고객을 위한 가상 장바구니 어플을 개발하기로 했습니다!
+
+![image](./readme_images/point.png)
+
+
+
+
 
 ## 📋 Function chart
 
-1. 바코드 스캐닝 / 상품 이미지 인식 으로 상품 조회 및 장바구니 추가
-2. 쉐이크 모션으로 바코드 스캐닝 페이지 오픈 
-3. [관리자 페이지] 고객별 결제 정보 조회 및 통계 기능
-4. 앱 비정상 종료 시 장바구니 불러오기
+>1. 바코드 스캐닝 / 상품 이미지 인식 으로 상품 조회 및 장바구니 추가
+>2. 쉐이크 모션으로 바코드 스캐닝 페이지 오픈 
+>3. 메인페이지의 상품 랭킹, 이벤트 정보 조회 
+>4. 결제내역 조회
+>5. [관리자 페이지] 고객별 결제 정보 조회 및 통계 기능
 
-- 로그인
+
+
+- #### 로그인
 
   <img src="./readme_images/login.gif" width="40%" />
 
-- 바코드 스캐닝
+- #### 바코드 스캐닝
 
-  <img src="./readme_images/barcode.gif" width="40%" />
+  #### <img src="./readme_images/barcode.gif" width="40%" />
 
-- 상품 이미지 스캐닝
+- #### 상품 이미지 스캐닝
 
   <img src="./readme_images/image.gif" width="40%" />	
-- 장바구니
+
+- #### 장바구니
 
   <img src="./readme_images/cartandpayment.gif" width="40%" />	
-- 결제내역 조회
+
+- #### 결제내역 조회
 
   <img src="./readme_images/paymentlist.gif" width="40%" />
 
-- 메인페이지
+- #### 메인페이지
 
   <img src="./readme_images/main.gif" alt="image" style="zoom:50%;" />
 
-- 사용자 정보 조회
+- #### 사용자 정보 조회
 
-  <img src="./readme_images/profile.png" alt="image" style="zoom:25%;" />
+  <img src="./readme_images/profile.png" alt="image" style="zoom:15%;" />
 
-- 관리자 페이지(사용자 통계 조회)
+- #### 관리자 페이지(사용자 통계 조회)
 
-  ![image](./readme_images/admin-main.png)
+  <img src="./readme_images/admin-main.png" alt="image" style="zoom: 33%;" />
 
-​                   Dashboard : 사용자 결제내역 및 통계 조회
+  - ##### Dashboard : 사용자 결제내역 및 통계 조회
 
-​	<img src="./readme_images/admin-dashboard.gif" alt="image" style="zoom:150%;" />
+    <img src="./readme_images/admin-dashboard.gif" alt="image" style="zoom: 200%;" />
 
+  - ##### Search : 고객번호 검색으로 사용자별 결제내역 조회
 
-
-​				Search : 고객번호 검색으로 사용자별 결제내역 조회
-
-​					<img src="./readme_images/admin-search.gif" alt="image" style="zoom:150%;" />
-
-
+    <img src="./readme_images/admin-search.gif" alt="image" style="zoom: 200%;" />
 
 
 
