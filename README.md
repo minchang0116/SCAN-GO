@@ -137,7 +137,13 @@
 6. 백엔드 실행
 
     ```
-    cd backend
+    cd backend/SSG
+    
+    mvn package
+    
+    cd /target
+    
+    java -jar *.jar
     ```
 
     
@@ -147,7 +153,7 @@
 * 팀장 강유정([@yujeong0](https://github.com/yujeong0 "github link"))
 * 팀원 강민창([@minchang0116](https://github.com/minchang0116 "github link"))
 * 팀원 곽충섭([@NICEGINI](https://github.com/NICEGINI "github link"))
-* 팀원 이지원
+* 팀원 이지원([@leegw217](https://github.com/leegw217 "github link"))
 * 팀원 지서연([@seoyounji](https://github.com/seoyounji "github link"))
 
 ​                       
