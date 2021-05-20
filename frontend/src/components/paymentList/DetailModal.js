@@ -4,7 +4,7 @@ import {View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import Modal from 'react-native-modal';
 import IconAntD from 'react-native-vector-icons/AntDesign';
 import ProductItemInModal from './ProductItemInModal';
-import {Card, CardItem} from 'native-base';
+import {CardItem} from 'native-base';
 import AppText from '../common/AppText';
 
 const DetailModal = ({isModalVisible, toggleModal, payment}) => {
@@ -15,28 +15,29 @@ const DetailModal = ({isModalVisible, toggleModal, payment}) => {
       onBackdropPress={toggleModal}
       animationIn="zoomIn"
       animationOut="zoomOut">
-      <View style={{flex: 1, width: '100%'}}>
-        <Card>
-          <CardItem header style={styles.header}>
-            <AppText style={{fontWeight: '700', fontSize: 22}}>
-              {payment.txDateTime.slice(0, 10)}
-              <AppText style={{fontWeight: '400'}}>
-                &nbsp;&nbsp;({payment.id})
-              </AppText>
+      <View style={styles.container}>
+        <CardItem header style={styles.header}>
+          <AppText style={{fontWeight: '700', fontSize: 20}}>
+            {payment.txDateTime.substring(0, 10)}
+            <AppText style={styles.fontHeader2}>
+              &nbsp;&nbsp;{payment.txDateTime.substring(11, 19)}
             </AppText>
-            <TouchableOpacity
-              underlayColor="transparent"
-              style={styles.close}
-              onPress={toggleModal}>
-              <IconAntD name="close" size={30} color="rgb(142, 144, 144)" />
-            </TouchableOpacity>
-          </CardItem>
-        </Card>
+            <AppText style={styles.fontHeader2}>
+              &nbsp;&nbsp;({payment.id})
+            </AppText>
+          </AppText>
+          <TouchableOpacity
+            underlayColor="transparent"
+            style={styles.close}
+            onPress={toggleModal}>
+            <IconAntD name="close" size={30} color="rgb(142, 144, 144)" />
+          </TouchableOpacity>
+        </CardItem>
         <FlatList
           data={payment.paymentDetail}
           keyExtractor={item => item.prodId}
           renderItem={item => <ProductItemInModal product={item} />}
-          numColumns={3}
+          numColumns={1}
         />
       </View>
     </Modal>
@@ -46,6 +47,11 @@ const DetailModal = ({isModalVisible, toggleModal, payment}) => {
 export default DetailModal;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: '100%',
+    marginBottom: 15,
+  },
   detail: {
     flex: 1,
     justifyContent: 'center',
@@ -56,17 +62,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   header: {
-    flexDirection: 'row',
-    borderBottomColor: 'rgb(213, 213, 213)',
-    borderBottomWidth: 1,
-    paddingBottom: 5,
-  },
-  thumbnail: {
-    flexDirection: 'row',
-    borderRadius: 6,
+    marginHorizontal: 9,
+    paddingBottom: 8,
+    borderBottomColor: 'rgb(144,144,144)',
+    borderBottomWidth: 0.5,
+    marginBottom: 8,
   },
   close: {
     position: 'absolute',
     left: '100%',
+  },
+  fontHeader2: {
+    fontWeight: '400',
+    fontSize: 15,
   },
 });

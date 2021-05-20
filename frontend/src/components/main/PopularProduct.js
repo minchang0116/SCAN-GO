@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import AppText from '../common/AppText';
@@ -9,8 +9,9 @@ import {
   fetchIcecreamRanking,
   fetchSnackRanking,
 } from '../../modules/rankingProduct';
-import ProductItem from './ProductItem';
+import RankingItem from './RankingItem';
 import {Thumbnail} from 'native-base';
+import Spinner from '../common/Spinner';
 
 const PopularProduct = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,11 @@ const PopularProduct = () => {
     dispatch(fetchSnackRanking());
   }, []);
 
-  let rank = 1;
+  const renderItem = useCallback(
+    ({item}) => <RankingItem item={item} rank={item.id} />,
+    [],
+  );
+
   return (
     <>
       <View style={styles.container}>
@@ -73,20 +78,24 @@ const PopularProduct = () => {
             <AppText style={styles.categoryTxt}>과자</AppText>
           </TouchableOpacity>
         </View>
-        <FlatList
-          style={styles.scrollContainer}
-          showsVerticalScrollIndicator={false}
-          data={
-            category === 'icecream'
-              ? icecream
-              : category === 'snack'
-              ? snack
-              : beer
-          }
-          keyExtractor={item => item.id}
-          renderItem={({item}) => <ProductItem item={item} rank={item.id} />}
-          numColumns={2}
-        />
+        {beer && icecream && snack ? (
+          <FlatList
+            style={styles.scrollContainer}
+            showsVerticalScrollIndicator={false}
+            data={
+              category === 'icecream'
+                ? icecream
+                : category === 'snack'
+                ? snack
+                : beer
+            }
+            keyExtractor={item => item.id}
+            renderItem={renderItem}
+            numColumns={2}
+          />
+        ) : (
+          <Spinner />
+        )}
       </View>
     </>
   );

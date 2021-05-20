@@ -4,7 +4,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import AppText from '../common/AppText';
 
-const ProductItem = ({item, rank}) => {
+const RankingItem = ({item, rank}) => {
   return (
     <>
       <View style={styles.wrap}>
@@ -15,45 +15,51 @@ const ProductItem = ({item, rank}) => {
           square
           style={styles.image}
           source={{
-            uri: item.image,
+            uri: 'data:image/png;base64,' + item.image,
           }}
         />
-        <AppText numberOfLines={2} ellipsizeMode="tail">
-          {item.prodName}
+        <AppText numberOfLines={2} ellipsizeMode="tail" style={styles.prodName}>
+          {item.prodName.trim()}
         </AppText>
       </View>
     </>
   );
 };
 
-export default ProductItem;
+export default RankingItem;
 
 const styles = StyleSheet.create({
   wrap: {
     flex: 1,
-    // width: Dimensions.get('window').width / 2,
     paddingRight: 8,
     paddingLeft: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 20,
   },
   badge: {
-    backgroundColor: 'rgb(240,41,28)',
+    backgroundColor: 'rgb(128,128,128)',
     color: 'white',
     position: 'absolute',
     width: 30,
     height: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 6,
-    right: '88%',
-    bottom: '85%',
+    borderTopLeftRadius: 6,
+    borderBottomRightRadius: 6,
+    top: 0,
+    left: '10.5%',
     zIndex: 5,
   },
   image: {
-    width: '100%',
-    height: 200,
-    resizeMode: 'contain',
+    width: 150,
+    height: 140,
+    resizeMode: 'cover',
+    borderRadius: 10,
+  },
+  prodName: {
+    marginTop: 4,
+    fontSize: 13,
+    height: 33,
   },
 });

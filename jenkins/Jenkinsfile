@@ -23,6 +23,7 @@ pipeline {
 			steps {
 				//sh 'mvn -B -DskipTests -f ~i/home/ubuntu/s04p31d101/backend/SSG/pom.xml clean package'
 				//sh 'mvn -B -f ./backend/SSG/ clean package'
+				sh 'docker build -t frontend_image ./frontend_admin'
 				sh 'docker build -t backend_image ./backend/SSG'
 			}
 		}
@@ -36,11 +37,15 @@ pipeline {
 		stage('Docker Container rm') {
 			agent any
 			steps {
+				sh 'docker ps -f name=frontend_image -q | xargs --no-run-if-empty \
+				docker container stop'
 				sh 'docker ps -f name=backend_image -q | xargs --no-run-if-empty \
 				docker container stop'
 				//sh 'docker ps -f name=mysql_db -q | xargs --no-run-if-empty \
 				//docker container stop'
 				
+				sh 'docker container ls -a name=frontend_image -q | xargs -r docker \
+				container rm'
 				sh 'docker container ls -a name=backend_image -q | xargs -r docker \
 				container rm'
 				//sh 'docker container ls -a name=mysql_db -q | xargs -r docker \
@@ -74,6 +79,7 @@ pipeline {
 				//| xargs -r docker rmi'
 				// docker container 실행
 				// sh 'docker run -d --name <front-image-name> -p 80:80 <front-image-name>:latest'
+				sh 'docker run -d --name frontend_image -p 80:80 -p 443:443 --network ServerToDB frontend_image:latest'
 				sh 'docker run -d --name backend_image -p 9000:9000 --network ServerToDB backend_image:latest'
 				//sh 'docker run --detach --env MYSQL_ROOT_PASSWORD="root" \
 				//--env MYSQL_USER="ssafy" \

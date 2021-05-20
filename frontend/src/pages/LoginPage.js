@@ -5,12 +5,14 @@ import {
   View,
   TouchableOpacity,
   Alert,
+  BackHandler,
 } from 'react-native';
 import SubHeader from '../components/common/SubHeader';
 import AppText from '../components/common/AppText';
 import {useDispatch} from 'react-redux';
 import {fetchUserInfo} from '../modules/userInfo';
-import IconAntD from 'react-native-vector-icons/FontAwesome5';
+import {loadToken} from '../lib/api/client';
+import {useFocusEffect} from '@react-navigation/core';
 
 const LoginPage = ({navigation}) => {
   const [memberId, setId] = useState('');
@@ -18,9 +20,21 @@ const LoginPage = ({navigation}) => {
   const passwordRef = useRef();
   const idRef = useRef();
   const dispatch = useDispatch();
+  const backAction = () => {
+    BackHandler.exitApp();
+    return true;
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      BackHandler.addEventListener('hardwareBackPress', backAction);
+      return () => {
+        BackHandler.removeEventListener('hardwareBackPress', backAction);
+      };
+    }, []),
+  );
 
   const loginBtn = async () => {
-    console.log('로그인');
     if (memberId === '') {
       Alert.alert('ID 확인', 'ID를 입력해주세요.', [
         {
@@ -40,11 +54,11 @@ const LoginPage = ({navigation}) => {
       ]);
       return;
     }
-    console.log('디스패치 전');
     const response = await dispatch(
       fetchUserInfo({
         loginId: memberId,
         loginPwd: password,
+        grade: 1,
       }),
     );
     if (response.payload === undefined) {
@@ -58,6 +72,7 @@ const LoginPage = ({navigation}) => {
     }
     setId('');
     setPw('');
+    await loadToken();
     navigation.navigate('MainPage');
   };
   return (
@@ -84,14 +99,6 @@ const LoginPage = ({navigation}) => {
             placeholder="비밀번호"
           />
         </View>
-        {/* <TouchableOpacity style={styles.saveIdArea} onPress={onToggle}>
-          {autoLogin ? (
-            <IconAntD name="check-circle" size={20} color="rgb(218,41,28)" />
-          ) : (
-            <IconAntD name="check-circle" size={20} color="rgb(226,226,226)" />
-          )}
-          <AppText> 아이디 저장</AppText>
-        </TouchableOpacity> */}
         <View style={styles.loginBtnArea}>
           <TouchableOpacity
             style={styles.loginBtn}

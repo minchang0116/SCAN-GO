@@ -18,7 +18,6 @@ export const deleteItem = formData => {
   });
 };
 export const deleteAllItem = formData => {
-  console.log(formData);
   return client.delete('/product/product_deleteAll', {
     params: {
       memberId: 1,
@@ -26,7 +25,6 @@ export const deleteAllItem = formData => {
   });
 };
 export const updateItem = formData => {
-  console.log(formData);
   return client.post('/product/product_update', formData);
 };
 export const decreaseItem = formData => {

@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import {Footer, FooterTab} from 'native-base';
 import React from 'react';
 import {StyleSheet} from 'react-native';
@@ -19,24 +18,16 @@ const MainFooter = ({}) => {
           onPress={() => {
             navigation.navigate('MainPage');
           }}>
-          <IconFntAwesome name="home" size={27} color="rgb(91, 103, 112)" />
-          <AppText style={{color: 'rgb(91, 103, 112)', fontSize: 10}}>
-            홈
-          </AppText>
+          <IconFntAwesome name="home" size={26} style={styles.grayText} />
+          <AppText style={styles.gray10Text}>홈</AppText>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.tochablePosition}
           onPress={() => {
             navigation.navigate('PaymentList');
           }}>
-          <IconFntAwesome
-            name="clipboard"
-            size={25}
-            color="rgb(91, 103, 112)"
-          />
-          <AppText style={{color: 'rgb(91, 103, 112)', fontSize: 10}}>
-            결제내역
-          </AppText>
+          <IconFntAwesome name="clipboard" size={25} style={styles.grayText} />
+          <AppText style={styles.gray10Text}>결제내역</AppText>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.tochableBarcode}
@@ -50,10 +41,8 @@ const MainFooter = ({}) => {
           onPress={() => {
             navigation.navigate('ShoppingListPage');
           }}>
-          <IconAntD name="shoppingcart" size={30} color="rgb(91, 103, 112)" />
-          <AppText style={{color: 'rgb(91, 103, 112)', fontSize: 10}}>
-            장바구니
-          </AppText>
+          <IconAntD name="shoppingcart" size={30} style={styles.grayText} />
+          <AppText style={styles.gray10Text}>장바구니</AppText>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.tochablePosition}
@@ -63,11 +52,9 @@ const MainFooter = ({}) => {
           <IconFntAwesome
             name="user-circle"
             size={28}
-            color="rgb(91, 103, 112)"
+            style={styles.grayText}
           />
-          <AppText style={{color: 'rgb(91, 103, 112)', fontSize: 10}}>
-            내정보
-          </AppText>
+          <AppText style={styles.gray10Text}>내정보</AppText>
         </TouchableOpacity>
       </FooterTab>
     </Footer>
@@ -78,17 +65,16 @@ export default MainFooter;
 
 const styles = StyleSheet.create({
   footer: {
-    height: 65,
+    height: 63,
     backgroundColor: 'white',
   },
   container: {
     height: '100%',
     width: '100%',
-    marginTop: '1%',
     paddingLeft: '4%',
     paddingRight: '4%',
-    borderTopWidth: 1,
-    borderColor: 'rgb(226,226,226)',
+    borderTopWidth: 0.7,
+    borderColor: 'rgb(230,230,230)',
     backgroundColor: 'white',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -107,5 +93,12 @@ const styles = StyleSheet.create({
     height: 58,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  gray10Text: {
+    color: 'rgb(91, 103, 112)',
+    fontSize: 10,
+  },
+  grayText: {
+    color: 'rgb(91, 103, 112)',
   },
 });

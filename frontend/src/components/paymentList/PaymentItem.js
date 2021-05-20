@@ -16,19 +16,22 @@ const PaymentItem = ({payment}) => {
     <>
       <Card>
         <CardItem header>
-          <AppText style={{fontWeight: '700', fontSize: 22}}>
+          <AppText style={{fontWeight: '700', fontSize: 20}}>
             {payment.txDateTime.substring(0, 10)}
-            <AppText style={{fontWeight: '400'}}>
-              &nbsp;&nbsp;({payment.id})
+            <AppText style={styles.fontHeader2}>
+              &nbsp;&nbsp;{payment.txDateTime.substring(11, 19)}
+            </AppText>
+            <AppText style={styles.fontHeader2}>
+              &nbsp;&nbsp;(No.{payment.id})
             </AppText>
           </AppText>
         </CardItem>
         <CardItem>
           <View style={styles.header2}>
-            <AppText>
-              결제금액 {payment.paymentAmount.toLocaleString()}원
+            <AppText style={styles.font15}>
+              결제금액 {Number(payment.paymentAmount).toLocaleString()}원
             </AppText>
-            <AppText>{payment.storeId}</AppText>
+            <AppText style={styles.font15}>{payment.storeId}</AppText>
           </View>
         </CardItem>
         <List>
@@ -40,8 +43,8 @@ const PaymentItem = ({payment}) => {
                 : 2,
             )
             .map((item, index) => (
-              <ListItem>
-                <ProductItem product={item} key={index} />
+              <ListItem key={index}>
+                <ProductItem product={item} />
               </ListItem>
             ))}
         </List>
@@ -74,6 +77,13 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     width: '100%',
     marginTop: -15,
+  },
+  font15: {
+    fontSize: 15,
+  },
+  fontHeader2: {
+    fontWeight: '400',
+    fontSize: 15,
   },
 });
 

@@ -14,7 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-//@CrossOrigin(origins = {""}, allowCredentials = "true")
+@CrossOrigin(origins = {"https://k4d101.p.ssafy.io", "http://localhost:3000"})
 @RequestMapping("/product")
 public class ProductController {
     @Autowired

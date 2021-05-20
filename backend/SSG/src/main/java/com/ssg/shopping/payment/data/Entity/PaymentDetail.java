@@ -12,25 +12,25 @@ import javax.persistence.Table;
 import com.ssg.shopping.product.data.Entity.Product;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
+@NoArgsConstructor
 @Table(name = "payment_detail")
 public class PaymentDetail {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private long qty;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "prod_id")
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_id")
     private CustomerPayment customerPayment;
-
-    public PaymentDetail() {}
 
     public PaymentDetail(Product product, CustomerPayment customerPayment) {
         this.product = product;

@@ -4,6 +4,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import {InputBase} from '@material-ui/core';
 import * as managingAPI from '../lib/api/managing';
 import {useHistory} from 'react-router-dom';
+import {loadToken} from '../lib/api/client';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -38,15 +39,13 @@ const useStyles = makeStyles(theme => ({
   },
   loginBtn: {
     marginTop: '1%',
-    paddingBottom: 4,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: 'rgb(218, 41, 28)',
+    borderColor: 'rgb(218, 41, 28)',
     height: 47,
     width: 300,
-    fontSize: 32,
+    fontSize: 26,
     color: 'white',
+    fontFamily: 'Noto Sans CJK KR',
   },
 }));
 
@@ -98,11 +97,23 @@ const LoginPage = () => {
       adminPwRef.current.focus();
       return;
     }
-    history.push('/dashboard');
-    let response = await managingAPI.adminLogin({
-      id: adminId,
-      password: adminPw,
-    });
+    //history.push('/dashboard');
+    try {
+      let formData = {
+        loginId: adminId,
+        loginPwd: adminPw,
+        grade: 0,
+      };
+      let response = await managingAPI.adminLogin(formData);
+      if (response.status === 200) {
+        sessionStorage.setItem('token', response.headers.authorization);
+        await loadToken();
+        history.replace('/dashboard');
+      }
+    } catch (e) {
+      sessionStorage.removeItem('token');
+      alert('로그인에 실패하였습니다. 아이디 혹은 비밀번호를 확인하세요');
+    }
   };
   return (
     <div className={classes.root}>

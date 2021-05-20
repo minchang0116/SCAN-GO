@@ -30,9 +30,7 @@ export const updateShoppingListItem = createAsyncThunk(
         qty,
       });
       return {prodId, qty};
-    } catch (e) {
-      console.log(e.message);
-    }
+    } catch (e) {}
   },
 );
 export const deleteShoppingListItem = createAsyncThunk(
@@ -48,9 +46,7 @@ export const deleteShoppingListItem = createAsyncThunk(
         prodIds,
       });
       return prodIds;
-    } catch (e) {
-      console.log(e.message);
-    }
+    } catch (e) {}
   },
 );
 
@@ -63,29 +59,25 @@ export const deleteAllShoppingListItem = createAsyncThunk(
         throw Error('[deleteAllShoppingListItem] memberId 없음');
       }
       await shoppingListApi.deleteAllItem(userInfo.memberId);
-    } catch (e) {
-      console.log(e.message);
-    }
+    } catch (e) {}
   },
 );
 
 // try catch를 빼도 바로 reject로 넘어감
+// try catch를 했을때 catch에서 return rejectWithValue()해야 rejected로 넘어감
 export const addShoppingListItemByBarcode = createAsyncThunk(
   'shoppingList/addShoppingListItemByBarcode',
-  async (formData, {getState}) => {
-    try {
-      const {userInfo} = getState();
-      if (!userInfo.memberId) {
-        throw Error('[addShoppingListItemByBarcode] memberId 없음');
-      }
-      const response = await shoppingListApi.addItemByBarcode({
-        ...formData,
-        memberId: userInfo.memberId,
-      });
-      return response.data;
-    } catch (e) {
-      console.log(e.message);
+  async (formData, {getState, dispatch}) => {
+    const {userInfo} = getState();
+    if (!userInfo.memberId) {
+      throw Error('[addShoppingListItemByBarcode] memberId 없음');
     }
+    const response = await shoppingListApi.addItemByBarcode({
+      ...formData,
+      memberId: userInfo.memberId,
+    });
+    dispatch(fetchShoppingList());
+    return response.data;
   },
 );
 const shoppingListSlice = createSlice({
@@ -93,7 +85,7 @@ const shoppingListSlice = createSlice({
   initialState: {
     loading: false,
     hasErrors: false,
-    paymentDetail: [],
+    paymentDetail: null,
     sumPrice: 0,
     lastItem: null,
   },
@@ -113,7 +105,6 @@ const shoppingListSlice = createSlice({
       });
     },
     removeLastItem: state => {
-      console.log('removeLastItem!');
       state.lastItem = null;
     },
   },
@@ -122,6 +113,7 @@ const shoppingListSlice = createSlice({
       state.loading = true;
     },
     [fetchShoppingList.fulfilled]: (state, {payload}) => {
+      state.loading = false;
       state.id = payload.id;
       state.storeId = payload.storeId;
       state.paymentDetail = payload.paymentDetail;
@@ -137,9 +129,9 @@ const shoppingListSlice = createSlice({
       state.errorMsg = payload;
     },
     [updateShoppingListItem.fulfilled]: (state, {payload}) => {
+      state.loading = false;
       state.paymentDetail = state.paymentDetail.map(item => {
         if (item.prodId === payload.prodId) {
-          console.log(payload.qty);
           state.sumPrice =
             state.sumPrice -
             Number(item.prodPrice) * Number(item.qty) +
@@ -151,10 +143,10 @@ const shoppingListSlice = createSlice({
       });
     },
     [deleteShoppingListItem.fulfilled]: (state, {payload}) => {
+      state.loading = false;
       state.paymentDetail = state.paymentDetail.filter(list => {
         for (let i of payload) {
           if (list.prodId === i) {
-            console.log(list.prodPrice);
             state.sumPrice =
               state.sumPrice - Number(list.prodPrice) * Number(list.qty);
             return false;
@@ -164,11 +156,13 @@ const shoppingListSlice = createSlice({
       });
     },
     [deleteAllShoppingListItem.fulfilled]: state => {
+      state.loading = false;
       state.paymentDetail = [];
       state.sumPrice = 0;
     },
     [addShoppingListItemByBarcode.pending]: state => {
       state.loading = true;
+      state.hasErrors = false;
     },
     [addShoppingListItemByBarcode.fulfilled]: (state, {payload}) => {
       state.sumPrice += Number(payload.prodPrice);

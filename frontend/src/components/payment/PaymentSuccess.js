@@ -1,17 +1,17 @@
 import {Body, Button, Left, List, ListItem, Right, View} from 'native-base';
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
+import {Image, ScrollView, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import AppText from '../common/AppText';
 
-const PaymentSuccess = ({payment, navigation}) => {
+const PaymentSuccess = ({payment, backAction}) => {
   const [sumPrice, setSumPrice] = useState(0);
   useEffect(() => {
     let price = 0;
     for (let item of payment.paymentList) {
       price += item.prodPrice * item.qty;
     }
-    setSumPrice(price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+    setSumPrice(price.toLocaleString());
   }, [payment]);
 
   return (
@@ -27,9 +27,7 @@ const PaymentSuccess = ({payment, navigation}) => {
             <AppText>결제가 완료되었습니다.</AppText>
           </View>
         </View>
-        <Button
-          style={styles.button}
-          onPress={() => navigation.navigate('MainPage')}>
+        <Button style={styles.button} onPress={() => backAction()}>
           <AppText style={styles.buttonText}>홈으로</AppText>
         </Button>
       </View>
@@ -49,9 +47,7 @@ const PaymentSuccessList = ({paymentList}) => {
 };
 
 export const PaymentSuccessListItem = ({
-  prodId,
-  memberId,
-  imgUrl,
+  prodImage,
   prodName,
   prodPrice,
   qty,
@@ -59,14 +55,17 @@ export const PaymentSuccessListItem = ({
   return (
     <ListItem style={listItemStyle.list}>
       <Left style={listItemStyle.left2}>
-        {/* <Image style={listItemStyle.left} source={imgUrl} /> */}
+        <Image
+          style={listItemStyle.left}
+          source={{uri: 'data:image/png;base64,' + prodImage}}
+        />
       </Left>
       <Body style={listItemStyle.body}>
         <AppText style={listItemStyle.bodyTextName} numberOfLines={2}>
           {prodName}
         </AppText>
         <AppText style={listItemStyle.bodyTextPrice} numberOfLines={1}>
-          {prodPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          {prodPrice.toLocaleString()}원
         </AppText>
       </Body>
       <Right style={listItemStyle.right}>
@@ -142,8 +141,10 @@ const listItemStyle = StyleSheet.create({
     fontWeight: 'bold',
   },
   left: {
-    width: 60,
-    height: 60,
+    marginHorizontal: 10,
+    width: 50,
+    height: 50,
+    resizeMode: 'stretch',
   },
   right: {
     flex: 1,
