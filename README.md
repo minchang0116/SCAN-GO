@@ -58,37 +58,39 @@
 
   #### <img src="./readme_images/barcode.gif" width="40%" />
 
-  <br>
+  
+
+<br>
 
 - #### 상품 이미지 스캐닝
 
   <img src="./readme_images/image.gif" width="40%" />	
 
-  <br>
+<br>
 
 - #### 장바구니
 
   <img src="./readme_images/cartandpayment.gif" width="40%" />	
 
-  <br>
+<br>
 
 - #### 결제내역 조회
 
   <img src="./readme_images/paymentlist.gif" width="40%" />
 
-  <br>
+<br>
 
 - #### 메인페이지
 
   <img src="./readme_images/main.gif" alt="image" style="zoom:60%;" />
 
-  <br>
+<br>
 
 - #### 사용자 정보 조회
 
   <img src="./readme_images/profile.png" alt="image" style="zoom:20%;" />
 
-  <br>
+<br>
 
 - #### 관리자 페이지(사용자 통계 조회)
 
@@ -100,7 +102,7 @@
 
     <img src="./readme_images/admin-dashboard.gif" alt="image" style="zoom: 250%;" />
 
-    <br>
+  <br>
 
   - #### Search : 고객번호 검색으로 사용자별 결제내역 조회
 
