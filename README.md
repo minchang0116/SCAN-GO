@@ -38,6 +38,8 @@
 
 
 
+
+
 ## 📋 Function chart
 
 >1. 바코드 스캐닝 / 상품 이미지 인식 으로 상품 조회 및 장바구니 추가
@@ -52,41 +54,59 @@
 
   <img src="./readme_images/login.gif" width="40%" />
 
+
+
 - #### 바코드 스캐닝
 
   #### <img src="./readme_images/barcode.gif" width="40%" />
+
+  
 
 - #### 상품 이미지 스캐닝
 
   <img src="./readme_images/image.gif" width="40%" />	
 
+  
+
 - #### 장바구니
 
   <img src="./readme_images/cartandpayment.gif" width="40%" />	
+
+  
 
 - #### 결제내역 조회
 
   <img src="./readme_images/paymentlist.gif" width="40%" />
 
+  
+
 - #### 메인페이지
 
   <img src="./readme_images/main.gif" alt="image" style="zoom:60%;" />
+
+  
 
 - #### 사용자 정보 조회
 
   <img src="./readme_images/profile.png" alt="image" style="zoom:20%;" />
 
+  
+
 - #### 관리자 페이지(사용자 통계 조회)
 
   <img src="./readme_images/admin-main.png" alt="image" style="zoom: 33%;" />
 
-  - ##### Dashboard : 사용자 결제내역 및 통계 조회
+  - #### Dashboard : 사용자 결제내역 및 통계 조회
 
     <img src="./readme_images/admin-dashboard.gif" alt="image" style="zoom: 250%;" />
 
-  - ##### Search : 고객번호 검색으로 사용자별 결제내역 조회
+    
+
+  - #### Search : 고객번호 검색으로 사용자별 결제내역 조회
 
     <img src="./readme_images/admin-search.gif" alt="image" style="zoom: 250%;" />
+
+
 
 
 
@@ -166,7 +186,10 @@
     java -jar *.jar
     ```
 
-    
+
+
+
+
 
 ## 💻 팀원
 
