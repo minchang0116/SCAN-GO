@@ -1,23 +1,4 @@
-신세계 아이앤씨 가상 장바구니 App Web 개발 (안드로이드 앱)
-
-​                     
-
-​                   
-
-## 🔖우리 조는 4주동안...
-
-#### 270여개의 **commit**과 30여개의 **branch** 가 있었어요!
-
-<div align="center" style="display:flex;">
-	<img src="./readme_images/commit.jpg" width="70%"/>
-</div>
-
-​                        
-
-| ISSUE                              |
-| ---------------------------------- |
-| ![image](./readme_images/jira.jpg) |
-| Jira를 이용한 애자일 개발 방식     |
+#### [신세계 I&C 연계 프로젝트] 가상 장바구니 App / Web 개발
 
 
 
@@ -32,6 +13,26 @@
 > 셀프스토어 고객을 위한 가상 장바구니 어플을 개발하기로 했습니다!
 
 ![image](./readme_images/point.png)
+
+​      
+
+​                   
+
+## 🔖우리 조는 5주동안...
+
+#### 470여개의 **commit**과 40여개의 **branch** 가 있었어요!
+
+<div align="center" style="display:flex;">
+	<img src="./readme_images/commit.jpg" width="100%"/>
+</div>
+
+
+​                        
+
+| ISSUE                              |
+| ---------------------------------- |
+| ![image](./readme_images/jira.jpg) |
+| Jira를 이용한 애자일 개발 방식     |
 
 
 
@@ -69,11 +70,11 @@
 
 - #### 메인페이지
 
-  <img src="./readme_images/main.gif" alt="image" style="zoom:50%;" />
+  <img src="./readme_images/main.gif" alt="image" style="zoom:60%;" />
 
 - #### 사용자 정보 조회
 
-  <img src="./readme_images/profile.png" alt="image" style="zoom:15%;" />
+  <img src="./readme_images/profile.png" alt="image" style="zoom:20%;" />
 
 - #### 관리자 페이지(사용자 통계 조회)
 
@@ -81,11 +82,11 @@
 
   - ##### Dashboard : 사용자 결제내역 및 통계 조회
 
-    <img src="./readme_images/admin-dashboard.gif" alt="image" style="zoom: 200%;" />
+    <img src="./readme_images/admin-dashboard.gif" alt="image" style="zoom: 250%;" />
 
   - ##### Search : 고객번호 검색으로 사용자별 결제내역 조회
 
-    <img src="./readme_images/admin-search.gif" alt="image" style="zoom: 200%;" />
+    <img src="./readme_images/admin-search.gif" alt="image" style="zoom: 250%;" />
 
 
 
