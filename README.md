@@ -73,9 +73,9 @@
 
 
 
-* Front-End: [React Native](https://reactnative.dev/)
-* Back-End: [IntelliJ](https://www.jetbrains.com/ko-kr/idea/), [MySQL](https://www.mysql.com/), [Swagger](https://swagger.io/)
-* Infra: [Docker](https://www.docker.com/), [Jenkins](https://www.jenkins.io/), [SonarQube](https://www.sonarqube.org/)
+* Front-End: [React Native](https://reactnative.dev/), [Redux](https://redux.js.org/)
+* Back-End: [Spring Boot JPA](https://spring.io/), [MySQL](https://www.mysql.com/), [Swagger](https://swagger.io/)
+* Infra: [AWS](https://aws.amazon.com/), [Docker](https://www.docker.com/), [Jenkins](https://www.jenkins.io/), [SonarQube](https://www.sonarqube.org/)
 * Image-Classification: [Pytorch](https://pytorch.org/), [Flask](https://flask.palletsprojects.com/en/2.0.x/), [EfficientNet-B0](https://github.com/lukemelas/EfficientNet-PyTorch)
 * Image-Crawling : [Selenium](https://selenium-python.readthedocs.io/)
 
