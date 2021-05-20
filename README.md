@@ -30,17 +30,17 @@
 
 - 로그인
 
-<img src="./readme_images/login.gif" alt="image" style="zoom:50%;" />
+<img src="./readme_images/login.gif" width="40%" />
 
 - 바코드 스캐닝
 
-![image](./readme_images/admin-main.png)
+
 
 - 상품 이미지 스캐닝
 - 장바구니
 - 결제내역 조회
 
-<img src="./readme_images/paymentlist.gif" alt="image" style="zoom:50%;" />
+<img src="./readme_images/paymentlist.gif" width="40%" />
 
 - 메인페이지
 
