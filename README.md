@@ -28,16 +28,24 @@
 3. [관리자 페이지] 고객별 결제 정보 조회 및 통계 기능
 4. 앱 비정상 종료 시 장바구니 불러오기
 
-<여기에 앱 화면 캡쳐해서 들어갈 예정~>
+- 로그인
+
+<img src="./readme_images/login.gif" alt="image" style="zoom:50%;" />
 
 - 바코드 스캐닝
 
-
+![image](./readme_images/admin-main.png)
 
 - 상품 이미지 스캐닝
 - 장바구니
 - 결제내역 조회
+
+<img src="./readme_images/paymentlist.gif" alt="image" style="zoom:50%;" />
+
 - 메인페이지
+
+<img src="./readme_images/main.gif" alt="image" style="zoom:50%;" />
+
 - 사용자 정보 조회
 - 관리자 페이지(사용자 통계 조회)
 
@@ -105,7 +113,7 @@
 
     
 
-5. 프로젝트 실행
+5. 프론트엔드 실행
 
    ```
    cd frontend
@@ -119,7 +127,15 @@
    react-native run-android
    ```
 
-   ​             
+   
+   
+6. 백엔드 실행
+
+    ```
+    cd backend
+    ```
+
+    
 
 ## 💻 팀원
 
