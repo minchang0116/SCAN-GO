@@ -5,28 +5,31 @@ import AppText from '../common/AppText';
 import {Thumbnail} from 'native-base';
 
 const ProductItemInModal = ({product}) => {
-  console.log(product.item);
   return (
     <>
       <View style={styles.wrap}>
         <Thumbnail
           square
-          large
+          style={styles.prodImage}
           source={{
-            uri:
-              'http://image3.compuzone.co.kr/img/product_img/2021/0219/764689/764689_600.jpg',
+            uri: 'data:image/png;base64,' + product.item.prodImage,
           }}
         />
-        <AppText numberOfLines={2} ellipsizeMode="tail">
-          {product.item.prodName}
-        </AppText>
-        <AppText
-          numberOfLines={1}
-          ellipsizeMode="tail"
-          style={{fontSize: 14, marginTop: 5}}>
-          {parseInt(product.item.prodPrice, 10).toLocaleString()}원 ·{' '}
-          {product.item.qty}개
-        </AppText>
+        <View style={styles.prodInfo}>
+          <AppText
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            style={{...styles.font12, ...styles.prodName}}>
+            {product.item.prodName}
+          </AppText>
+          <AppText
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            style={{...styles.font12, ...styles.prodPrice}}>
+            {Number(product.item.prodPrice).toLocaleString()}원 ·{' '}
+            {product.item.qty}개
+          </AppText>
+        </View>
       </View>
     </>
   );
@@ -36,10 +39,34 @@ export default ProductItemInModal;
 
 const styles = StyleSheet.create({
   wrap: {
-    width: '33.33%',
-    height: '100%',
-    paddingRight: 8,
-    paddingLeft: 8,
-    // marginBottom: -50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 70,
+    marginHorizontal: 15,
+    paddingHorizontal: 8,
+    marginVertical: 2,
+    borderBottomColor: 'rgb(240,240,240)',
+    borderBottomWidth: 1,
+  },
+  font12: {
+    fontSize: 12,
+  },
+  prodImage: {
+    resizeMode: 'cover',
+    width: 55,
+    height: 55,
+    borderRadius: 10,
+  },
+  prodInfo: {
+    justifyContent: 'center',
+    height: 50,
+    marginLeft: 10,
+  },
+  prodName: {
+    // height: 20,
+  },
+  prodPrice: {
+    marginTop: 5,
+    fontWeight: '700',
   },
 });

@@ -21,31 +21,29 @@ const PaymentListContainer = () => {
     paymentList: paymentList.paymentList,
     loading: paymentList.loading,
   }));
-  const [selectedDuration, setSeletedDuration] = useState('최근 3개월');
+  const [selectedDuration, setSelectedDuration] = useState('최근 3개월');
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [page, setPage] = useState(0);
-  const [curPaymentList, setCurPaymentList] = useState([]);
+  const [curPaymentList, setCurPaymentList] = useState(null);
 
-  const changeDateFormat = date => {
+  const changeDateFormat = useCallback(date => {
     return (
       date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     );
-  };
+  });
 
-  const loadData = PAGE => {
+  const loadData = useCallback(() => {
     const formData = {
       memberId: 1,
       date1: changeDateFormat(startDate),
       date2: changeDateFormat(endDate),
-      pageNum: PAGE,
+      pageNum: page,
     };
     dispatch(fetchPaymentList(formData));
-    console.log(paymentList);
-  };
+  });
 
   useEffect(() => {
-    console.log('기간 picker 변경됨');
     let date1 = new Date();
     switch (selectedDuration) {
       case '최근 3개월':
@@ -61,14 +59,18 @@ const PaymentListContainer = () => {
         date1.setFullYear(date1.getFullYear() - 1);
         break;
     }
-    setPage(0);
     setStartDate(date1);
     setEndDate(new Date());
   }, [selectedDuration]);
 
   useEffect(() => {
-    loadData(page);
-  }, [startDate, endDate, page]);
+    loadData();
+  }, [page]);
+
+  useEffect(() => {
+    setPage(0);
+    loadData();
+  }, [startDate, endDate]);
 
   useEffect(() => {
     if (page === 0) {
@@ -95,20 +97,18 @@ const PaymentListContainer = () => {
     <>
       <View style={styles.container}>
         <Content>
-          {loading && <Spinner />}
           <SetDurationPicker
             selectedDuration={selectedDuration}
-            setSeletedDuration={setSeletedDuration}
+            changeValue={setSelectedDuration}
           />
           <SetDuration
             startDate={startDate}
             setStartDate={setStartDate}
             endDate={endDate}
             setEndDate={setEndDate}
-            loadData={loadData}
-            setPage={setPage}
           />
-          {curPaymentList.length > 0 ? (
+          {loading && <Spinner />}
+          {curPaymentList && curPaymentList.length > 0 ? (
             <FlatList
               data={curPaymentList}
               keyExtractor={keyExtractor}
@@ -119,19 +119,21 @@ const PaymentListContainer = () => {
               <AppText style={styles.grayText}>결제 내역이 없습니다.</AppText>
             </View>
           )}
-          <View style={styles.seeMoreBtn}>
-            <TouchableOpacity
-              onPress={() => {
-                setPage(page + 1);
-              }}>
+          <TouchableOpacity
+            onPress={() => {
+              setPage(page + 1);
+            }}>
+            <View style={styles.seeMoreBtn}>
               <AppText style={styles.grayText}>더보기</AppText>
-            </TouchableOpacity>
-          </View>
+            </View>
+          </TouchableOpacity>
         </Content>
       </View>
     </>
   );
 };
+
+export default PaymentListContainer;
 
 const styles = StyleSheet.create({
   container: {
@@ -143,9 +145,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 35,
-    borderColor: 'rgb(144,144,144)',
-    borderWidth: 2,
-    borderRadius: 10,
+    marginBottom: 10,
+    borderColor: 'rgb(180,180,180)',
+    borderWidth: 1,
+    borderRadius: 50,
   },
   emptyContainer: {
     justifyContent: 'center',
@@ -157,5 +160,3 @@ const styles = StyleSheet.create({
     color: 'rgb(144,144,144)',
   },
 });
-
-export default PaymentListContainer;

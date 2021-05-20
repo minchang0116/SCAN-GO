@@ -1,5 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
+import {StyleSheet} from 'react-native';
 import {CardItem, Body, Thumbnail} from 'native-base';
 import AppText from '../common/AppText';
 
@@ -10,16 +11,16 @@ const ProductItem = ({product}) => {
         <Thumbnail
           square
           source={{
-            uri:
-              'http://image3.compuzone.co.kr/img/product_img/2021/0219/764689/764689_600.jpg',
+            uri: 'data:image/png;base64,' + product.prodImage,
           }}
-          style={{flexDirection: 'row'}}
+          style={styles.prodImage}
         />
         <Body style={{marginLeft: 15}}>
-          <AppText style={{marginBottom: 5}}>{product.prodName}</AppText>
-          <AppText>
-            {parseInt(product.prodPrice, 10).toLocaleString()}원 · {product.qty}
-            개
+          <AppText style={{marginBottom: 5, ...styles.font14}}>
+            {product.prodName}
+          </AppText>
+          <AppText style={styles.font14}>
+            {Number(product.prodPrice).toLocaleString()}원 · {product.qty}개
           </AppText>
         </Body>
       </CardItem>
@@ -28,3 +29,14 @@ const ProductItem = ({product}) => {
 };
 
 export default ProductItem;
+
+const styles = StyleSheet.create({
+  font14: {
+    fontSize: 14,
+  },
+  prodImage: {
+    // flexDirection: 'row',
+    width: 50,
+    height: 50,
+  },
+});

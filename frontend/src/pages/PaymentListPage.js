@@ -2,7 +2,7 @@ import React from 'react';
 import SubHeader from '../components/common/SubHeader';
 import MainFooter from '../components/common/MainFooter';
 import PaymentListContainer from '../containers/paymentList/PaymentListContainer';
-import VirtualizedView from '../components/paymentList/VirtualizedView';
+import VirtualizedView from '../components/common/VirtualizedView';
 
 const PaymentListPage = ({navigation}) => {
   return (

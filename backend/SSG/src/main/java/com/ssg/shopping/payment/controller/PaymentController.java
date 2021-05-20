@@ -10,14 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-//@CrossOrigin(origins = {""}, allowCredentials = "true")
+@CrossOrigin(origins = {"https://k4d101.p.ssafy.io", "http://localhost:3000"})
 @RequestMapping("/payment")
 public class PaymentController {
     @Autowired

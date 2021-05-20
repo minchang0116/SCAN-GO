@@ -20,8 +20,10 @@ const ShoppingListFooter = ({shoppingList, sumPrice, navigation}) => {
       <Left style={styles.footerLeft}>
         <AppText>결제 예정금액 : {sumPrice}원</AppText>
       </Left>
-      <Right style={styles.footerRight}>
+      <Right
+        style={sumPrice === '0' ? styles.footerRightFalse : styles.footerRight}>
         <TouchableOpacity
+          disabled={sumPrice === '0' ? true : false}
           style={styles.footerRightBlock}
           onPress={() => {
             onPayment();
@@ -37,12 +39,16 @@ const styles = StyleSheet.create({
   footer: {
     flexDirection: 'row',
     height: 50,
-    borderTopColor: 'rgb(240,240,240)',
-    borderTopWidth: 1,
+    borderTopWidth: 0.7,
+    borderColor: 'rgb(230,230,230)',
     backgroundColor: 'white',
   },
   footerRight: {
     backgroundColor: 'rgb(240,41,28)',
+    flex: 2,
+  },
+  footerRightFalse: {
+    backgroundColor: 'rgb(150,150,150)',
     flex: 2,
   },
   footerRightBlock: {
@@ -54,7 +60,6 @@ const styles = StyleSheet.create({
   footerLeft: {
     flex: 3,
     backgroundColor: 'white',
-    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },

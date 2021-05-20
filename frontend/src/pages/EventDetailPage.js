@@ -6,7 +6,6 @@ const EventDetailPage = () => {
   const {img} = useSelector(({eventProductList}) => ({
     img: eventProductList.eventDetailImg,
   }));
-  console.log(img);
   return (
     <>
       <SubHeader title="이벤트 정보" isIcon={false} />

@@ -137,7 +137,6 @@ const RegisterForm = ({navigation}) => {
 
     inbirth = inbirth.replace(/(\d{4})(\d{2})(\d{2})/, '$1-$2-$3');
     setBirth(inbirth);
-    console.log(inbirth);
 
     let year = Number(inbirth.substr(0, 4));
     let month = Number(inbirth.substr(5, 2));
@@ -284,7 +283,6 @@ const RegisterForm = ({navigation}) => {
     if (cell.length === 11) {
       cell = cell.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
       setCellNum(cell);
-      console.log(cell);
     }
 
     setCellBlank(false);

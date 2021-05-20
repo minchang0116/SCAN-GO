@@ -11,10 +11,9 @@ import {
 import AppText from '../common/AppText';
 
 const ShoppingListItem = ({
-  imgUrl,
+  prodImage,
   isCheck,
   prodId,
-  memberId,
   prodName,
   prodPrice,
   qty,
@@ -22,17 +21,17 @@ const ShoppingListItem = ({
   const dispatch = useDispatch();
   const onIncrease = () => {
     if (qty > 98) {
-      dispatch(updateShoppingListItem({prodId, memberId: '1', qty: 99}));
+      dispatch(updateShoppingListItem({prodId, qty: 99}));
       return;
     }
-    dispatch(updateShoppingListItem({prodId, memberId: '1', qty: qty + 1}));
+    dispatch(updateShoppingListItem({prodId, qty: qty + 1}));
   };
   const onDecrease = () => {
     if (qty < 2) {
-      dispatch(updateShoppingListItem({prodId, memberId: '1', qty: 1}));
+      dispatch(updateShoppingListItem({prodId, qty: 1}));
       return;
     }
-    dispatch(updateShoppingListItem({prodId, memberId: '1', qty: qty - 1}));
+    dispatch(updateShoppingListItem({prodId, qty: qty - 1}));
   };
   const onIsChecked = () => {
     dispatch(isCheckedShoppingListItem({prodId}));
@@ -50,7 +49,10 @@ const ShoppingListItem = ({
               style={listItemStyle.checkbox}
             />
           )}
-          <Image style={listItemStyle.left} source={imgUrl} />
+          <Image
+            style={listItemStyle.left}
+            source={{uri: 'data:image/png;base64,' + prodImage}}
+          />
         </Left>
       </TouchableOpacity>
       <Body style={listItemStyle.body}>
@@ -101,8 +103,10 @@ const listItemStyle = StyleSheet.create({
     fontWeight: 'bold',
   },
   left: {
-    width: 60,
-    height: 60,
+    marginLeft: 10,
+    width: 50,
+    height: 50,
+    resizeMode: 'stretch',
   },
   right: {
     flex: 1,

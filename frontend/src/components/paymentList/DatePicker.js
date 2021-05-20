@@ -2,7 +2,6 @@ import React from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const DatePicker = ({date, onChangeDate, toggleDatePicker}) => {
-  console.log('date: ' + date);
   return (
     <DateTimePicker
       testID="dateTimePicker"

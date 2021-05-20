@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import {useNavigation} from '@react-navigation/core';
 import {Thumbnail, View} from 'native-base';
 import React, {useEffect, useState} from 'react';
@@ -18,7 +19,8 @@ import {
   fetchSnackRanking,
 } from '../../modules/rankingProduct';
 import AppText from '../common/AppText';
-import EventProductItem from './EventProductItem';
+import Spinner from '../common/Spinner';
+import MainPopularProductItem from './MainPopularProductItem';
 
 const HomeProduct = () => {
   const navigation = useNavigation();
@@ -54,13 +56,13 @@ const HomeProduct = () => {
   return (
     <>
       <View>
-        <SwiperFlatList
-          showPagination
-          autoplayDelay={10}
-          autoplayLoop={true}
-          paginationStyleItem={{width: 10, height: 10}}>
-          {eventList &&
-            eventList.map(item => (
+        {eventList ? (
+          <SwiperFlatList
+            showPagination
+            autoplayDelay={10}
+            autoplayLoop={true}
+            paginationStyleItem={{width: 10, height: 10}}>
+            {eventList.map(item => (
               <TouchableOpacity
                 key={item.id}
                 onPress={() => {
@@ -71,7 +73,10 @@ const HomeProduct = () => {
                 </View>
               </TouchableOpacity>
             ))}
-        </SwiperFlatList>
+          </SwiperFlatList>
+        ) : (
+          <Spinner />
+        )}
       </View>
       <View style={styles.container}>
         <View style={styles.subContainer}>
@@ -117,7 +122,7 @@ const HomeProduct = () => {
             </TouchableOpacity>
           </View>
           <View>
-            {icecream && (
+            {beer && icecream && snack ? (
               <FlatList
                 style={styles.scrollContainer}
                 horizontal
@@ -130,8 +135,12 @@ const HomeProduct = () => {
                     : beer
                 }
                 keyExtractor={item => item.id}
-                renderItem={({item}) => <EventProductItem item={item} />}
+                renderItem={({item}) => (
+                  <MainPopularProductItem item={item} rank={item.id} />
+                )}
               />
+            ) : (
+              <Spinner />
             )}
           </View>
         </View>
@@ -156,7 +165,7 @@ const styles = StyleSheet.create({
   title: {
     marginTop: 20,
     fontWeight: 'bold',
-    fontSize: 25,
+    fontSize: 22,
   },
   subTitle: {
     fontSize: 12,
@@ -192,5 +201,9 @@ const styles = StyleSheet.create({
   },
   categoryTxt: {
     fontSize: 10,
+  },
+  scrollContainer: {
+    marginTop: '3%',
+    marginBottom: '7%',
   },
 });
