@@ -310,6 +310,7 @@ def scrap_all():
         sql = "alter table sale_product auto_increment = 1"
         cursor.execute(sql)
         connection.commit()
+        '''
         sql = "DELETE from beer_ranking;"
         cursor.execute(sql)
         connection.commit()
@@ -328,13 +329,14 @@ def scrap_all():
         sql = "alter table snack_ranking auto_increment = 1"
         cursor.execute(sql)
         connection.commit()
+        '''
 
     connection.close()
     
     try:
         scrap_event()
         scrap_eventProduct()
-        scrap_rankingView()
+        #scrap_rankingView()
 
     except Exception:
         logger.exception('처리되지 않은 에러 발생')
