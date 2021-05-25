@@ -1,16 +1,39 @@
-## 신세계 아이앤씨 가상 장바구니 App Web 개발 (안드로이드 앱)
+#### [신세계 I&C 연계 프로젝트] 가상 장바구니 App / Web 개발
 
-​                     
+
+
+## 🎨 기획 배경
+
+> 셀프 서비스 스토어가 미래형 유통 매장의 비전으로 제시되는 요즘, 
+>
+> 결제 모듈을 이용한 셀프 결제 형식이 제시되지만 모듈 운반, 설치, 파손, 고객 부주의 등 문제점이 있습니다.
+>
+> 따라서 '헬로뉴월드' 팀은 셀프 결제 매장에서 결제모듈을 대체할 수 있는 방안으로
+>
+> 셀프스토어 고객을 위한 가상 장바구니 어플을 개발하기로 했습니다!
+
+![image](./readme_images/point.png)
+
+​      
 
 ​                   
 
-## 🔖우리 조는 4주동안...
+## :vhs: 광고형 UCC
 
-#### 270여개의 **commit**과 30여개의 **branch** 가 있었어요!
+<img src="./readme_images/ucc.gif"/>
+
+​                    
+
+​                           
+
+## 🔖우리 조는 5주동안...
+
+#### 470여개의 **commit**과 40여개의 **branch** 가 있었어요!
 
 <div align="center" style="display:flex;">
-	<img src="./readme_images/commit.jpg" width="70%"/>
+	<img src="./readme_images/commit.jpg" width="100%"/>
 </div>
+
 
 ​                        
 
@@ -19,43 +42,83 @@
 | ![image](./readme_images/jira.jpg) |
 | Jira를 이용한 애자일 개발 방식     |
 
-​                          
+
+
+<br>
 
 ## 📋 Function chart
 
-1. 바코드 스캐닝 / 상품 이미지 인식 으로 상품 조회 및 장바구니 추가
-2. 쉐이크 모션으로 바코드 스캐닝 페이지 오픈 
-3. [관리자 페이지] 고객별 결제 정보 조회 및 통계 기능
-4. 앱 비정상 종료 시 장바구니 불러오기
+>1. 바코드 스캐닝 / 상품 이미지 인식 으로 상품 조회 및 장바구니 추가
+>2. 쉐이크 모션으로 바코드 스캐닝 페이지 오픈 
+>3. 메인페이지의 상품 랭킹, 이벤트 정보 조회 
+>4. 결제내역 조회
+>5. [관리자 페이지] 고객별 결제 정보 조회 및 통계 기능
 
-<여기에 앱 화면 캡쳐해서 들어갈 예정~>
+<br>
 
-- 바코드 스캐닝
+- #### 로그인
+
+  <img src="./readme_images/login.gif" width="40%" />
+
+<br>
+
+- #### 바코드 스캐닝
+
+  #### <img src="./readme_images/barcode.gif" width="40%" />
+
+  
+
+<br>
+
+- #### 상품 이미지 스캐닝
+
+  <img src="./readme_images/image.gif" width="40%" />	
+
+<br>
+
+- #### 장바구니
+
+  <img src="./readme_images/cartandpayment.gif" width="40%" />	
+
+<br>
+
+- #### 결제내역 조회
+
+  <img src="./readme_images/paymentlist.gif" width="40%" />
+
+<br>
+
+- #### 메인페이지
+
+  <img src="./readme_images/main.gif" alt="image" style="zoom:60%;" />
+
+<br>
+
+- #### 사용자 정보 조회
+
+  <img src="./readme_images/profile.png" alt="image" style="zoom:20%;" />
+
+<br>
+
+- #### 관리자 페이지(사용자 통계 조회)
+
+  <img src="./readme_images/admin-main.png" alt="image" style="zoom: 33%;" />
+
+  <br>
+
+  - #### Dashboard : 사용자 결제내역 및 통계 조회
+
+    <img src="./readme_images/admin-dashboard.gif" alt="image" style="zoom: 250%;" />
+
+  <br>
+
+  - #### Search : 고객번호 검색으로 사용자별 결제내역 조회
+
+    <img src="./readme_images/admin-search.gif" alt="image" style="zoom: 250%;" />
 
 
 
-- 상품 이미지 스캐닝
-- 장바구니
-- 결제내역 조회
-- 메인페이지
-- 사용자 정보 조회
-- 관리자 페이지(사용자 통계 조회)
-
-![image-20210520105846156](C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20210520105846156.png)
-
-​                   Dashboard : 사용자 결제내역 및 통계 조회
-
-​				   ![image](./readme_images/admin-dashboard.gif)
-
-
-
-​				Search : 고객번호 검색으로 사용자별 결제내역 조회
-
-​				![image](./readme_images/admin-search.gif)
-
-
-
-
+<br>
 
 ## 🛠 Using Technology
 
@@ -65,9 +128,9 @@
 
 
 
-* Front-End: [React Native](https://reactnative.dev/)
-* Back-End: [IntelliJ](https://www.jetbrains.com/ko-kr/idea/), [MySQL](https://www.mysql.com/), [Swagger](https://swagger.io/)
-* Infra: [Docker](https://www.docker.com/), [Jenkins](https://www.jenkins.io/), [SonarQube](https://www.sonarqube.org/)
+* Front-End: [React Native](https://reactnative.dev/), [Redux](https://redux.js.org/)
+* Back-End: [Spring Boot, JPA](https://spring.io/), [MySQL](https://www.mysql.com/), [Swagger](https://swagger.io/)
+* Infra: [AWS](https://aws.amazon.com/), [Docker](https://www.docker.com/), [Jenkins](https://www.jenkins.io/), [SonarQube](https://www.sonarqube.org/)
 * Image-Classification: [Pytorch](https://pytorch.org/), [Flask](https://flask.palletsprojects.com/en/2.0.x/), [EfficientNet-B0](https://github.com/lukemelas/EfficientNet-PyTorch)
 * Image-Crawling : [Selenium](https://selenium-python.readthedocs.io/)
 
@@ -77,18 +140,18 @@
 
 ##### 
 
-1. 링크에서 안드로이드 스튜디오 설치
+1. **링크에서 안드로이드 스튜디오 설치**
 
    https://reactnative.dev/docs/environment-setup
 
-2. 제어판 > 시스템 및 보안 > 시스템 > 고급 시스템 설정 > 환경 변수 > 사용자 변수에 아래 추가
+2. **제어판 > 시스템 및 보안 > 시스템 > 고급 시스템 설정 > 환경 변수 > 사용자 변수에 아래 추가**
     변수 이름 : ANDROID_HOME
     변수 값 : C:\Users\사용자명\AppData\Local\Android\Sdk
 
-3. 시스템 변수 > Path >  새로 만들기
+3. **시스템 변수 > Path >  새로 만들기**
     C:\Users\사용자명\AppData\Local\Android\Sdk\platform-tools
 
-4. 에뮬레이터 or 실기기 연결
+4. **에뮬레이터 or 실기기 연결**
 
     - **안드로이드 폰이 없는 경우 (안드로이드 스튜디오를 이용해 컴퓨터에서 에뮬레이터 실행)**
 
@@ -105,7 +168,7 @@
 
     
 
-5. 프로젝트 실행
+5. **프론트엔드 실행**
 
    ```
    cd frontend
@@ -119,14 +182,54 @@
    react-native run-android
    ```
 
-   ​             
+   **이 때 최초 react-native run-android 실행 시 RNCameraKitModule 오류가 발생합니다.**
+   
+   ```
+   node_modules/react-native-camera-kit/android/src/main/java/com/rncamerakit/RNCameraKitModule.kt
+   ```
+   
+   위 경로에서
+   
+   <img src="./readme_images/error.png" alt="image" />
+   
+   **위 사진처럼 uiManager 뒤에 ? 를 붙여주셔야 합니다.**
+   
+   
+   
+   그 후에도 react-native run-android 명령어를 쳤을 때 에러가 발생한다면
+   
+   한 번 더 react-native run-android 를 실행하거나
+   
+   react-native link 후 react-native run-android 를 실행해주세요.
+   
+   
+   
+   
+   
+   
+   
+6. **백엔드 실행**
+
+    ```
+    cd backend/SSG
+    
+    mvn package
+    
+    cd /target
+    
+    java -jar *.jar
+    ```
+
+
+
+<br>
 
 ## 💻 팀원
 
 * 팀장 강유정([@yujeong0](https://github.com/yujeong0 "github link"))
 * 팀원 강민창([@minchang0116](https://github.com/minchang0116 "github link"))
 * 팀원 곽충섭([@NICEGINI](https://github.com/NICEGINI "github link"))
-* 팀원 이지원
+* 팀원 이지원([@leegw217](https://github.com/leegw217 "github link"))
 * 팀원 지서연([@seoyounji](https://github.com/seoyounji "github link"))
 
 ​                       
