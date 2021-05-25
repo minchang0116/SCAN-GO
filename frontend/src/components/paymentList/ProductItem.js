@@ -38,5 +38,6 @@ const styles = StyleSheet.create({
     // flexDirection: 'row',
     width: 50,
     height: 50,
+    resizeMode: 'center',
   },
 });

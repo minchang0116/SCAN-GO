@@ -17,6 +17,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   addShoppingListItemByBarcode,
   removeLastItem,
+  initError,
 } from '../modules/shoppingList';
 import AppText from '../components/common/AppText';
 
@@ -40,6 +41,7 @@ const BarcodeScanningPage = ({navigation}) => {
       setFocusedScreen(true);
       return () => {
         setFocusedScreen(false);
+        dispatch(initError());
       };
     }, []),
   );
@@ -111,8 +113,8 @@ const BarcodeScanningPage = ({navigation}) => {
             <CameraFooter sumPrice={sumPrice} qtyProduct={qtyProduct} />
           </>
         ) : (
-          <View>
-            <AppText>카메라 중지</AppText>
+          <View style={styles.pause}>
+            <AppText>loading ...</AppText>
           </View>
         )}
       </View>
@@ -149,5 +151,10 @@ const styles = StyleSheet.create({
   white11Text: {
     color: 'rgb(255,255,255)',
     fontSize: 11,
+  },
+  pause: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
