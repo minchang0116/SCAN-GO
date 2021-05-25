@@ -107,6 +107,9 @@ const shoppingListSlice = createSlice({
     removeLastItem: state => {
       state.lastItem = null;
     },
+    initError: state => {
+      state.hasErrors = false;
+    },
   },
   extraReducers: {
     [fetchShoppingList.pending]: state => {
@@ -181,5 +184,6 @@ export const {
   isCheckedShoppingListItem,
   allCheckShoppingListItem,
   removeLastItem,
+  initError,
 } = shoppingListSlice.actions;
 export default shoppingListSlice.reducer;
