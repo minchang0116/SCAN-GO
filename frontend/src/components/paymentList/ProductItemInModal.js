@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import AppText from '../common/AppText';
@@ -16,10 +15,7 @@ const ProductItemInModal = ({product}) => {
           }}
         />
         <View style={styles.prodInfo}>
-          <AppText
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            style={{...styles.font12, ...styles.prodName}}>
+          <AppText numberOfLines={1} ellipsizeMode="tail" style={styles.font12}>
             {product.item.prodName}
           </AppText>
           <AppText
@@ -52,7 +48,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   prodImage: {
-    resizeMode: 'cover',
+    resizeMode: 'contain',
     width: 55,
     height: 55,
     borderRadius: 10,
@@ -61,9 +57,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 50,
     marginLeft: 10,
-  },
-  prodName: {
-    // height: 20,
   },
   prodPrice: {
     marginTop: 5,
