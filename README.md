@@ -78,7 +78,7 @@
 
 - #### 장바구니
 
-  <img src="./readme_images/cartandpayment.gif" width="40%" />	
+  <img src="./readme_images/pay.gif" width="40%" />	
 
 <br>
 
