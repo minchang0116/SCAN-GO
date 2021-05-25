@@ -13,7 +13,12 @@ import {
   addShoppingListItemByBarcode,
   removeLastItem,
 } from '../modules/shoppingList';
-import {fetchBarcode, removeBarcode} from '../modules/imageProduct';
+import {
+  fetchBarcode,
+  removeBarcode,
+  initError,
+  initBarcode,
+} from '../modules/imageProduct';
 import AppText from '../components/common/AppText';
 
 const ImageScanningPage = ({navigation}) => {
@@ -23,16 +28,14 @@ const ImageScanningPage = ({navigation}) => {
     qtyProduct,
     lastItem,
     sumPrice,
-    error1,
-    error2,
+    error,
     loading1,
     loading2,
     barcode,
   } = useSelector(({shoppingList, imageProduct}) => ({
     lastItem: shoppingList.lastItem,
     sumPrice: shoppingList.sumPrice.toString().toLocaleString(),
-    error1: shoppingList.hasErrors,
-    error2: imageProduct.hasErrors,
+    error: imageProduct.hasErrors,
     loading1: shoppingList.loading,
     loading2: imageProduct.loading,
     barcode: imageProduct.barcode,
@@ -48,6 +51,7 @@ const ImageScanningPage = ({navigation}) => {
       setFocusedScreen(true);
       return () => {
         setFocusedScreen(false);
+        dispatch(initError());
       };
     }, []),
   );
@@ -57,6 +61,18 @@ const ImageScanningPage = ({navigation}) => {
       return;
     }
     if (barcode) {
+      if (barcode === 'none') {
+        ToastAndroid.showWithGravityAndOffset(
+          '찾을 수 없는 상품입니다. 다시 촬영해주세요.',
+          ToastAndroid.SHORT,
+          ToastAndroid.TOP,
+          25,
+          100,
+        );
+        dispatch(initError());
+        dispatch(initBarcode());
+        return;
+      }
       dispatch(addShoppingListItemByBarcode({prodCode: barcode}));
       setTimeout(() => {
         dispatch(removeLastItem());
@@ -66,7 +82,7 @@ const ImageScanningPage = ({navigation}) => {
   }, [barcode]);
 
   useEffect(() => {
-    if (error1 || error2) {
+    if (error) {
       ToastAndroid.showWithGravityAndOffset(
         '찾을 수 없는 상품입니다. 다시 촬영해주세요.',
         ToastAndroid.SHORT,
@@ -74,8 +90,9 @@ const ImageScanningPage = ({navigation}) => {
         25,
         100,
       );
+      dispatch(initError());
     }
-  }, [error1, error2]);
+  }, [error]);
 
   const takePhoto = useCallback(async () => {
     if (cameraRef) {
@@ -122,7 +139,7 @@ const ImageScanningPage = ({navigation}) => {
           <CameraFooter sumPrice={sumPrice} qtyProduct={qtyProduct} />
         </>
       ) : (
-        <View>
+        <View style={styles.pause}>
           <AppText>loading ...</AppText>
         </View>
       )}
@@ -175,5 +192,10 @@ const styles = StyleSheet.create({
   white11Text: {
     color: 'rgb(255,255,255)',
     fontSize: 11,
+  },
+  pause: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
