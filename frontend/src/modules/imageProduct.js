@@ -44,6 +44,8 @@ export const fetchBarcode = createAsyncThunk(
           result = '8801105000535';
           break;
       }
+    } else {
+      result = 'none';
     }
     return result;
   },
@@ -58,6 +60,13 @@ const imageProductSlice = createSlice({
   },
   reducers: {
     removeBarcode: state => {
+      state.barcode = null;
+      state.hasErrors = false;
+    },
+    initError: state => {
+      state.hasErrors = false;
+    },
+    initBarcode: state => {
       state.barcode = null;
     },
   },
@@ -77,5 +86,9 @@ const imageProductSlice = createSlice({
   },
 });
 
-export const {removeBarcode} = imageProductSlice.actions;
+export const {
+  removeBarcode,
+  initError,
+  initBarcode,
+} = imageProductSlice.actions;
 export default imageProductSlice.reducer;
