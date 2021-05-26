@@ -29,8 +29,7 @@ public class Member {
     private String loginPwd;
     private String nickname;
     private String phone;
-    @Temporal(TemporalType.DATE)
-    private Date birth;
+    private String birth;
     private boolean activated;
 
     @ManyToMany
@@ -41,4 +40,9 @@ public class Member {
     private Set<Authority> authorities;
 
     public Member() {}
+
+    public void update(String phone, String birth) {
+        this.phone = phone;
+        this.birth = birth;
+    }
 }
