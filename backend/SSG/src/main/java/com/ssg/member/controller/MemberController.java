@@ -64,9 +64,4 @@ public class MemberController {
         System.out.println("<회원 : 폰번호 중복체크> 폰번호 : "+phone);
         return ResponseEntity.ok(memberService.checkPhone(phone));
     }
-
-    @GetMapping("/test")
-    public void test() throws Exception {
-        memberService.test();
-    }
 }
