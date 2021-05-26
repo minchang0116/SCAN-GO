@@ -17,8 +17,7 @@ public class MemberResponse {
     private String loginId;
     private String nickname;
     private String phone;
-    @Temporal(TemporalType.DATE)
-    private Date birth;
+    private String birth;
 
     public MemberResponse(Member member) {
         this.id = member.getId();
