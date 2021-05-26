@@ -16,6 +16,5 @@ public class MemberDto {
     private String loginPwd;
     private String nickname;
     private String phone;
-    @Temporal(TemporalType.DATE)
-    private Date birth;
+    private String birth;
 }
