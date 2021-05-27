@@ -224,7 +224,7 @@
 
 <br>
 
-## 💻 팀원
+## 👩‍💻 팀원
 
 * 팀장 강유정([@yujeong0](https://github.com/yujeong0 "github link"))
 * 팀원 강민창([@minchang0116](https://github.com/minchang0116 "github link"))
