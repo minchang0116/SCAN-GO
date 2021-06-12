@@ -102,7 +102,7 @@
 
 - #### 관리자 페이지(사용자 통계 조회)
 
-  <img src="./readme_images/admin-main.png" alt="image" style="zoom: 33%;" />
+  <img src="./readme_images/admin-main.png" alt="image" width="70%;" />
 
   <br>
 
